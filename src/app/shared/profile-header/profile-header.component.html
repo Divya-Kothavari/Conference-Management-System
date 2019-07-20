@@ -1,0 +1,19 @@
+  <nz-header class="header-division">
+    <img *ngIf="!isCollapsed"
+    class="dashboard-logo"
+    [src]="orgLogo"
+    alt="cms"
+  />
+  <nz-dropdown [nzPlacement]="'bottomRight'">
+      <a class="profile-dropdown" nz-dropdown><nz-avatar nzIcon="user"></nz-avatar>  {{ username }} </a>
+      <ul nz-menu>
+        <li nz-menu-item>
+          <a>View My Profile</a>
+        </li>
+        <li nz-menu-item (click)="logOut()">
+          <a>Logout</a>
+        </li>
+      </ul>
+    </nz-dropdown>
+  </nz-header>
+

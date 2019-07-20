@@ -1,0 +1,42 @@
+<nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="triggerTemplate" [nzCollapsedWidth]="0">
+    <div class="logo">
+        <i
+        [class]="isCollapsed ? 'trigger-unfold' : 'trigger-fold'"
+        nz-icon
+        [type]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+        (click)="stateChanged()"
+      ></i>
+      <img *ngIf="isCollapsed"
+        [src]="orgLogo"
+        alt="cms"
+        class="collapsed-logo"
+        />
+    </div>
+
+    <ul nz-menu [nzTheme]="'light'" [nzMode]="'inline'" [nzInlineCollapsed]="!isCollapsed">
+      <li nz-menu-item [routerLink]="['/dashboard']" title="Dashboard">
+          <span><i class="icon-dashboard"></i><i nz-icon></i><span class="nav-text">Dashboard</span></span>
+       </li>
+       <li nz-menu-item [routerLink]="['/assessments']" title="Assessments">
+          <span><i class="icon-assessments"></i><i nz-icon></i><span class="nav-text">Assessments</span></span>
+       </li>
+       <li nz-menu-item title="Users">
+          <span><i class="icon-users"></i><i nz-icon></i><span class="nav-text">Users</span></span>
+       </li>
+       <li nz-menu-item title="Groups">
+          <span><i class="icon-group"></i><i nz-icon></i><span class="nav-text">Groups</span></span>
+       </li>
+       <li nz-menu-item title="Reports">
+          <span><i class="icon-reports"></i><i nz-icon></i><span class="nav-text">Reports</span></span>
+       </li>
+       <li nz-menu-item title="Message">
+          <span><i class="icon-grade"></i><i nz-icon></i><span class="nav-text">Message</span></span>
+       </li>
+       <li nz-menu-item title="Support">
+          <span><i class="icon-support"></i><i nz-icon></i><span class="nav-text">Support</span></span>
+       </li>
+    </ul>
+  </nz-sider>
+<ng-template #trigger>
+    <i nz-icon type="up"></i>
+</ng-template>

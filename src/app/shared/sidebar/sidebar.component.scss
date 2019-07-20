@@ -1,0 +1,57 @@
+@import "../../../variables";
+.ant-menu-item .anticon, .ant-menu-submenu-title .anticon{
+  margin-right: 0px;
+}
+
+.trigger-fold {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+  color: #262626;
+}
+
+.trigger-unfold {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 16px;
+  cursor: pointer;
+  transition: color 0.3s;
+  color: #262626;
+}
+
+.trigger-unfold:hover,
+.trigger-fold:hover {
+  color: #1890ff;
+}
+
+.logo {
+  height: 32px;
+  margin: 8px 8px 24px 8px;
+  color: map-get($colors, white-color);
+}
+.dashboard-logo{
+  float: left;
+  padding-top: 12px;
+  @include mobile{
+    padding-left: 24px;
+  }
+}
+.ant-layout-sider{
+  background-color: map-get($colors, white-color);
+}
+
+.ant-menu-inline-collapsed{
+  width: 82px;
+}
+.ant-menu{
+  transition: none !important;
+}
+
+.collapsed-logo{
+  max-height: 25px; 
+  position: relative; 
+  bottom: 8px; 
+  left: 5px
+}

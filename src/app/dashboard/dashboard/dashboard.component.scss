@@ -1,0 +1,45 @@
+@import "../../../variables";
+
+.trigger-fold {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger-unfold {
+ font-size: 18px;
+  line-height: 64px;
+  padding: 0 32px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger-unfold:hover,
+.trigger-fold:hover {
+  color: #1890ff;
+}
+
+.logo {
+  height: 32px;
+  margin: 8px 8px 16px 16px;
+  color: map-get($colors, white-color);
+}
+
+
+.dashboard-layout{
+  padding:24px;
+  background: #fff;
+  min-height: 600px;
+}
+
+.org-name {
+  color: white;
+  margin-left: -1rem;
+}
+.ant-layout-sider{
+  background-color: map-get($colors, white-color);
+}
+
+

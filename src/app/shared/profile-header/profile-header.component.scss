@@ -1,0 +1,27 @@
+@import "../../../variables";
+.ant-layout-header{
+  padding: 0 16px 0 16px;
+}
+
+.header-division{
+  .trigger{
+    float: left;
+  }
+  box-shadow: -0.8px 2px 20px 0 rgba(0, 0, 0, 0.07);
+    background-color: #ffffff;
+  .dashboard-logo{
+    float: left;
+    max-height: 25px;
+    margin-left: -15px;
+    position: relative;
+    top: 22px;
+    @include mobile{
+      padding-left: 24px;
+    }
+  }
+  .profile-dropdown{
+    float: right;
+    border: none;
+  }
+
+}
