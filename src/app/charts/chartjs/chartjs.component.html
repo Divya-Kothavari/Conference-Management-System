@@ -1,0 +1,350 @@
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Line Chart</h4>
+            <p>A line chart is a way of plotting data points on a line. Often, it is used to show trend data, or the comparison of two data sets.</p>
+            <div class="m-t-25">
+                <canvas ngChartjs 
+                    [datasets]="lineChartData" 
+                    [labels]="lineChartLabels"
+                    [options]="lineChartOptions" 
+                    [colors]="lineChartColors" 
+                    [legend]="lineChartLegend"
+                    [chartType]="lineChartType">
+                </canvas>
+            </div>
+            <codebox [codeContent]="lineChartJsCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Bar Chart</h4>
+            <p>A bar chart provides a way of showing data values represented as vertical bars. It is sometimes used to show trend data, and the comparison of multiple data sets side by side.</p>
+            <div class="m-t-25">
+                <canvas ngChartjs 
+                    [datasets]="barChartData" 
+                    [labels]="barChartLabels"
+                    [options]="barChartOptions" 
+                    [colors]="barChartColors"
+                    [legend]="barChartLegend" 
+                    [chartType]="barChartType">
+                </canvas>
+            </div>
+            <codebox [codeContent]="barChartJsCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Doughnut Chart</h4>
+            <p>Pie charts are probably the most commonly used charts. They are divided into segments, the arc of each segment shows the proportional value of each piece of data.</p>
+            <div class="m-t-25">
+                <canvas ngChartjs 
+                    [data]="doughnutChartData" 
+                    [labels]="doughnutChartLabels" 
+                    [chartType]="doughnutChartType"
+                    [colors]="doughnutChartColors">
+                </canvas>
+            </div>
+            <codebox [codeContent]="doughnutChartJsCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Stacked Area Chart</h4>
+            <p>Line charts can be configured into stacked area charts by changing the settings on the y axis to enable stacking. Stacked area charts can be used to show how one data trend is made up of a number of smaller pieces.</p>
+            <div class="m-t-25">
+                <canvas ngChartjs 
+                    [datasets]="stackedAreaChartData" 
+                    [labels]="stackedAreaChartLabels"
+                    [options]="stackedAreaChartOptions" 
+                    [colors]="stackedAreaChartColors" 
+                    [legend]="stackedAreaChartLegend"
+                    [chartType]="stackedAreaChartType">
+                </canvas>
+            </div>
+            <codebox [codeContent]="stackAreaChartJsCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Radar Chart</h4>
+            <p>A radar chart is a way of showing multiple data points and the variation between them. They are often useful for comparing the points of two or more different data sets.</p>
+            <div class="m-t-25">
+                <canvas ngChartjs 
+                    [datasets]="radarChartData" 
+                    [labels]="radarChartLabels"
+                    [options]="radarChartOptions" 
+                    [colors]="radarChartColors" 
+                    [chartType]="radarChartType">
+                </canvas>    
+            </div>
+            <codebox [codeContent]="radarChartJsCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Polar Chart</h4>
+            <p>Polar area charts are similar to pie charts, but each segment has the same angle - the radius of the segment differs depending on the value.</p>
+            <div class="m-t-25">
+                <canvas ngChartjs 
+                    [data]="polarAreaChartData" 
+                    [labels]="polarAreaChartLabels"
+                    [legend]="polarAreaLegend" 
+                    [options]="polarAreaChartOptions"
+                    [colors]="polarAreaChartColors"
+                    [chartType]="polarAreaChartType">
+                </canvas>
+            </div>
+            <codebox [codeContent]="polarChartJsCode"></codebox>
+        </nz-card>
+    </div>
+</div>
+<nz-card nzTitle="API">
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">ng-chartjs</span>
+            <label class="api-type-label plugins">Plugins</label>
+            <a class="m-l-20 font-weight-normal font-size-13 text-underline" href="https://github.com/93Alliance/ng-chartjs" target="_blank">Official Link</a>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[data]</code></td>
+                    <td>number[]</td>
+                    <td>Array number[]</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[datasets]</code></td>
+                    <td>number[], label: string}></td>
+                    <td>Array data: Array number[]</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[labels]</code></td>
+                    <td>x axis labels. It's necessary for charts: <code>line</code>, <code>bar</code> and <code>radar</code>. And just labels (on hover) for charts: <code>polarArea</code>, <code>pie</code> and <code>doughnut</code></td>
+                    <td>?Array</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[chartType]</code></td>
+                    <td>indicates the type of charts, it can be: <code>line</code>, <code>bar</code>, <code>radar</code>, <code>pie</code>, <code>polarArea</code>, <code>doughnut</code></td>
+                    <td>?string</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[options]</code></td>
+                    <td>chart options (as from <a target="_blank" href="http://www.chartjs.org/docs/" rel="nofollow">Chart.js documentation</a>)</td>
+                    <td>?any</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[colors]</code></td>
+                    <td>data colors, will use default if null</td>
+                    <td>?Array</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[legend]</code></td>
+                    <td>if true show legend below the chart, otherwise not be shown</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[inlinePlugins]</code></td>
+                    <td>Chart.js inline plugin. <a href="https://www.chartjs.org/docs/master/developers/plugins.html" rel="nofollow">Chart.js Plugins</a>, <a href="https://riptutorial.com/chart-js/topic/6510/plugins" rel="nofollow">Other Reference</a></td>
+                    <td>any[]</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[adding]</code></td>
+                    <td>You can add new data and update chart. It needs to be reassigned to trigger.</td>
+                    <td><code>{{ '{' }} labels: any[], data: any[][] {{ '}' }}</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[removing]</code></td>
+                    <td>You can delete the latest or oldest data.It needs to be reassigned to trigger</td>
+                    <td><code>{{ '{' }}orientation: string{{ '}' }}</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[resetOption]</code></td>
+                    <td>Reset options can trigger update chart</td>
+                    <td>any</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">ThemeConstantService</span>
+            <label class="api-type-label service">service</label>
+        </h5>
+        <p class="m-t-20">ThemeConstantService return a set of preset colors:</p>
+        <pre><code highlight [textContent]="chartJsAPICode"></code></pre>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>magenta</td>
+                    <td>string</td>
+                    <td>#eb2f96</td>
+                </tr>
+                <tr>
+                    <td>magentaLight</td>
+                    <td>string</td>
+                    <td>rgba(235, 47, 150, 0.05)</td>
+                </tr>
+                <tr>
+                    <td>red</td>
+                    <td>string</td>
+                    <td>#de4436</td>
+                </tr>
+                <tr>
+                    <td>redLight</td>
+                    <td>string</td>
+                    <td>rgba(222, 68, 54, 0.05)</td>
+                </tr>
+                <tr>
+                    <td>volcano</td>
+                    <td>string</td>
+                    <td>#fa541c</td>
+                </tr>
+                <tr>
+                    <td>volcanoLight</td>
+                    <td>string</td>
+                    <td>rgba(250, 84, 28, 0.05)</td>
+                </tr>
+                <tr>
+                    <td>orange</td>
+                    <td>string</td>
+                    <td>#fa8c16</td>
+                </tr>
+                <tr>
+                    <td>orangeLight</td>
+                    <td>string</td>
+                    <td>rgba(250, 140, 22, 0.1)</td>
+                </tr>
+                <tr>
+                    <td>gold</td>
+                    <td>string</td>
+                    <td>#ffc107</td>
+                </tr>
+                <tr>
+                    <td>goldLight</td>
+                    <td>string</td>
+                    <td>rgba(255, 193, 7, 0.1)</td>
+                </tr>
+                <tr>
+                    <td>lime</td>
+                    <td>string</td>
+                    <td>#a0d911</td>
+                </tr>
+                <tr>
+                    <td>limeLight</td>
+                    <td>string</td>
+                    <td>rgba(160, 217, 17, 0.1)</td>
+                </tr>
+                <tr>
+                    <td>green</td>
+                    <td>string</td>
+                    <td>#52c41a</td>
+                </tr>
+                <tr>
+                    <td>greenLight</td>
+                    <td>string</td>
+                    <td>rgba(82, 196, 26, 0.1)</td>
+                </tr>
+                <tr>
+                    <td>cyan</td>
+                    <td>string</td>
+                    <td>#05c9a7</td>
+                </tr>
+                <tr>
+                    <td>cyanLight</td>
+                    <td>string</td>
+                    <td>rgba(0, 201, 167, 0.1)</td>
+                </tr>
+                <tr>
+                    <td>blue</td>
+                    <td>string</td>
+                    <td>#3f87f5</td>
+                </tr>
+                <tr>
+                    <td>blueLight</td>
+                    <td>string</td>
+                    <td>rgba(63, 135, 245, 0.15)</td>
+                </tr>
+                <tr>
+                    <td>geekBlue</td>
+                    <td>string</td>
+                    <td>#2f54eb</td>
+                </tr>
+                <tr>
+                    <td>geekBlueLight</td>
+                    <td>string</td>
+                    <td>rgba(47, 84, 235, 0.1)</td>
+                </tr>
+                <tr>
+                    <td>purple</td>
+                    <td>string</td>
+                    <td>#6b54bd</td>
+                </tr>
+                <tr>
+                    <td>purpleLight</td>
+                    <td>string</td>
+                    <td>rgba(107, 84, 189, 0.1)</td>
+                </tr>
+                <tr>
+                    <td>gray</td>
+                    <td>string</td>
+                    <td>#53535f</td>
+                </tr>
+                <tr>
+                    <td>grayLight</td>
+                    <td>string</td>
+                    <td>#77838f</td>
+                </tr>
+                <tr>
+                    <td>grayLighter</td>
+                    <td>string</td>
+                    <td>#ededed</td>
+                </tr>
+                <tr>
+                    <td>grayLightest</td>
+                    <td>string</td>
+                    <td>#f1f2f3</td>
+                </tr>
+                <tr>
+                    <td>border</td>
+                    <td>string</td>
+                    <td>#edf2f9</td>
+                </tr>
+                <tr>
+                    <td>white</td>
+                    <td>string</td>
+                    <td>#ffffff</td>
+                </tr>
+                <tr>
+                    <td>dark</td>
+                    <td>string</td>
+                    <td>#2a2a2a</td>
+                </tr>
+                <tr>
+                    <td>transparent</td>
+                    <td>string</td>
+                    <td>rgba(255, 255, 255, 0)</td>
+                </tr>
+            </tbody>
+        </table>        
+    </div>        
+</nz-card> 

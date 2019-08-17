@@ -1,0 +1,84 @@
+<nz-card>
+    <div class="row m-b-30">
+        <div class="col-lg-8">
+            <div class="d-md-flex">
+                <div class="m-b-10 m-r-20">
+                    <nz-input-group [nzPrefix]="prefixTemplate">
+                        <input type="text" nz-input placeholder="Search" [(ngModel)]="search">
+                    </nz-input-group>      
+                    <ng-template #prefixTemplate>
+                        <i nz-icon type="search" class="opacity-05"></i>
+                    </ng-template>   
+                </div>
+                <div class="m-b-10 m-r-20 d-flex align-items-center">
+                    <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Category">
+                        <nz-option nzLabel="All" nzValue="all"></nz-option>
+                        <nz-option nzLabel="Home Decoration" nzValue="home decoration"></nz-option>
+                        <nz-option nzLabel="Eletronic" nzValue="eletronic"></nz-option>
+                        <nz-option nzLabel="Jewellery" nzValue="jewellery"></nz-option>
+                    </nz-select>
+                </div>
+                <div class="m-b-10 m-r-20 d-flex align-items-center">
+                    <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Status">
+                        <nz-option nzLabel="All" nzValue="all"></nz-option>
+                        <nz-option nzLabel="In Stock" nzValue="in Stock"></nz-option>
+                        <nz-option nzLabel="Out Of Stock" nzValue="out Of Stock"></nz-option>
+                    </nz-select>
+                </div>
+            </div>          
+        </div>
+        <div class="col-lg-4 text-right">
+            <a [routerLink]="['/apps/e-commerce/product-edit']" nz-button nzType="primary">
+                <i nz-icon type="plus-circle" theme="outline"></i>
+                <span>Add Product</span>
+            </a>
+        </div>
+    </div>
+    <nz-table #productsListTable [nzData]="displayData" 
+        (nzCurrentPageDataChange)="currentPageDataChange($event)"
+        (nzPageIndexChange)="refreshStatus()"
+        (nzPageSizeChange)="refreshStatus()">
+        <thead (nzSortChange)="sort($event)" nzSingleSort>
+            <tr>
+                <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
+                <th nzShowSort nzSortKey="id">ID</th>
+                <th nzShowSort nzSortKey="name">Product</th>
+                <th nzShowSort nzSortKey="category">Category</th>
+                <th nzShowSort nzSortKey="price">Price</th>
+                <th nzShowSort nzSortKey="quantity">Stock Left</th>
+                <th nzShowSort nzSortKey="status">Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of productsListTable.data | search:'name':search as count ;  let i=index">
+                <td nzShowCheckbox [(nzChecked)]="item.checked" (nzCheckedChange)="refreshStatus()"></td>
+                <td>#{{item.id}}</td>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <nz-avatar nzShape="square" [nzSize]="60" nzIcon="picture" [nzSrc]="item.avatar"></nz-avatar>
+                        <span class="m-l-10">{{item.name}}</span>
+                    </div>
+                </td>
+                <td>{{item.category}}</td>
+                <td>${{item.price | number:'3.2-5'}}</td>
+                <td>
+                    {{item.quantity}}
+                </td>
+                <td>
+                    <nz-badge *ngIf="item.status == 'in stock'" nzStatus="success"></nz-badge>
+                    <nz-badge *ngIf="item.status == 'out of stock'" nzStatus="error"></nz-badge>
+                    <span class="text-capitalize">{{item.status}}</span>
+                </td>
+                <td class="text-md-right">
+                    <a [routerLink]="['/apps/e-commerce/product-edit']" class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom">
+                        <i nz-icon type="edit" theme="outline"></i>
+                    </a>
+                    <button nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Delete" nzPlacement="bottom">
+                        <i nz-icon type="delete" theme="outline"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>

@@ -1,0 +1,161 @@
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Basic</h4>
+            <p>The most basic usage.</p>
+            <div class="m-t-25">
+                <nz-switch [(ngModel)]="switchBasicValue"></nz-switch>
+            </div>
+            <codebox [codeContent]="switchBasicCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Text & icon</h4>
+            <p>With text and icon.</p>
+            <div class="m-t-25">
+                <div class="m-b-10">
+                    <nz-switch [ngModel]="true" nzCheckedChildren="开" nzUnCheckedChildren="关"></nz-switch>
+                </div>
+                <div class="m-b-10">
+                    <nz-switch [ngModel]="false" nzCheckedChildren="1" nzUnCheckedChildren="0"></nz-switch>
+                </div>
+                <div class="m-b-10">
+                    <nz-switch [ngModel]="true" [nzCheckedChildren]="checkedTemplate" [nzUnCheckedChildren]="unCheckedTemplate"></nz-switch>
+                </div>
+                <ng-template #checkedTemplate><i nz-icon type="check"></i></ng-template>
+                <ng-template #unCheckedTemplate><i nz-icon type="close"></i></ng-template>
+            </div>
+            <codebox [codeContent]="switchTextIconCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Loading</h4>
+            <p>Mark a pending state of switch.</p>
+            <div class="m-t-25">
+                <div class="m-b-10">
+                    <nz-switch [ngModel]="true" nzLoading></nz-switch>
+                </div>
+                <nz-switch nzSize="small" [ngModel]="false" nzLoading></nz-switch>
+            </div>
+            <codebox [codeContent]="switchLoadingCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Disabled</h4>
+            <p>Disabled state of <code>Switch</code>.</p>
+            <div class="m-t-25">
+                <nz-switch [(ngModel)]="switchDisabledValue" [nzDisabled]="switchDisabledIsDisabled"></nz-switch>
+                <button class="m-l-20" nz-button [nzType]="'primary'" (click)="switchDisabledIsDisabled = !switchDisabledIsDisabled">Toggle disabled</button>
+            </div>
+            <codebox [codeContent]="switchDisabledCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Two sizes</h4>
+            <p><code>nzSize="small"</code> represents a small sized switch.</p>
+            <div class="m-t-25">
+                <div class="m-b-10">
+                    <nz-switch [ngModel]="true"></nz-switch>
+                </div>
+                <nz-switch nzSize="small" [ngModel]="true"></nz-switch>
+            </div>
+            <codebox [codeContent]="switchTwoSizesCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Control</h4>
+            <p>The status of <code>Switch</code> is completely up to the user and no longer automatically changes the data based on the click event.</p>
+            <div class="m-t-25">
+                <nz-switch [(ngModel)]="switchControlValue" [nzControl]="true" (click)="clickSwitch()" [nzLoading]="switchControlLoading"></nz-switch>
+            </div>
+            <codebox [codeContent]="switchControlCode"></codebox>
+        </nz-card>
+    </div>
+</div>   
+<nz-card nzTitle="API">
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-switch</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[ngModel]</code></td>
+                    <td>determine whether the <code>nz-switch</code> is checked, double binding</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzCheckedChildren]</code></td>
+                    <td>content to be shown when the state is checked</td>
+                    <td>string丨<code>TemplateRef&lt;void&gt;</code></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><code>[nzUnCheckedChildren]</code></td>
+                    <td>content to be shown when the state is unchecked</td>
+                    <td>string丨<code>TemplateRef&lt;void&gt;</code></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><code>[nzDisabled]</code></td>
+                    <td>Disable switch</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzSize]</code></td>
+                    <td>the size of the <code>nz-switch</code>, options: <code>default</code><code>small</code></td>
+                    <td>string</td>
+                    <td><code>default</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzLoading]</code></td>
+                    <td>loading state of switch</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzControl]</code></td>
+                    <td>determine whether fully control state by user</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>(ngModelChange)</code></td>
+                    <td>a callback function, can be executed when the checked state is changing</td>
+                    <td><code>EventEmitter&lt;boolean&gt;</code></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</nz-card>  
+<nz-card nzTitle="Method">
+    <div class="markdown api-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>focus()</td>
+                    <td>get focus</td>
+                </tr>
+                <tr>
+                    <td>blur()</td>
+                    <td>remove focus</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</nz-card>       

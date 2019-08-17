@@ -1,0 +1,206 @@
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Basic</h4>
+            <p>Simplest Usage. Badge will be hidden when <code>nzCount</code> is <code>0</code>, but we can use <code>nzShowZero</code> to show it.</p>
+            <div class="m-t-25">
+                <nz-badge [nzCount]="5" class="m-r-20">
+                    <a class="head-example"></a>
+                </nz-badge>
+                <nz-badge [nzCount]="0" nzShowZero  class="m-r-20">
+                    <a class="head-example"></a>
+                </nz-badge>
+                <nz-badge [nzCount]="iconTemplate">
+                    <a class="head-example"></a>
+                </nz-badge>
+                <ng-template #iconTemplate>
+                    <i nz-icon nzType="clock-circle" class="ant-scroll-number-custom-component" style="color: #f5222d"></i>
+                </ng-template>
+            </div>
+            <codebox [codeContent]="badgeBasicCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Overflow Count</h4>
+            <p><code>nzOverflowCount+</code> is displayed when count is larger than <code>nzOverflowCount</code>. The default value of <code>nzOverflowCount</code> is <code>99</code>.</p>
+            <div class="m-t-25">
+                <nz-badge class="m-r-30" [nzCount]="99"><a class="head-example"></a></nz-badge>
+                <nz-badge class="m-r-30" [nzCount]="200"><a class="head-example"></a></nz-badge>
+                <nz-badge class="m-r-30" [nzCount]="200" [nzOverflowCount]="10"><a class="head-example"></a></nz-badge>
+                <nz-badge class="m-r-30" [nzCount]="10000" [nzOverflowCount]="999"><a class="head-example"></a></nz-badge>
+            </div>
+            <codebox [codeContent]="badgeOverflowCountCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Clickable</h4>
+            <p>The badge can be wrapped with <code>a</code> tag to make it linkable.</p>
+            <div class="m-t-25">
+                <a>
+                    <nz-badge [nzCount]="5">
+                        <a class="head-example"></a>
+                    </nz-badge>
+                </a>
+            </div>
+            <codebox [codeContent]="badgeClickableCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Status</h4>
+            <p>The badge can be wrapped with <code>a</code> tag to make it linkable.</p>
+            <div class="m-t-25">
+                <nz-badge nzStatus="success"></nz-badge>
+                <nz-badge nzStatus="error"></nz-badge>
+                <nz-badge nzStatus="default"></nz-badge>
+                <nz-badge nzStatus="processing"></nz-badge>
+                <nz-badge nzStatus="warning"></nz-badge>
+                <nz-badge nzStatus="default" [nzStyle]="{'background-color':'#2f54eb'}"></nz-badge>
+                <br>
+                <nz-badge nzStatus="success" nzText="Success"></nz-badge>
+                <br>
+                <nz-badge nzStatus="error" nzText="Error"></nz-badge>
+                <br>
+                <nz-badge nzStatus="default" nzText="Default"></nz-badge>
+                <br>
+                <nz-badge nzStatus="processing" nzText="Processing"></nz-badge>
+                <br>
+                <nz-badge nzStatus="warning" nzText="Warning"></nz-badge>
+                <br>
+                <nz-badge nzStatus="default" nzText="Color" [nzStyle]="{'background-color':'#2f54eb'}"></nz-badge>
+            </div>
+            <codebox [codeContent]="badgeStatusCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Standalone</h4>
+            <p>Used in standalone when children is empty.</p>
+            <div class="m-t-25">
+                <nz-badge class="m-r-10" [nzCount]="25"></nz-badge>
+                <nz-badge class="ant-badge-default m-r-10" [nzCount]="4" [nzStyle]="{ backgroundColor: '#fff', boxShadow: '0 0 0 1px #d9d9d9 inset' }"></nz-badge>
+                <nz-badge  [nzCount]="109" [nzStyle]="{ backgroundColor: '#52c41a' }"></nz-badge>
+            </div>
+            <codebox [codeContent]="badgeStandAloneCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Red badge</h4>
+            <p>This will simply display a red badge, without a specific count.</p>
+            <div class="m-t-25">
+                <nz-badge class="m-r-20" nzDot><i nz-icon type="notification"></i></nz-badge>
+                <nz-badge nzDot><a>Link something</a></nz-badge>
+            </div>
+            <codebox [codeContent]="badgeRedBadgeCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Dynamic</h4>
+            <p>The count will be animated as it changes.</p>
+            <div class="m-t-25">
+                <div class="m-b-10">
+                    <nz-badge class="m-r-35" [nzCount]="count">
+                        <a class="head-example"></a>
+                    </nz-badge>
+                    <nz-button-group>
+                        <button nz-button (click)="minCount()"><i nz-icon type="minus"></i></button>
+                        <button nz-button (click)="addCount()"><i nz-icon type="plus"></i></button>
+                    </nz-button-group>
+                </div>
+                <div>
+                    <nz-badge class="m-r-35" [nzDot]="dot">
+                        <a class="head-example"></a>
+                    </nz-badge>
+                    <nz-switch [(ngModel)]="dot"></nz-switch>
+                </div>
+            </div>
+            <codebox [codeContent]="badgeDynamicCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Colorful Badge</h4>
+            <p>We preset a series of colorful Badge style for different situation usage. And you can always set it to a hex color string for custom color.</p>
+            <div class="m-t-25">
+                <div>
+                    <h4 style="margin-bottom: 16px">Presets:</h4>
+                    <div *ngFor="let color of colors">
+                    <nz-badge [nzColor]="color" [nzText]="color"></nz-badge>
+                    </div>
+                    <h4 style="margin:16px 0">Custom:</h4>
+                    <nz-badge nzColor="#f50" nzText="#f50"></nz-badge>
+                    <br />
+                    <nz-badge nzColor="#2db7f5" nzText="#2db7f5"></nz-badge>
+                    <br />
+                    <nz-badge nzColor="#87d068" nzText="#87d068"></nz-badge>
+                    <br />
+                    <nz-badge nzColor="#108ee9" nzText="#108ee9"></nz-badge>
+                </div>
+            </div>
+            <codebox [codeContent]="badgeColorfulCode"></codebox>
+        </nz-card>
+    </div>
+</div>    
+<nz-card nzTitle="API">
+    <pre><code highlight [textContent]="badgeAPICode"></code></pre>
+    <pre><code highlight [textContent]="badgeAPI2Code"></code></pre>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-badge</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzColor]</code></td>
+                    <td>Customize Badge dot color</td>
+                    <td>string</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzCount]</code></td>
+                    <td>Number to show in badge</td>
+                    <td><code>number | TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzDot]</code></td>
+                    <td>Whether to display a red dot instead of <code>count</code></td>
+                    <td><code>boolean</code></td>
+                    <td><code>false</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzShowDot]</code></td>
+                    <td>Whether to display the red dot</td>
+                    <td><code>boolean</code></td>
+                    <td><code>true</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzOverflowCount]</code></td>
+                    <td>Max count to show</td>
+                    <td><code>number</code></td>
+                    <td><code>99</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzShowZero]</code></td>
+                    <td>Whether to show badge when <code>count</code> is zero</td>
+                    <td><code>boolean</code></td>
+                    <td><code>false</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzStatus]</code></td>
+                    <td>Set <code>nz-badge</code> as a status dot</td>
+                    <td><code>'success' | 'processing' | 'default' | 'error' | 'warning'</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzText]</code></td>
+                    <td>If <code>nzStatus</code> is set, <code>text</code> sets the display text of the status <code>dot</code></td>
+                    <td><code>string</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</nz-card>     

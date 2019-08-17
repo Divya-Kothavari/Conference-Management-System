@@ -1,0 +1,206 @@
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Basic</h4>
+            <p>The simplest usage for short messages.</p>
+            <div class="m-t-25">
+                <nz-alert nzType="success" nzMessage="Success Text"></nz-alert>
+            </div>
+            <codebox [codeContent]="alertBasicCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Basic</h4>
+            <p>The simplest usage for short messages.</p>
+            <div class="m-t-25">
+                <nz-alert
+                    class="m-b-15"
+                    nzType="warning"
+                    nzCloseable
+                    nzMessage="Warning Text Warning Text Warning Text Warning Text Warning Text Warning Text Warning Text"
+                    (nzOnClose)="afterClose()">
+                </nz-alert>
+                <nz-alert
+                    nzType="error"
+                    nzCloseable
+                    nzMessage="Error Text"
+                    nzDescription="Error Description Error Description Error Description Error Description Error Description Error Description"
+                    (nzOnClose)="afterClose()">
+                </nz-alert>
+            </div>
+            <codebox [codeContent]="alertClosableCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Icon</h4>
+            <p>Decent icon make information more clear and more friendly.</p>
+            <div class="m-t-25">
+                <nz-alert class="m-b-15" nzType="success" nzMessage="Success Tips" nzShowIcon></nz-alert>
+                <nz-alert class="m-b-15" nzType="info" nzMessage="Informational Notes" nzShowIcon></nz-alert>
+                <nz-alert class="m-b-15" nzType="warning" nzMessage="Warning" nzShowIcon></nz-alert>
+                <nz-alert class="m-b-15" nzType="error" nzMessage="Error" nzShowIcon></nz-alert>
+                <nz-alert
+                    class="m-b-15"
+                    nzType="success"
+                    nzMessage="Success Tips"
+                    nzDescription="Detailed description and advices about successful copywriting."
+                    nzShowIcon>
+                </nz-alert>
+                <nz-alert
+                    class="m-b-15"
+                    nzType="info"
+                    nzMessage="Informational Notes"
+                    nzDescription="Additional description and informations about copywriting."
+                    nzShowIcon>
+                </nz-alert>
+                <nz-alert
+                    class="m-b-15"
+                    nzType="warning"
+                    nzMessage="Warning"
+                    nzDescription="This is a warning notice about copywriting."
+                    nzShowIcon>
+                </nz-alert>
+                <nz-alert
+                    
+                    nzType="error"
+                    nzMessage="Error"
+                    nzDescription="This is an error message about copywriting."
+                    nzShowIcon>
+                </nz-alert>
+            </div>
+            <codebox [codeContent]="alertIconCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Banner</h4>
+            <p>Display Alert as a banner at top of page.</p>
+            <div class="m-t-25">
+                <nz-alert nzBanner nzMessage="Warning text"></nz-alert>
+            </div>
+            <codebox [codeContent]="alertBannerCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>More types</h4>
+            <p>There are 4 types of Alert: <code>success</code>, <code>info</code>, <code>warning</code>, <code>error</code>.</p>
+            <div class="m-t-25">
+                <nz-alert class="m-b-15" nzType="success" nzMessage="Success Text"></nz-alert>
+                <nz-alert class="m-b-15" nzType="info" nzMessage="Info Text"></nz-alert>
+                <nz-alert class="m-b-15" nzType="warning" nzMessage="Warning Text"></nz-alert>
+                <nz-alert class="m-b-15" nzType="error" nzMessage="Error Text"></nz-alert>
+            </div>
+            <codebox [codeContent]="alertMoreTypesCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Description</h4>
+            <p>Additional description for alert message.</p>
+            <div class="m-t-25">
+                <nz-alert
+                    class="m-b-15"
+                    nzType="success"
+                    nzMessage="Success Text"
+                    nzDescription="Success Description Success Description Success Description">
+                </nz-alert>
+                <nz-alert
+                    class="m-b-15"
+                    nzType="info"
+                    nzMessage="Info Text"
+                    nzDescription="Info Description Info Description Info Description Info Description">
+                </nz-alert>
+                <nz-alert
+                    class="m-b-15"
+                    nzType="warning"
+                    nzMessage="Warning Text"
+                    nzDescription="Warning Description Warning Description Warning Description Warning Description">
+                </nz-alert>
+                <nz-alert
+                    class="m-b-15"
+                    nzType="error"
+                    nzMessage="Error Text"
+                    nzDescription="Error Description Error Description Error Description Error Description">
+                </nz-alert>
+            </div>
+            <codebox [codeContent]="alertDescriptionCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Customized Close Text</h4>
+            <p>Replace the default icon with customized content.</p>
+            <div class="m-t-25">
+                <nz-alert nzType="info" nzMessage="Info Text" nzCloseText="Close Now"></nz-alert>
+            </div>
+            <codebox [codeContent]="alertCustomizedCloseTextCode"></codebox>
+        </nz-card>
+    </div>
+</div>   
+<nz-card nzTitle="API">
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-alert</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzBanner]</code></td>
+                    <td>Whether to show as banner</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzClosable]</code></td>
+                    <td>Whether Alert can be closed</td>
+                    <td>boolean</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzCloseText]</code></td>
+                    <td>Close text to show</td>
+                    <td>string｜<code>TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzDescription]</code></td>
+                    <td>Additional content of Alert</td>
+                    <td>string｜<code>TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzMessage]</code></td>
+                    <td>Content of Alert</td>
+                    <td>string｜<code>TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzShowIcon]</code></td>
+                    <td>Whether to show icon</td>
+                    <td>boolean</td>
+                    <td>false, in <code>nzBanner</code> mode default is true</td>
+                </tr>
+                <tr>
+                    <td><code>[nzIconType]</code></td>
+                    <td>Icon type, effective when <code>nzShowIcon</code> is <code>true</code></td>
+                    <td><code>string 丨 string[] 丨 Set&lt;string&gt; 丨 {{ '{' }} [klass: string]: any; {{ '}' }};</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzType]</code></td>
+                    <td>Type of Alert styles, options: <code>success</code>, <code>info</code>, <code>warning</code>, <code>error</code></td>
+                    <td>string</td>
+                    <td><code>info</code>, in <code>banner</code> mode default is <code>warning</code></td>
+                </tr>
+                <tr>
+                    <td><code>(nzOnClose)</code></td>
+                    <td>Callback when Alert is closed</td>
+                    <td><code>EventEmitter&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</nz-card> 

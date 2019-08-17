@@ -1,0 +1,146 @@
+<nz-card>
+    <h4>Basic comment</h4>
+    <p>A basic comment with author, avatar, time and actions.</p>
+    <div class="m-t-25">
+        <nz-comment nzAuthor="Han Solo" [nzDatetime]="time">
+            <nz-avatar nz-comment-avatar nzIcon="user" nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
+            <nz-comment-content>
+                <p>We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.</p>
+            </nz-comment-content>
+            <nz-comment-action>
+                <i nz-tooltip nzTitle="Like" nz-icon type="like" [theme]="likes > 0 ? 'twotone' : 'outline'" (click)="like()"></i>
+                <span class="pointer m-r-10 like">{{ likes }}</span>
+            </nz-comment-action>
+            <nz-comment-action>
+                <i nz-tooltip nzTitle="Dislike" nz-icon type="dislike" [theme]="dislikes > 0 ? 'twotone' : 'outline'" (click)="dislike()"></i>
+                <span class="pointer m-r-10 dislike">{{ dislikes }}</span>
+            </nz-comment-action>
+            <nz-comment-action>Reply to</nz-comment-action>
+        </nz-comment>
+    </div>
+    <codebox [codeContent]="commentBasicCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Usage with list</h4>
+    <p>Displaying a series of comments using the <code>nz-list</code> Component.</p>
+    <div class="m-t-25">
+        <nz-list [nzDataSource]="commentWithListData" [nzRenderItem]="item" [nzItemLayout]="'horizontal'">
+            <ng-template #item let-item>
+                <nz-comment [nzAuthor]="item.author" [nzDatetime]="item.datetime">
+                    <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]="item.avatar"></nz-avatar>
+                    <nz-comment-content>
+                        <p>{{ item.content }}</p>
+                    </nz-comment-content>
+                    <nz-comment-action>Reply to</nz-comment-action>
+                </nz-comment>
+            </ng-template>
+        </nz-list>
+    </div>
+    <codebox [codeContent]="commentWithListCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Nested comments</h4>
+    <p>Comments can be nested.</p>
+    <div class="m-t-25">
+        <ng-template #commentTemplateRef let-comment="comment">
+            <nz-comment [nzAuthor]="comment.author">
+                <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]="comment.avatar"></nz-avatar>
+                <nz-comment-content>
+                    <p>{{ comment.content }}</p>
+                </nz-comment-content>
+                <nz-comment-action>Reply to</nz-comment-action>
+                <ng-container *ngIf="comment.children && comment.children.length">
+                    <ng-template ngFor let-child [ngForOf]="comment.children">
+                        <ng-template [ngTemplateOutlet]="commentTemplateRef" [ngTemplateOutletContext]="{ comment: child }"></ng-template>
+                    </ng-template>
+                </ng-container>
+            </nz-comment>
+        </ng-template>
+        <ng-template [ngTemplateOutlet]="commentTemplateRef" [ngTemplateOutletContext]="{ comment: commentNestedData }"> </ng-template>
+    </div>
+    <codebox [codeContent]="commentNestedCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Reply Editor</h4>
+    <p>Comment can be used as editor, user can customize the editor component.</p>
+    <div class="m-t-25">
+        <nz-list *ngIf="replyEditordata.length" [nzDataSource]="replyEditordata" [nzRenderItem]="item" [nzItemLayout]="'horizontal'">
+            <ng-template #item let-item>
+                <nz-comment [nzAuthor]="item.author" [nzDatetime]="item.displayTime">
+                    <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]="item.avatar"></nz-avatar>
+                    <nz-comment-content>
+                        <p>{{ item.content }}</p>
+                    </nz-comment-content>
+                </nz-comment>
+            </ng-template>
+        </nz-list>
+        <nz-comment>
+            <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]="user.avatar"></nz-avatar>
+            <nz-comment-content>
+                <nz-form-item>
+                    <textarea [(ngModel)]="inputValue" nz-input rows="4"></textarea>
+                </nz-form-item>
+                <nz-form-item>
+                    <button nz-button nzType="primary" [nzLoading]="submitting" [disabled]="!inputValue" (click)="handleSubmit()">Add Comment</button>
+                </nz-form-item>
+            </nz-comment-content>
+        </nz-comment>
+    </div>
+    <codebox [codeContent]="commentReplayEditorCode"></codebox>
+</nz-card>
+<nz-card nzTitle="API">
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-comment</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>[nzAuthor]</td>
+                    <td>The element to display as the comment author</td>
+                    <td><code>string｜TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>[nzDatetime]</td>
+                    <td>A datetime element containing the time to be displayed</td>
+                    <td><code>string｜TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">[nz-comment-avatar]</span>
+            <label class="api-type-label directive">directive</label>
+        </h5>
+        <p>The element to display as the comment avatar.</p>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-comment-content</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <p>The main content of the comment.</p>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-comment-action</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <p>The element items rendered below the comment content.</p>
+    </div>
+</nz-card>

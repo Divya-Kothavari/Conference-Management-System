@@ -1,0 +1,234 @@
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Basic</h4>
+            <p>The most basic example. The size of the floating layer depends on the contents region.</p>
+            <div class="m-t-25">
+                <button
+                    nz-button
+                    nz-popover
+                    nzType="primary"
+                    nzTitle="Title"
+                    nzContent="Content">
+                    Hover me
+                </button>
+            </div>
+            <codebox [codeContent]="popoverBasicCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Controlling the close of the dialog</h4>
+            <p>Use <code>nzVisible</code> prop to control the display of the card.</p>
+            <div class="m-t-25">
+                <button
+                    nz-button
+                    nzType="primary"
+                    nz-popover
+                    nzTitle="Title"
+                    [(nzVisible)]="popoverControllingVisible"
+                    (nzVisibleChange)="popoverControllingChange($event)"
+                    nzTrigger="click"
+                    [nzContent]="popoverControllingTemplate">
+                    Click me
+                </button>
+                <ng-template #popoverControllingTemplate>
+                    <a (click)='popoverControllingTrigger()'>Close</a>
+                </ng-template>
+            </div>
+            <codebox [codeContent]="popoverControllingCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Template</h4>
+            <p><code>nzContent</code> and <code>nzTitle</code> accept the type of <code>TemplateRef&lt;void&gt;</code></p>
+            <div class="m-t-25">
+                <button
+                    nz-button
+                    nz-popover
+                    [nzTitle]="titleTemplate"
+                    [nzContent]="contentTemplate">
+                    Render Template
+                </button>
+                <ng-template #titleTemplate><i nz-icon type="close"></i> Title</ng-template>
+                <ng-template #contentTemplate><i nz-icon type="check"></i> Content</ng-template>
+            </div>
+            <codebox [codeContent]="popoverTemplateCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Placement</h4>
+            <p>There are 12 <code>placement</code> options available.</p>
+            <div class="m-t-25">
+                <div style="margin-left: 60px">
+                    <button style="width: 90px" class="m-5" nz-button nz-popover nzTitle="Title" [nzContent]="popoverPlacementTemplate" nzPlacement="topLeft">TL</button>
+                    <button style="width: 90px" class="m-5" nz-button nz-popover nzTitle="Title" [nzContent]="popoverPlacementTemplate" nzPlacement="top">Top</button>
+                    <button style="width: 90px" class="m-5" nz-button nz-popover nzTitle="Title" [nzContent]="popoverPlacementTemplate" nzPlacement="topRight">TR</button>
+                </div>
+                <div style="width: 60px; float: left;">
+                    <button style="width: 90px" class="m-5" nz-button nz-popover nzTitle="Title" [nzContent]="popoverPlacementTemplate" nzPlacement="leftTop">LT</button>
+                    <button style="width: 90px" class="m-5" nz-button nz-popover nzTitle="Title" [nzContent]="popoverPlacementTemplate" nzPlacement="left">Left</button>
+                    <button style="width: 90px" class="m-5" nz-button nz-popover nzTitle="Title" [nzContent]="popoverPlacementTemplate" nzPlacement="leftBottom">LB</button>
+                </div>
+                <div style="width: 60px; margin-left: 300px;">
+                    <button style="width: 90px" class="m-5" nz-button nz-popover nzTitle="Title" [nzContent]="popoverPlacementTemplate" nzPlacement="rightTop">RT</button>
+                    <button style="width: 90px" class="m-5" nz-button nz-popover nzTitle="Title" [nzContent]="popoverPlacementTemplate" nzPlacement="right">Right</button>
+                    <button style="width: 90px" class="m-5" nz-button nz-popover nzTitle="Title" [nzContent]="popoverPlacementTemplate" nzPlacement="rightBottom">RB</button>
+                </div>
+                <div style="margin-left: 60px; clear: both;">
+                    <button style="width: 90px" class="m-5" nz-button nz-popover nzTitle="Title" [nzContent]="popoverPlacementTemplate" nzPlacement="bottomLeft">BL</button>
+                    <button style="width: 90px" class="m-5" nz-button nz-popover nzTitle="Title" [nzContent]="popoverPlacementTemplate" nzPlacement="bottom">Bottom</button>
+                    <button style="width: 90px" class="m-5" nz-button nz-popover nzTitle="Title" [nzContent]="popoverPlacementTemplate" nzPlacement="bottomRight">BR</button>
+                </div>
+                <ng-template #popoverPlacementTemplate>
+                    <div>
+                        <p>Content</p>
+                        <p>Content</p>
+                    </div>
+                </ng-template>
+            </div>
+            <codebox [codeContent]="popoverPlacementCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Arrow pointing at the center</h4>
+            <p>By specifying <code>nzPlacement</code> prop, the arrow can be point to the center of the target element.</p>
+            <div class="m-t-25">
+                <button class="m-r-10" nz-button nzTitle="Title" nzContent="Content" nzPlacement="topLeft" nz-popover>Align edge </button>
+                <button nz-button nzTitle="Title" nzContent="Content" nzPlacement="topCenter" nz-popover>Arrow points to center</button>
+            </div>
+            <codebox [codeContent]="popoverPointingCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Three ways to trigger</h4>
+            <p>Mouse to click, focus and move in.</p>
+            <div class="m-t-25">
+                <ng-template #popoverTriggerTemplate>
+                    <div>
+                        <p>Content</p>
+                        <p>Content</p>
+                    </div>
+                </ng-template>
+                <button class="m-r-10" nz-button nz-popover nzTitle="Title" [nzContent]="popoverTriggerTemplate" nzTrigger="click">Click me</button>
+                <button class="m-r-10" nz-button nz-popover nzTitle="Title" [nzContent]="popoverTriggerTemplate" nzTrigger="hover">Hover me</button>
+                <button nz-button nz-popover nzTitle="Title" [nzContent]="popoverTriggerTemplate" nzTrigger="focus">Focus me</button>
+            </div>
+            <codebox [codeContent]="popoverTriggerCode"></codebox>
+        </nz-card>
+    </div>
+</div>
+<nz-card nzTitle="API">
+    <div class="markdown api-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Param</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>nzTitle</td>
+                    <td>Title of the card</td>
+                    <td>string 丨<code>TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>nzTemplate</td>
+                    <td>Used to define the content</td>
+                    <td>string 丨<code>TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">Common API</span>
+        </h5>
+        <p>The following APIs are shared by <code>nz-tooltip</code>, <code>nz-popconfirm</code>, <code>nz-popover</code>.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzMouseEnterDelay]</code></td>
+                    <td>Delay in seconds, before tooltip is shown on mouse enter</td>
+                    <td>number</td>
+                    <td>0</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><code>[nzMouseLeaveDelay]</code></td>
+                    <td>Delay in seconds, before tooltip is hidden on mouse leave</td>
+                    <td>number</td>
+                    <td>0.1</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><code>[nzOverlayClassName]</code></td>
+                    <td>Class name of the tooltip card</td>
+                    <td>string</td>
+                    <td>-</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><code>[nzOverlayStyle]</code></td>
+                    <td>Style of the tooltip card</td>
+                    <td>object</td>
+                    <td>-</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><code>[nzPlacement]</code></td>
+                    <td>The position of the tooltip relative to the target, which can be one of <code>top</code><code>left</code><code>right</code><code>bottom</code><code>topLeft</code><code>topRight</code><code>bottomLeft</code><code>bottomRight</code><code>leftTop</code><code>leftBottom</code><code>rightTop</code><code>rightBottom</code></td>
+                    <td>string</td>
+                    <td><code>top</code></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><code>[nzTrigger]</code></td>
+                    <td>Tooltip trigger mode</td>
+                    <td><code>hover</code></td>
+                    <td><code>focus</code></td>
+                    <td><code>click</code></td>
+                    <td><code>hover</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzVisible]</code></td>
+                    <td>Whether the floating tooltip card is visible or not</td>
+                    <td>boolean</td>
+                    <td><code>false</code></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><code>(nzVisibleChange)</code></td>
+                    <td>Callback executed when visibility of the tooltip card is changed</td>
+                    <td><code>EventEmitter&lt;boolean&gt;</code></td>
+                    <td>-</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</nz-card>
+<nz-card nzTitle="Note">
+    <div class="markdown api-container">
+        <p>Please ensure that the child node of <code>nz-popover</code> accepts <code>onMouseEnter</code>, <code>onMouseLeave</code>, <code>onFocus</code>, <code>onClick</code> events.</p>
+    </div>
+</nz-card>   

@@ -1,0 +1,122 @@
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Line Chart</h4>
+            <p>An example of a simple line chart with three series. You can edit this example in realtime.</p>
+            <div class="m-t-25">
+                <x-chartist 
+                    class="ct-chart"
+                    [data]="lineChart.data" 
+                    [type]="lineChart.type" 
+                    [options]="lineChart.options">
+                </x-chartist>
+            </div>
+            <codebox [codeContent]="chartistLineCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Line Chart with Area</h4>
+            <p>This chart uses the showArea option to draw line, dots but also an area shape. Use the low option to specify a fixed lower bound that will make the area expand. You can also use the areaBase property to specify a data value that will be used to determine the area shape base position (this is 0 by default)</p>
+            <div class="m-t-25">
+                <x-chartist 
+                    class="ct-chart"
+                    [data]="lineAreaChart.data" 
+                    [type]="lineAreaChart.type" 
+                    [options]="lineAreaChart.options"
+                    [responsiveOptions]="lineAreaChart.responsiveOptions">
+                </x-chartist>
+            </div>
+            <codebox [codeContent]="chartistLineAreaCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Stacked bar chart</h4>
+            <p>You can also set your bar chart to stack the series bars on top of each other easily by using the stackBars property in your configuration.</p>
+            <div class="m-t-25">
+                <x-chartist 
+                    class="ct-chart"
+                    [data]="stackedBarChart.data" 
+                    [type]="stackedBarChart.type" 
+                    [options]="stackedBarChart.options">
+                </x-chartist>
+            </div>
+            <codebox [codeContent]="chartistStackedBarCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Gauge chart</h4>
+            <p>This pie chart uses donut, startAngle and total to draw a gauge chart.</p>
+            <div class="m-t-25">
+                <x-chartist 
+                    class="ct-chart"
+                    [data]="gaugeChart.data" 
+                    [type]="gaugeChart.type" 
+                    [options]="gaugeChart.options">
+                </x-chartist>
+            </div>
+            <codebox [codeContent]="chartistGaugeCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Line Scatter Diagram</h4>
+            <p>This advanced example uses a line chart to draw a scatter diagram. The data object is created with a functional style random mechanism. There is a mobile first responsive configuration using the responsive options to show less labels on small screens.</p>
+            <div class="m-t-25">
+                <x-chartist 
+                    class="ct-chart"
+                    [data]="lineScatterChart.data" 
+                    [type]="lineScatterChart.type" 
+                    [options]="lineScatterChart.options" 
+                    [responsiveOptions]="lineScatterChart.responsiveOptions"
+                    [events]="lineScatterChart.events">
+                </x-chartist>   
+            </div>
+            <codebox [codeContent]="chartistLineScatterCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Bi-polar bar chart</h4>
+            <p>A bi-polar bar chart with a range limit set with low and high. There is also an interpolation function used to skip every odd grid line / label.</p>
+            <div class="m-t-25">
+                <x-chartist 
+                    class="ct-chart"
+                    [data]="biPolarBarChart.data" 
+                    [type]="biPolarBarChart.type" 
+                    [options]="biPolarBarChart.options">
+                </x-chartist> 
+            </div>
+            <codebox [codeContent]="chartistBiPolarBarCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Horizontal Bar Chart</h4>
+            <p>Creating horizontal bar charts is as simple as it can get. There's no new chart type you need to learn, just passing an additional option is enough.</p>
+            <div class="m-t-25">
+                <x-chartist 
+                    class="ct-chart"
+                    [data]="horizontalBarChart.data" 
+                    [type]="horizontalBarChart.type" 
+                    [options]="horizontalBarChart.options">
+                </x-chartist>
+            </div>
+            <codebox [codeContent]="chartistHorizontalBarCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Donut Chart</h4>
+            <p>This pie chart uses donut and donutSolid to draw a donut chart.</p>
+            <div class="m-t-25">
+                <x-chartist 
+                    class="ct-chart"
+                    [data]="donutChart.data" 
+                    [type]="donutChart.type" 
+                    [options]="donutChart.options">
+                </x-chartist>
+            </div>
+            <codebox [codeContent]="chartistDonutCode"></codebox>
+        </nz-card>
+    </div>
+</div>
+<nz-card nzTitle="API">
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">ng-chartist</span>
+            <label class="api-type-label plugins">Plugins</label>
+            <a class="m-l-20 font-weight-normal font-size-13 text-underline" href="https://github.com/willsoto/ng-chartist" target="_blank">Official Link</a>
+        </h5>
+    </div>
+</nz-card>        

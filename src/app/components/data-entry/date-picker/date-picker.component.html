@@ -1,0 +1,702 @@
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Basic</h4>
+            <p>Basic use case. Users can select or input a date in panel.</p>
+            <div class="m-t-25">
+                <div class="row m-b-20">
+                    <div class="col-md-4">
+                        <nz-date-picker [(ngModel)]="date" (ngModelChange)="datepickerBasicOnChange($event)" nzShowTime></nz-date-picker>
+                    </div>
+                    <div class="col-md-4">
+                        <nz-month-picker [(ngModel)]="date" (ngModelChange)="datepickerBasicOnChange($event)" nzPlaceHolder="Select month"></nz-month-picker>
+                    </div>
+                    <div class="col-md-4">
+                        <nz-year-picker [(ngModel)]="date" (ngModelChange)="datepickerBasicOnChange($event)" nzPlaceHolder="Select year"></nz-year-picker>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <nz-range-picker [(ngModel)]="dateRange" (ngModelChange)="datepickerBasicOnChange($event)" nzShowTime></nz-range-picker>
+                    </div>
+                    <div class="col-md-6">
+                        <nz-week-picker [(ngModel)]="date" (ngModelChange)="getWeek($event)" nzPlaceHolder="Select week"></nz-week-picker>
+                    </div>
+                </div>
+            </div>
+            <codebox [codeContent]="datepickerBasicCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Date Format</h4>
+            <p>We can set the date format by <code>nzFormat</code>.</p>
+            <div class="m-t-25">
+                <div class="row m-b-20">
+                    <div class="col-md-4">
+                        <nz-date-picker [nzFormat]="dateFormat"></nz-date-picker>
+                    </div>
+                    <div class="col-md-4">
+                        <nz-month-picker [nzFormat]="monthFormat"></nz-month-picker>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <nz-range-picker [nzFormat]="dateFormat"></nz-range-picker>
+                    </div>
+                </div>
+            </div>
+            <codebox [codeContent]="datepickerDateFormatCode"></codebox>
+        </nz-card>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Three Sizes</h4>
+            <p>The input box comes in three sizes. <code>default</code> will be used if <code>nzSize</code> is omitted.</p>
+            <div class="m-t-25">
+                <nz-radio-group [(ngModel)]="size">
+                    <label nz-radio-button nzValue="large">large</label>
+                    <label nz-radio-button nzValue="default">default</label>
+                    <label nz-radio-button nzValue="small">small</label>
+                </nz-radio-group>
+                <div class="row m-v-20">
+                    <div class="col-md-4">
+                        <nz-date-picker [nzSize]="size"></nz-date-picker>
+                    </div>
+                    <div class="col-md-4">
+                        <nz-month-picker [nzSize]="size" nzPlaceHolder="Select Month"></nz-month-picker>
+                    </div>
+                    <div class="col-md-4">
+                        <nz-week-picker [nzSize]="size" nzPlaceHolder="Select Week"></nz-week-picker>
+                    </div>
+                </div>  
+                <div class="row">
+                    <div class="col-md-12">
+                        <nz-range-picker [nzSize]="size"></nz-range-picker>
+                    </div>
+                </div>
+            </div>
+            <codebox [codeContent]="datepickerSizeCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Choose Time</h4>
+            <p>This property provide an additional time selection. When <code>showTime</code> is an Object, its properties will be passed on to built-in <code>TimePicker</code>.</p>
+            <div class="m-t-25">
+                <div class="m-b-20 m-t-45">
+                    <nz-date-picker
+                        nzShowTime
+                        nzFormat="yyyy-MM-dd HH:mm:ss"
+                        nzPlaceHolder="Select Time"
+                        (ngModelChange)="datepickerChooseTimeOnChange($event)"
+                        (nzOnOk)="datepickerChooseTimeOnOk($event)"
+                    ></nz-date-picker>
+                </div>
+                <div class="m-b-35">
+                    <nz-range-picker
+                        [nzShowTime]="{ nzFormat: 'HH:mm' }"
+                        nzFormat="yyyy-MM-dd HH:mm"
+                        [nzPlaceHolder]="[ 'Start Time', 'End Time' ]"
+                        (ngModelChange)="datepickerChooseTimeOnChange($event)"
+                        (nzOnOk)="datepickerChooseTimeOnOk($event)"
+                    ></nz-range-picker>
+                </div> 
+            </div>
+            <codebox [codeContent]="datepickerChooseTimeCode"></codebox>
+        </nz-card>
+    </div>
+</div>  
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Disabled</h4>
+            <p>A disabled state of the <code>DatePicker</code>.</p>
+            <div class="m-t-25">
+                <div class="row m-b-20">
+                    <div class="col-md-4">
+                        <nz-date-picker nzDisabled></nz-date-picker>
+                    </div>
+                    <div class="col-md-4">
+                        <nz-month-picker nzDisabled></nz-month-picker>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <nz-range-picker nzDisabled></nz-range-picker>
+                    </div>
+                </div>
+            </div>
+            <codebox [codeContent]="datepickerDisabledCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Disabled Date & Time</h4>
+            <p>Disabled part of dates and time by <code>nzDisabledDate</code> and <code>nzDisabledTime</code> respectively.</p>
+            <div class="m-t-25">
+                <div class="row m-b-20">
+                    <div class="col-md-4">
+                        <nz-date-picker
+                            nzFormat="yyyy-MM-dd HH:mm:ss"
+                            [nzDisabledDate]="disabledDate"
+                            [nzDisabledTime]="disabledDateTime"
+                            [nzShowTime]="{ nzDefaultOpenValue: timeDefaultValue }">
+                        </nz-date-picker>
+                    </div>
+                    <div class="col-md-4">
+                        <nz-month-picker [nzDisabledDate]="disabledDate" nzPlaceHolder="Select month"></nz-month-picker>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <nz-range-picker
+                            [nzDisabledDate]="disabledDate"
+                            [nzDisabledTime]="disabledRangeTime"
+                            [nzShowTime]="{ nzHideDisabledOptions: true, nzDefaultOpenValue: timeDefaultValue }"
+                            nzFormat="yyyy-MM-dd HH:mm:ss"
+                        ></nz-range-picker>
+                    </div>
+                </div>
+            </div>
+            <codebox [codeContent]="datepickerDisabledDNTCode"></codebox>
+        </nz-card>
+    </div>
+</div>  
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Customized Range Picker</h4>
+            <p>When <code>RangePicker</code> does not satisfied your requirements, try to implement similar functionality with two <code>DatePicker</code>.</p>
+            <ul class="list-styled">
+                <li>Use the <code>nzDisabledDate</code> property to limit the start and end dates.</li>
+                <li>Improve user experience with <code>nzOpen</code> and <code>nzOnOpenChange</code>.</li>
+            </ul>
+            <div class="m-t-25">
+                <nz-date-picker
+                    class="m-r-10" 
+                    [nzDisabledDate]="disabledStartDate"
+                    nzShowTime
+                    nzFormat="yyyy-MM-dd HH:mm:ss"
+                    [(ngModel)]="startValue"
+                    nzPlaceHolder="Start"
+                    (ngModelChange)="datepickerCustomizeOnStartChange($event)"
+                    (nzOnOpenChange)="datepickerCustomizeHandleStartOpenChange($event)">
+                </nz-date-picker>
+                <nz-date-picker
+                    [nzDisabledDate]="disabledEndDate"
+                    nzShowTime
+                    nzFormat="yyyy-MM-dd HH:mm:ss"
+                    [(ngModel)]="endValue"
+                    nzPlaceHolder="End"
+                    [nzOpen]="endOpen"
+                    (ngModelChange)="datepickerCustomizeOnEndChange($event)"
+                    (nzOnOpenChange)="datepickerCustomizeHandleEndOpenChange($event)">
+                </nz-date-picker>
+            </div>
+            <codebox [codeContent]="datepickerCustomizedRangeCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Presetted Ranges</h4>
+            <p>We can set presetted ranges to RangePicker to improve user experience.</p>
+            <div class="m-t-25">
+                <div class="m-b-25">
+                    <nz-range-picker
+                        [nzRanges]="ranges1"
+                        ngModel
+                        (ngModelChange)="datepickerPresettedRangeOnChange($event)"
+                    ></nz-range-picker>
+                </div>
+                <div>
+                    <nz-range-picker
+                        [nzRanges]="ranges1"
+                        nzShowTime
+                        nzFormat="yyyy/MM/dd HH:mm:ss"
+                        ngModel
+                        (ngModelChange)="datepickerPresettedRangeOnChange($event)"
+                    ></nz-range-picker>
+                </div>
+            </div>
+            <codebox [codeContent]="datepickerPresettedRangeCode"></codebox>
+        </nz-card>
+    </div>
+</div>   
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Extra Footer</h4>
+            <p>Render extra footer in panel for customized requirements.</p>
+            <div class="m-t-25">
+                <div class="row m-b-20">
+                    <div class="col-md-4">
+                        <nz-date-picker [nzRenderExtraFooter]="footerRender"></nz-date-picker>
+                    </div>
+                    <div class="col-md-4">
+                        <nz-date-picker [nzRenderExtraFooter]="plainFooter" nzShowTime></nz-date-picker>
+                    </div>
+                    <div class="col-md-4">
+                        <nz-month-picker [nzRenderExtraFooter]="footerRender" nzPlaceHolder="Select month"></nz-month-picker>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <nz-range-picker [nzRenderExtraFooter]="footerRender"></nz-range-picker>
+                    </div>
+                    <div class="col-md-6">
+                        <nz-range-picker [nzRenderExtraFooter]="plainFooter" nzShowTime></nz-range-picker>
+                    </div>
+                </div>
+            </div>
+            <codebox [codeContent]="datepickerExtraFooterCode"></codebox>
+        </nz-card>
+    </div>  
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Controlled Panels</h4>
+            <p>Determing which panel to show with <code>nzMode</code> and <code>nzOnPanelChange</code>.</p>
+            <div class="m-t-25">
+                <div class="m-v-55">
+                    <nz-date-picker
+                        [nzMode]="dateMode"
+                        nzShowTime
+                        (nzOnOpenChange)="handleDateOpenChange($event)"
+                        (nzOnPanelChange)="handleDatePanelChange($event)">
+                    </nz-date-picker>
+                </div>
+            </div>
+            <codebox [codeContent]="datepickeControlledPanelCode"></codebox>
+        </nz-card>
+    </div>  
+</div>  
+<div class="row">
+    <div class="col-md-12">
+        <nz-card>
+            <h4>Customized Date Rendering</h4>
+            <p>We can customize the rendering of date cells in the calendar by providing a <code>nzDateRender</code> function to <code>DatePicker</code>.</p>
+            <div class="m-t-25">
+                <nz-date-picker [nzDateRender]="tplRender" class="m-r-10"></nz-date-picker>
+                <nz-range-picker [nzDateRender]="tplRender"></nz-range-picker>
+                <ng-template #tplRender let-current>
+                    <div class="ant-calendar-date" [class.border]="current.getDate() === 1">
+                        {{ current.getDate() }}
+                    </div>
+                </ng-template>
+            </div>
+            <codebox [codeContent]="datepickerCustomizedDateRenderingCode"></codebox>
+        </nz-card>
+    </div>
+</div>         
+<nz-card nzTitle="API">
+    <p><strong class="text-dark">Note:</strong> Some of nz-date-picker's locale are coming from <a href="https://angular.io/guide/i18n">Angular i18n</a>, that should be provided in the file of <code>app.module.ts</code>.</p>
+    <p>For example:</p>
+    <pre><code highlight [textContent]="datepickerAPICode"></code></pre>
+    <p class="m-t-20">There are four kinds of picker:</p>
+    <ul class="list-styled">
+        <li>nz-date-picker</li>
+        <li>nz-month-picker</li>
+        <li>nz-range-picker</li>
+        <li>nz-week-picker</li>
+    </ul>
+    <p><strong class="text-dark">Note: </strong> All input and output date objects are <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank">Date</a>, you can manpulate it with <a href="https://date-fns.org/">date-fns</a>.</p>
+    <div class="markdown api-container m-t-40">
+        <h4>
+            <span >Common API</span>
+        </h4>
+        <p>The following APIs are shared by nz-date-picker, nz-month-picker, nz-range-picker, nz-week-picker.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzAllowClear]</code></td>
+                    <td>Whether to show clear button</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                </tr>
+                <tr>
+                    <td><code>[nzAutoFocus]</code></td>
+                    <td>get focus when component mounted</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzClassName]</code></td>
+                    <td>picker className</td>
+                    <td>string</td>
+                    <td>''</td>
+                </tr>
+                <tr>
+                    <td><code>[nzDateRender]</code></td>
+                    <td>custom rendering function for date cells (Not support by month-picker/year-picker)</td>
+                    <td>TemplateRef&lt;Date&gt; / string or (d: Date) =&gt; TemplateRef&lt;Date&gt; / string</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzDisabled]</code></td>
+                    <td>determine whether the nz-date-picker is disabled</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzDisabledDate]</code></td>
+                    <td>specify the date that cannot be selected (Not support by year-picker)</td>
+                    <td>(current: Date) =&gt; boolean</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzLocale]</code></td>
+                    <td>localization configuration</td>
+                    <td>object</td>
+                    <td><a href="https://github.com/ant-design/ant-design/blob/master/components/date-picker/locale/example.json">default</a></td>
+                </tr>
+                <tr>
+                    <td><code>[nzOpen]</code></td>
+                    <td>open state of picker</td>
+                    <td>boolean</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzPopupStyle]</code></td>
+                    <td>to customize the style of the popup calendar</td>
+                    <td>object</td>
+                    <td>{{ '{' }}}</td>
+                </tr>
+                <tr>
+                    <td><code>[nzDropdownClassName]</code></td>
+                    <td>to customize the className of the popup calendar</td>
+                    <td>string</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzSize]</code></td>
+                    <td>determine the size of the input box, the height of <code>large</code> and <code>small</code>, are 40px and 24px respectively, while default size is 32px</td>
+                    <td>string</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzStyle]</code></td>
+                    <td>to customize the style of the input box</td>
+                    <td>object</td>
+                    <td>{{ '{' }}}</td>
+                </tr>
+                <tr>
+                    <td><code>(nzOnOpenChange)</code></td>
+                    <td>a callback emitter, can be executed whether the popup calendar is popped up or closed</td>
+                    <td><code>EventEmitter&lt;boolean&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-date-picker</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[ngModel]</code></td>
+                    <td>Date</td>
+                    <td>Date</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzDisabledTime]</code></td>
+                    <td>to specify the time that cannot be selected</td>
+                    <td>(current: Date) =&gt; {{ '{' }} nzDisabledHours, nzDisabledMinutes, nzDisabledSeconds {{ '}' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzFormat]</code></td>
+                    <td>to set the date format, refer to <a href="https://angular.io/api/common/DatePipe">DatePipe</a></td>
+                    <td>string</td>
+                    <td>"yyyy-MM-dd"</td>
+                </tr>
+                <tr>
+                    <td><code>[nzRenderExtraFooter]</code></td>
+                    <td>render extra footer in panel</td>
+                    <td>TemplateRef / string or () =&gt; TemplateRef / string</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzShowTime]</code></td>
+                    <td>to provide an additional time selection</td>
+                    <td>object / boolean</td>
+                    <td><a href="/components/time-picker/en#api">TimePicker Options</a></td>
+                </tr>
+                <tr>
+                    <td><code>[nzShowToday]</code></td>
+                    <td>whether to show "Today" button</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                </tr>
+                <tr>
+                    <td><code>[nzPlaceHolder]</code></td>
+                    <td>placeholder of date input</td>
+                    <td>string</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>(nzOnOk)</code></td>
+                    <td>callback when click ok button</td>
+                    <td><code>EventEmitter&lt;Date&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>(ngModelChange)</code></td>
+                    <td>Date change callback</td>
+                    <td><code>EventEmitter&lt;Date&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div> 
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-year-picker</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[ngModel]</code></td>
+                    <td>Date</td>
+                    <td>Date</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzFormat]</code></td>
+                    <td>to set the date format, refer to <a href="https://angular.io/api/common/DatePipe">DatePipe</a></td>
+                    <td>string</td>
+                    <td>"yyyy"</td>
+                </tr>
+                <tr>
+                    <td><code>[nzRenderExtraFooter]</code></td>
+                    <td>render extra footer in panel</td>
+                    <td>TemplateRef / string or () =&gt; TemplateRef / string</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzPlaceHolder]</code></td>
+                    <td>placeholder of date input</td>
+                    <td>string</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>(ngModelChange)</code></td>
+                    <td>Date change callback</td>
+                    <td><code>EventEmitter&lt;Date&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div> 
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-month-picker</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[ngModel]</code></td>
+                    <td>Date</td>
+                    <td>Date</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzFormat]</code></td>
+                    <td>to set the date format, refer to <a href="https://angular.io/api/common/DatePipe">DatePipe</a></td>
+                    <td>string</td>
+                    <td>"yyyy-MM"</td>
+                </tr>
+                <tr>
+                    <td><code>[nzRenderExtraFooter]</code></td>
+                    <td>render extra footer in panel</td>
+                    <td>TemplateRef / string or () =&gt; TemplateRef / string</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzPlaceHolder]</code></td>
+                    <td>placeholder of date input</td>
+                    <td>string</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>(ngModelChange)</code></td>
+                    <td>Date change callback</td>
+                    <td><code>EventEmitter&lt;Date&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr> 
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-week-picker</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[ngModel]</code></td>
+                    <td>Date</td>
+                    <td>Date</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzFormat]</code></td>
+                    <td>to set the date format, refer to <a href="https://angular.io/api/common/DatePipe">DatePipe</a></td>
+                    <td>string</td>
+                    <td>"yyyy-ww"</td>
+                </tr>
+                <tr>
+                    <td><code>[nzPlaceHolder]</code></td>
+                    <td>placeholder of date input</td>
+                    <td>string</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>(ngModelChange)</code></td>
+                    <td>Date change callback</td>
+                    <td><code>EventEmitter&lt;Date&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div> 
+    <hr> 
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-range-picker</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[ngModel]</code></td>
+                    <td>Date</td>
+                    <td>Date[]</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzDisabledTime]</code></td>
+                    <td>to specify the time that cannot be selected</td>
+                    <td>(current: Date, partial: 'start' / 'end') =&gt; {{ '{' }} nzDisabledHours, nzDisabledMinutes, nzDisabledSeconds {{ '}' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzFormat]</code></td>
+                    <td>to set the date format</td>
+                    <td>string</td>
+                    <td>"yyyy-MM-dd"</td>
+                </tr>
+                <tr>
+                    <td><code>[nzRanges]</code></td>
+                    <td>preseted ranges for quick selection</td>
+                    <td>{{ '{' }} [ key: string ]: Date[] {{ '}' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzRenderExtraFooter]</code></td>
+                    <td>render extra footer in panel</td>
+                    <td>TemplateRef / string or () =&gt; TemplateRef / string</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzShowTime]</code></td>
+                    <td>to provide an additional time selection</td>
+                    <td>object / boolean</td>
+                    <td><a href="/components/time-picker/en#api">TimePicker Options</a></td>
+                </tr>
+                <tr>
+                    <td><code>[nzPlaceHolder]</code></td>
+                    <td>placeholder of date input</td>
+                    <td>string[]</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>(nzOnOk)</code></td>
+                    <td>click ok callback</td>
+                    <td><code>EventEmitter&lt;Date[]&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>(ngModelChange)</code></td>
+                    <td>Date change callback</td>
+                    <td><code>EventEmitter&lt;Date[]&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>(nzOnCalendarChange)</code></td>
+                    <td>The start time or the end time of the range change callback</td>
+                    <td><code>EventEmitter&lt;Date[]&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="m-t-20">Currently supported <code>nz-time-picker</code> parameters in <code>nzShowTime</code> are: <code>nzFormat</code>, <code>nzHourStep</code>, <code>nzMinuteStep</code>, <code>nzSecondStep</code>, <code>nzDisabledHours</code>, <code>nzDisabledMinutes</code>, <code>nzDisabledSeconds</code>, <code>nzHideDisabledOptions</code>, <code>nzDefaultOpenValue</code>, <code>nzAddOn</code></p>
+    </div>    
+    <hr> 
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nzFormat special instructions</span>
+        </h5>
+        <p>Date formatting currently supports two methods: <code>DatePipe</code> (default, <a href="https://angular.io/api/common/DatePipe">syntax reference</a>) and <code>Date-fns</code> (<a href="https://date-fns.org/docs/format#description">syntax reference</a>, see <a href="https://ng.ant.design/docs/i18n/en#How%20to%20format%20a%20date%20using%20Date-fns"><code>How to format a date using Date-fns</code></a>).</p>
+    </div>
+</nz-card> 

@@ -1,0 +1,258 @@
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Basic</h4>
+            <p>The simplest usage that close the notification box after 4.5s.</p>
+            <div class="m-t-25">
+                <button nz-button [nzType]="'primary'" (click)="createBasicNotification()">Open the notification box</button>
+            </div>
+            <codebox [codeContent]="notificationBasicCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Notification with icon</h4>
+            <p>A notification box with a icon at the left side.</p>
+            <div class="m-t-25">
+                <button class="m-r-10" nz-button (click)="createIconNotification('success')">Success</button>
+                <button class="m-r-10" nz-button (click)="createIconNotification('info')">Info</button>
+                <button class="m-r-10" nz-button (click)="createIconNotification('warning')">Warning</button>
+                <button class="m-r-10" nz-button (click)="createIconNotification('error')">Error</button>
+            </div>
+            <codebox [codeContent]="notificationIconCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Customized Icon</h4>
+            <p>The icon can be customized to any <code>TemplateRef&lt;void&gt;</code>.</p>
+            <div class="m-t-25">
+                <ng-template #customeIconTemplate>
+                    <div class="ant-notification-notice-content">
+                        <div class="ant-notification-notice-with-icon">
+                            <span class="ant-notification-notice-icon"><i nz-icon type="smile" class="text-info"></i></span>
+                            <div class="ant-notification-notice-message">Notification Title</div>
+                            <div class="ant-notification-notice-description">
+                                This is the content of the notification. This is the content of the notification. This is the content of the notification.
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+                <button nz-button [nzType]="'primary'" (click)="createCustomIconNotification(customeIconTemplate)">Open the notification box</button>
+            </div>
+            <codebox [codeContent]="notificationCustomIconCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Customized style</h4>
+            <p>The nzStyle and nzClass are available to customize Notification.</p>
+            <div class="m-t-25">
+                <button nz-button [nzType]="'primary'" (click)="createCustomStyleNotification()">Open the notification box</button>
+            </div>
+            <codebox [codeContent]="notificationCustomeStyleCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Duration after which the notification box is closed</h4>
+            <p><code>nzDuration</code> can be used to specify how long the notification stays open. After the duration time elapses,
+                the notification closes automatically. If not specified, default value is 4.5 seconds. If you set the value to 0,
+                the notification box will never close automatically.</p>
+            <div class="m-t-25">
+                <button nz-button [nzType]="'primary'" (click)="createDurationNotification()">Open the notification box</button>
+            </div>
+            <codebox [codeContent]="notificationDurationCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Custom close button</h4>
+            <p>To customize the style or font of the close button.</p>
+            <div class="m-t-25">
+                <ng-template #customCloseTemplate let-notification>
+                    <div class="ant-notification-notice-content">
+                        <div>
+                            <div class="ant-notification-notice-message">Notification Title</div>
+                            <div class="ant-notification-notice-description">
+                                A function will be be called after the notification is closed (automatically after the "duration" time of manually).
+                            </div>
+                            <span class="ant-notification-notice-btn">
+                                <button nz-button nzType="primary" nzSize="small" (click)="notification.close()"><span>Confirm</span></button>
+                            </span>
+                        </div>
+                    </div>
+                </ng-template>
+                <button nz-button [nzType]="'primary'" (click)="createCustomCloseNotification(customCloseTemplate)">Open the notification box</button>
+            </div>
+            <codebox [codeContent]="notificationCustomCloseCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Placement</h4>
+            <p>A notification box can pop up from <code>topRight</code> or <code>bottomRight</code> or <code>bottomLeft</code> or <code>topLeft</code>.</p>
+            <div class="m-t-25">
+                <nz-select class="m-r-10" [(ngModel)]="placement" style="width: 120px;" (ngModelChange)="clearBeforeNotifications()">
+                    <nz-option nzValue="topLeft" nzLabel="topLeft"></nz-option>
+                    <nz-option nzValue="topRight" nzLabel="topRight"></nz-option>
+                    <nz-option nzValue="bottomLeft" nzLabel="bottomLeft"></nz-option>
+                    <nz-option nzValue="bottomRight" nzLabel="bottomRight"></nz-option>
+                </nz-select>
+                <button nz-button [nzType]="'primary'" (click)="createPlacementNotification()">Open the notification box</button>
+            </div>
+            <codebox [codeContent]="notificationPlacementCode"></codebox>
+        </nz-card>
+    </div>
+</div>
+<nz-card nzTitle="API">
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">NzNotificationService</span>
+            <label class="api-type-label service">service</label>
+        </h5>
+        <p>The component provides a number of service methods using the following methods and parameters:</p>
+        <ul class="list-styled m-b-30">
+            <li><code>NzNotificationService.blank(title, content, [options])</code> // Notification without icon</li>
+            <li><code>NzNotificationService.success(title, content, [options])</code></li>
+            <li><code>NzNotificationService.error(title, content, [options])</code></li>
+            <li><code>NzNotificationService.info(title, content, [options])</code></li>
+            <li><code>NzNotificationService.warning(title, content, [options])</code></li>
+        </ul>
+        <p>Similar to <code>NzMessage</code>, if you want to modify the global default configuration, you can modify the value of provider <code>NZ_NOTIFICATION_CONFIG</code>.
+            (Example: Add <code>{{ '{' }} provide: NZ_NOTIFICATION_CONFIG, useValue: {{ '{' }} nzDuration: 3000 {{ '}' }}{{ '}' }}</code> to <code>providers</code> of your module, <code>NZ_NOTIFICATION_CONFIG</code> can be imported from <code>ng-zorro-antd</code>)</p>
+        <p>The default global configuration is:</p>
+        <pre><code highlight [textContent]="notificationAPICode"></code></pre>
+        <table>
+            <thead>
+                <tr>
+                    <th>Argument</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>title</td>
+                    <td>Title</td>
+                    <td>string</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>content</td>
+                    <td>Notification content</td>
+                    <td>string</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>options</td>
+                    <td>Support setting the parameters for the current notification box, see the table below</td>
+                    <td>object</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="m-t-50">The parameters that are set by the <code>options</code> support are as follows:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Argument</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>nzKey</td>
+                    <td>The unique identifier of the Notification</td>
+                    <td><code>string</code></td>
+                </tr>
+                <tr>
+                    <td>nzDuration</td>
+                    <td>Duration (milliseconds), does not disappear when set to 0</td>
+                    <td>number</td>
+                </tr>
+                <tr>
+                    <td>nzPauseOnHover</td>
+                    <td>Do not remove automatically when mouse is over while setting to <code>true</code></td>
+                    <td>boolean</td>
+                </tr>
+                <tr>
+                    <td>nzAnimate</td>
+                    <td>Whether to turn on animation</td>
+                    <td>boolean</td>
+                </tr>
+                <tr>
+                    <td>nzStyle</td>
+                    <td>Custom inline style</td>
+                    <td>object</td>
+                </tr>
+                <tr>
+                    <td>nzClass</td>
+                    <td>Custom CSS class</td>
+                    <td>object</td>
+                </tr>
+                <tr>
+                    <td>nzData</td>
+                    <td>Anything that would be used as template context</td>
+                    <td><code>any</code></td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="m-t-50">Methods for destruction are also provided:</p>
+        <ul class="list-styled m-b-30">
+            <li><code>NzNotificationService.remove(id)</code> // Remove the notification with the specified id. When the id is empty, remove all notifications (the notification id is returned by the above method)</li>
+        </ul>
+    </div>   
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">Global configuration (NZ_MESSAGE_CONFIG)</span>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Argument</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>nzDuration</td>
+                    <td>Duration (milliseconds), does not disappear when set to 0</td>
+                    <td>number</td>
+                    <td>4500</td>
+                </tr>
+                <tr>
+                    <td>nzMaxStack</td>
+                    <td>The maximum number of notifications that can be displayed at the same time</td>
+                    <td>number</td>
+                    <td>8</td>
+                </tr>
+                <tr>
+                    <td>nzPauseOnHover</td>
+                    <td>Do not remove automatically when mouse is over while setting to <code>true</code></td>
+                    <td>boolean</td>
+                    <td>true</td>
+                </tr>
+                <tr>
+                    <td>nzAnimate</td>
+                    <td>Whether to turn on animation</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                </tr>
+                <tr>
+                    <td>nzTop</td>
+                    <td>The top of the notification when it pops up from the top.</td>
+                    <td>string</td>
+                    <td>24px</td>
+                </tr>
+                <tr>
+                    <td>nzBottom</td>
+                    <td>The bottom of the notification when it pops up from the bottom.</td>
+                    <td>string</td>
+                    <td>24px</td>
+                </tr>
+                <tr>
+                    <td>nzPlacement</td>
+                    <td>Popup position, optional <code>topLeft</code><code>topRight</code><code>bottomLeft</code><code>bottomRight</code></td>
+                    <td>string</td>
+                    <td><code>topRight</code></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>       
+</nz-card>         

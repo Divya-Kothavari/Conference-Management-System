@@ -1,0 +1,446 @@
+<nz-card>
+    <h4>Simple list</h4>
+    <p>Ant Design supports a default list size as well as a large and small size.</p>
+    <p>If a large or small list is desired, set the size property to either large or small respectively. Omit the size property for a list with the default size.</p>
+    <p>Customizing the nzHeader and nzFooter of list by setting <code>nzHeader</code> and <code>nzFooter</code> property.</p>
+    <div class="m-t-25">
+        <h5 [ngStyle]="{ 'margin-bottom.px': 16 }">Default Size</h5>
+        <nz-list [nzDataSource]="listSizeData" nzBordered [nzHeader]="'Header'" [nzFooter]="'Footer'" [nzRenderItem]="defaultItem">
+            <ng-template #defaultItem let-item>
+                <nz-list-item>
+                    <span class="ant-typography"><mark>[ITEM]</mark></span>
+                    {{ item }}
+                </nz-list-item>
+            </ng-template>
+        </nz-list>
+        <h5 [ngStyle]="{ margin: '16px 0' }">Small Size</h5>
+        <nz-list
+            [nzDataSource]="listSizeData"
+            nzBordered
+            nzSize="small"
+            [nzHeader]="'Header'"
+            [nzFooter]="'Footer'"
+            [nzRenderItem]="smallItem"
+        >
+            <ng-template #smallItem let-item><nz-list-item [nzContent]="item"></nz-list-item></ng-template>
+        </nz-list>
+        <h5 [ngStyle]="{ margin: '16px 0' }">Large Size</h5>
+        <ul
+            nz-list
+            [nzDataSource]="listSizeData"
+            nzBordered
+            nzSize="large"
+            [nzHeader]="'Header'"
+            [nzFooter]="'Footer'"
+            [nzRenderItem]="largeItem"
+        >
+            <ng-template #largeItem let-item>
+                <li nz-list-item [nzActions]="[opAction]" [nzContent]="item" nzNoFlex></li>
+                <ng-template #opAction><a (click)="msg.info('edit')">edit</a></ng-template>
+            </ng-template>
+        </ul>
+    </div>
+    <codebox [codeContent]="listSizeCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Basic list</h4>
+    <p>Basic list.</p>
+    <div class="m-t-25">
+        <nz-list [nzDataSource]="listBasicData" [nzRenderItem]="basicList" [nzItemLayout]="'horizontal'">
+            <ng-template #basicList let-item>
+                <nz-list-item>
+                    <nz-list-item-meta
+                        [nzTitle]="nzTitle"
+                        nzAvatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                        nzDescription="Ant Design, a design language for background applications, is refined by Ant UED Team">
+                        <ng-template #nzTitle>
+                            <a class="font-size-15" href="https://ng.ant.design">{{item.title}}</a>
+                        </ng-template>
+                    </nz-list-item-meta>
+                </nz-list-item>
+            </ng-template>
+        </nz-list>
+    </div>
+    <codebox [codeContent]="listBasicCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Load more</h4>
+    <p>Load more list with <code>loadMore</code> property.</p>
+    <div class="m-t-25">
+        <nz-list style="min-height: 350px;"
+            [nzDataSource]="listLoadMore"
+            [nzItemLayout]="'horizontal'"
+            [nzLoading]="listLoadMoreInitLoading"
+            [nzRenderItem]="loadMoreItem"
+            [nzLoadMore]="loadMore">
+            <ng-template #loadMoreItem let-item>
+                <nz-list-item [nzContent]="item.loading?'':'content'" [nzActions]="item.loading?[]:[editAction,moreAction]">
+                    <nz-skeleton [nzAvatar]="true" [nzActive]="true" [nzTitle]="false" [nzLoading]="item.loading">
+                        <ng-template #editAction><a (click)="listLoadMorEdit(item)">edit</a></ng-template>
+                        <ng-template #moreAction><a (click)="listLoadMorEdit(item)">more</a></ng-template>
+                        <nz-list-item-meta
+                            [nzTitle]="nzTitle"
+                            nzAvatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                            nzDescription="Ant Design, a design language for background applications, is refined by Ant UED Team">
+                            <ng-template #nzTitle>
+                                <a href="https://ng.ant.design">{{item.name.last}}</a>
+                            </ng-template>
+                        </nz-list-item-meta>
+                    </nz-skeleton>
+                </nz-list-item>
+            </ng-template>
+            <ng-template #loadMore>
+                <div class="text-center m-t-15">
+                    <button nz-button *ngIf="!listLoadingMore" (click)="listOnLoadMore()">loading more</button>
+                </div>
+            </ng-template>
+        </nz-list>
+    </div>
+    <codebox [codeContent]="listLoadMoreCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Vertical</h4>
+    <p>Setting <code>nzItemLayout</code> property with <code>vertical</code> to create a vertical list.</p>
+    <div class="m-t-25">
+        <nz-list
+            [nzDataSource]="listVerticalData"
+            [nzItemLayout]="'vertical'"
+            [nzRenderItem]="listVerticaLItem"
+            [nzPagination]="pagination">
+            <ng-template #listVerticaLItem let-item>
+                <nz-list-item [nzContent]="item.content" [nzActions]="[starAction,likeAction,msgAction]" [nzExtra]="listVerticalExtra">
+                    <ng-template #starAction><a class="text-dark" href=""><i nz-icon type="star-o" class="m-r-10"></i> 156</a></ng-template>
+                    <ng-template #likeAction><a class="text-dark" href=""><i nz-icon type="like-o" class="m-r-10"></i> 156</a></ng-template>
+                    <ng-template #msgAction><a class="text-dark" href=""><i nz-icon type="message" class="m-r-10"></i> 2</a></ng-template>
+                        <nz-list-item-meta
+                            [nzAvatar]="item.avatar"
+                            [nzTitle]="nzTitle"
+                            [nzDescription]="item.description">
+                            <ng-template #nzTitle><a href="{{item.href}}">{{item.title}}</a></ng-template>
+                        </nz-list-item-meta>
+                    <ng-template #listVerticalExtra>
+                        <img width="272" alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png">
+                    </ng-template>
+                </nz-list-item>
+            </ng-template>
+            <ng-template #pagination>
+                <nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination>
+            </ng-template>
+        </nz-list>
+    </div>
+    <codebox [codeContent]="listVerticalCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Grid</h4>
+    <p>Creating a grid list by setting the <code>grid</code> property of List</p>
+    <div class="m-t-25">
+        <nz-list [nzDataSource]="listGridData" [nzRenderItem]="listGridItem" [nzGrid]="{gutter: 16, span: 6}">
+            <ng-template #listGridItem let-item>
+                <nz-list-item [nzContent]="nzContent">
+                    <ng-template #nzContent>
+                        <nz-card [nzTitle]="item.title">
+                            Card content
+                        </nz-card>
+                    </ng-template>
+                </nz-list-item>
+            </ng-template>
+        </nz-list>
+    </div>
+    <codebox [codeContent]="listGridCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Responsive grid list</h4>
+    <p>Responsive grid list. The size property is as same as <a routerLink="/components/layout/ant-grid">Layout Grid</a>.</p>
+    <div class="m-t-25">
+        <nz-list
+            [nzDataSource]="listResponsiveGridData"
+            [nzRenderItem]="listResponsiveGridItem"
+            [nzGrid]="{gutter: 16, xs: 24, sm: 12, md: 6, lg: 6, xl: 4 }">
+            <ng-template #listResponsiveGridItem let-item>
+                <nz-list-item [nzContent]="listResponsiveGridContent">
+                    <ng-template #listResponsiveGridContent>
+                        <nz-card [nzTitle]="item.title">
+                            Card content
+                        </nz-card>
+                    </ng-template>
+                </nz-list-item>
+            </ng-template>
+        </nz-list>
+    </div>
+    <codebox [codeContent]="listGridResponsiveCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Scrolling loaded</h4>
+    <p>The example of infinite load with <a target="_blank" href="https://github.com/orizens/ngx-infinite-scroll">ngx-infinite-scroll</a>.</p>
+    <div class="m-t-25">
+        <div class="list-loadmore p-v-10 p-h-25"
+            style="max-height: 300px"
+            infiniteScroll
+            [infiniteScrollDistance]="2"
+            [infiniteScrollThrottle]="50"
+            (scrolled)="onScroll()"
+            [scrollWindow]="false">
+            <nz-list [nzDataSource]="listScrollLoadData" [nzRenderItem]="listScrollLoadItem">
+                <ng-template #listScrollLoadItem let-item>
+                    <nz-list-item>
+                        <nz-list-item-meta
+                            [nzTitle]="nzTitle"
+                            nzAvatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                            [nzDescription]="item.email">
+                            <ng-template #nzTitle>
+                                <a href="https://ng.ant.design">{{item.name.last}}</a>
+                            </ng-template>
+                        </nz-list-item-meta>
+                    </nz-list-item>
+                </ng-template>
+                <nz-spin *ngIf="listScrollLoadLoading && listScrollLoadHasMore" class="list-loadmore-loading"></nz-spin>
+            </nz-list>
+        </div>
+    </div>
+    <codebox [codeContent]="listScrollLoadCode"></codebox>
+</nz-card>
+<nz-card nzTitle="API">
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-list</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzDataSource]</code></td>
+                    <td>Data source for list</td>
+                    <td><code>any[]</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzRenderItem]</code></td>
+                    <td>Custom item renderer</td>
+                    <td><code>TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzBordered]</code></td>
+                    <td>Toggles rendering of the border around the list</td>
+                    <td><code>boolean</code></td>
+                    <td><code>false</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzFooter]</code></td>
+                    <td>List footer renderer</td>
+                    <td><code>string | TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzGrid]</code></td>
+                    <td>The grid type of list. You can set grid to something like <code>{{ '{' }}gutter: 16, column: 4{{ '}' }}</code></td>
+                    <td><code>object</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzHeader]</code></td>
+                    <td>List header renderer</td>
+                    <td><code>string | TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzItemLayout]</code></td>
+                    <td>The layout of list, default is <code>horizontal</code>, If a vertical list is desired, set the itemLayout property to <code>vertical</code></td>
+                    <td><code>'vertical' | 'horizontal'</code></td>
+                    <td><code>'horizontal'</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzLoading]</code></td>
+                    <td>Shows a loading indicator while the contents of the list are being fetched</td>
+                    <td><code>boolean</code></td>
+                    <td><code>false</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzLoadMore]</code></td>
+                    <td>Shows a load more content</td>
+                    <td><code>TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzNoResult]</code></td>
+                    <td>Specify content to show when list is empty</td>
+                    <td><code>string</code> | <code>TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzPagination]</code></td>
+                    <td>Shows a pagination content</td>
+                    <td><code>TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzSize]</code></td>
+                    <td>Size of list</td>
+                    <td><code>'large' | 'small' | 'default'</code></td>
+                    <td><code>'default'</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzSplit]</code></td>
+                    <td>Toggles rendering of the split under the list item</td>
+                    <td><code>boolean</code></td>
+                    <td><code>true</code></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nzGrid</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>column</td>
+                    <td>column of grid</td>
+                    <td>number</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>gutter</td>
+                    <td>spacing between grid</td>
+                    <td>number</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>xs</td>
+                    <td><code>&lt;576px</code> column of grid</td>
+                    <td>number</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>sm</td>
+                    <td><code>≥576px</code> column of grid</td>
+                    <td>number</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>md</td>
+                    <td><code>≥768px</code> column of grid</td>
+                    <td>number</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>lg</td>
+                    <td><code>≥992px</code> column of grid</td>
+                    <td>number</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>xl</td>
+                    <td><code>≥1200px</code> column of grid</td>
+                    <td>number</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>xxl</td>
+                    <td><code>≥1600px</code> column of grid</td>
+                    <td>number</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-list-item</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzContent]</code></td>
+                    <td>content renderer</td>
+                    <td><code>string｜TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzActions]</code></td>
+                    <td>The actions content of list item. If <code>itemLayout</code> is <code>vertical</code>, shows the content on bottom, otherwise shows content on the far right.</td>
+                    <td><code>Array&lt;TemplateRef&lt;void&gt;&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzExtra]</code></td>
+                    <td>The extra content of list item. If <code>itemLayout</code> is <code>vertical</code>, shows the content on right, otherwise shows content on the far right.</td>
+                    <td><code>TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzNoFlex]</code></td>
+                    <td>Whether it's not <code>flex</code> layout rendering</td>
+                    <td><code>boolean</code></td>
+                    <td><code>false</code></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-list-item-meta</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzAvatar]</code></td>
+                    <td>The avatar of list item</td>
+                    <td><code>string｜TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzDescription]</code></td>
+                    <td>The description of list item</td>
+                    <td><code>string｜TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzTitle]</code></td>
+                    <td>The title of list item</td>
+                    <td><code>string｜TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</nz-card>

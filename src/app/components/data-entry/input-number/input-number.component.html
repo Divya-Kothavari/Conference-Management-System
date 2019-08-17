@@ -1,0 +1,209 @@
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Basic</h4>
+            <p>Numeric-only input box.</p>
+            <div class="m-t-25">
+                <nz-input-number [(ngModel)]="inputNumberBasicValue" [nzMin]="1" [nzMax]="10" [nzStep]="1"></nz-input-number>
+            </div>
+            <codebox [codeContent]="inputNumberBasicCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Sizes</h4>
+            <p>There are three sizes available to a numeric input box.</p>
+            <div class="m-t-25">
+                <nz-input-number class="m-r-10" [(ngModel)]="inputNumberSizeValue" [nzSize]="'large'" [nzMin]="1" [nzMax]="10" [nzStep]="1"></nz-input-number>
+                <nz-input-number class="m-r-10" [(ngModel)]="inputNumberSizeValue" [nzMin]="1" [nzMax]="10" [nzStep]="1"></nz-input-number>
+                <nz-input-number class="m-r-10" [(ngModel)]="inputNumberSizeValue" [nzSize]="'small'" [nzMin]="1" [nzMax]="10" [nzStep]="1"></nz-input-number>
+            </div>
+            <codebox [codeContent]="inputNumberSizeCode"></codebox>
+        </nz-card>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Disabled</h4>
+            <p>Click the button to toggle between available and disabled states.</p>
+            <div class="m-t-25">
+                <nz-input-number class="m-r-10" [(ngModel)]="inputNumberDisabledValue" [nzMin]="1" [nzMax]="10" [nzStep]="1" [nzDisabled]="isDisabled"></nz-input-number>
+                <button nz-button [nzType]="'primary'" (click)="toggleDisabled()">
+                    <span>Toggle Disabled</span>
+                </button>
+            </div>
+            <codebox [codeContent]="inputNumberDisabledCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Decimals</h4>
+            <p>A numeric-only input box whose values can be increased or decreased using a decimal step. The number of decimals (also known as precision) is determined by the <code>nzStep</code> prop.</p>
+            <div class="m-t-25">
+                <nz-input-number [(ngModel)]="inputNumberDecimalsValue" [nzMin]="1" [nzMax]="10" [nzStep]="0.1" [nzPlaceHolder]="'Digital'"></nz-input-number>
+            </div>
+            <codebox [codeContent]="inputNumberDecimalsCode"></codebox>
+        </nz-card>
+    </div>
+</div>   
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Formatter</h4>
+            <p>Display value within it's situation with <code>nzFormatter</code>, and we usually use <code>nzParser</code> at the same time.</p>
+            <div class="m-t-25">
+                <nz-input-number 
+                    class="m-r-10" 
+                    [(ngModel)]="inputNumberFormaterValue" 
+                    [nzMin]="1" 
+                    [nzMax]="100" 
+                    [nzStep]="1" 
+                    [nzFormatter]="formatterDollar" 
+                    [nzParser]="parserDollar">
+                </nz-input-number>
+                <nz-input-number 
+                    [(ngModel)]="inputNumberFormaterValue" 
+                    [nzMin]="1" 
+                    [nzMax]="100" 
+                    [nzStep]="1" 
+                    [nzFormatter]="formatterPercent" 
+                    [nzParser]="parserPercent">
+                </nz-input-number>
+            </div>
+            <codebox [codeContent]="inputNumberFormaterCode"></codebox>
+        </nz-card>
+    </div>
+</div>    
+<nz-card nzTitle="API">
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-input-number</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>property</th>
+                    <th>description</th>
+                    <th>type</th>
+                    <th>default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[ngModel]</code></td>
+                    <td>current value, double binding</td>
+                    <td>number ｜ string</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzAutoFocus]</code></td>
+                    <td>get focus when component mounted</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzDisabled]</code></td>
+                    <td>disable the input</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzMax]</code></td>
+                    <td>max vale</td>
+                    <td>number</td>
+                    <td>Infinity</td>
+                </tr>
+                <tr>
+                    <td><code>[nzMin]</code></td>
+                    <td>min value</td>
+                    <td>number</td>
+                    <td>-Infinity</td>
+                </tr>
+                <tr>
+                    <td><code>[nzFormatter]</code></td>
+                    <td>Specifies the format of the value presented</td>
+                    <td>(value: number ｜ string):string=&gt; {{ '{' }}{{ '}' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzParser]</code></td>
+                    <td>Specifies the value extracted from nzFormatter</td>
+                    <td>(value:string): number=&gt;{{ '{' }}{{ '}' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzPrecision]</code></td>
+                    <td>precision of input value</td>
+                    <td>number</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzSize]</code></td>
+                    <td>width of input box</td>
+                    <td>string</td>
+                    <td>default</td>
+                </tr>
+                <tr>
+                    <td><code>[nzStep]</code></td>
+                    <td>The number to which the current value is increased or decreased. It can be an integer or decimal.</td>
+                    <td>number ｜ string</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td><code>[nzPlaceHolder]</code></td>
+                    <td>Placeholder of select</td>
+                    <td>string</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzId]</code></td>
+                    <td>input id attribute inside the component</td>
+                    <td><code>string</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>(ngModelChange)</code></td>
+                    <td>The callback triggered when the value is changed</td>
+                    <td><code>EventEmitter&lt;number&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>(nzFocus)</code></td>
+                    <td>focus callback</td>
+                    <td><code>EventEmitter&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>(nzBlur)</code></td>
+                    <td>blur callback</td>
+                    <td><code>EventEmitter&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>  
+</nz-card> 
+<nz-card nzTitle="Method">
+    <div class="markdown api-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>focus()</td>
+                    <td>get focus</td>
+                </tr>
+                <tr>
+                    <td>blur()</td>
+                    <td>remove focus</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>  
+</nz-card>      

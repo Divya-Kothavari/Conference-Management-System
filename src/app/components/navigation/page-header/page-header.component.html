@@ -1,0 +1,255 @@
+<nz-card>
+    <h4>Basic Page Header</h4>
+    <p>Basic Page Header</p>
+    <div class="m-t-25">
+        <nz-page-header class="border" (nzBack)="onBack()" nzBackIcon nzTitle="Title" nzSubtitle="This is a subtitle"></nz-page-header>
+    </div>
+    <codebox [codeContent]="pageHeaderBasicCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Use with breadcrumbs</h4>
+    <p>Use with breadcrumbs</p>
+    <div class="m-t-25">
+        <nz-page-header nzBackIcon nzTitle="Title" class="border">
+            <nz-breadcrumb nz-page-header-breadcrumb>
+                <nz-breadcrumb-item>First-level Menu</nz-breadcrumb-item>
+                <nz-breadcrumb-item>
+                    <a>Second-level Menu</a>
+                </nz-breadcrumb-item>
+                <nz-breadcrumb-item>Third-level Menu</nz-breadcrumb-item>
+            </nz-breadcrumb>
+        </nz-page-header>
+    </div>
+    <codebox [codeContent]="pageHeaderBreadcrumbCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Content</h4>
+    <p>You can use <code>&lt;nz-page-header-content&gt;</code> to add content.</p>
+    <div class="m-t-25">
+        <nz-page-header nzTitle="Page Title">
+            <nz-breadcrumb nz-page-header-breadcrumb>
+                <nz-breadcrumb-item>First-level Menu</nz-breadcrumb-item>
+                <nz-breadcrumb-item>
+                    <a>Second-level Menu</a>
+                </nz-breadcrumb-item>
+                <nz-breadcrumb-item>Third-level Menu</nz-breadcrumb-item>
+            </nz-breadcrumb>
+            <nz-page-header-content>
+                <div class="d-md-flex align-items-center m-t-20">
+                    <div class="content">
+                        <div class="content">
+                            <p>Ant Design interprets the color system into two levels: a system-level color system and a product-level
+                                color system.</p>
+                            <p>Ant Design's design team preferred to design with the HSB color model, which makes it easier for
+                                designers to have a clear psychological expectation of color when adjusting colors, as well as
+                                facilitate communication in teams.</p>
+                            <div class="m-t-20">
+                                <a class="m-r-15">
+                                    <img class="m-r-5" src="https://gw.alipayobjects.com/zos/rmsportal/MjEImQtenlyueSmVEfUD.svg" alt="start">Quick Start
+                                </a>
+                                <a class="m-r-15">
+                                    <img class="m-r-5" src="https://gw.alipayobjects.com/zos/rmsportal/NbuDUAuBlIApFuDvWiND.svg" alt="info">Product Info
+                                </a>
+                                <a class="m-r-15">
+                                    <img class="m-r-5" src="https://gw.alipayobjects.com/zos/rmsportal/ohOEPSYdDTNnyMbGuyLb.svg" alt="doc">Product Doc
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="min-width: 240px" class="text-right">
+                        <img src="https://gw.alipayobjects.com/mdn/mpaas_user/afts/img/A*KsfVQbuLRlYAAAAAAAAAAABjAQAAAQ/original" alt="content">
+                    </div>
+                </div>
+            </nz-page-header-content>
+        </nz-page-header>
+    </div>
+    <codebox [codeContent]="pageHeaderContentCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Complex example</h4>
+    <p>Use the action area and customize the child nodes</p>
+    <div class="m-t-25">
+        <nz-page-header class="border-bottom" nzBackIcon>
+            <nz-page-header-title>Title</nz-page-header-title>
+            <nz-page-header-subtitle>This is a subtitle</nz-page-header-subtitle>
+            <nz-page-header-tags>
+                <nz-tag [nzColor]="'red'">Warning</nz-tag>
+            </nz-page-header-tags>
+            <nz-page-header-extra>
+                <button nz-button>Operation</button>
+                <button nz-button>Operation</button>
+                <button nz-button nzType="primary">Primary</button>
+            </nz-page-header-extra>
+            <nz-page-header-content>
+                <div class="d-md-flex">
+                    <div nz-row class="content padding">
+                        <div nz-col nzSm="24" nzMd="12">
+                            <div class="m-b-10">
+                                <span>Created:</span>
+                                <span class="m-l-5 text-gray">Lili Qu</span>
+                            </div>
+                        </div>
+                        <div nz-col nzSm="24" nzMd="12">
+                            <div class="m-b-10">
+                                <span>Association:</span>
+                                <a class="m-l-5">421421</a>
+                            </div>
+                        </div>
+                        <div nz-col nzSm="24" nzMd="12">
+                            <div class="m-b-10">
+                                <span>Creation Time:</span>
+                                <span class="m-l-5 text-gray">2017-01-10</span>
+                            </div>
+                        </div>
+                        <div nz-col nzSm="24" nzMd="12">
+                            <div class="m-b-10">
+                                <span>Effective Time:</span>
+                                <span class="m-l-5 text-gray">2017-01-10</span>
+                            </div>
+                        </div>
+                        <div nz-col nzSm="24" nzMd="12">
+                            <div class="m-b-10">
+                                <span>Remarks:</span>
+                                <span class="m-l-5 text-gray">Gonghu Road, Xihu District, Hangzhou, Zhejiang, China</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div nz-row class="flex-fill text-right">
+                        <div nz-col nzSm="24" nzMd="12">
+                            <span>Status</span>
+                            <h4 class="m-l-5">Pending</h4>
+                        </div>
+                        <div nz-col nzSm="24" nzMd="12">
+                            <span > Price</span>
+                            <h4 class="m-l-5">$ 568.08</h4>
+                        </div>
+                    </div>
+                </div>
+            </nz-page-header-content>
+            <nz-page-header-footer>
+                <nz-tabset [nzSelectedIndex]="1">
+                    <nz-tab nzTitle="Details"></nz-tab>
+                    <nz-tab nzTitle="Rule"></nz-tab>
+                </nz-tabset>
+            </nz-page-header-footer>
+        </nz-page-header>
+    </div>
+    <codebox [codeContent]="pageHeaderComplexCode"></codebox>
+</nz-card>
+<nz-card nzTitle="API">
+    <div class="row m-b-20">
+        <div class="col-md-12">
+            <pre><code highlight [textContent]="pageHeaderAPICode"></code></pre>
+        </div>
+    </div>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-page-header</span>
+            <label class="api-type-label component">Component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Param</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzTitle]</code></td>
+                    <td>title string</td>
+                    <td><code>string｜TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzSubTitle]</code></td>
+                    <td>subTitle string</td>
+                    <td><code>string｜TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzBackIcon]</code></td>
+                    <td>custom back icon</td>
+                    <td><code>string｜TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzBack]</code></td>
+                    <td>back icon click event</td>
+                    <td><code>EventEmitter&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">Page header sections</span>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Element</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>&lt;nz-page-header-title&gt;</code></td>
+                    <td>Title section</td>
+                </tr>
+                <tr>
+                    <td><code>&lt;nz-page-header-subtitle&gt;</code></td>
+                    <td>Subtitle section, <code>[nzTitle]</code> has high priority</td>
+                </tr>
+                <tr>
+                    <td><code>&lt;nz-page-header-content&gt;</code></td>
+                    <td>Content section, <code>[nzSubTitle]</code> has high priority</td>
+                </tr>
+                <tr>
+                    <td><code>&lt;nz-page-header-footer&gt;</code></td>
+                    <td>Footer section</td>
+                </tr>
+                <tr>
+                    <td><code>&lt;nz-page-header-tags&gt;</code></td>
+                    <td>Tags container after the title</td>
+                </tr>
+                <tr>
+                    <td><code>&lt;nz-page-header-extra&gt;</code></td>
+                    <td>Operating area, at the end of the line of the title line</td>
+                </tr>
+                <tr>
+                    <td><code>&lt;nz-breadcrumb nz-page-header-breadcrumb&gt;</code></td>
+                    <td>Breadcrumb section</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">[nz-submenu]</span>
+            <label class="api-type-label directive">directive</label>
+        </h5>
+        <p>use <code>title</code> to mark the title of submenu</p>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">[nz-menu-group]</span>
+            <label class="api-type-label directive">directive</label>
+        </h5>
+        <p>use <code>title</code> to mark the title of menu group</p>
+    </div> 
+    <hr>   
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">[nz-menu-divider]</span>
+            <label class="api-type-label directive">directive</label>
+        </h5>
+        <p>Divider line in between menu items, only used in vertical popup Menu or Dropdown Menu.</p>
+    </div>    
+</nz-card>     

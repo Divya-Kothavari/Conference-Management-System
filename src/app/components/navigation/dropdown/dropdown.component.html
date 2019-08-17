@@ -1,0 +1,368 @@
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Basic</h4>
+            <p>The most basic dropdown menu.</p>
+            <div class="m-t-25">
+                <a nz-dropdown [nzDropdownMenu]="menuBasic">
+                    Hover me
+                    <i nz-icon nzType="down"></i>
+                </a>
+                <nz-dropdown-menu #menuBasic="nzDropdownMenu">
+                    <ul nz-menu nzSelectable>
+                        <li nz-menu-item>1st menu item</li>
+                        <li nz-menu-item>2nd menu item</li>
+                        <li nz-menu-item>3rd menu item</li>
+                    </ul>
+                </nz-dropdown-menu>
+            </div>
+            <codebox [codeContent]="dropdownBasicCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Other elements</h4>
+            <p>Divider and disabled menu item.</p>
+            <div class="m-t-25">
+                <a nz-dropdown [nzDropdownMenu]="menuOtherElements">
+                    Hover me
+                    <i nz-icon nzType="down"></i>
+                </a>
+                <nz-dropdown-menu #menuOtherElements="nzDropdownMenu">
+                    <ul nz-menu>
+                        <li nz-menu-item>1st menu item</li>
+                        <li nz-menu-item>2nd menu item</li>
+                        <li nz-menu-divider></li>
+                        <li nz-menu-item nzDisabled>3rd menu item（disabled）</li>
+                    </ul>
+                </nz-dropdown-menu>
+                <codebox [codeContent]="dropdownOtherElementsCode"></codebox>
+            </div>
+        </nz-card>
+        <nz-card>
+            <h4>Click event</h4>
+            <p>An event will be triggered when you click menu items, in which you can make different operations by adding events to item. <i>(Check console log)</i></p>
+            <div class="m-t-25">
+                <a nz-dropdown [nzDropdownMenu]="menuClickEvent">
+                    Hover me, Click menu item
+                    <i nz-icon nzType="down"></i>
+                </a>
+                <nz-dropdown-menu #menuClickEvent="nzDropdownMenu">
+                    <ul nz-menu>
+                        <li nz-menu-item (click)="log('1st menu item')">1st menu item</li>
+                        <li nz-menu-item (click)="log('2nd menu item')">2nd menu item</li>
+                        <li nz-menu-item (click)="log('3rd menu item')">3rd menu item</li>
+                    </ul>
+                </nz-dropdown-menu>
+                <codebox [codeContent]="dropdownClickEventCode"></codebox>
+            </div>
+        </nz-card>
+        <nz-card>
+            <h4>Cascading menu</h4>
+            <p>The menu has multiple levels. <i>(Check console log)</i></p>
+            <div class="m-t-25">
+                <a nz-dropdown [nzDropdownMenu]="menuCascading" (nzVisibleChange)="change($event)">
+                    Cascading menu
+                    <i nz-icon nzType="down"></i>
+                </a>
+                <nz-dropdown-menu #menuCascading="nzDropdownMenu">
+                    <ul nz-menu>
+                        <li nz-menu-item>1st menu item</li>
+                        <li nz-menu-item>2nd menu item</li>
+                        <li nz-submenu nzTitle="sub menu">
+                            <ul>
+                                <li nz-menu-item>3rd menu item</li>
+                                <li nz-menu-item>4th menu item</li>
+                            </ul>
+                        </li>
+                        <li nz-submenu nzDisabled nzTitle="disabled sub menu">
+                            <ul>
+                                <li nz-menu-item>3rd menu item</li>
+                                <li nz-menu-item>4th menu item</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nz-dropdown-menu>  
+                <codebox [codeContent]="dropdownCascadingCode"></codebox>
+            </div>
+        </nz-card>
+        <nz-card>
+            <h4>Context Menu</h4>
+            <p>Trigger <code>dropdown</code> with contextmenu.</p>
+            <div class="m-t-25">
+                    <div class="context-area" (contextmenu)="contextMenu($event, menuContext)">
+                        <span class="context-intro">Context Menu</span>
+                    </div>
+                    <nz-dropdown-menu #menuContext="nzDropdownMenu">
+                        <ul nz-menu>
+                            <li nz-menu-item>1st menu item</li>
+                            <li nz-menu-item>2nd menu item</li>
+                            <li nz-menu-item nzDisabled>disabled menu item</li>
+                            <li nz-submenu nzTitle="sub menu">
+                            <ul>
+                                <li nz-menu-item>3rd menu item</li>
+                                <li nz-menu-item>4th menu item</li>
+                            </ul>
+                            </li>
+                            <li nz-submenu nzDisabled nzTitle="disabled sub menu">
+                                <ul>
+                                    <li nz-menu-item>3rd menu item</li>
+                                    <li nz-menu-item>4th menu item</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nz-dropdown-menu>
+                <codebox [codeContent]="dropdownContextMenuCode"></codebox>
+            </div>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Placement</h4>
+            <p>Support 6 placements.</p>
+            <div class="m-t-25">
+                <div>
+                    <ng-container *ngFor="let position of listOfPosition">
+                        <button class="m-r-10 m-b-10" nz-button nz-dropdown [nzDropdownMenu]="menuPlacement" [nzPlacement]="position">{{ position }}</button>
+                        <nz-dropdown-menu #menuPlacement="nzDropdownMenu">
+                            <ul nz-menu>
+                                <li nz-menu-item>1st menu item length</li>
+                                <li nz-menu-item>2nd menu item length</li>
+                                <li nz-menu-item>3rd menu item length</li>
+                            </ul>
+                        </nz-dropdown-menu>
+                    </ng-container>
+                </div>
+            </div>
+            <codebox [codeContent]="dropdownPlacementCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Trigger mode</h4>
+            <p>The default trigger mode is <code>hover</code>, you can change it to <code>click</code>.</p>
+            <div class="m-t-25">
+                <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menuTrigger">
+                    Click me
+                    <i nz-icon nzType="down"></i>
+                </a>
+                <nz-dropdown-menu #menuTrigger="nzDropdownMenu">
+                    <ul nz-menu>
+                        <li nz-menu-item>1st menu item</li>
+                        <li nz-menu-item>2nd menu item</li>
+                        <li nz-menu-divider></li>
+                        <li nz-menu-item nzDisabled>disabled menu item</li>
+                        <li nz-submenu nzTitle="sub menu">
+                            <ul>
+                                <li nz-menu-item>3rd menu item</li>
+                                <li nz-menu-item>4th menu item</li>
+                            </ul>
+                        </li>
+                        <li nz-submenu nzDisabled nzTitle="disabled sub menu">
+                            <ul>
+                                <li nz-menu-item>3rd menu item</li>
+                                <li nz-menu-item>4th menu item</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nz-dropdown-menu>
+            </div>   
+            <codebox [codeContent]="dropdownTriggerCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Button with dropdown menu</h4>
+            <p>A button is on the left, and a related functional menu is on the right.</p>
+            <div class="m-t-25">
+                <nz-button-group class="m-r-10 m-b-10">
+                    <button nz-button (click)="log('click dropdown button')">DropDown</button>
+                    <button nz-button nz-dropdown [nzDropdownMenu]="menu1" nzPlacement="bottomRight">
+                        <i nz-icon nzType="ellipsis"></i>
+                    </button>
+                </nz-button-group>
+                <nz-button-group class="m-r-10 m-b-10">
+                    <button nz-button (click)="log('click dropdown button')">DropDown</button>
+                    <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
+                        <i nz-icon nzType="user"></i>
+                    </button>
+                </nz-button-group>
+                <nz-button-group class="m-r-10 m-b-10">
+                    <button nz-button disabled>DropDown</button>
+                    <button nz-button disabled nz-dropdown [nzDropdownMenu]="menu3" nzPlacement="bottomRight">
+                        <i nz-icon nzType="ellipsis"></i>
+                    </button>
+                </nz-button-group>
+                <button nz-button nz-dropdown [nzDropdownMenu]="menu4">
+                    Button
+                    <i nz-icon nzType="down"></i>
+                </button>
+                <nz-dropdown-menu #menu1="nzDropdownMenu">
+                    <ul nz-menu>
+                        <li nz-menu-item>menu1 1st menu item</li>
+                        <li nz-menu-item>menu1 2nd menu item</li>
+                        <li nz-menu-item>menu1 3rd menu item</li>
+                    </ul>
+                </nz-dropdown-menu>
+                <nz-dropdown-menu #menu2="nzDropdownMenu">
+                    <ul nz-menu>
+                        <li nz-menu-item>menu2 1st menu item</li>
+                        <li nz-menu-item>menu2 2nd menu item</li>
+                        <li nz-menu-item>menu2 3rd menu item</li>
+                    </ul>
+                </nz-dropdown-menu>
+                <nz-dropdown-menu #menu3="nzDropdownMenu">
+                    <ul nz-menu>
+                        <li nz-menu-item>menu3 1st menu item</li>
+                        <li nz-menu-item>menu3 2nd menu item</li>
+                        <li nz-menu-item>menu3 3rd menu item</li>
+                    </ul>
+                </nz-dropdown-menu>
+                <nz-dropdown-menu #menu4="nzDropdownMenu">
+                    <ul nz-menu>
+                        <li nz-menu-item>menu4 1st menu item</li>
+                        <li nz-menu-item>menu4 2nd menu item</li>
+                        <li nz-menu-item>menu4 3rd menu item</li>
+                    </ul>
+                </nz-dropdown-menu>
+            </div>   
+            <codebox [codeContent]="dropdownButtonCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>The way of hiding menu</h4>
+            <p>The default is to close the menu when you click on menu items, this feature can be turned off.</p>
+            <div class="m-t-25">
+                <a nz-dropdown [nzDropdownMenu]="menu" [nzClickHide]="false" [(nzVisible)]="visible">
+                    Hover me
+                    <i nz-icon nzType="down"></i>
+                </a>
+                <nz-dropdown-menu #menu="nzDropdownMenu">
+                    <ul nz-menu>
+                        <li nz-menu-item>Clicking me will not close the menu.</li>
+                        <li nz-menu-item>Clicking me will not close the menu also.</li>
+                        <li nz-menu-item (click)="visible = false">Clicking me will close the menu</li>
+                    </ul>
+                </nz-dropdown-menu>
+            </div>    
+            <codebox [codeContent]="dropdownHidingCode"></codebox>
+        </nz-card>
+    </div>
+</div>
+<nz-card nzTitle="API">
+    <div class="markdown api-container">
+        <h5 class="m-b-20">
+            <span class="font-weight-light">nz-dropdown</span>
+            <label class="api-type-label component">Component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzDropdownMenu]</code></td>
+                    <td>Dropdown menu</td>
+                    <td><code>NzDropdownMenuComponent</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzDisabled]</code></td>
+                    <td>whether the dropdown menu is disabled</td>
+                    <td><code>boolean</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzPlacement]</code></td>
+                    <td>placement of pop menu</td>
+                    <td><code>'bottomLeft' | 'bottomCenter' | 'bottomRight' | 'topLeft' | 'topCenter' | 'topRight'</code></td>
+                    <td><code>'bottomLeft'</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzTrigger]</code></td>
+                    <td>the trigger mode which executes the drop-down action</td>
+                    <td><code>'click' | 'hover'</code></td>
+                    <td><code>'hover'</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzClickHide]</code></td>
+                    <td>whether hide menu when click</td>
+                    <td><code>boolean</code></td>
+                    <td><code>true</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzVisible]</code></td>
+                    <td>whether the dropdown menu is visible, double binding</td>
+                    <td><code>boolean</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzBackdrop]</code></td>
+                    <td>whether the dropdown has a backdrop when <code>nzTrigger</code> is <code>click</code></td>
+                    <td><code>boolean</code></td>
+                    <td><code>true</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzOverlayClassName]</code></td>
+                    <td>Class name of the dropdown root element</td>
+                    <td><code>string</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzOverlayStyle]</code></td>
+                    <td>Style of the dropdown root element</td>
+                    <td><code>object</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>(nzVisibleChange)</code></td>
+                    <td>a callback function takes an argument: <code>nzVisible</code>, is executed when the visible state is changed</td>
+                    <td><code>EventEmitter&lt;boolean&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>You should use <a [routerLink]="['/components/navigation/menu']">nz-menu</a> in <code>nz-dropdown</code>. The menu items and dividers are also available by using <code>nz-menu-item</code> and <code>nz-menu-divider</code>.</p>
+        <blockquote><p>nz-menu of nz-dropdown is unselectable by default, you can make it selectable via <code>&lt;ul nz-menu nzSelectable&gt;</code>.</p></blockquote>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5 class="m-b-20">
+            <span class="font-weight-light">nz-dropdown-menu</span>
+            <label class="api-type-label component">Component</label>
+        </h5>
+        <p>Wrap Dropdown Menu and pass to <code>[nz-dropdown]</code> & <code>NzContextMenuService</code>, you can export it via Template Syntax <code>nzDropdownMenu</code></p>
+        <blockquote><p>Note：Every <code>[nz-dropdown]</code> should pass independent <code>nz-dropdown-menu</code>.</p></blockquote>
+        <pre><code highlight [textContent]="dropdownAPICode"></code></pre>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5 class="m-b-20">
+            <span class="font-weight-light">NzContextMenuService</span>
+            <label class="api-type-label service">service</label>
+        </h5>
+        <p>Create dropdown with contextmenu, the detail can be found in the example above</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Arguments</th>
+                    <th>Return Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>create</td>
+                    <td>create dropdown</td>
+                    <td><code>($event:MouseEvent, template:TemplateRef&lt;void&gt;)</code></td>
+                    <td>NzDropdownContextComponent</td>
+                </tr>
+                <tr>
+                    <td>close</td>
+                    <td>close dropdown</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>    
+</nz-card>

@@ -1,0 +1,208 @@
+<nz-card>
+    <h4>Collapse</h4>
+    <p>More than one panel can be expanded at a time, the first panel is initialized to be active in this case.</p>
+    <div class="m-t-25">
+        <nz-collapse nzAccordion>
+            <nz-collapse-panel *ngFor="let panel of collapseBasicPanels" [nzHeader]="panel.name" [nzActive]="panel.active">
+                <p>{{panel.name}} content</p>
+            </nz-collapse-panel>
+        </nz-collapse>
+    </div>
+    <codebox [codeContent]="collapseBasicCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Accordion</h4>
+    <p>Accordion mode, only one panel can be expanded at a time. The first panel will be expanded by default.</p>
+    <div class="m-t-25">
+        <nz-collapse nzAccordion>
+            <nz-collapse-panel *ngFor="let panel of collapseAccordionPanels" [nzHeader]="panel.name" [nzActive]="panel.active">
+                <p>{{panel.name}} content</p>
+            </nz-collapse-panel>
+        </nz-collapse>
+    </div>
+    <codebox [codeContent]="collapseAccordionCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Nested panel</h4>
+    <p><code>Collapse</code> is nested inside the <code>Collapse</code>.</p>
+    <div class="m-t-25">
+        <nz-collapse>
+            <nz-collapse-panel *ngFor="let panel of collapseNestedPanels" [nzHeader]="panel.name" [nzActive]="panel.active">
+                <p>{{panel.name}}</p>
+                <div *ngIf="panel.childPanel&&panel.childPanel.length>0">
+                    <nz-collapse>
+                        <nz-collapse-panel *ngFor="let childPanel of panel.childPanel" [nzHeader]="childPanel.name"
+                            [nzActive]="childPanel.active">
+                            <p>A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.</p>
+                        </nz-collapse-panel>
+                    </nz-collapse>
+                </div>
+            </nz-collapse-panel>
+        </nz-collapse>
+    </div>
+    <codebox [codeContent]="collapseNestedCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Borderless</h4>
+    <p>A borderless style of Collapse.</p>
+    <div class="m-t-25">
+        <nz-collapse [nzBordered]="false">
+            <nz-collapse-panel *ngFor="let panel of collapseBasicPanels" [nzHeader]="panel.name" [nzActive]="panel.active">
+                <p>{{panel.name}} content</p>
+            </nz-collapse-panel>
+        </nz-collapse>
+    </div>
+    <codebox [codeContent]="collapseBorderlessCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Custom Panel</h4>
+    <p>Customize the background, border and margin styles for each panel.</p>
+    <div class="m-t-25">
+        <nz-collapse [nzBordered]="false">
+            <nz-collapse-panel
+                #p
+                *ngFor="let panel of collapseCustomPanels; let isFirst = first"
+                [nzHeader]="panel.name"
+                [nzActive]="panel.active"
+                [ngStyle]="panel.customStyle"
+                [nzExpandedIcon]="!isFirst && (panel.icon || expandedIcon)"
+            >
+                <p>{{ panel.name }} content</p>
+                <ng-template #expandedIcon let-active>
+                    {{ active }}
+                    <i nz-icon nzType="caret-right" class="ant-collapse-arrow" [nzRotate]="p.nzActive ? 90 : -90"></i>
+                </ng-template>
+            </nz-collapse-panel>
+        </nz-collapse>
+    </div>
+    <codebox [codeContent]="collapseCustomCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>No arrow</h4>
+    <p>You can disable showing arrow icon by passing <code>[nzShowArrow]="false"</code> to <code>nz-collapse-panel</code> component.</p>
+    <div class="m-t-25">
+        <nz-collapse>
+            <nz-collapse-panel *ngFor="let panel of collapseNoArrowPanels" [nzHeader]="panel.name" [nzActive]="panel.active" [nzShowArrow]="panel.arrow">
+                <p class="m-b-0">A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.</p>
+            </nz-collapse-panel>
+        </nz-collapse>
+    </div>
+    <codebox [codeContent]="collapseNoArrowCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Extra Node</h4>
+    <p>You can use <code>nzExtra</code> to put extra elements in the top right corner.</p>
+    <div class="m-t-25">
+        <nz-collapse>
+            <nz-collapse-panel
+                *ngFor="let panel of collapseExtraNodePanels"
+                [nzHeader]="panel.name"
+                [nzActive]="panel.active"
+                [nzExtra]="extraTpl"
+                [nzDisabled]="panel.disabled"
+                >
+                <p style="margin:0;">
+                    A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome
+                    guest in many households across the world.
+                </p>
+            </nz-collapse-panel>
+        </nz-collapse>
+        <ng-template #extraTpl>
+            <i nz-icon nzType="setting"></i>
+        </ng-template>
+    </div>
+    <codebox [codeContent]="collapseExtraNodeCode"></codebox>
+</nz-card>
+<nz-card nzTitle="API">
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-collapse</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzAccordion]</code></td>
+                    <td>Accordion mode</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzBordered]</code></td>
+                    <td>Set border style</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-collapse-panel</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzDisabled]</code></td>
+                    <td>If <code>true</code>, panel cannot be opened or closed</td>
+                    <td><code>boolean</code></td>
+                    <td><code>false</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzHeader]</code></td>
+                    <td>Title of the panel</td>
+                    <td><code>string | TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzExpandedIcon]</code></td>
+                    <td>Customize an icon for toggle</td>
+                    <td><code>string | TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzExtra]</code></td>
+                    <td>Extra element in the corner</td>
+                    <td><code>string | TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzShowArrow]</code></td>
+                    <td>Display arrow or not</td>
+                    <td><code>boolean</code></td>
+                    <td><code>true</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzActive]</code></td>
+                    <td>Active status of panel, double binding</td>
+                    <td><code>boolean</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>(nzActiveChange)</code></td>
+                    <td>Callback function of the active status</td>
+                    <td><code>EventEmitter&lt;boolean&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</nz-card>

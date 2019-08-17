@@ -1,0 +1,173 @@
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Basic</h4>
+            <p>The simplest usage.</p>
+            <div class="m-t-25">
+                <span nz-tooltip nzTitle="prompt text">Tooltip will show when mouse enter.</span>
+            </div>
+            <codebox [codeContent]="tooltipBasicCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Arrow pointing at the center</h4>
+            <p>By specifying <code>nzPlacement</code> prop, the arrow can be point to the center of the target element.</p>
+            <div class="m-t-25">
+                <button class="m-r-10" nz-button nzTitle="prompt text" nzPlacement="topLeft" nz-tooltip>Align edge</button>
+                <button nz-button nzTitle="prompt text" nzPlacement="topCenter" nz-tooltip>Arrow points to center</button>
+            </div>
+            <codebox [codeContent]="tooltipArrowPointingCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Placement</h4>
+            <p>The ToolTip has 12 placements choice.</p>
+            <div class="m-t-25">
+                <div style="margin-left: 60px">
+                    <button style="width: 90px" class="m-5" nzTitle="prompt text" nzPlacement="topLeft" nz-button nz-tooltip>TL</button>
+                    <button style="width: 90px" class="m-5" nzTitle="prompt text" nzPlacement="top" nz-button nz-tooltip>Top</button>
+                    <button style="width: 90px" class="m-5" nzTitle="prompt text" nzPlacement="topRight" nz-button nz-tooltip>TR</button>
+                </div>
+                <div style="width: 60px; float: left;">
+                    <button style="width: 90px" class="m-5" nzTitle="prompt text" nzPlacement="leftTop" nz-button nz-tooltip>LT</button>
+                    <button style="width: 90px" class="m-5" nzTitle="prompt text" nzPlacement="left" nz-button nz-tooltip>Left</button>
+                    <button style="width: 90px" class="m-5" nzTitle="prompt text" nzPlacement="leftBottom" nz-button nz-tooltip>LB</button>
+                </div>
+                <div style="width: 60px; margin-left: 300px;">
+                    <button style="width: 90px" class="m-5" nzTitle="prompt text" nzPlacement="rightTop" nz-button nz-tooltip>RT</button>
+                    <button style="width: 90px" class="m-5" nzTitle="prompt text" nzPlacement="right" nz-button nz-tooltip>Right</button>
+                    <button style="width: 90px" class="m-5" nzTitle="prompt text" nzPlacement="rightBottom" nz-button nz-tooltip>RB</button>
+                </div>
+                <div style="margin-left: 60px; clear: both;">
+                    <button style="width: 90px" class="m-5" nzTitle="prompt text" nzPlacement="bottomLeft" nz-button nz-tooltip>BL</button>
+                    <button style="width: 90px" class="m-5" nzTitle="prompt text" nzPlacement="bottom" nz-button nz-tooltip>Bottom</button>
+                    <button style="width: 90px" class="m-5" nzTitle="prompt text" nzPlacement="bottomRight" nz-button nz-tooltip>BR</button>
+                </div>
+            </div>
+            <codebox [codeContent]="tooltipPlacementCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Template</h4>
+            <p><code>nzTitle</code> accept the type of <code>TemplateRef&lt;void&gt;</code></p>
+            <div class="m-t-25">
+                <a nz-tooltip [nzTitle]="titleTemplate">This Tooltip Have Icon</a>
+                <ng-template #titleTemplate>
+                    <i nz-icon type="file" class="m-r-10"></i> <span>Tooltip With Icon</span>
+                </ng-template>
+            </div>
+            <codebox [codeContent]="tooltipTemplateCode"></codebox>
+        </nz-card>
+    </div>
+</div>    
+<nz-card nzTitle="API">
+    <div class="markdown api-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzTitle]</code></td>
+                    <td>The text shown in the tooltip</td>
+                    <td>string丨<code>TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">Common API</span>
+        </h5>
+        <p>The following APIs are shared by <code>nz-tooltip</code>, <code>nz-popconfirm</code>, <code>nz-popover</code>.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzMouseEnterDelay]</code></td>
+                    <td>Delay in seconds, before tooltip is shown on mouse enter</td>
+                    <td>number</td>
+                    <td>0</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><code>[nzMouseLeaveDelay]</code></td>
+                    <td>Delay in seconds, before tooltip is hidden on mouse leave</td>
+                    <td>number</td>
+                    <td>0.1</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><code>[nzOverlayClassName]</code></td>
+                    <td>Class name of the tooltip card</td>
+                    <td>string</td>
+                    <td>-</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><code>[nzOverlayStyle]</code></td>
+                    <td>Style of the tooltip card</td>
+                    <td>object</td>
+                    <td>-</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><code>[nzPlacement]</code></td>
+                    <td>The position of the tooltip relative to the target, which can be one of <code>top</code><code>left</code><code>right</code><code>bottom</code><code>topLeft</code><code>topRight</code><code>bottomLeft</code><code>bottomRight</code><code>leftTop</code><code>leftBottom</code><code>rightTop</code><code>rightBottom</code></td>
+                    <td>string</td>
+                    <td><code>top</code></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><code>[nzTrigger]</code></td>
+                    <td>Tooltip trigger mode</td>
+                    <td><code>hover</code></td>
+                    <td><code>focus</code></td>
+                    <td><code>click</code></td>
+                    <td><code>hover</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzVisible]</code></td>
+                    <td>Whether the floating tooltip card is visible or not</td>
+                    <td>boolean</td>
+                    <td><code>false</code></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><code>(nzVisibleChange)</code></td>
+                    <td>Callback executed when visibility of the tooltip card is changed</td>
+                    <td><code>EventEmitter&lt;boolean&gt;</code></td>
+                    <td>-</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</nz-card>    
+<nz-card nzTitle="Note">
+    <div class="markdown api-container">
+            <p>Please ensure that the child node of <code>nz-tooltip</code> accepts <code>onMouseEnter</code>, <code>onMouseLeave</code>, <code>onFocus</code>, <code>onClick</code> events.</p>
+    </div>
+</nz-card>   

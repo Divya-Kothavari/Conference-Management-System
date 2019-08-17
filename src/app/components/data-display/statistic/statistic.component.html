@@ -1,0 +1,246 @@
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Basic Usage</h4>
+            <p>Simplest Usage.</p>
+            <div class="m-t-25">
+                <nz-row [nzGutter]="16">
+                    <nz-col [nzSpan]="12">
+                        <nz-statistic [nzValue]="1949101 | number" [nzTitle]="'Active Users'"></nz-statistic>
+                    </nz-col>
+                    <nz-col [nzSpan]="12">
+                        <nz-statistic [nzValue]="2019.111 | number: '1.0-2'" [nzTitle]="'Account Balance (CNY)'"></nz-statistic>
+                    </nz-col>
+                </nz-row>
+            </div>
+            <codebox [codeContent]="statisticBasicCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>In Card</h4>
+            <p>Display statistic data in Card.</p>
+            <div class="m-t-25">
+                <nz-row [nzGutter]="16">
+                    <nz-col [nzSpan]="12">
+                        <nz-card>
+                            <nz-statistic
+                                [nzValue]="11.28 | number: '1.0-2'"
+                                [nzTitle]="'Active'"
+                                [nzPrefix]="prefixTplOne"
+                                [nzSuffix]="'%'"
+                                [nzValueStyle]="{ color: '#3F8600' }"
+                            >
+                            </nz-statistic>
+                            <ng-template #prefixTplOne><i nz-icon type="arrow-up"></i></ng-template>
+                        </nz-card>
+                    </nz-col>
+                    <nz-col [nzSpan]="12">
+                        <nz-card>
+                            <nz-statistic
+                                [nzValue]="9.3 | number: '1.0-2'"
+                                [nzTitle]="'Idle'"
+                                [nzPrefix]="prefixTplTwo"
+                                [nzSuffix]="'%'"
+                                [nzValueStyle]="{ color: '#CF1322' }"
+                            >
+                            </nz-statistic>
+                            <ng-template #prefixTplTwo><i nz-icon type="arrow-down"></i></ng-template>
+                        </nz-card>
+                    </nz-col>
+                </nz-row>
+            </div>
+            <codebox [codeContent]="statisticInCardCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Unit</h4>
+            <p>Add unit through <code>nzPrefix</code> and <code>nzSuffix</code>.</p>
+            <div class="m-t-25">
+                <nz-row [nzGutter]="16">
+                    <nz-col [nzSpan]="12">
+                        <nz-statistic [nzValue]="1128 | number" [nzTitle]="'Feedback'" [nzPrefix]="prefixTpl"></nz-statistic>
+                        <ng-template #prefixTpl><i nz-icon type="like"></i></ng-template>
+                    </nz-col>
+                    <nz-col [nzSpan]="12">
+                        <nz-statistic [nzValue]="93" [nzTitle]="'Unmerged'" [nzSuffix]="'/ 100'"></nz-statistic>
+                    </nz-col>
+                </nz-row>
+            </div>
+            <codebox [codeContent]="statisticUnitCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Countdown</h4>
+            <p>Countdown component.</p>
+            <div class="m-t-25">
+                <nz-row [nzGutter]="16">
+                    <nz-col [nzSpan]="12">
+                        <nz-countdown [nzValue]="deadline" [nzTitle]="'Countdown'"></nz-countdown>
+                    </nz-col>
+                    <nz-col [nzSpan]="12">
+                        <nz-countdown [nzValue]="deadline" [nzTitle]="'Million Seconds'" [nzFormat]="'HH:mm:ss:SSS'"></nz-countdown>
+                    </nz-col>
+                    <nz-col [nzSpan]="24" style="margin-top: 32px;">
+                        <nz-countdown [nzValue]="deadline" [nzTitle]="'Day Level'" [nzFormat]="'D 天 H 时 m 分 s 秒'"></nz-countdown>
+                    </nz-col>
+                </nz-row>
+            </div>
+            <codebox [codeContent]="statisticCountdownCode"></codebox>
+        </nz-card>
+    </div>
+</div>        
+<nz-card nzTitle="API">
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-statistic</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzPrefix]</code></td>
+                    <td>Prefix of Value</td>
+                    <td><code>string｜TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzSuffix]</code></td>
+                    <td>Suffix of Value</td>
+                    <td><code>string｜TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzTitle]</code></td>
+                    <td>Title</td>
+                    <td><code>string｜TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzValue]</code></td>
+                    <td>Value</td>
+                    <td><code>string｜number</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzValueStyle]</code></td>
+                    <td>Value CSS style</td>
+                    <td><code>Object</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzValueTemplate]</code></td>
+                    <td>Custom template to render a number</td>
+                    <td><code>TemplateRef&lt;{{ '{' }} $implicit: string｜number {{ '}' }}&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-countdown</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzFormat]</code></td>
+                    <td>Format string</td>
+                    <td><code>string</code></td>
+                    <td><code>"HH:mm:ss"</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzPrefix]</code></td>
+                    <td>Prefix of Value</td>
+                    <td><code>string｜TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzSuffix]</code></td>
+                    <td>Suffix of Value</td>
+                    <td><code>string｜TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzTitle]</code></td>
+                    <td>Title</td>
+                    <td><code>string｜TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzValue]</code></td>
+                    <td>Target time in timestamp form</td>
+                    <td><code>string｜number</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzValueTemplate]</code></td>
+                    <td>Custom template to render a time</td>
+                    <td><code>TemplateRef&lt;{{ '{' }} $implicit: number {{ '}' }}&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nzFormat</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Token</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>Y</code></td>
+                    <td>Year</td>
+                </tr>
+                <tr>
+                    <td><code>M</code></td>
+                    <td>Month</td>
+                </tr>
+                <tr>
+                    <td><code>D</code></td>
+                    <td>Date</td>
+                </tr>
+                <tr>
+                    <td><code>H</code></td>
+                    <td>Hour</td>
+                </tr>
+                <tr>
+                    <td><code>m</code></td>
+                    <td>Minute</td>
+                </tr>
+                <tr>
+                    <td><code>s</code></td>
+                    <td>Second</td>
+                </tr>
+                <tr>
+                    <td><code>S</code></td>
+                    <td>Millisecond</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</nz-card>

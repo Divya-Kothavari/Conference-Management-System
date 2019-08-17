@@ -1,0 +1,245 @@
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Basic</h4>
+            <p>Click <code>nz-time-picker</code>, and then we could select or input a time in panel.</p>
+            <div class="m-t-25">
+                <nz-time-picker [(ngModel)]="timePickerBasicTime" [nzDefaultOpenValue]="timePickerBasicDefaultOpenValue"></nz-time-picker>
+            </div>
+            <codebox [codeContent]="timePickerBasicCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Three Sizes</h4>
+            <p>The input box comes in three sizes. large is used in the form, while the medium size is the default.</p>
+            <div class="m-t-25">
+                <nz-time-picker [(ngModel)]="timePickerSizeTime" nzSize="large" class="m-r-10"></nz-time-picker>
+                <nz-time-picker [(ngModel)]="timePickerSizeTime" class="m-r-10"></nz-time-picker>
+                <nz-time-picker [(ngModel)]="timePickerSizeTime" nzSize="small"></nz-time-picker>
+            </div>
+            <codebox [codeContent]="timePickerSizeCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Hour and Minute</h4>
+            <p>While part of <code>nzFormat</code> is omitted, the corresponding column in panel will disappear, too.</p>
+            <div class="m-t-25">
+                <nz-time-picker [(ngModel)]="timePickerHourMinuteTime" nzFormat="HH:mm"></nz-time-picker>
+            </div>
+            <codebox [codeContent]="timePickerHourMinuteCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Addon</h4>
+            <p>Render addon contents to <code>nz-time-picker</code> panel's bottom.</p>
+            <div class="m-t-25">
+                <nz-time-picker [(ngModel)]="timeAddOntime" [nzAddOn]="addOnTemplate" #timePicker></nz-time-picker>
+                <ng-template #addOnTemplate>
+                    <button nz-button nzSize="small" nzType="primary" (click)="timePicker.close()">Ok</button>
+                </ng-template>
+            </div>
+            <codebox [codeContent]="timeAddOnCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Data binding</h4>
+            <p>Work with two-way binding.</p>
+            <div class="m-t-25">
+                <nz-time-picker [(ngModel)]="timePickerDataBindingTime" (ngModelChange)="timePickerDataBindinglog($event)"></nz-time-picker>
+            </div>
+            <codebox [codeContent]="timePickerDataBindingCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Disabled</h4>
+            <p>A disabled state of the <code>nz-time-picker</code>.</p>
+            <div class="m-t-25">
+                <nz-time-picker nzDisabled></nz-time-picker>
+            </div>
+            <codebox [codeContent]="timePickerDisabledCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Interval Option</h4>
+            <p>Show stepped options by <code>nzHourStep</code><code>nzMinuteStep</code><code>nzSecondStep</code>.</p>
+            <div class="m-t-25">
+                <nz-time-picker [nzMinuteStep]="15" [nzSecondStep]="10"></nz-time-picker>
+            </div>
+            <codebox [codeContent]="timePickerIntervalCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Disabled part</h4>
+            <p>To specify the hours|minutes|seconds that cannot be selected</p>
+            <div class="m-t-25">
+                <nz-time-picker [nzDisabledHours]="timePickerDisabledHours" [nzDisabledMinutes]="timePickerDisabledMinutes" [nzDisabledSeconds]="timePickerDisabledSeconds"></nz-time-picker>
+            </div>
+            <codebox [codeContent]="timePickerDisabledPartCode"></codebox>
+        </nz-card>
+    </div>
+</div>   
+<nz-card nzTitle="API">
+    <pre><code highlight [textContent]="timePickerAPICode"></code></pre>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-time-picker</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[ngModel]</code></td>
+                    <td>to set time</td>
+                    <td><code>Date</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzAddon]</code></td>
+                    <td>called from timepicker panel to render some addon to its bottom</td>
+                    <td><code>TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzAllowEmpty]</code></td>
+                    <td>allow clearing text</td>
+                    <td><code>boolean</code></td>
+                    <td><code>true</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzAutoFocus]</code></td>
+                    <td>get focus when component mounted</td>
+                    <td><code>boolean</code></td>
+                    <td><code>false</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzClearText]</code></td>
+                    <td>clear tooltip of icon</td>
+                    <td><code>string</code></td>
+                    <td><code>'clear'</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzDefaultOpenValue]</code></td>
+                    <td>default open panel value</td>
+                    <td><code>Date</code></td>
+                    <td><code>new Date()</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzDisabled]</code></td>
+                    <td>determine whether the TimePicker is disabled</td>
+                    <td><code>boolean</code></td>
+                    <td><code>false</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzDisabledHours]</code></td>
+                    <td>to specify the hours that cannot be selected</td>
+                    <td><code>() =&gt; number[]</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzDisabledMinutes]</code></td>
+                    <td>to specify the minutes that cannot be selected</td>
+                    <td><code>(hour: number) =&gt; number[]</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzDisabledSeconds]</code></td>
+                    <td>to specify the seconds that cannot be selected</td>
+                    <td><code>(hour: number, minute: number) =&gt; number[]</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzFormat]</code></td>
+                    <td>to set the time format</td>
+                    <td><a href="https://angular.io/api/common/DatePipe">DatePipe</a></td>
+                    <td><code>"HH:mm:ss"</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzHideDisabledOptions]</code></td>
+                    <td>hide the options that can not be selected</td>
+                    <td><code>boolean</code></td>
+                    <td><code>false</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzHourStep]</code></td>
+                    <td>interval between hours in picker</td>
+                    <td><code>number</code></td>
+                    <td><code>1</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzMinuteStep]</code></td>
+                    <td>interval between minutes in picker</td>
+                    <td><code>number</code></td>
+                    <td><code>1</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzSecondStep]</code></td>
+                    <td>interval between seconds in picker</td>
+                    <td><code>number</code></td>
+                    <td><code>1</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzOpen]</code></td>
+                    <td>whether to popup panel, double binding</td>
+                    <td><code>boolean</code></td>
+                    <td><code>false</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzPlaceHolder]</code></td>
+                    <td>display when there's no value</td>
+                    <td><code>string</code></td>
+                    <td><code>"Select a time"</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzPopupClassName]</code></td>
+                    <td>className of panel</td>
+                    <td><code>string</code></td>
+                    <td><code>''</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzUse12Hours]</code></td>
+                    <td>display as 12 hours format, with default format <code>h:mm:ss a</code></td>
+                    <td><code>boolean</code></td>
+                    <td><code>false</code></td>
+                </tr>
+                <tr>
+                    <td><code>(ngModelChange)</code></td>
+                    <td>a callback function, can be executed when the selected time is changing</td>
+                    <td><code>EventEmitter&lt;Date&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>(nzOpenChange)</code></td>
+                    <td>a callback function which will be called while panel opening/closing</td>
+                    <td><code>EventEmitter&lt;boolean&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</nz-card>  
+<nz-card nzTitle="Method">
+    <div class="markdown api-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>blur()</td>
+                    <td>remove focus</td>
+                </tr>
+                <tr>
+                    <td>focus()</td>
+                    <td>get focus</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</nz-card>        

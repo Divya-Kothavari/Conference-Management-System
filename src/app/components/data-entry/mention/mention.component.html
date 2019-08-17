@@ -1,0 +1,366 @@
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Basic</h4>
+            <p>Basic usage.</p>
+            <div class="m-t-25">
+                <nz-mention [nzSuggestions]="mentionSuggestions" (nzOnSelect)="mentionOnSelect($event)">
+                    <input placeholder="input here" nzMentionTrigger nz-input [(ngModel)]="mentionBasicInputValue" (ngModelChange)="mentionOnChange($event)" >
+                </nz-mention>
+            </div>
+            <codebox [codeContent]="mentionBasicCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Placement</h4>
+            <p>Change the suggestions placement.</p>
+            <div class="m-t-25">
+                <nz-mention nzPlacement="top" [nzSuggestions]="mentionSuggestions" (nzOnSelect)="mentionOnSelect($event)">
+                    <input nzMentionTrigger nz-input [(ngModel)]="mentionPlacementInputValue" (ngModelChange)="mentionOnChange($event)">
+                </nz-mention>
+            </div>
+            <codebox [codeContent]="mentionPlacementCode"></codebox>
+        </nz-card>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Asynchronous loading</h4>
+            <p>async</p>
+            <div class="m-t-25">
+                <nz-mention [nzSuggestions]="mentionAsynchronousSuggestions"
+                [nzLoading]="mentionAsynchronousLoading"
+                (nzOnSearchChange)="mentionAsynchronousOnSearchChange($event)">
+                <input
+                nzMentionTrigger
+                nz-input
+                [(ngModel)]="mentionAsynchronousInputValue">
+            </nz-mention>
+            </div>
+            <codebox [codeContent]="mentionAsynchronousCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Customize Suggestion</h4>
+            <p>Customize suggestions.</p>
+            <div class="m-t-25">
+                <nz-mention
+                    [nzSuggestions]="webFrameworks"
+                    [nzValueWith]="mentionCustomizeSuggestionValueWith"
+                    (nzOnSelect)="mentionCustomizeSuggestionOnSelect($event)">
+                    <input
+                        placeholder="@someone"
+                        nz-input
+                        nzMentionTrigger
+                        [(ngModel)]="mentionCustomSuggestionInputValue"
+                    >
+                    <ng-container *nzMentionSuggestion="let framework">
+                        <span>{{ framework.name }} - {{ framework.type }}</span>
+                    </ng-container>
+                </nz-mention>
+            </div>
+            <codebox [codeContent]="mentionCustomizeSuggestionCode"></codebox>
+        </nz-card>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Icon Image</h4>
+            <p>Customize suggestions.</p>
+            <div class="m-t-25">
+                <nz-mention
+                    [nzSuggestions]="webFrameworks"
+                    [nzValueWith]="mentionCustomizeSuggestionValueWith"
+                    (nzOnSelect)="mentionCustomizeSuggestionOnSelect($event)">
+                    <input
+                        nz-input
+                        nzMentionTrigger
+                        [(ngModel)]="mentionIconImageInputValue">
+                    <ng-container *nzMentionSuggestion="let framework">
+                        <nz-avatar nzSize="small" [nzText]="framework.name" [nzSrc]="framework.icon"></nz-avatar>
+                        <span class="m-l-10">{{ framework.name }} - {{ framework.type }}</span>
+                    </ng-container>
+                </nz-mention>
+            </div>
+            <codebox [codeContent]="mentionIconImageCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>With Form</h4>
+            <p>Controlled mode, for example, to work with <code>Form</code>.</p>
+            <div class="m-t-25">
+                <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+                    <nz-form-item>
+                        <nz-form-label [nzSm]="6" nzFor="mention">Top coders</nz-form-label>
+                        <nz-form-control [nzSm]="16">
+                            <nz-mention
+                            #mentions
+                            [nzSuggestions]="mentionSuggestions">
+                            <input
+                                id="mention"
+                                placeholder="input here"
+                                formControlName="mention"
+                                nzMentionTrigger
+                                nz-input>
+                            </nz-mention>
+                            <nz-form-explain *ngIf="validateForm.get('mention').dirty && validateForm.get('mention').errors">
+                                More than one must be selected!
+                            </nz-form-explain>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item nz-row style="margin-bottom:8px;">
+                        <nz-form-control [nzSpan]="14" [nzOffset]="6">
+                            <button class="m-r-10" type="button" nz-button nzType="primary" (click)="submitForm()">Submit</button>
+                            <button type="button" nz-button (click)="resetForm()">Reset</button>
+                        </nz-form-control>
+                    </nz-form-item>
+                </form>
+            </div>
+            <codebox [codeContent]="mentionWithFormCode"></codebox>
+        </nz-card>
+    </div>
+</div>   
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Multi-lines Mode</h4>
+            <p>Multi lines mode.</p>
+            <div class="m-t-25">
+                <nz-mention
+                    [nzSuggestions]="mentionSuggestions">
+                    <textarea
+                        nz-input
+                        [nzAutosize]="{minRows: 4, maxRows: 4}"
+                        [(ngModel)]="mentionMultiLinesInputValue"
+                        nzMentionTrigger>
+                    </textarea>
+                </nz-mention>
+            </div>
+            <codebox [codeContent]="mentionMultiLinesCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>disabled or readOnly</h4>
+            <p>Configurate <code>disabled</code> and <code>readOnly</code>.</p>
+            <div class="m-t-25">
+                <nz-mention
+                    [nzSuggestions]="mentionSuggestions">
+                    <input
+                        class="m-b-15"
+                        placeholder="this is disabled Mention"
+                        nzMentionTrigger
+                        nz-input
+                        disabled
+                        [(ngModel)]="mentionDiasbledInputValue">
+                    <input
+                        placeholder="this is readOnly Mention"
+                        nzMentionTrigger
+                        nz-input
+                        readOnly
+                        [(ngModel)]="mentionDiasbledInputValue">
+                </nz-mention>
+            </div>
+            <codebox [codeContent]="mentionDisabledCode"></codebox>
+        </nz-card>
+    </div>
+</div>    
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Customize Trigger Token</h4>
+            <p>Customize Trigger Token by <code>nzPrefix</code> props. Default to <code>@</code>, <code>Array&lt;string&gt;</code> also supported.</p>
+            <div class="m-t-25">
+                <nz-mention
+                    [nzSuggestions]="mentionCustomizeTriggerSuggestions"
+                    (nzOnSearchChange)="mentionCustomizeTriggerOnSearchChange($event)"
+                    [nzPrefix]="['#', '@']">
+                    <input
+                        placeholder="input @ to mention people, # to mention tag"
+                        nzMentionTrigger
+                        nz-input
+                        [(ngModel)]="mentionCustomizeTriggerInputValue">
+                </nz-mention>
+            </div>
+            <codebox [codeContent]="mentionCustomizeTriggerCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Preview</h4>
+            <p>Rendering the mentions.</p>
+            <div class="m-t-25">
+                <nz-tabset>
+                    <nz-tab nzTitle="Write">
+                        <nz-mention
+                        [nzSuggestions]="mentionPreviewsuggestions">
+                            <textarea
+                                nz-input
+                                [nzAutosize]="{minRows: 4, maxRows: 4}"
+                                [(ngModel)]="mentionPreviewInputValue"
+                                (ngModelChange)="renderPreView()"
+                                nzMentionTrigger>
+                            </textarea>
+                        </nz-mention>
+                    </nz-tab>
+                    <nz-tab nzTitle="Preview">
+                        <pre [innerHTML]="preview"></pre>
+                    </nz-tab>
+                </nz-tabset>
+            </div>
+            <codebox [codeContent]="mentionPreviewCode"></codebox>
+        </nz-card>
+    </div>
+</div>  
+<nz-card nzTitle="API">
+    <pre><code highlight [textContent]="mentionAPICode"></code></pre>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-mention</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzMentionTrigger]</code></td>
+                    <td>Trigger element <strong>(required)</strong></td>
+                    <td><code>HTMLTextAreaElement</code><code>HTMLInputElement</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzMentionSuggestion]</code></td>
+                    <td>Customize the suggestion template</td>
+                    <td><code>TemplateRef&lt;any&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzLoading]</code></td>
+                    <td>Loading mode</td>
+                    <td><code>boolean</code></td>
+                    <td><code>false</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzNotFoundContent]</code></td>
+                    <td>Suggestion when suggestions empty</td>
+                    <td><code>string</code></td>
+                    <td><code>'无匹配结果，轻敲空格完成输入'</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzPlacement]</code></td>
+                    <td>The position of the suggestion relative to the target, which can be one of top and bottom</td>
+                    <td><code>'button'</code><code>'top'</code></td>
+                    <td><code>'bottom'</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzPrefix]</code></td>
+                    <td>Character which will trigger Mention to show mention list</td>
+                    <td><code>'string'</code><code>'string[]'</code></td>
+                    <td><code>'@'</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzSuggestions]</code></td>
+                    <td>Suggestion content</td>
+                    <td><code>any[]</code></td>
+                    <td><code>[]</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzValueWith]</code></td>
+                    <td>Function that maps an suggestion's value</td>
+                    <td><code>(any) =&gt; string</code></td>
+                    <td><code>(value: string) =&gt; string</code></td>
+                </tr>
+                <tr>
+                    <td><code>(nzOnSelect)</code></td>
+                    <td>Callback function called when select from suggestions</td>
+                    <td><code>EventEmitter&lt;any&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>(onSearchChange)</code></td>
+                    <td>Callback function called when search content changes</td>
+                    <td><code>EventEmitter&lt;MentionOnSearchTypes&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</nz-card>  
+<nz-card nzTitle="Method">
+    <div class="markdown api-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>getMentions</td>
+                    <td>Get the mentions array in the <code>input[nzMentionTrigger]</code></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nzMentionTrigger</span>
+        </h5>
+        <p>Trigger element</p>
+        <pre><code highlight [textContent]="mentionAPI2Code"></code></pre>
+        <pre><code highlight [textContent]="mentionAPI3Code"></code></pre>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nzMentionSuggestion</span>
+        </h5>
+        <p>Customize the suggestion template</p>
+        <pre><code highlight [textContent]="mentionAPI4Code"></code></pre>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">MentionOnSearchTypes</span>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>value</td>
+                    <td>Search keyword</td>
+                    <td>string</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>prefix</td>
+                    <td>prefix</td>
+                    <td>string</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</nz-card>            

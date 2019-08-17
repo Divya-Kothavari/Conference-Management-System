@@ -1,0 +1,253 @@
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Basic</h4>
+            <p>Basic usage of checkbox.</p>
+            <div class="m-t-25">
+                <label nz-checkbox [(ngModel)]="checkboxBasicChecked">Checkbox</label>
+            </div>
+            <codebox [codeContent]="checkboxBasicCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Disabled</h4>
+            <p>Disabled checkbox.</p>
+            <div class="m-t-25">
+                <div class="d-inline-block m-r-10">
+                    <label nz-checkbox nzDisabled [ngModel]="false"></label>
+                </div>
+                <div class="d-inline-block m-r-10">
+                    <label nz-checkbox nzDisabled [ngModel]="true"></label>
+                </div> 
+            </div>
+            <codebox [codeContent]="checkboxDisabledCode"></codebox>
+        </nz-card>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Controlled Checkbox</h4>
+            <p>Communicated with other components.</p>
+            <div class="m-t-25">
+                <div class="m-v-40">
+                    <div class="m-b-30">
+                        <label nz-checkbox [(ngModel)]="isCheckedButton" [nzDisabled]="isDisabledButton">
+                            {{ isCheckedButton ? 'Checked' : 'Unchecked' }} - {{ isDisabledButton ? 'Disabled' : 'Enabled' }}
+                        </label>
+                    </div>
+                    <div>
+                        <button class="m-r-10" nz-button [nzType]="'primary'" (click)="checkButton()" [nzSize]="'small'">
+                            {{ !isCheckedButton ? 'Checked' : 'Unchecked' }}
+                        </button>
+                        <button nz-button [nzType]="'primary'" (click)="disableButton()" [nzSize]="'small'">
+                            {{ isDisabledButton ? 'Enabled' : 'Disabled' }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <codebox [codeContent]="checkboxControlledCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Checkbox Group</h4>
+            <p>Generate a group of checkboxes from an array.</p>
+            <div class="m-t-25">
+                <nz-checkbox-group [(ngModel)]="checkOptionsOne" (ngModelChange)="log(checkOptionsOne)"></nz-checkbox-group>
+                <br>
+                <br>
+                <nz-checkbox-group [(ngModel)]="checkOptionsTwo" (ngModelChange)="log(checkOptionsTwo)"></nz-checkbox-group>
+                <br>
+                <br>
+                <nz-checkbox-group [(ngModel)]="checkOptionsThree" (ngModelChange)="log(checkOptionsThree)"></nz-checkbox-group>
+            </div>
+            <codebox [codeContent]="checkboxGroupCode"></codebox>
+        </nz-card>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Check all</h4>
+            <p>The <code>nzIndeterminate</code> property can help you to achieve a 'check all' effect.</p>
+            <div class="m-t-25">
+                <div class="border bottom p-b-20">
+                    <label nz-checkbox [(ngModel)]="allChecked" (ngModelChange)="updateAllChecked()" [nzIndeterminate]="indeterminate">
+                        Check all
+                    </label>
+                </div>
+                <br>
+                <nz-checkbox-group [(ngModel)]="checkOptionsFour" (ngModelChange)="updateSingleChecked()"></nz-checkbox-group>
+            </div>
+            <codebox [codeContent]="checkboxCheckAllCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Use with Grid</h4>
+            <p>We can use <code>nz-checkbox</code> and Grid in <code>nz-checkbox-wrapper</code>, to implement complex layout.</p>
+            <div class="m-t-25">
+                <div class="m-v-35">
+                    <nz-checkbox-wrapper class="w-100" (nzOnChange)="log($event)">
+                        <div class="row m-b-20">
+                            <div nz-col class="col-md-4"><label nz-checkbox nzValue="A" [ngModel]="true">A</label></div>
+                            <div nz-col class="col-md-4"><label nz-checkbox nzValue="B">B</label></div>
+                            <div nz-col class="col-md-4"><label nz-checkbox nzValue="C">C</label></div>
+                        </div>
+                        <div class="row">
+                            <div nz-col class="col-md-4"><label nz-checkbox nzValue="D">D</label></div>
+                            <div nz-col class="col-md-4"><label nz-checkbox nzValue="E">E</label></div>
+                        </div>
+                    </nz-checkbox-wrapper>
+                </div>
+            </div>
+            <codebox [codeContent]="checkboxWithGridCode"></codebox>
+        </nz-card>
+    </div>
+</div>    
+<nz-card nzTitle="API">
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">[nz-checkbox]</span>
+            <label class="api-type-label directive">directive</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzAutoFocus]</code></td>
+                    <td>get focus when component mounted</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzDisabled]</code></td>
+                    <td>Disable checkbox</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[ngModel]</code></td>
+                    <td>Specifies whether the checkbox is selected, double binding</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzIndeterminate]</code></td>
+                    <td>set the status of indeterminate，only affect the style</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzValue]</code></td>
+                    <td>use for the callback of <code>nz-checkbox-wrapper</code></td>
+                    <td>string</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>(ngModelChange)</code></td>
+                    <td>The callback function that is triggered when the state changes.</td>
+                    <td><code>EventEmitter&lt;boolean&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-checkbox-group</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[ngModel]</code></td>
+                    <td>Specifies options, double binding</td>
+                    <td><code>Array&lt;"{{ '{' }}") label: string; value: string; checked?: boolean; "{{ '}' }}")&gt;</code></td>
+                    <td><code>[]</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzDisabled]</code></td>
+                    <td>Disable all checkboxes</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>(ngModelChange)</code></td>
+                    <td>The callback function that is triggered when the state changes.</td>
+                    <td><code>EventEmitter&lt;Array&lt;"{{ '{' }}") label: string; value: string; checked?: boolean; "{{ '}' }}")&gt;&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-checkbox-wrapper</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>(nzOnChange)</code></td>
+                    <td>The callback function that is triggered when the state changes.</td>
+                    <td><code>EventEmitter&lt;string[]&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>    
+</nz-card>  
+<nz-card nzTitle="Methods">
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">[nz-checkbox]</span>
+            <label class="api-type-label directive">directive</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>focus()</td>
+                    <td>get focus</td>
+                </tr>
+                <tr>
+                    <td>blur()</td>
+                    <td>remove focus</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>  
+</nz-card>   

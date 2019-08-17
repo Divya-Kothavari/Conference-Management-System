@@ -1,0 +1,200 @@
+<nz-card>
+    <h4>Basic</h4>
+    <p>Basic usage.</p>
+    <div class="m-t-25">
+        <nz-skeleton></nz-skeleton>
+    </div>
+    <codebox [codeContent]="skeletonBasicCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Complex combination</h4>
+    <p>Complex combination with avatar and multiple paragraphs.</p>
+    <div class="m-t-25">
+        <nz-skeleton [nzAvatar]="true" [nzParagraph]="{ rows: 4 }"></nz-skeleton>
+    </div>
+    <codebox [codeContent]="skeletonComplexCombinationCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Active Animation</h4>
+    <p>Display active animation.</p>
+    <div class="m-t-25">
+        <nz-skeleton [nzActive]="true"></nz-skeleton>
+    </div>
+    <codebox [codeContent]="skeletonActiveAnimationCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Contains sub component</h4>
+    <p>Skeleton contains sub component.</p>
+    <div class="m-t-25">
+        <nz-skeleton [nzLoading]="containSubLoading">
+            <h5>Ant Design, a design language</h5>
+            <p>We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.</p>
+        </nz-skeleton>
+        <button class="m-t-15" nz-button (click)="showSkeleton()" [disabled]="containSubLoading">
+            Show Skeleton
+        </button>
+    </div>
+    <codebox [codeContent]="skeletonContainsSubComponentCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>List Sample</h4>
+    <p>Use skeleton in list component.</p>
+    <div class="m-t-25">
+        <nz-switch class="m-b-15" [(ngModel)]="listSampleloading"></nz-switch>
+        <nz-list [nzDataSource]="listData" [nzRenderItem]="item" [nzItemLayout]="'vertical'">
+            <ng-template #item let-item>
+                <nz-list-item [nzContent]="listSampleloading?' ':item.content" [nzActions]="listSampleloading?[]:[starAction,likeAction,msgAction]" [nzExtra]="listSampleloading?'':extra">
+                    <nz-skeleton [nzLoading]="listSampleloading" [nzActive]="true" [nzAvatar]="true">
+                        <ng-template #starAction><i nz-icon type="star-o" class="m-r-10"></i> 156</ng-template>
+                        <ng-template #likeAction><i nz-icon type="like-o" class="m-r-10"></i> 156</ng-template>
+                        <ng-template #msgAction><i nz-icon type="message" class="m-r-10"></i> 2</ng-template>
+                        <nz-list-item-meta
+                            [nzAvatar]="item.avatar"
+                            [nzTitle]="nzTitle"
+                            [nzDescription]="item.description">
+                            <ng-template #nzTitle><a href="{{item.href}}">{{item.title}}</a></ng-template>
+                        </nz-list-item-meta>
+                        <ng-template #extra>
+                            <img width="272" alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png">
+                        </ng-template>
+                    </nz-skeleton>
+                </nz-list-item>
+            </ng-template>
+        </nz-list>
+    </div>
+    <codebox [codeContent]="skeletonListSampleCode"></codebox>
+</nz-card>
+<nz-card nzTitle="API">
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-skeleton</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzActive]</code></td>
+                    <td>Show animation effect</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzAvatar]</code></td>
+                    <td>Show avatar placeholder</td>
+                    <td>boolean ｜ NzSkeletonAvatar</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzLoading]</code></td>
+                    <td>Display the skeleton when <code>true</code></td>
+                    <td>boolean</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzParagraph]</code></td>
+                    <td>Show paragraph placeholder</td>
+                    <td>boolean ｜ NzSkeletonParagraph</td>
+                    <td>true</td>
+                </tr>
+                <tr>
+                    <td><code>[nzTitle]</code></td>
+                    <td>Show title placeholder</td>
+                    <td>boolean ｜ NzSkeletonTitle</td>
+                    <td>true</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">NzSkeletonAvatar</span>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>size</code></td>
+                    <td>Set the size of avatar</td>
+                    <td>Enum{{ '{' }} 'large', 'small', 'default' {{ '}' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>shape</code></td>
+                    <td>Set the shape of avatar</td>
+                    <td>Enum{{ '{' }} 'circle', 'square' {{ '}' }}</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>   
+    <hr> 
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">NzSkeletonTitle</span>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>width</code></td>
+                    <td>Set the width of title</td>
+                    <td>number ｜ string</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div> 
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">NzSkeletonParagraph</span>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>rows</code></td>
+                    <td>Set the row count of paragraph</td>
+                    <td>number</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>width</code></td>
+                    <td>Set the width of paragraph. When width is an Array, it can set the width of each row. Otherwise only set the last row width</td>
+                    <td>number ｜ string ｜ Array&lt;number ｜ string&gt;</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>    
+</nz-card> 

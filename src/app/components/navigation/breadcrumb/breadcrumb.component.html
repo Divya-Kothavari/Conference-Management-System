@@ -1,0 +1,138 @@
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Basic Usage</h4>
+            <p>The simplest use</p>
+            <div class="m-t-25">
+                <nz-breadcrumb>
+                    <nz-breadcrumb-item>
+                        Home
+                    </nz-breadcrumb-item>
+                    <nz-breadcrumb-item>
+                        <a href="">Application List</a>
+                    </nz-breadcrumb-item>
+                    <nz-breadcrumb-item>
+                        An Application
+                    </nz-breadcrumb-item>
+                </nz-breadcrumb>
+            </div>
+            <codebox [codeContent]="breadcrumbBasicCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>RouterLink</h4>
+            <p>Used together with <a href="https://angular.io/api/router/RouterLink" target="_blank">RouterLink</a>.</p>
+            <div class="m-t-25">
+                <nz-breadcrumb>
+                    <nz-breadcrumb-item>
+                        <a [routerLink]="['../../']">Home</a>
+                    </nz-breadcrumb-item>
+                    <nz-breadcrumb-item>
+                        Breadcrumb
+                    </nz-breadcrumb-item>
+                </nz-breadcrumb>
+            </div>
+            <codebox [codeContent]="breadcrumbRouterLinkCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Auto generated breadcrumbs</h4>
+            <p>Auto generate breadcrumbs using <code>router.data</code>.</p>
+            <div class="m-t-25">
+                <iframe style="border: 0px; width: 100%;" src="https://stackblitz.com/edit/ng-zorro-breadcrumb-auto?embed=1&amp;file=src/app/app.component.html&amp;hideExplorer=1&amp;hideNavigation=1&amp;view=preview" height="460"></iframe>
+            </div>
+            <codebox [codeContent]="breadcrumbAutoGenerateCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>With an Icon</h4>
+            <p>The icon should be placed in front of the text.</p>
+            <div class="m-t-25">
+                <nz-breadcrumb>
+                    <nz-breadcrumb-item>
+                        <i nz-icon type="home"></i>
+                    </nz-breadcrumb-item>
+                    <nz-breadcrumb-item>
+                        <a><i nz-icon type="user"></i><span>Application List</span></a>
+                    </nz-breadcrumb-item>
+                    <nz-breadcrumb-item>
+                        Application
+                    </nz-breadcrumb-item>
+                </nz-breadcrumb>
+            </div>
+            <codebox [codeContent]="breadcrumbIconCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Configuring the Separator</h4>
+            <p>The separator can be customized by setting the separator property: <code>nzSeparator</code></p>
+            <div class="m-t-25">
+                <div class="m-b-25">
+                    <h5>String</h5>
+                    <nz-breadcrumb nzSeparator=">">
+                        <nz-breadcrumb-item>
+                            Home
+                        </nz-breadcrumb-item>
+                        <nz-breadcrumb-item>
+                            <a>Application List</a>
+                        </nz-breadcrumb-item>
+                        <nz-breadcrumb-item>
+                            An Application
+                        </nz-breadcrumb-item>
+                    </nz-breadcrumb>
+                </div> 
+                <div class="m-b-20">
+                    <h5>TemplateRef</h5>
+                    <nz-breadcrumb [nzSeparator]="iconTemplate">
+                        <nz-breadcrumb-item>
+                            Home
+                        </nz-breadcrumb-item>
+                        <nz-breadcrumb-item>
+                            <a>Application List</a>
+                        </nz-breadcrumb-item>
+                        <nz-breadcrumb-item>
+                            An Application
+                        </nz-breadcrumb-item>
+                    </nz-breadcrumb>
+                    <ng-template #iconTemplate><i nz-icon type="arrow-right"></i></ng-template>
+                </div>   
+            </div>
+            <codebox [codeContent]="breadcrumbSeperatorCode"></codebox>
+        </nz-card>
+    </div>
+</div>       
+<nz-card nzTitle="API">
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-breadcrumb</span>
+            <label class="api-type-label directive">directive</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Optional</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzSeparator]</code></td>
+                    <td>Custom separator</td>
+                    <td>string丨<code>TemplateRef&lt;void&gt;</code></td>
+                    <td></td>
+                    <td><code>/</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzAutoGenerate]</code></td>
+                    <td>Auto generate breadcrumb</td>
+                    <td>boolean</td>
+                    <td></td>
+                    <td><code>false</code></td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="m-v-20">Using <code>[nzAutoGenerate]</code> by configuring <code>data</code> like this:</p>
+        <pre><code highlight [textContent]="breadcrumdAPICode"></code></pre>
+    </div>
+</nz-card>         

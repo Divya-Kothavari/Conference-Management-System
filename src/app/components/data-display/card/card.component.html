@@ -1,0 +1,337 @@
+<nz-card>
+    <h4>Basic</h4>
+    <p>A basic calendar component with Year/Month switch.</p>
+    <div class="m-t-25">
+        <nz-card style="width:300px;" nzTitle="Card title" [nzExtra]="extraTemplate">
+            <p>Card content</p>
+            <p>Card content</p>
+            <p>Card content</p>
+        </nz-card>
+        <ng-template #extraTemplate>
+            <a>More</a>
+        </ng-template>
+    </div>
+    <codebox [codeContent]="cardBasicCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>No border</h4>
+    <p>A borderless card on a gray background.</p>
+    <div class="m-t-25">
+        <div class="p-25 bg-gray-lighter">
+            <nz-card style="width:300px;" [nzBordered]="false" nzTitle="Card title" [nzExtra]="extraTemplate">
+                <p>Card content</p>
+                <p>Card content</p>
+                <p>Card content</p>
+            </nz-card>
+            <ng-template #extraTemplate>
+                <a>More</a>
+            </ng-template>
+        </div>
+    </div>
+    <codebox [codeContent]="cardNoBorderCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Simple card</h4>
+    <p>A simple card only containing a content area.</p>
+    <div class="m-t-25">
+        <nz-card style="width:300px;">
+            <p>Card content</p>
+            <p>Card content</p>
+            <p>Card content</p>
+        </nz-card>
+    </div>
+    <codebox [codeContent]="cardSimpleCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Customized content</h4>
+    <p>You can use <code>nz-card-meta</code> to support more flexible content.</p>
+    <div class="m-t-25">
+        <nz-card nzHoverable style="width:240px" [nzCover]="coverTemplate">
+            <nz-card-meta nzTitle="Europe Street beat" nzDescription="www.instagram.com"></nz-card-meta>
+        </nz-card>
+        <ng-template #coverTemplate>
+            <img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"/>
+        </ng-template>
+    </div>
+    <codebox [codeContent]="cardCustomizedCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Card in column</h4>
+    <p>Cards usually cooperate with grid column layout in overview page.</p>
+    <div class="m-t-25">
+        <div nz-row [nzGutter]="8">
+            <div nz-col [nzSpan]="8">
+                <nz-card nzTitle="Card title">
+                    <p>Card content</p>
+                </nz-card>
+            </div>
+            <div nz-col [nzSpan]="8">
+                <nz-card nzTitle="Card title">
+                    <p>Card content</p>
+                </nz-card>
+            </div>
+            <div nz-col [nzSpan]="8">
+                <nz-card nzTitle="Card title">
+                    <p>Card content</p>
+                </nz-card>
+            </div>
+        </div>
+    </div>
+    <codebox [codeContent]="cardColumnCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Loading card</h4>
+    <p>Shows a loading indicator while the contents of the card is being fetched.</p>
+    <div class="m-t-25">
+        <nz-switch [(ngModel)]="cardLoading"></nz-switch>
+        <nz-card
+            style="width: 300px;margin-top: 16px"
+            [nzLoading]="cardLoading">
+            <nz-card-meta [nzAvatar]="avatarTemplate" nzTitle="Card title" nzDescription="This is the description"></nz-card-meta>
+        </nz-card>
+        <nz-card
+            style="width: 300px;margin-top: 16px"
+            [nzActions]="[actionSetting,actionEdit,actionEllipsis]">
+            <nz-skeleton [nzActive]="true" [nzLoading]="cardLoading" [nzAvatar]="{size: 'large'}">
+                <nz-card-meta [nzAvatar]="avatarTemplate" nzTitle="Card title" nzDescription="This is the description"></nz-card-meta>
+            </nz-skeleton>
+        </nz-card>
+        <ng-template #avatarTemplate>
+            <nz-avatar nzSrc="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
+        </ng-template>
+        <ng-template #actionSetting>
+            <i nz-icon type="setting"></i>
+        </ng-template>
+        <ng-template #actionEdit>
+            <i nz-icon type="edit"></i>
+        </ng-template>
+        <ng-template #actionEllipsis>
+            <i nz-icon type="ellipsis"></i>
+        </ng-template>
+    </div>
+    <codebox [codeContent]="cardLoadingCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Grid card</h4>
+    <p>Grid style card content.</p>
+    <div class="m-t-25">
+        <nz-card nzTitle="Cart Title">
+            <div nz-card-grid [ngStyle]="cardGridStyle">Content</div>
+            <div nz-card-grid [ngStyle]="cardGridStyle">Content</div>
+            <div nz-card-grid [ngStyle]="cardGridStyle">Content</div>
+            <div nz-card-grid [ngStyle]="cardGridStyle">Content</div>
+            <div nz-card-grid [ngStyle]="cardGridStyle">Content</div>
+            <div nz-card-grid [ngStyle]="cardGridStyle">Content</div>
+            <div nz-card-grid [ngStyle]="cardGridStyle">Content</div>
+        </nz-card>
+    </div>
+    <codebox [codeContent]="cardGridCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Inner card</h4>
+    <p>It can be placed inside the ordinary card to display the information of the multilevel structure.</p>
+    <div class="m-t-25">
+        <nz-card nzTitle="Card Title">
+            <h5>Group title</h5>
+            <nz-card nzType="inner" nzTitle="Inner Card Title" [nzExtra]="cardInnerTemplate">
+                <a>Inner Card Content</a>
+            </nz-card>
+            <nz-card nzType="inner" nzTitle="Inner Card Title" [nzExtra]="cardInnerTemplate">
+                <a>Inner Card Content</a>
+            </nz-card>
+        </nz-card>
+        <ng-template #cardInnerTemplate>
+            <a>More</a>
+        </ng-template>
+    </div>
+    <codebox [codeContent]="cardInnerCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>With tabs</h4>
+    <p>More content can be hosted.</p>
+    <div class="m-t-25">
+        <nz-card class="w-100" nzTitle="Card title" [nzExtra]="cardTabTemplate">
+            <nz-card-tab>
+                <nz-tabset nzSize="large" [(nzSelectedIndex)]="cardTabIndex1">
+                    <nz-tab nzTitle="tab1"></nz-tab>
+                    <nz-tab nzTitle="tab2"></nz-tab>
+                </nz-tabset>
+            </nz-card-tab>
+            content{{ cardTabIndex1 }}
+        </nz-card>
+        <ng-template #cardTabTemplate>
+            <a>More</a>
+        </ng-template>
+        <nz-card class="w-100">
+            <nz-card-tab>
+                <nz-tabset nzSize="large" [(nzSelectedIndex)]="cardTabIndex2">
+                    <nz-tab nzTitle="article"></nz-tab>
+                    <nz-tab nzTitle="app"></nz-tab>
+                    <nz-tab nzTitle="project"></nz-tab>
+                </nz-tabset>
+            </nz-card-tab>
+            content{{ cardTabIndex2 }}
+        </nz-card>
+    </div>
+    <codebox [codeContent]="cardTabCode"></codebox>
+</nz-card>
+<nz-card>
+    <h4>Support more content configuration</h4>
+    <p>A Card that supports <code>cover</code>, <code>avatar</code>, <code>title</code> and <code>description</code>.</p>
+    <div class="m-t-25">
+        <nz-card style="width:300px;" [nzCover]="coverTemplate" [nzActions]="[actionSetting,actionEdit,actionEllipsis]">
+            <nz-card-meta nzTitle="Card title" nzDescription="This is the description" [nzAvatar]="avatarTemplate"></nz-card-meta>
+        </nz-card>
+        <ng-template #avatarTemplate>
+            <nz-avatar nzSrc="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
+        </ng-template>
+        <ng-template #coverTemplate>
+            <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"/>
+        </ng-template>
+        <ng-template #actionSetting>
+            <i nz-icon type="setting"></i>
+        </ng-template>
+        <ng-template #actionEdit>
+            <i nz-icon type="edit"></i>
+        </ng-template>
+        <ng-template #actionEllipsis>
+            <i nz-icon type="ellipsis"></i>
+        </ng-template>
+    </div>
+    <codebox [codeContent]="cardMoreContentCode"></codebox>
+</nz-card>
+<nz-card nzTitle="API">
+    <pre><code highlight [textContent]="cardAPICode"></code></pre>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-card</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzActions]</code></td>
+                    <td>The action list, shows at the bottom of the Card.</td>
+                    <td><code>Array&lt;TemplateRef&lt;void&gt;&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzBodyStyle]</code></td>
+                    <td>Inline style to apply to the card content</td>
+                    <td><code>{{ '{' }} [key: string]: string {{ '}' }}</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzBordered]</code></td>
+                    <td>Toggles rendering of the border around the card</td>
+                    <td>boolean</td>
+                    <td><code>true</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzCover]</code></td>
+                    <td>Card cover</td>
+                    <td><code>TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzExtra]</code></td>
+                    <td>Content to render in the top-right corner of the card</td>
+                    <td>string｜<code>TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzHoverable]</code></td>
+                    <td>Lift up when hovering card</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzLoading]</code></td>
+                    <td>Shows a loading indicator while the contents of the card are being fetched</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzTitle]</code></td>
+                    <td>Card title</td>
+                    <td>string｜<code>TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzType]</code></td>
+                    <td>Card style type, can be set to <code>inner</code> or not set</td>
+                    <td>string</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzSize]</code></td>
+                    <td>Size of card</td>
+                    <td><code>'default' | 'small'</code></td>
+                    <td><code>'default'</code></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-card-meta</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzAvatar]</code></td>
+                    <td>avatar or icon</td>
+                    <td><code>TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzDescription]</code></td>
+                    <td>description content</td>
+                    <td>string｜ <code>TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzTitle]</code></td>
+                    <td>title content</td>
+                    <td>string｜<code>TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">[nz-card-grid]</span>
+            <label class="api-type-label directive">directive</label>
+        </h5>
+        <p>Area for grid style card</p>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-card-tab</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <p>Area for tab card</p>
+    </div>
+</nz-card> 

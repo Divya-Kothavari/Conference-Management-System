@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Basic</h4>
+            <p>The most basic usage.</p>
+            <div class="m-t-25">
+                <p>Scroll down to see the button.</p>
+                <nz-back-top></nz-back-top>
+            </div>
+            <codebox [codeContent]="backToTopBasicCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Using nzTarget</h4>
+            <p>Specifies the scrollable area dom node.</p>
+            <div class="m-t-25">
+                <p>Scroll down to see the bottom-right button.</p>
+                <div #divTarget style="background-image: url(assets/images/object-bg.jpg); overflow-y: scroll; height: 300px;">
+                    <div style="height: 1500px;"></div>
+                    <nz-back-top [nzTarget]="divTarget"></nz-back-top>
+                </div>
+            </div>
+            <codebox [codeContent]="backToTopUsingNzTargetCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Custom style</h4>
+            <p>You can customize the style of the button, just note the size limit: no more than <code>40px * 40px</code>.</p>
+            <div class="m-t-25">
+                <p>Scroll down to see the bottom-right button.</p>
+                <nz-back-top [nzTemplate]="tpl" [nzVisibilityHeight]="100" (nzOnClick)="notify()">
+                <ng-template #tpl>
+                    <div class="ant-back-top-inner">UP</div>
+                    </ng-template>
+                </nz-back-top>
+            </div>
+            <codebox [codeContent]="backToTopCustomStyleCode"></codebox>
+        </nz-card>
+    </div>
+</div>
+<nz-card nzTitle="API">
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-back-top</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <p>The distance to the bottom is set to <code>50px</code> by default, which is overridable.
+            If you decide to use custom styles, please note the size limit: no more than <code>40px * 40px</code>.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzTemplate]</code></td>
+                    <td>custom content</td>
+                    <td><code>TemplateRef&lt;void&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzVisibilityHeight]</code></td>
+                    <td>the <code>nz-back-top</code> button will not show until the scroll height reaches this value</td>
+                    <td>number</td>
+                    <td><code>400</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzTarget]</code></td>
+                    <td>specifies the scrollable area dom node</td>
+                    <td>Element</td>
+                    <td><code>window</code></td>
+                </tr>
+                <tr>
+                    <td><code>(nzClick)</code></td>
+                    <td>a callback function, which can be executed when you click the button</td>
+                    <td><code>EventEmitter&lt;boolean&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</nz-card>
+

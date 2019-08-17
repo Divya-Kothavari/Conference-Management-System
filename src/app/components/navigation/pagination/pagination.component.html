@@ -1,0 +1,222 @@
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Basic</h4>
+            <p>Basic pagination.</p>
+            <div class="m-t-25">
+                <nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination>
+            </div>
+            <codebox [codeContent]="paginationBasicCode"></codebox>
+        </nz-card> 
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>More</h4>
+            <p>More pages.</p>
+            <div class="m-t-25">
+                <nz-pagination [nzPageIndex]="1" [nzTotal]="500"></nz-pagination>
+            </div>
+            <codebox [codeContent]="paginationMoreCode"></codebox>
+        </nz-card>    
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Changer</h4>
+            <p>Change <code>nzPageSize</code>.</p>
+            <div class="m-t-25">
+                <nz-pagination [nzPageIndex]="3" [nzTotal]="500" nzShowSizeChanger [nzPageSize]="10"></nz-pagination>
+            </div>
+            <codebox [codeContent]="paginationChangerCode"></codebox>
+        </nz-card>    
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Jumper</h4>
+            <p>Jump to a page directly.</p>
+            <div class="m-t-25">
+                <nz-pagination [nzPageIndex]="2" [nzTotal]="500" nzShowQuickJumper></nz-pagination>
+            </div>
+            <codebox [codeContent]="paginationJumperCode"></codebox>
+        </nz-card>   
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Mini size</h4>
+            <p>Mini size pagination.</p>
+            <div class="m-t-25">
+                <nz-pagination [(nzPageIndex)]="current" [nzTotal]="50" [nzSize]="'small'"></nz-pagination>
+                <br>
+                <nz-pagination [(nzPageIndex)]="current" [nzTotal]="50" [nzSize]="'small'" nzShowSizeChanger nzShowQuickJumper></nz-pagination>
+                <br>
+                <nz-pagination [(nzPageIndex)]="current" [nzTotal]="50" [nzSize]="'small'" [nzShowTotal]="totalTemplate"></nz-pagination>
+                <ng-template #totalTemplate let-total>Total {{total}} items</ng-template>
+            </div>
+            <codebox [codeContent]="paginationMiniSizeCode"></codebox>
+        </nz-card>    
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Total number</h4>
+            <p>You can show the total number of data by setting <code>nzShowTotal</code>.</p>
+            <div class="m-t-25">
+                <div class="m-v-40">
+                    <nz-pagination [nzPageIndex]="1" [nzTotal]="85" [nzPageSize]="20" [nzShowTotal]="totalTemplate"></nz-pagination>
+                    <br>
+                    <nz-pagination [nzPageIndex]="1" [nzTotal]="85" [nzPageSize]="20" [nzShowTotal]="rangeTemplate"></nz-pagination>
+                    <ng-template #totalTemplate let-total>
+                        Total {{total}} items
+                    </ng-template>
+                    <ng-template #rangeTemplate let-range="range" let-total>
+                        {{range[0]}}-{{range[1]}} of {{total}} items
+                    </ng-template>
+                </div>
+            </div>
+            <codebox [codeContent]="paginationTotalNumberCode"></codebox>
+        </nz-card>   
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Page Index</h4>
+            <p>Change page index number.</p>
+            <div class="m-t-25">
+                <nz-pagination [nzPageIndex]="3" [nzTotal]="50"></nz-pagination>
+            </div>
+            <codebox [codeContent]="paginationPageIndexCode"></codebox>
+        </nz-card>    
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Simple mode</h4>
+            <p>Simple mode</p>
+            <div class="m-t-25">
+                <div class="m-v-30">
+                    <nz-pagination [nzPageIndex]="2" [nzTotal]="50" nzSimple></nz-pagination>
+                </div>
+            </div>
+            <codebox [codeContent]="paginationSimpleCode"></codebox>
+        </nz-card>       
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <nz-card>
+            <h4>Prev and next</h4>
+            <p>Use text link for prev and next button.</p>
+            <div class="m-t-25">
+                <nz-pagination [nzPageIndex]="1" [nzTotal]="500" [nzItemRender]="renderItemTemplate"></nz-pagination>
+                <ng-template #renderItemTemplate let-type let-page="page">
+                    <a *ngIf="type==='pre'">Previous</a>
+                    <a *ngIf="type==='next'">Next</a>
+                    <a *ngIf="type==='page'">{{page}}</a>
+                </ng-template>
+            </div>
+            <codebox [codeContent]="paginationPrevNextCode"></codebox>
+        </nz-card>     
+    </div>
+</div>        
+<nz-card nzTitle="API">
+    <pre><code highlight [textContent]="paginationAPICode"></code></pre>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-pagination</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzTotal]</code></td>
+                    <td>total number of data items</td>
+                    <td>number</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td><code>[nzPageIndex]</code></td>
+                    <td>current page number，double binding</td>
+                    <td>number</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td><code>[nzPageSize]</code></td>
+                    <td>number of data items per page, double binding</td>
+                    <td>number</td>
+                    <td>10</td>
+                </tr>
+                <tr>
+                    <td><code>[nzShowQuickJumper]</code></td>
+                    <td>determine whether you can jump to pages directly</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzShowSizeChanger]</code></td>
+                    <td>determine whether <code>nzPageSize</code> can be changed</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzSimple]</code></td>
+                    <td>whether to use simple mode</td>
+                    <td>boolean</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzSize]</code></td>
+                    <td>specify the size of <code>nz-pagination</code>, can be set to <code>small</code></td>
+                    <td>string</td>
+                    <td>""</td>
+                </tr>
+                <tr>
+                    <td><code>[nzPageSizeOptions]</code></td>
+                    <td>specify the sizeChanger options</td>
+                    <td><code>number[]</code></td>
+                    <td><code>[10, 20, 30, 40]</code></td>
+                </tr>
+                <tr>
+                    <td><code>[nzItemRender]</code></td>
+                    <td>to customize item</td>
+                    <td><code>TemplateRef&lt;{{ '{' }} $implicit: 'page' ｜ 'prev' ｜ 'next', page: number {{'}'}}&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzShowTotal]</code></td>
+                    <td>to display the total number and range</td>
+                    <td><code>TemplateRef&lt;{{ '{' }} $implicit: number, range: [ number, number ] {{'}'}}&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzHideOnSinglePage]</code></td>
+                    <td>Whether to hide pager on single page</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>(nzPageIndexChange)</code></td>
+                    <td>current page number change callback</td>
+                    <td><code>EventEmitter&lt;number&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>(nzPageSizeChange)</code></td>
+                    <td>number of data items per page change callback</td>
+                    <td><code>EventEmitter&lt;number&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</nz-card>

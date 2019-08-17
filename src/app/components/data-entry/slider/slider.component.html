@@ -1,0 +1,233 @@
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Basic</h4>
+            <p>Basic slider. When <code>range</code> is <code>true</code>, display as dual thumb mode. When <code>disable</code> is <code>true</code>, the slider will not be interactable.</p>
+            <div class="m-t-25">
+                <nz-slider [nzDefaultValue]="30" [nzDisabled]="sliderBasicValue"></nz-slider>
+                <nz-slider nzRange [nzDefaultValue]="[20, 50]" [nzDisabled]="sliderBasicValue"></nz-slider>
+                Disabled: <nz-switch nzSize="small" [(ngModel)]="sliderBasicValue"></nz-switch>
+            </div>
+            <codebox [codeContent]="sliderBasicCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Slider with icon</h4>
+            <p>You can add an icon beside the slider to make it meaningful.</p>
+            <div class="m-t-25">
+                <div class="icon-wrapper test-class">
+                    <i [ngClass]="preIconClassMap"></i>
+                    <nz-slider [nzMin]="0" [nzMax]="20" [(ngModel)]="selectIconSliderValue"></nz-slider>
+                    <i [ngClass]="nextIconClassMap"></i>
+                </div>
+            </div>
+            <codebox [codeContent]="sliderIconCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Event</h4>
+            <p>The <code>onChange</code> callback function will fire when the user changes the slider's value.
+                The <code>onAfterChange</code> callback function will fire when <code>onmouseup</code> fired.</p>
+            <div class="m-t-25">
+                <nz-slider
+                    [nzDefaultValue]="30"
+                    [(ngModel)]="sliderEventSingleValue" (ngModelChange)="sliderEventOnChange($event)"
+                    (nzOnAfterChange)="sliderEventOnAfterChange($event)"
+                ></nz-slider>
+                <nz-slider
+                    nzRange
+                    [nzStep]="10"
+                    [nzDefaultValue]="[20, 50]"
+                    [(ngModel)]="sliderEventRangeValue" (ngModelChange)="sliderEventOnChange($event)"
+                    (nzOnAfterChange)="sliderEventOnAfterChange($event)"
+                ></nz-slider>
+            </div>
+            <codebox [codeContent]="sliderEventCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Vertical</h4>
+            <p>The vertical Slider.</p>
+            <div class="m-t-25 m-b-70">
+                <div [ngStyle]="{ height: '300px' }">
+                    <div [ngStyle]="selectVerticalStyle">
+                        <nz-slider nzVertical [nzDefaultValue]="30"></nz-slider>
+                    </div>
+                    <div [ngStyle]="selectVerticalStyle">
+                        <nz-slider nzVertical nzRange [nzStep]="10" [nzDefaultValue]="[20, 50]"></nz-slider>
+                    </div>
+                    <div [ngStyle]="selectVerticalStyle">
+                        <nz-slider nzVertical nzRange [nzMarks]="selectVerticalMarks" [nzDefaultValue]="[26, 37]"></nz-slider>
+                    </div>
+                </div>
+            </div>
+            <codebox [codeContent]="sliderVerticalCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Slider with InputNumber</h4>
+            <p>Synchronize with <a routerLink="/components/data-entry/input-number">InptNumber</a> component.</p>
+            <div class="m-t-25">
+                <nz-row>
+                    <nz-col nzSpan="12">
+                        <nz-slider [nzMin]="1" [nzMax]="20" [(ngModel)]="sliderInputNumberValue1"></nz-slider>
+                    </nz-col>
+                    <div nz-col nzSpan="4">
+                        <nz-input-number [nzMin]="1" [nzMax]="20" class="m-l-15" [(ngModel)]="sliderInputNumberValue1"></nz-input-number>
+                    </div>
+                </nz-row>
+                <nz-row>
+                    <nz-col nzSpan="12">
+                        <nz-slider [nzMin]="0" [nzMax]="1" [nzStep]="0.01" [(ngModel)]="sliderInputNumberValue2"></nz-slider>
+                    </nz-col>
+                    <nz-col nzSpan="4">
+                        <nz-input-number [nzMin]="0" [nzMax]="1" class="m-l-15" [nzStep]="0.01" [(ngModel)]="sliderInputNumberValue2"></nz-input-number>
+                    </nz-col>
+                </nz-row>
+            </div>
+            <codebox [codeContent]="sliderInputNumberCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Customize tooltip</h4>
+            <p>Use <code>tipFormatter</code> to format content of <code>Toolip</code>. If <code>tipFormatter</code> is null, hide it.</p>
+            <div class="m-t-25">
+                <nz-slider [nzTipFormatter]="sliderTooltipFormatter"></nz-slider>
+                <nz-slider [nzTipFormatter]="null"></nz-slider>
+            </div>
+            <codebox [codeContent]="sliderCustomizeTooltipCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Graduated slider</h4>
+            <p>Using <code>marks</code> property to mark a graduated slider, use <code>value</code> or <code>defaultValue</code> to specify the position of thumb.
+                When <code>included</code> is false, means that different thumbs are coordinative.
+                when <code>step</code> is null, users can only slide the thumbs onto marks.</p>
+            <div class="m-t-25">
+                <div class="p-h-45 overflow-hidden">
+                    <div class="m-b-70">
+                        <h5>included=true</h5>
+                        <nz-slider [nzMarks]="selectGraduatedMarks" [nzDefaultValue]="37"></nz-slider>
+                        <br>
+                        <nz-slider [nzMarks]="selectGraduatedMarks" nzIncluded nzRange [nzDefaultValue]="[26, 37]"></nz-slider>
+                    </div>
+                    <div class="m-b-70">
+                        <h5>included=false</h5>
+                        <nz-slider [nzMarks]="selectGraduatedMarks" [nzIncluded]="false" [nzDefaultValue]="37"></nz-slider>
+                    </div>
+                    <div class="m-b-70">
+                    <h5>marks & step</h5>
+                        <nz-slider [nzMarks]="selectGraduatedMarks" [nzStep]="10" [nzDefaultValue]="37"></nz-slider>
+                    </div>
+                    <h5>step=null || dots=true</h5>
+                    <nz-slider [nzMarks]="selectGraduatedMarks" [nzStep]="null" [nzDefaultValue]="37"></nz-slider>
+                    <br>
+                    <nz-slider [nzMarks]="selectGraduatedMarks" nzDots [nzDefaultValue]="37"></nz-slider>
+                    <br>
+                    Change nzMarks dynamically: <button nz-button (click)="selectGraduatedChangeMarks()">Change nzMarks</button>
+                </div>
+            </div>
+            <codebox [codeContent]="sliderGraduatedCode"></codebox>
+        </nz-card>
+    </div>
+</div> 
+<nz-card nzTitle="API">
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-slider</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzDisabled]</code></td>
+                    <td>If true, the slider will not be interactable.</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzDots]</code></td>
+                    <td>Whether the thumb can drag over tick only.</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzIncluded]</code></td>
+                    <td>Make effect when <code>marks</code> not null，<code>true</code> means containment and <code>false</code> means coordinative</td>
+                    <td>boolean</td>
+                    <td>true</td>
+                </tr>
+                <tr>
+                    <td><code>[nzMarks]</code></td>
+                    <td>Tick mark of Slider, type of key must be <code>number</code>, and must in closed interval [min, max] ，each mark can declare its own style.</td>
+                    <td>object</td>
+                    <td>{{ '{' }} number: string/HTML {{ '}' }} or {{ '{' }} number: {{ '{' }} style: object, label: string/HTML {{ '}' }}{{ '}' }}</td>
+                </tr>
+                <tr>
+                    <td><code>[nzMax]</code></td>
+                    <td>The maximum value the slider can slide to</td>
+                    <td>number</td>
+                    <td>100</td>
+                </tr>
+                <tr>
+                    <td><code>[nzMin]</code></td>
+                    <td>The minimum value the slider can slide to.</td>
+                    <td>number</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td><code>[nzRange]</code></td>
+                    <td>dual thumb mode</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzStep]</code></td>
+                    <td>The granularity the slider can step through values. Must greater than 0, and be divided by (max - min) . When <code>marks</code> no null, <code>step</code> can be <code>null</code>.</td>
+                    <td>number / null</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td><code>[nzTipFormatter]</code></td>
+                    <td>Slider will pass its value to <code>tipFormatter</code>, and display its value in Tooltip, and hide Tooltip when return value is null.</td>
+                    <td>Function(value) / null</td>
+                    <td>IDENTITY</td>
+                </tr>
+                <tr>
+                    <td><code>[ngModel]</code></td>
+                    <td>The value of slider. When <code>range</code> is <code>false</code>, use <code>number</code>, otherwise, use <code>[number, number]</code></td>
+                    <td>number / number[]</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><code>[nzVertical]</code></td>
+                    <td>If true, the slider will be vertical.</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzTooltipVisible]</code></td>
+                    <td>When set to <code>always</code> tooltips are always displayed. When set to <code>never</code> they are never displayed</td>
+                    <td><code>'default' | 'always' | 'never'</code></td>
+                    <td><code>default</code></td>
+                </tr>
+                <tr>
+                    <td><code>(nzOnAfterChange)</code></td>
+                    <td>Fire when <code>onmouseup</code> is fired.</td>
+                    <td><code>EventEmitter&lt;number[] 丨 number&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>(ngModelChange)</code></td>
+                    <td>Callback function that is fired when the user changes the slider's value.</td>
+                    <td><code>EventEmitter&lt;number[] 丨 number&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</nz-card>               

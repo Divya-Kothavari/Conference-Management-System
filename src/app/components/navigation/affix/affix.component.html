@@ -1,0 +1,98 @@
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Basic</h4>
+            <p>The simplest usage.</p>
+            <div class="m-t-25">
+                <nz-affix>
+                    <button nz-button [nzType]="'primary'">
+                        <span>Affix top</span>
+                    </button>
+                </nz-affix>
+                <br>
+                <nz-affix nzOffsetBottom="0">
+                    <button nz-button [nzType]="'primary'">
+                        <span>Affix bottom</span>
+                    </button>
+                </nz-affix>
+            </div>
+            <codebox [codeContent]="AffixBasicCode"></codebox>
+        </nz-card>
+        <nz-card>
+            <h4>Container to scroll</h4>
+            <p>Set a <code>nzTarget</code> for 'nz-affix', which is listen to scroll event of target element (default is <code>window</code>).</p>
+            <div class="m-t-25">
+                <div class="scrollable-container" #target>
+                    <div class="background">
+                        <nz-affix [nzTarget]="target" id="affix-container-target">
+                            <button nz-button [nzType]="'primary'">
+                                <span>Fixed at the top of container</span>
+                            </button>
+                        </nz-affix>
+                    </div>
+                </div>
+            </div>
+            <codebox [codeContent]="AffixContainerToScrollCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Callback</h4>
+            <p>Callback with affixed state.</p>
+            <div class="m-t-25">
+                <nz-affix [nzOffsetTop]="120" (nzChange)="onChange($event)">
+                    <button nz-button>
+                        <span>120px to affix top</span>
+                    </button>
+                </nz-affix>
+            </div>
+            <codebox [codeContent]="AffixCallbackCode"></codebox>
+        </nz-card>    
+    </div>
+</div>    
+<nz-card nzTitle="API">
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-affix</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th><th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>[nzOffsetBottom]</code>
+                    </td>
+                    <td>Pixels to offset from bottom when calculating position of scroll</td>
+                    <td>number</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzOffsetTop]</code></td>
+                    <td>Pixels to offset from top when calculating position of scroll</td>
+                    <td>number</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td><code>[nzTarget]</code></td>
+                    <td>specifies the scrollable area dom node</td>
+                    <td><code>HTMLElement</code></td>
+                    <td><code>window</code></td>
+                </tr>
+                <tr>
+                    <td><code>(nzChange)</code></td>
+                    <td>Callback for when affix state is changed</td>
+                    <td><code>EventEmitter&lt;boolean&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</nz-card>
+

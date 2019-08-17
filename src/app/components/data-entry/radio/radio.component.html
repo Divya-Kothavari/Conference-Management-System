@@ -1,0 +1,311 @@
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Basic</h4>
+            <p>The simplest use.</p>
+            <div class="m-t-25">
+                <label nz-radio>Radio</label>
+            </div>
+            <codebox [codeContent]="radioBasicCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Disabled</h4>
+            <p><code>nz-radio</code> unavailable.</p>
+            <div class="m-t-25">
+                <label nz-radio [nzDisabled]="radioDisabledInputValue" class="m-r-20">Disabled</label>
+                <label nz-radio [nzDisabled]="radioDisabledInputValue" [ngModel]="true" class="m-r-20">Disabled</label>
+                <button nz-button nzType="primary" (click)="radioDisabledInputValue=!radioDisabledInputValue">Toggle disabled</button>
+            </div>
+            <codebox [codeContent]="radioDisabledCode"></codebox>
+        </nz-card>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Radio Group</h4>
+            <p>A group of <code>nz-radio</code> components.</p>
+            <div class="m-t-25">
+                <nz-radio-group class="m-v-20" [(ngModel)]="radioGroupInputValue">
+                    <label nz-radio nzValue="A">A</label>
+                    <label nz-radio nzValue="B">B</label>
+                    <label nz-radio nzValue="C">C</label>
+                    <label nz-radio nzValue="D">D</label>
+                </nz-radio-group>
+            </div>
+            <codebox [codeContent]="radioGroupCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>RadioGroup group - optional</h4>
+            <p>Render radios by configuring <code>options</code>.</p>
+            <div class="m-t-25">
+                <nz-radio-group class="m-b-15" [(ngModel)]="radioGroupOptionValue">
+                    <label nz-radio [nzValue]="o.value" *ngFor="let o of radioOptions">{{o.label}}</label>
+                </nz-radio-group>
+                <nz-radio-group [(ngModel)]="radioGroupOptionValue">
+                    <label nz-radio [nzValue]="o.value" *ngFor="let o of radioOptions">{{o.label}}</label>
+                </nz-radio-group>
+                <nz-radio-group [(ngModel)]="radioGroupOptionValue">
+                    <label nz-radio [nzValue]="o.value" *ngFor="let o of radioOptions">{{o.label}}</label>
+                </nz-radio-group>
+            </div>
+            <codebox [codeContent]="radioGroupOptionCode"></codebox>
+        </nz-card>
+    </div>
+</div>    
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Vertical RadioGroup</h4>
+            <p>Vertical <code>nz-radio-group</code>, with more radios.</p>
+            <div class="m-t-25">
+                <nz-radio-group [(ngModel)]="radioVerticalValue">
+                    <label nz-radio [ngStyle]="style" nzValue="A">Option A</label>
+                    <label nz-radio [ngStyle]="style" nzValue="B">Option B</label>
+                    <label nz-radio [ngStyle]="style" nzValue="C">Option C</label>
+                    <label nz-radio [ngStyle]="style" nzValue="M">
+                        More...
+                        <input type="text" nz-input nzSize="small" *ngIf="radioVerticalValue=='M'" class="w-50 m-l-10">
+                    </label>
+                </nz-radio-group>
+            </div>
+            <codebox [codeContent]="radioVerticalCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>RadioGroup with name</h4>
+            <p>Passing the <code>nzName</code> property to all <code>input[type="radio"]</code> that are in the same RadioGroup. It is usually used to let the browser see your <code>nz-radio-group</code> as a real "group" and keep the default behavior. For example, using left/right keyboard arrow to change your selection that in the same <code>nz-radio-group</code>.</p>
+            <div class="m-t-25">
+                <nz-radio-group class="m-v-25" [(ngModel)]="radioNameValue" nzName="radiogroup">
+                    <label nz-radio nzValue="A">A</label>
+                    <label nz-radio nzValue="B">B</label>
+                    <label nz-radio nzValue="C">C</label>
+                    <label nz-radio nzValue="D">D</label>
+                </nz-radio-group>
+            </div>
+            <codebox [codeContent]="radioNameCode"></codebox>
+        </nz-card>
+    </div>
+</div>    
+<div class="row">
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Radio Style</h4>
+            <p>The combination of radio button style.</p>
+            <div class="m-t-25">
+                <div>
+                    <nz-radio-group [(ngModel)]="radioStyleValue">
+                        <label nz-radio-button nzValue="A">Hangzhou</label>
+                        <label nz-radio-button nzValue="B">Shanghai</label>
+                        <label nz-radio-button nzValue="C">Beijing</label>
+                        <label nz-radio-button nzValue="D">Chengdu</label>
+                    </nz-radio-group>
+                </div>
+                <div class="m-t-15">
+                    <nz-radio-group [(ngModel)]="radioStyleValue">
+                        <label nz-radio-button nzValue="A">Hangzhou</label>
+                        <label nz-radio-button nzValue="B" nzDisabled>Shanghai</label>
+                        <label nz-radio-button nzValue="C">Beijing</label>
+                        <label nz-radio-button nzValue="D">Chengdu</label>
+                    </nz-radio-group>
+                </div>
+                <div class="m-t-15">
+                    <nz-radio-group [(ngModel)]="radioStyleValue">
+                        <label nz-radio-button nzValue="A" nzDisabled>Hangzhou</label>
+                        <label nz-radio-button nzValue="B" nzDisabled>Shanghai</label>
+                        <label nz-radio-button nzValue="C" nzDisabled>Beijing</label>
+                        <label nz-radio-button nzValue="D" nzDisabled>Chengdu</label>
+                    </nz-radio-group>
+                </div>
+            </div>
+            <codebox [codeContent]="radioStyleCode"></codebox>
+        </nz-card>
+    </div>
+    <div class="col-md-6">
+        <nz-card>
+            <h4>Size</h4>
+            <p>There are three sizes available: large, medium, and small. It can coordinate with input box.</p>
+            <div class="m-t-25">
+                <div>
+                    <nz-radio-group [(ngModel)]="radioSizeValue" [nzSize]="'large'">
+                        <label nz-radio-button nzValue="A">Hangzhou</label>
+                        <label nz-radio-button nzValue="B">Shanghai</label>
+                        <label nz-radio-button nzValue="C">Beijing</label>
+                        <label nz-radio-button nzValue="D">Chengdu</label>
+                    </nz-radio-group>
+                    </div>
+                    <div class="m-t-15">
+                    <nz-radio-group [(ngModel)]="radioSizeValue">
+                        <label nz-radio-button nzValue="A">Hangzhou</label>
+                        <label nz-radio-button nzValue="B">Shanghai</label>
+                        <label nz-radio-button nzValue="C">Beijing</label>
+                        <label nz-radio-button nzValue="D">Chengdu</label>
+                    </nz-radio-group>
+                    </div>
+                    <div class="m-t-15">
+                    <nz-radio-group [(ngModel)]="radioSizeValue" [nzSize]="'small'">
+                        <label nz-radio-button nzValue="A">Hangzhou</label>
+                        <label nz-radio-button nzValue="B">Shanghai</label>
+                        <label nz-radio-button nzValue="C">Beijing</label>
+                        <label nz-radio-button nzValue="D">Chengdu</label>
+                    </nz-radio-group>
+                </div>
+            </div>
+            <codebox [codeContent]="radioSizeCode"></codebox>
+        </nz-card>
+    </div>
+</div>   
+<div class="row">
+    <div class="col-md-12">
+        <nz-card>
+            <h4>Solid radio button</h4>
+            <p>Solid radio button style.</p>
+            <div class="m-t-25">
+                <nz-radio-group [(ngModel)]="radioStyleSolidValue" [nzButtonStyle]="'solid'">
+                    <label nz-radio-button nzValue="A">Hangzhou</label>
+                    <label nz-radio-button nzValue="B">Shanghai</label>
+                    <label nz-radio-button nzValue="C">Beijing</label>
+                    <label nz-radio-button nzValue="D">Chengdu</label>
+                </nz-radio-group>
+            </div>
+            <codebox [codeContent]="radioStyleSolidCode"></codebox>
+        </nz-card>
+    </div>
+</div>     
+<nz-card nzTitle="API">
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">[nz-radio] | [nz-radio-button]</span>
+            <label class="api-type-label directive">directive</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[nzAutoFocus]</code></td>
+                    <td>get focus when component mounted</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzDisabled]</code></td>
+                    <td>Disable radio</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[ngModel]</code></td>
+                    <td>Specifies whether the radio is selected, double binding</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzValue]</code></td>
+                    <td>use with <code>nz-radio-group</code></td>
+                    <td>string</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>(ngModelChange)</code></td>
+                    <td>The callback function that is triggered when the state changes.</td>
+                    <td><code>EventEmitter&lt;boolean&gt;</code></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">nz-radio-group</span>
+            <label class="api-type-label component">component</label>
+        </h5>
+        <p>radio group，wrap a group of <code>nz-radio</code>.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[ngModel]</code></td>
+                    <td>current selected <code>nz-radio</code> value, double binding</td>
+                    <td>string</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzName]</code></td>
+                    <td>The <code>name</code> property of all <code>input[type="radio"]</code> children</td>
+                    <td>string</td>
+                    <td>none</td>
+                </tr>
+                <tr>
+                    <td><code>[nzDisabled]</code></td>
+                    <td>Disable all radio buttons</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td><code>[nzSize]</code></td>
+                    <td>Size, only on radio style</td>
+                    <td><code>large</code><code>default</code><code>small</code></td>
+                    <td><code>default</code></td>
+                </tr>
+                <tr>
+                    <td><code>(ngModelChange)</code></td>
+                    <td>the callback function when current selected <code>nz-radio</code> value change</td>
+                    <td><code>EventEmitter&lt;string&gt;</code></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>[nzButtonStyle]</code></td>
+                    <td>style type of radio button</td>
+                    <td><code>outline</code> 丨 <code>solid</code></td>
+                    <td><code>outline</code></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</nz-card>  
+<nz-card nzTitle="Methods">
+    <div class="markdown api-container">
+        <h5>
+            <span class="font-weight-light">[nz-radio]</span>
+            <label class="api-type-label directive">directive</label>
+        </h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>blur()</td>
+                    <td>remove focus</td>
+                </tr>
+                <tr>
+                    <td>focus()</td>
+                    <td>get focus</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</nz-card>      
