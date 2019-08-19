@@ -4,7 +4,7 @@ import { ChangepasswordComponent } from './changepassword/changepassword.compone
 
 const routes: Routes = [
     {
-        path: 'changepassword',
+        path: '',
         component: ChangepasswordComponent,
         data: {
             title: 'Change Password',

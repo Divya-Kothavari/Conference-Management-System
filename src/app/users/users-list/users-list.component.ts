@@ -29,7 +29,9 @@ export class UsersListComponent implements OnInit {
     ngOnInit(){
             this.getUsersList();
         }
-    
+    cancel() {
+        //
+    }
     getUsersList(){
         this.loading = true;
         this.http.get('http://localhost:8081/cmsusermgmt/userMgmt/users').subscribe(

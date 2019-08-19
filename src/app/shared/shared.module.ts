@@ -9,7 +9,6 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { ThemeConstantService } from './services/theme-constant.service';
 import { CodeBoxComponent } from './directives/code-box.component'
 import { SearchPipe } from './pipes/search.pipe';
-
 @NgModule({
     exports: [
         CommonModule,
@@ -20,7 +19,7 @@ import { SearchPipe } from './pipes/search.pipe';
         CodeBoxComponent,
         HighlightModule,
         SearchPipe
-    ],
+        ],
     imports: [
         RouterModule,
         CommonModule,
@@ -31,9 +30,9 @@ import { SearchPipe } from './pipes/search.pipe';
     declarations: [
         CodeBoxComponent,
         SearchPipe
-    ],
+        ],
     providers: [
-        ThemeConstantService
+        ThemeConstantService,
     ]
 })
 

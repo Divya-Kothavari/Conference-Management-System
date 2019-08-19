@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ThemeConstantService } from '../../services/theme-constant.service';
+import { CommonService } from '../../services/common.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -12,12 +14,16 @@ export class HeaderComponent{
     quickViewVisible : boolean = false;
     isFolded : boolean;
     isExpand : boolean;
-
-    constructor( private themeService: ThemeConstantService) {}
+    user;
+    constructor( private themeService: ThemeConstantService,
+        private commonService: CommonService, private router: Router) {}
 
     ngOnInit(): void {
         this.themeService.isMenuFoldedChanges.subscribe(isFolded => this.isFolded = isFolded);
         this.themeService.isExpandChanges.subscribe(isExpand => this.isExpand = isExpand);
+        this.commonService.userData.subscribe(data =>{
+            this.user = data;
+        });
     }
 
     toggleFold() {
@@ -40,6 +46,10 @@ export class HeaderComponent{
         this.quickViewVisible = !this.quickViewVisible;
     }
 
+    logOutUser() {
+        window.localStorage.removeItem('is_loggedin');
+        this.router.navigate(['/events']);
+    }
     notificationList = [
         {
             title: 'You received a new message',

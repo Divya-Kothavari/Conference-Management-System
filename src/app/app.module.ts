@@ -8,7 +8,8 @@ import en from '@angular/common/locales/en';
 import { AppRoutingModule } from './app-routing.module';
 import { TemplateModule } from './shared/template/template.module';
 import { SharedModule } from './shared/shared.module';
-
+import { CoreModule } from './core/core.module';
+import { CommonService } from '../app/shared/services/common.service';
 import { AppComponent } from './app.component';
 import { CommonLayoutComponent } from './layouts/common-layout/common-layout.component';
 import { FullLayoutComponent } from './layouts/full-layout/full-layout.component';
@@ -31,6 +32,7 @@ registerLocaleData(en);
         AppRoutingModule,
         TemplateModule,
         SharedModule,
+        CoreModule,
         NgChartjsModule
     ],
     providers: [
@@ -38,7 +40,8 @@ registerLocaleData(en);
             provide: NZ_I18N,
             useValue: en_US, 
         },
-        ThemeConstantService
+        ThemeConstantService,
+        CommonService
     ],
     bootstrap: [AppComponent]
 })

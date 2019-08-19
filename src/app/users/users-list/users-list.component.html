@@ -67,7 +67,7 @@
                     <a [routerLink]="['/users/profile', item.userId]" class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom">
                         <i nz-icon type="edit" theme="outline"></i>
                     </a>
-                    <button (click)="deleteUser(item.userId)" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Delete" nzPlacement="bottom">
+                    <button nz-button nzType="default" nz-popconfirm nzPopoverTrigger="click" nzTitle="Are you sure delete this user?" (nzOnConfirm)="deleteUser(item.userId)" (nzOnCancel)="cancel()" nzGhost nzShape="circle">
                         <i nz-icon type="delete" theme="outline"></i>
                     </button>
                 </td>
