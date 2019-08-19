@@ -32,7 +32,7 @@ export class LoginComponent {
                } else if (resp.status === 'Success') {
                   this.updateUser(resp.user);
                    window.localStorage.setItem('is_loggedin', 'true');
-                   this.route.navigate(['/users/userslist']);
+                   this.route.navigate(['/users']);
                }
             },
             err => {
