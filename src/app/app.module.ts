@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
+import { FormsModule  } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { TemplateModule } from './shared/template/template.module';
@@ -32,6 +33,7 @@ registerLocaleData(en);
         AppRoutingModule,
         TemplateModule,
         SharedModule,
+        FormsModule,
         CoreModule,
         NgChartjsModule
     ],

@@ -1,12 +1,10 @@
-<div class="page-header has-tab">
-    <h2 class="font-weight-normal">Setting</h2>
-</div>
-<nz-tabset class="page-header-tab">
+
+<nz-tabset class="page-header-tab" *ngIf="dataAvailable">
     <nz-tab nzTitle="Account">
         <div class="container">
             <nz-card nzTitle="Basic Infomation">
                 <div class="media align-items-center">
-                    <nz-avatar  [nzSize]="80" nzIcon="user" [nzSrc]="avatarUrl"></nz-avatar>
+                    <nz-avatar  [nzSize]="80" nzIcon="user" [nzSrc]="userDetails.image"></nz-avatar>
                     <div class="m-l-20 m-r-20">
                         <h5 class="m-b-5 font-size-18">Change Avatar</h5>
                         <p class="opacity-07 font-size-13 m-b-0">
@@ -16,12 +14,15 @@
                     </div>
                     <nz-upload 
                         nzName="avatar"
+                        [nzAction]="uploadUrl" 
+                        [nzCustomRequest]="customReq"
                         [nzShowUploadList]="false"
-                        (nzChange)="handleChange($event)">
+                       >
                         <button nz-button nzType="primary" nzGhost>
                             <span>Upload</span>
                         </button>
                     </nz-upload>
+                    <div style="float: right"><button (click)="updateUser()" nz-button nzType="primary" nzGhost><span>Save</span></button></div>
                 </div>
                 <hr class="m-v-25">
                 <div class="row">
@@ -29,7 +30,7 @@
                         <nz-form-item>
                             <nz-form-label>User Name</nz-form-label>
                             <nz-form-control>
-                                <input nz-input placeholder="Username" value="Marshall Nichols">
+                                <input nz-input placeholder="Username" name="username" [(ngModel)]="userDetails.userName">
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -37,7 +38,7 @@
                         <nz-form-item>
                             <nz-form-label>Email</nz-form-label>
                             <nz-form-control>
-                                <input nz-input placeholder="Username" type="email" value="@marshallnich">
+                                <input nz-input placeholder="Email" type="email" name = "email" [(ngModel)]="userDetails.email">
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -47,7 +48,7 @@
                         <nz-form-item>
                             <nz-form-label>Phone Number</nz-form-label>
                             <nz-form-control>
-                                <input nz-input placeholder="Phone Number" >
+                                <input nz-input placeholder="Phone Number" name="mobile" [(ngModel)]="userDetails.mobile">
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -59,91 +60,15 @@
                             </nz-form-control>
                         </nz-form-item>
                     </div>
-                    <div class="col-md-4">
-                        <nz-form-item>
-                            <nz-form-label>Language</nz-form-label>
-                            <nz-form-control>
-                                <nz-select class="w-100" [(ngModel)]="selectedLanguage" nzPlaceHolder="Language">
-                                    <nz-option nzValue="US" nzLabel="United Stata"></nz-option>
-                                    <nz-option nzValue="UK" nzLabel="United Kingdom"></nz-option>
-                                    <nz-option nzValue="FR" nzLabel="France"></nz-option>
-                                    <nz-option nzValue="DE" nzLabel="German"></nz-option>
-                                </nz-select>
-                            </nz-form-control>
-                        </nz-form-item>
-                    </div>
                 </div>
-            </nz-card>
-            <nz-card nzTitle="Change Password">
-                <form nz-form [formGroup]="changePWForm" (ngSubmit)="submitForm()">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <nz-form-item>
-                                <nz-form-label nzFor="oldPassword">Old Password</nz-form-label>
-                                <nz-form-control>
-                                    <input formControlName="oldPassword" nz-input type="password" placeholder="Old Password">
-                                    <nz-form-explain *ngIf="changePWForm.get('oldPassword').dirty && changePWForm.get('oldPassword').errors">Please input your old password!</nz-form-explain>
-                                </nz-form-control>
-                            </nz-form-item>
-                        </div>    
-                        <div class="col-md-3">
-                             <nz-form-item>
-                                <nz-form-label nzFor="newPassword">New Password</nz-form-label>
-                                <nz-form-control>
-                                    <input formControlName="newPassword" nz-input type="password" placeholder="New Password">
-                                    <nz-form-explain *ngIf="changePWForm.get('newPassword').dirty && changePWForm.get('newPassword').errors">Please input your New Password!</nz-form-explain>
-                                </nz-form-control>
-                            </nz-form-item>
-                        </div> 
-                        <div class="col-md-3">
-                            <nz-form-item>
-                                <nz-form-label nzFor="confirmPassword">Confirm</nz-form-label>
-                                <nz-form-control>
-                                    <input formControlName="confirmPassword" nz-input type="password" placeholder="Confirm Password">
-                                    <nz-form-explain *ngIf="changePWForm.get('confirmPassword').dirty && changePWForm.get('confirmPassword').errors">Please confirm your New Password!</nz-form-explain>
-                                </nz-form-control>
-                            </nz-form-item>
-                        </div>
-                        <div class="col-md-3">
-                            <nz-form-item>
-                                <nz-form-control>
-                                    <button class="m-t-40" nz-button nzType="primary" [disabled]="!changePWForm.valid">Change</button>
-                                </nz-form-control>
-                            </nz-form-item>
-                        </div>    
-                    </div>
-                </form>
-            </nz-card>  
+            </nz-card> 
             <nz-card nzTitle="Address Details">
                 <div class="row">
                     <div class="col-md-12">
                         <nz-form-item>
                             <nz-form-label>Full Address</nz-form-label>
                             <nz-form-control>
-                                <input nz-input placeholder="Address">
-                            </nz-form-control>
-                        </nz-form-item>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <nz-form-item>
-                            <nz-form-label>State & City</nz-form-label>
-                            <nz-form-control>
-                                <input nz-input placeholder="State & City">
-                            </nz-form-control>
-                        </nz-form-item>
-                    </div>
-                    <div class="col-md-6">
-                        <nz-form-item>
-                            <nz-form-label>Country</nz-form-label>
-                            <nz-form-control>
-                                <nz-select class="w-100" [(ngModel)]="selectedCountry" nzPlaceHolder="Country">
-                                    <nz-option nzValue="US" nzLabel="United Stata"></nz-option>
-                                    <nz-option nzValue="UK" nzLabel="United Kingdom"></nz-option>
-                                    <nz-option nzValue="FR" nzLabel="France"></nz-option>
-                                    <nz-option nzValue="DE" nzLabel="German"></nz-option>
-                                </nz-select>
+                                <input nz-input placeholder="Address" name="address" [(ngModel)]="userDetails.address">
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -216,3 +141,5 @@
         </div>
     </nz-tab>
 </nz-tabset>
+
+<nz-skeleton [nzLoading]="isLoading" [nzAvatar]="true" [nzActive]="true" [nzParagraph]="{ rows: 4 }"></nz-skeleton>

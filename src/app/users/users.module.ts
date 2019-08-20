@@ -1,19 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { SharedModule } from '../shared/shared.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersListComponent } from './users-list/users-list.component';
 import { ProfileComponent } from './profile/profile.component';
 import { TableService } from '../shared/services/table.service';
+import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
+import { NzInputModule } from 'ng-zorro-antd/input';
 
 
 @NgModule({
     imports: [
         CommonModule,
         SharedModule,
+        FormsModule,
         ReactiveFormsModule,
-        UsersRoutingModule
+        UsersRoutingModule,
+        NzSkeletonModule,
+        NzInputModule
     ],
     declarations: [
         UsersListComponent,

@@ -4,7 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzModalService } from 'ng-zorro-antd';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Route, Router, ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
+import { UploadXHRArgs } from 'ng-zorro-antd/upload';
 
 
 @Component({
@@ -12,13 +13,15 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class ProfileComponent {
-
     changePWForm: FormGroup;
     avatarUrl: string = "http://themenate.com/applicator/dist/assets/images/avatars/thumb-13.jpg";
     selectedCountry: any;
     selectedLanguage: any;
     userid;
-
+    userDetails;
+    uploadUrl;
+    isLoading = false;
+    dataAvailable = false;
     networkList = [
         {
             name: 'Facebook',
@@ -139,50 +142,75 @@ export class ProfileComponent {
     }
 
     ngOnInit(): void {
-        this.changePWForm = this.fb.group({
-            oldPassword: [ null, [ Validators.required ] ],
-            newPassword: [ null, [ Validators.required ] ],
-            confirmPassword: [ null, [ Validators.required ] ]
-        });
+        this.isLoading = true;
         //get user by id
         this.http.get(`http://localhost:8081/cmsusermgmt/userMgmt/user/${this.userid}`).subscribe(
             (resp: any) =>{
+                this.isLoading = false;
                 if (resp.status === 'Success') {
-                    console.log(resp);
+                   this.userDetails = resp.user;
+                   this.dataAvailable = true;
+                   this.uploadUrl= `http://localhost:8081/cmsusermgmt/userMgmt/user/image/${this.userDetails.userId}`
                 }
             },
             err => {
+                this.isLoading = false;
                 console.log(err);
             }
         )
 
     }
 
-    showConfirm(): void {
-        this.modalService.confirm({
-            nzTitle  : '<i>Do you want to change your password?</i>',
-            nzOnOk   : () => this.message.success('Password Change Successfully')
-        });
-    }
 
-    submitForm(): void {
-        for (const i in this.changePWForm.controls) {
-            this.changePWForm.controls[ i ].markAsDirty();
-            this.changePWForm.controls[ i ].updateValueAndValidity();
+    customReq = (item: UploadXHRArgs) => {
+        // Create a FormData here to store files and other parameters.
+        const formData = new FormData();
+        // tslint:disable-next-line:no-any
+        formData.append('file', item.file as any);
+        formData.append('userId', this.userDetails.userId);
+        const req = new HttpRequest('POST', this.uploadUrl, formData, {
+          reportProgress: false,
+          withCredentials: false
+        });
+        // Always returns a `Subscription` object. nz-upload would automatically unsubscribe it at correct time.
+        return this.http.request(req).subscribe(
+          // tslint:disable-next-line no-any
+          (event: HttpEvent<any>) => {
+            if (event.type === HttpEventType.UploadProgress) {
+              if (event.total! > 0) {
+                // tslint:disable-next-line:no-any
+                (event as any).percent = (event.loaded / event.total!) * 100;
+              }
+              item.onProgress!(event, item.file!);
+            } else if (event instanceof HttpResponse) {
+              item.onSuccess!(event.body, item.file!, event);
+              this.message.success(event.body.message);
+              this.userDetails.image = event.body.path;
+            }
+          },
+          err => {
+            item.onError!(err, item.file!);
+          }
+        );
+      };
+    updateUser() {
+        const data = {
+            userId: this.userDetails.userId,
+            userName: this.userDetails.userName,
+            email: this.userDetails.email,
+            mobile: this.userDetails.mobile,
+            address: this.userDetails.address
         }
-
-        this.showConfirm();
-    }
-
-    private getBase64(img: File, callback: (img: {}) => void): void {
-        const reader = new FileReader();
-        reader.addEventListener('load', () => callback(reader.result));
-        reader.readAsDataURL(img);
-    }
-
-    handleChange(info: { file: UploadFile }): void {
-        this.getBase64(info.file.originFileObj, (img: string) => {
-            this.avatarUrl = img;
-        });
-    }
+        this.http.put('http://localhost:8081/cmsusermgmt/userMgmt/user', data).subscribe(
+            (resp: any) =>{
+                if (resp.status === 'Success') {
+                   this.userDetails = resp.user;
+                   this.message.success(resp.message);
+                }
+            },
+            err => {
+                console.log(err);
+            }
+        )
+      }
 }    
