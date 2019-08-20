@@ -12,41 +12,50 @@
 <div class="row">
         <div class="col-md-6">
             <nz-card>
-                <div class="d-flex">
-                    <h5>User Roles</h5>
-                    <hr>
-                 </div>
+                <div class="d-flex justify-content-between align-items-center ng-star-inserted">
+                    <h5 style="border-bottom: 3px solid #ccc">User Roles</h5>
+                    <div> <a class="text-right" nz-button nzShape="round" nzSize="default" nzType="primary" (click)="isVisible = true">
+                                    <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
+                                    <span>Add Role</span>
+                                </a></div>
+                            
+                   </div>
                  <div>
-                        <nz-table #basicTable [nzData]="dataSet">
-                                <thead>
-                                    <tr>
-                                        <th>Role</th>
-                                        <th>Description</th>
-                                         <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let data of basicTable.data">
-                                        <td>{{data.name}}</td>
-                                         <td>{{data.address}}</td>
-                                        <td>
-                                                <a class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom">
-                                                    <i nz-icon type="edit" theme="outline"></i>
-                                                </a>
-                                                <button nz-button nzType="default" nz-popconfirm nzPopoverTrigger="click" nzTitle="Are you sure delete this user?" (nzOnCancel)="cancel()" nzGhost nzShape="circle">
-                                                    <i nz-icon type="delete" theme="outline"></i>
-                                                </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </nz-table>
+                    <nz-table #basicTable [nzData]="roleSet">
+                            <thead>
+                                <tr>
+                                    <th>Role</th>
+                                    <th>Description</th>
+                                        <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of basicTable.data">
+                                    <td>{{data.name}}</td>
+                                        <td>{{data.address}}</td>
+                                    <td>
+                                            <a class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom">
+                                                <i nz-icon type="edit" theme="outline"></i>
+                                            </a>
+                                            <button nz-button nzType="default" nz-popconfirm nzPopoverTrigger="click" nzTitle="Are you sure delete this user?" (nzOnCancel)="cancel()" nzGhost nzShape="circle">
+                                                <i nz-icon type="delete" theme="outline"></i>
+                                            </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                    </nz-table>
                  </div>
              </nz-card>
         </div>
         <div class="col-md-6">
             <nz-card>
-                <div class="d-flex">
-                    <h5>Subjects</h5>
+                <div class="d-flex justify-content-between align-items-center ng-star-inserted">
+                        <h5 style="border-bottom: 3px solid #ccc">Subjects</h5>
+                        <div> <a class="text-right" nz-button nzShape="round" nzSize="default" nzType="primary" (click)="isVisible = true">
+                                <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
+                                <span>Add Subject</span>
+                            </a></div>
+                            
                 </div>
                 </nz-card>
         </div>

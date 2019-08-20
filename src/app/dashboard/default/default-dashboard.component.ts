@@ -11,7 +11,7 @@ export class DefaultDashboardComponent {
 
     ngOnInit(){}
      
-    dataSet = [
+    roleSet = [
         {
             key    : '1',
             name   : 'SuperAdmin',
@@ -38,4 +38,5 @@ export class DefaultDashboardComponent {
             address: 'Reviewer Description'
         }
     ];
+    
 }  
