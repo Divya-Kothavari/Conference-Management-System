@@ -28,7 +28,7 @@
             </div>
                 
                     <div class="col-md-4"><button [nzLoading]="isLoading" class="float-right m-t-10" (click)="updateUser()" nz-button nzType="primary" nzGhost><span>Save Profile</span></button></div>
-                </div>
+            </div>
                 <hr class="m-v-25">
                 <div class="row">
                     <div class="col-md-6">
@@ -168,4 +168,4 @@
     </nz-tab>
 </nz-tabset>
 
-<nz-skeleton [nzLoading]="isLoading" [nzAvatar]="true" [nzActive]="true" [nzParagraph]="{ rows: 4 }"></nz-skeleton>
+<nz-skeleton [nzLoading]="skeletonLoading" [nzAvatar]="true" [nzActive]="true" [nzParagraph]="{ rows: 4 }"></nz-skeleton>

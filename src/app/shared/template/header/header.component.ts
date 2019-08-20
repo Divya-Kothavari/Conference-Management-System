@@ -49,7 +49,7 @@ export class HeaderComponent{
 
     logOutUser() {
         window.localStorage.removeItem('is_loggedin');
-        this.router.navigate(['/events']);
+        this.router.navigate(['']);
     }
     notificationList = [
         {

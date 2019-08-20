@@ -21,6 +21,7 @@ export class ProfileComponent {
     userDetails;
     uploadUrl;
     isLoading = false;
+    skeletonLoading = false;
     dataAvailable = false;
     networkList = [
         {
@@ -192,6 +193,7 @@ export class ProfileComponent {
         );
       };
     updateUser() {
+        this.isLoading = true;
          const data = {
             userId: this.userDetails.userId,
             userName: this.userDetails.userName,
@@ -203,12 +205,14 @@ export class ProfileComponent {
         }
         this.http.put('http://localhost:8081/cmsusermgmt/userMgmt/user', data).subscribe(
             (resp: any) =>{
+                this.isLoading = false;
                  if (resp.status === 'Success') {
                     this.userDetails = resp.user;
                    this.message.success(resp.message);
                 }
             },
             err => {
+                this.isLoading = false;
                  console.log(err);
             }
         )

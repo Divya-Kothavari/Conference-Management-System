@@ -64,10 +64,10 @@
                     <span *ngIf="item.status ==  false"  class="text-capitalize"> Inactive</span>
                 </td>
                 <td class="text-md-right">
-                    <a [routerLink]="['/users/profile', item.userId]" class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom">
+                    <a aria-readonly="true" [routerLink]="['/users/profile', item.userId]" class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom">
                         <i nz-icon type="edit" theme="outline"></i>
                     </a>
-                    <button nz-button nzType="default" nz-popconfirm nzPopoverTrigger="click" nzTitle="Are you sure delete this user?" (nzOnConfirm)="deleteUser(item.userId)" (nzOnCancel)="cancel()" nzGhost nzShape="circle">
+                    <button aria-readonly="true" nz-button nzType="default" nz-popconfirm nzPopoverTrigger="click" nzTitle="Are you sure delete this user?" (nzOnConfirm)="deleteUser(item.userId)" (nzOnCancel)="cancel()" nzGhost nzShape="circle">
                         <i nz-icon type="delete" theme="outline"></i>
                     </button>
                 </td>
@@ -94,7 +94,7 @@
         <nz-form-item>
             <nz-form-label nzRequired nzFor="email">Email</nz-form-label>
             <nz-form-control>
-                <input type="text" nz-input formControlName="email" placeholder="Username" id="email">
+                <input type="text" nz-input formControlName="email" placeholder="Email Id" id="email">
                 <nz-form-explain *ngIf="signUpForm.get('email').dirty && signUpForm.get('email').errors">The input is not valid E-mail!</nz-form-explain>
             </nz-form-control>
         </nz-form-item>
