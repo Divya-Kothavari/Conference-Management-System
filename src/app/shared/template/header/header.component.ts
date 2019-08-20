@@ -24,6 +24,7 @@ export class HeaderComponent{
         this.commonService.userData.subscribe(data =>{
             this.user = data;
         });
+
     }
 
     toggleFold() {

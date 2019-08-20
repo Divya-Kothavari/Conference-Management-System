@@ -3,6 +3,8 @@
     <nz-tab nzTitle="Account">
         <div class="container">
             <nz-card nzTitle="Basic Infomation">
+            <div class="row">
+              <div class="col-md-8">
                 <div class="media align-items-center">
                     <nz-avatar  [nzSize]="80" nzIcon="user" [nzSrc]="userDetails.image"></nz-avatar>
                     <div class="m-l-20 m-r-20">
@@ -19,10 +21,13 @@
                         [nzShowUploadList]="false"
                        >
                         <button nz-button nzType="primary" nzGhost>
-                            <span>Upload</span>
+                            <span>Upload Photo</span>
                         </button>
                     </nz-upload>
-                    <div style="float: right"><button (click)="updateUser()" nz-button nzType="primary" nzGhost><span>Save</span></button></div>
+                 </div>
+            </div>
+                
+                    <div class="col-md-4"><button [nzLoading]="isLoading" class="float-right m-t-10" (click)="updateUser()" nz-button nzType="primary" nzGhost><span>Save Profile</span></button></div>
                 </div>
                 <hr class="m-v-25">
                 <div class="row">
@@ -43,6 +48,7 @@
                         </nz-form-item>
                     </div>
                 </div>
+                
                 <div class="row">
                     <div class="col-md-4">
                         <nz-form-item>
@@ -66,9 +72,29 @@
                 <div class="row">
                     <div class="col-md-12">
                         <nz-form-item>
-                            <nz-form-label>Full Address</nz-form-label>
+                            <nz-form-label>Address</nz-form-label>
                             <nz-form-control>
-                                <input nz-input placeholder="Address" name="address" [(ngModel)]="userDetails.address">
+                                    <textarea rows="3"  nz-input placeholder="Address" name="address" [(ngModel)]="userDetails.address"></textarea>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <nz-form-item>
+                            <nz-form-label>Biography</nz-form-label>
+                            <nz-form-control>
+                                    <textarea rows="3" nz-input placeholder="Biography" name="biography" [(ngModel)]="userDetails.biography"></textarea>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <nz-form-item>
+                            <nz-form-label>Interests</nz-form-label>
+                            <nz-form-control>
+                                <textarea rows="3" nz-input placeholder="Interests" name="interests" [(ngModel)]="userDetails.interests"></textarea>
                             </nz-form-control>
                         </nz-form-item>
                     </div>

@@ -142,20 +142,18 @@ export class ProfileComponent {
     }
 
     ngOnInit(): void {
-        this.isLoading = true;
-        //get user by id
+         //get user by id
         this.http.get(`http://localhost:8081/cmsusermgmt/userMgmt/user/${this.userid}`).subscribe(
             (resp: any) =>{
-                this.isLoading = false;
                 if (resp.status === 'Success') {
+                    //console.log(resp.user);
                    this.userDetails = resp.user;
                    this.dataAvailable = true;
                    this.uploadUrl= `http://localhost:8081/cmsusermgmt/userMgmt/user/image/${this.userDetails.userId}`
                 }
             },
             err => {
-                this.isLoading = false;
-                console.log(err);
+                 console.log(err);
             }
         )
 
@@ -194,22 +192,24 @@ export class ProfileComponent {
         );
       };
     updateUser() {
-        const data = {
+         const data = {
             userId: this.userDetails.userId,
             userName: this.userDetails.userName,
             email: this.userDetails.email,
             mobile: this.userDetails.mobile,
-            address: this.userDetails.address
+            address: this.userDetails.address,
+            biography: this.userDetails.biography,
+            interests: this.userDetails.interests
         }
         this.http.put('http://localhost:8081/cmsusermgmt/userMgmt/user', data).subscribe(
             (resp: any) =>{
-                if (resp.status === 'Success') {
-                   this.userDetails = resp.user;
+                 if (resp.status === 'Success') {
+                    this.userDetails = resp.user;
                    this.message.success(resp.message);
                 }
             },
             err => {
-                console.log(err);
+                 console.log(err);
             }
         )
       }

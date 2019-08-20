@@ -14,7 +14,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Users',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'users',
+        icon: 'team',
         submenu: []
     },
     {
