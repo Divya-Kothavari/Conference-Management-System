@@ -32,6 +32,9 @@ export class LoginComponent {
                } else if (resp.status === 'Success') {
                   this.updateUser(resp.user);
                    window.localStorage.setItem('is_loggedin', 'true');
+                   window.localStorage.setItem('user', resp.user.userName);
+                   window.localStorage.setItem('role', resp.user.role);
+                   window.localStorage.setItem('userid', resp.user.userId);
                    this.route.navigate(['/users']);
                }
             },

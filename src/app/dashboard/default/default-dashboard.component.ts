@@ -1,15 +1,26 @@
 import { Component } from '@angular/core'
 import { ThemeConstantService } from '../../shared/services/theme-constant.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     templateUrl: './default-dashboard.component.html'
 })
 
 export class DefaultDashboardComponent {
+    roleForm: FormGroup;
+    isVisible:false;
+    constructor( private colorConfig:ThemeConstantService,
+        private http: HttpClient,
+        private fb: FormBuilder ) {
+        
+    }
 
-    constructor( private colorConfig:ThemeConstantService ) {}
-
-    ngOnInit(){}
+    ngOnInit(){
+        this.roleForm = this.fb.group({
+            roleName: [ null, [ Validators.required ] ],
+        });
+    }
      
     roleSet = [
         {
@@ -38,5 +49,8 @@ export class DefaultDashboardComponent {
             address: 'Reviewer Description'
         }
     ];
-    
+    handleCancel() {
+        this.isVisible = false;
+        this.roleForm.reset();
+    }
 }  

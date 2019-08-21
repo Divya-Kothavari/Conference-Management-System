@@ -17,12 +17,4 @@ export const ROUTES: SideNavInterface[] = [
         icon: 'team',
         submenu: []
     },
-    {
-        path: '/adminprofile',
-        title: 'My Profile',
-        iconType: 'nzIcon',
-        iconTheme: 'outline',
-        icon: 'profile',
-        submenu: []
-    },
 ]    

@@ -80,8 +80,8 @@
                             <div class="d-flex m-r-50">
                                 <nz-avatar nzSize="large" [nzSrc]="user.photo"></nz-avatar>
                                 <div class="m-l-10">
-                                    <p class="m-b-0 text-dark font-weight-semibold">{{user.userName}}</p>
-                                    <p class="m-b-0 opacity-07">{{user.role}}</p>
+                                    <p class="m-b-0 text-dark font-weight-semibold">{{username}}</p>
+                                    <p class="m-b-0 opacity-07">{{role === 'undefined'? '' : role}}</p>
                                 </div>
                             </div>
                         </li>
@@ -103,7 +103,7 @@
                                 <i class="font-size-10" nz-icon type="right" theme="outline"></i>
                             </a>
                         </li>
-                        <li nz-menu-item routerLink="/adminprofile/changepassword">
+                        <li nz-menu-item (click)="isVisible = true">
                             <a class="p-v-5 d-flex align-items-center justify-content-between">
                                 <div>
                                     <i class="opacity-04 font-size-16" nz-icon type="project" theme="outline"></i>
@@ -135,3 +135,40 @@
         </ul>
     </div>
 </div>    
+<nz-modal [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()"
+[nzFooter]="modalFooter" nzTitle="Change Password">
+    <form nz-form [formGroup]="changePWForm">
+                <nz-form-item>
+                    <nz-form-label nzFor="oldPassword">Old Password</nz-form-label>
+                    <nz-form-control>
+                        <input formControlName="oldPassword" nz-input type="password" placeholder="Old Password">
+                        <nz-form-explain *ngIf="changePWForm.get('oldPassword').dirty && changePWForm.get('oldPassword').errors">Please input your old password!</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+                 <nz-form-item>
+                    <nz-form-label nzFor="newPassword">New Password</nz-form-label>
+                    <nz-form-control>
+                        <input formControlName="newPassword" nz-input type="password" placeholder="New Password">
+                        <nz-form-explain *ngIf="changePWForm.get('newPassword').dirty && changePWForm.get('newPassword').errors">Please input your New Password!</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzFor="confirmPassword">Confirm</nz-form-label>
+                    <nz-form-control>
+                        <input formControlName="confirmPassword" nz-input type="password" placeholder="Confirm Password">
+                        <nz-form-explain *ngIf="changePWForm.get('confirmPassword').dirty && changePWForm.get('confirmPassword').errors">
+                            <ng-container *ngIf="changePWForm.get('confirmPassword').hasError('required')">
+                                Please confirm your password!
+                            </ng-container>
+                            <ng-container *ngIf="changePWForm.get('confirmPassword').hasError('confirm')">
+                                Two passwords that you enter is inconsistent!
+                            </ng-container>
+                        </nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+    </form>
+      <ng-template #modalFooter>
+        <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
+        <button nz-button nzType="primary" [disabled]="!changePWForm.valid" (click)="submitForm()">Change</button>
+      </ng-template>
+  </nz-modal>

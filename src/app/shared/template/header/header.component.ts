@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { ThemeConstantService } from '../../services/theme-constant.service';
 import { CommonService } from '../../services/common.service';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { NzModalService, NzMessageService } from 'ng-zorro-antd';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-header',
@@ -15,8 +18,14 @@ export class HeaderComponent{
     isFolded : boolean;
     isExpand : boolean;
     user;
+    username;
+    role;
+    changePWForm: FormGroup;
+    isVisible:false;
     constructor( private themeService: ThemeConstantService,
-        private commonService: CommonService, private router: Router) {}
+        private commonService: CommonService, private router: Router,
+        private http: HttpClient,
+        private fb: FormBuilder,  private modalService: NzModalService,private message: NzMessageService,) {}
 
     ngOnInit(): void {
         this.themeService.isMenuFoldedChanges.subscribe(isFolded => this.isFolded = isFolded);
@@ -24,7 +33,15 @@ export class HeaderComponent{
         this.commonService.userData.subscribe(data =>{
             this.user = data;
         });
-
+        this.changePWForm = this.fb.group({
+            oldPassword: [ null, [ Validators.required ] ],
+            newPassword: [ null, [ Validators.required ] ],
+            confirmPassword: [ null, [ Validators.required, this.confirmationValidator ] ]
+        });
+     this.username = window.localStorage.getItem('user');
+     if (window.localStorage.getItem('role')) {
+        this.role = window.localStorage.getItem('role');
+     }
     }
 
     toggleFold() {
@@ -77,4 +94,54 @@ export class HeaderComponent{
             color: 'ant-avatar-' + 'gold'
         }
     ];
+    submitForm(): void {
+        for (const i in this.changePWForm.controls) {
+            this.changePWForm.controls[ i ].markAsDirty();
+            this.changePWForm.controls[ i ].updateValueAndValidity();
+        }
+
+        this.showConfirm();
+    }
+    showConfirm(): void {
+        this.modalService.confirm({
+            nzTitle  : '<i>Do you want to change your password?</i>',
+            nzOnOk   : () => 
+            {
+                const data = {
+                    cPassword: this.changePWForm.value.oldPassword,
+                    nPassword: this.changePWForm.value.newPassword,
+                    nPasswordConf: this.changePWForm.value.confirmPassword,
+                    userId: window.localStorage.getItem('userid')
+                }
+                this.http.post('http://localhost:8081/cmsusermgmt/userMgmt/passwordReset', data).subscribe(
+            (resp: any) =>{
+                if (resp.status === 'Success') {
+                   this.message.success(resp.message);
+                }  else if (resp.status === 'Error') {
+                    this.message.error(resp.message);
+                }
+            },
+            err => {
+                console.log(err);
+            }
+        )
+            }
+        });
+    }
+    updateConfirmValidator(): void {
+        Promise.resolve().then(() => this.changePWForm.controls.checkPassword.updateValueAndValidity());
+    }
+
+    confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
+        if (!control.value) {
+            return { required: true };
+        } else if (control.value !== this.changePWForm.controls.newPassword.value) {
+            return { confirm: true, error: true };
+        }
+    }
+    handleCancel() {
+        this.isVisible = false;
+        this.changePWForm.reset();
+    }
+   
 }

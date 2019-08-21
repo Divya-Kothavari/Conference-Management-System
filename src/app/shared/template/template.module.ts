@@ -3,6 +3,7 @@ import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 
 import { SharedModule } from '../shared.module';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 
 
 import { HeaderComponent } from "./header/header.component";
@@ -27,6 +28,8 @@ import { ThemeConstantService } from '../services/theme-constant.service';
     ],
     imports: [
         RouterModule,
+        FormsModule,
+        ReactiveFormsModule,
         CommonModule,
         SharedModule
     ],
