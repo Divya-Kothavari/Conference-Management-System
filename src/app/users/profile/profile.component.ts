@@ -217,4 +217,11 @@ export class ProfileComponent {
             }
         )
       }
+
+      listOfOption = ['SuperAdmin', 'Admin', 'Editor', 'Author', 'Reviewer'];
+      listOfSelectedValue: string[] = [];
+  
+      isNotSelected(value: string): boolean {
+          return this.listOfSelectedValue.indexOf(value) === -1;
+      }
 }    

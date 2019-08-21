@@ -66,6 +66,39 @@
                             </nz-form-control>
                         </nz-form-item>
                     </div>
+                    <div class="col-md-4">
+                        <nz-form-item>
+                            <nz-form-label>Gender</nz-form-label>
+                            <nz-form-control>
+                            <nz-radio-group [(ngModel)]="radioValue" nzName="radiogroup">
+                                    <label nz-radio nzValue="Male">Male</label>
+                                    <label nz-radio nzValue="Female">Female</label>
+                                    </nz-radio-group>
+                                </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <!-- assign role option should appear for SuperAdmin -->
+                            <nz-form-item>
+                                    <nz-form-label>Assign Role to User</nz-form-label>
+                                    <nz-form-control>
+                                            <nz-select
+                                            class="w-100"
+                                            nzMode="multiple"
+                                            nzPlaceHolder="Assign roles"
+                                            [(ngModel)]="listOfSelectedValue"
+                                        >
+                                            <ng-container *ngFor="let option of listOfOption">
+                                                <nz-option [nzLabel]="option" [nzValue]="option" *ngIf="isNotSelected(option)"></nz-option>
+                                            </ng-container>
+                                        </nz-select>
+                                </nz-form-control>
+                                </nz-form-item>
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"></div>
                 </div>
             </nz-card> 
             <nz-card nzTitle="Address Details">
