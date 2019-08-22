@@ -69,9 +69,49 @@
                                 <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
                                 <span>Add Subject</span>
                             </a></div>
+                        </div>
+
+                       <div>
+                        <nz-table #subjectTable [nzData]="listOfsubjects" 
+                        [nzFrontPagination]= "true" 
+                        [nzPageSize]="10"
+                        (nzCurrentPageDataChange)="currentPageDataChangeSubject($event)"
+                        nzShowPagination
+                        [nzLoading]="loadingSubjects"
+                         >
+                    <thead (nzSortChange)="sort($event)" nzSingleSort>
+                        <tr>
+                            <th nzShowSort nzSortKey="name">Subject Name</th>
+                            <th nzShowSort nzSortKey="date">Subject Description</th>
                             
-                </div>
-                </nz-card>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of dispalySubjects | search:'name':search as count ; let i=index">
+                             <td>
+                                <div class="d-flex align-items-center">
+                                     <h6 class="m-l-10 m-b-0">{{item.subjectName}}</h6>
+                                </div>
+                            </td>
+                            <td>
+                                    <div class="d-flex align-items-center">
+                                        <h6 class="m-l-10 m-b-0">{{item.subjectDescription}}</h6>
+                                    </div>
+                                </td>
+                            <td class="text-md-right">
+                                <a aria-readonly="true" class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom" (click)="editRole(item.roleName, item.roleDescription);editmode = true;">
+                                    <i nz-icon type="edit" theme="outline"></i>
+                                </a>
+                                <button aria-readonly="true" nz-button nzType="default" nz-popconfirm nzPopoverTrigger="click" nzTitle="Are you sure delete this role?" (nzOnConfirm)="deleteRole(item.roleName)" (nzOnCancel)="cancel()" nzGhost nzShape="circle">
+                                    <i nz-icon type="delete" theme="outline"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+                 </div>     
+                 </nz-card>
         </div>
 
     </div>

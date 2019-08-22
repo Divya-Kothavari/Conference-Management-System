@@ -4,7 +4,11 @@ import { HttpClient } from '@angular/common/http';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
  
+import { environment } from '../../../environments/environment';
 
+const apiUrl = environment.apiUrl;
+const portUsermgmt = environment.portUsermgmt;
+const portJournalmgmt = environment.portJournalmgmt;
 @Component({
     templateUrl: './default-dashboard.component.html'
 })
@@ -18,11 +22,14 @@ export class DefaultDashboardComponent implements OnInit {
     listOfAllData = [];
     mapOfCheckedId: { [key: string]: boolean } = {};
     loading = false;
+    loadingSubjects = false;
     pageSize = 5;
     pageIndex = 1;
     numberOfChecked = 0;
     editmode = false;
 
+    listOfsubjects = [];
+    dispalySubjects = [];
 
     roleForm: FormGroup;
     role: any;
@@ -39,28 +46,43 @@ export class DefaultDashboardComponent implements OnInit {
             roleDescription: [ null, [ Validators.required ] ]
         });
         this.getRolesList();
+        this.getSubjectsList();
     }
     currentPageDataChange($event: Array<{ 
-        id: number; 
         name: string;
-        avatar: string;
-        date: string;
-        amount: number;
-        status: string;
-        checked: boolean; 
+        description: string;
     }>): void {
         this.displayData = $event;
     }
-
+    currentPageDataChangeSubject($event: Array<{ 
+        name: string;
+        description: string;
+    }>): void {
+        this.dispalySubjects = $event;
+    }
     getRolesList(){
         this.loading = true;
-        this.http.get('http://localhost:8081/cmsusermgmt/userMgmt/role').subscribe(
+        this.http.get(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/role`).subscribe(
         (resp: any) =>{
             if (resp.status === 'Success') {
                 console.log(resp.roles);
                 this.listOfAllData = resp.roles;
             }
             this.loading = false;
+        },
+        err => {
+            console.log(err);
+        }
+    )
+    }
+    getSubjectsList() {
+        this.loadingSubjects = true;
+        this.http.get(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journals/subject`).subscribe(
+        (resp: any) =>{
+            if (resp.status === 'Success') {
+                this.listOfsubjects = resp.subjects;
+            }
+            this.loadingSubjects = false;
         },
         err => {
             console.log(err);
@@ -79,7 +101,7 @@ export class DefaultDashboardComponent implements OnInit {
                 roleName: this.roleForm.value.roleName,
                 roleDescription: this.roleForm.value.roleDescription
             }
-            this.http.put('http://localhost:8081/cmsusermgmt/userMgmt/role', role).subscribe(
+            this.http.put(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/role`, role).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     this.message.success(resp.message);
@@ -97,7 +119,7 @@ export class DefaultDashboardComponent implements OnInit {
                 roleName: this.roleForm.value.roleName,
                 roleDescription: this.roleForm.value.roleDescription
             }
-            this.http.post('http://localhost:8081/cmsusermgmt/userMgmt/role', role).subscribe(
+            this.http.post(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/role`, role).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     this.message.success(resp.message);
@@ -112,7 +134,7 @@ export class DefaultDashboardComponent implements OnInit {
         }
     }
     deleteRole(rolename) {
-        this.http.delete(`http://localhost:8081/cmsusermgmt/userMgmt/role/${rolename}`).subscribe(
+        this.http.delete(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/role/${rolename}`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     this.message.success(resp.message);

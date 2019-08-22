@@ -20,6 +20,8 @@ export class ProfileComponent {
     userid;
     userDetails;
     uploadUrl;
+    rolesList =[];
+    selectedRole = [];
     isLoading = false;
     skeletonLoading = false;
     dataAvailable = false;
@@ -155,6 +157,20 @@ export class ProfileComponent {
             err => {
                  console.log(err);
             }
+        );
+        this.http.get(`http://localhost:8081/cmsusermgmt/userMgmt/role`).subscribe(
+            (resp: any) =>{
+                if (resp.status === 'Success') {
+                    resp.roles.forEach(role => {
+                        if (role.roleName !== 'SuperAdmin') {
+                            this.rolesList.push(role.roleName);
+                        }
+                    });
+                }
+            },
+            err => {
+                console.log(err);
+            }
         )
 
     }
@@ -215,7 +231,25 @@ export class ProfileComponent {
                 this.isLoading = false;
                  console.log(err);
             }
-        )
+        );
+        const userroles = this.selectedRole.join().toString();
+
+        const data1 = {
+            roleNames: userroles
+        }
+        this.http.post(`http://localhost:8081/cmsusermgmt/userMgmt/userRoles/${this.userDetails.userId}`, data1).subscribe(
+            (resp: any) =>{
+                this.isLoading = false;
+                 if (resp.status === 'Success') {
+                    this.userDetails = resp.user;
+                   this.message.success(resp.message);
+                }
+            },
+            err => {
+                this.isLoading = false;
+                 console.log(err);
+            }
+        );
       }
 
       listOfOption = ['SuperAdmin', 'Admin', 'Editor', 'Author', 'Reviewer'];

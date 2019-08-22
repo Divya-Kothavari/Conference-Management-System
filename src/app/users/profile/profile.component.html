@@ -88,9 +88,9 @@
                                             class="w-100"
                                             nzMode="multiple"
                                             nzPlaceHolder="Assign roles"
-                                            [(ngModel)]="listOfSelectedValue"
+                                            [(ngModel)]="selectedRole"
                                         >
-                                            <ng-container *ngFor="let option of listOfOption">
+                                            <ng-container *ngFor="let option of rolesList">
                                                 <nz-option [nzLabel]="option" [nzValue]="option" *ngIf="isNotSelected(option)"></nz-option>
                                             </ng-container>
                                         </nz-select>
