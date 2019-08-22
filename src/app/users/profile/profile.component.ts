@@ -81,7 +81,6 @@ export class ProfileComponent {
             link: 'https://dropbox.com'
         }
     ];
-
     notificationConfigList = [
         {
             title: "Everyone can look me up",
@@ -201,7 +200,8 @@ export class ProfileComponent {
             mobile: this.userDetails.mobile,
             address: this.userDetails.address,
             biography: this.userDetails.biography,
-            interests: this.userDetails.interests
+            interests: this.userDetails.interests,
+            gender: this.userDetails.gender
         }
         this.http.put('http://localhost:8081/cmsusermgmt/userMgmt/user', data).subscribe(
             (resp: any) =>{

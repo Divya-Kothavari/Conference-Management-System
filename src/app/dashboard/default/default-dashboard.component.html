@@ -18,32 +18,46 @@
                                     <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
                                     <span>Add Role</span>
                                 </a></div>
-                            
-                   </div>
+                    </div>
                  <div>
-                    <nz-table #basicTable [nzData]="roleSet">
-                            <thead>
-                                <tr>
-                                    <th>Role</th>
-                                    <th>Description</th>
-                                        <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let data of basicTable.data">
-                                    <td>{{data.name}}</td>
-                                        <td>{{data.address}}</td>
-                                    <td>
-                                            <a class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom">
-                                                <i nz-icon type="edit" theme="outline"></i>
-                                            </a>
-                                            <button nz-button nzType="default" nz-popconfirm nzPopoverTrigger="click" nzTitle="Are you sure delete this user?" (nzOnCancel)="cancel()" nzGhost nzShape="circle">
-                                                <i nz-icon type="delete" theme="outline"></i>
-                                            </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                    </nz-table>
+                        <nz-table #ordersListTable [nzData]="listOfAllData" 
+                        [nzFrontPagination]= "true" 
+                        [nzPageSize]="10"
+                        (nzCurrentPageDataChange)="currentPageDataChange($event)"
+                        nzShowPagination
+                        [nzLoading]="loading"
+                         >
+                    <thead (nzSortChange)="sort($event)" nzSingleSort>
+                        <tr>
+                            <th nzShowSort nzSortKey="name">Role Name</th>
+                            <th nzShowSort nzSortKey="date">Role Description</th>
+                            
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of displayData | search:'name':search as count ; let i=index">
+                             <td>
+                                <div class="d-flex align-items-center">
+                                     <h6 class="m-l-10 m-b-0">{{item.roleName}}</h6>
+                                </div>
+                            </td>
+                            <td>
+                                    <div class="d-flex align-items-center">
+                                        <h6 class="m-l-10 m-b-0">{{item.roleDescription}}</h6>
+                                    </div>
+                                </td>
+                            <td class="text-md-right">
+                                <a aria-readonly="true" class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom" (click)="editRole(item.roleName, item.roleDescription);editmode = true;">
+                                    <i nz-icon type="edit" theme="outline"></i>
+                                </a>
+                                <button aria-readonly="true" nz-button nzType="default" nz-popconfirm nzPopoverTrigger="click" nzTitle="Are you sure delete this role?" (nzOnConfirm)="deleteRole(item.roleName)" (nzOnCancel)="cancel()" nzGhost nzShape="circle">
+                                    <i nz-icon type="delete" theme="outline"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
                  </div>
              </nz-card>
         </div>
@@ -61,19 +75,105 @@
         </div>
 
     </div>
+
+    <div class="row">
+            <div class="col-md-4">
+                <nz-card>
+                    <div class="d-flex justify-content-between align-items-center ng-star-inserted">
+                        <h5 style="border-bottom: 3px solid #ccc">Regions</h5>
+                        <div> <a class="text-right" nz-button nzShape="round" nzSize="default" nzType="primary" (click)="isVisible = true">
+                                        <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
+                                        <span>Add Region</span>
+                                    </a></div>
+                        </div>
+                     <div>
+                        <nz-table #basicTable [nzData]="roleSet">
+                                <thead>
+                                    <tr>
+                                        <th>Region</th>
+                                        <th>Region Code</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of basicTable.data">
+                                        <td>{{data.name}}</td>
+                                            <td>{{data.address}}</td>
+                                        <td>
+                                                <a class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom">
+                                                    <i nz-icon type="edit" theme="outline"></i>
+                                                </a>
+                                                <button nz-button nzType="default" nz-popconfirm nzPopoverTrigger="click" nzTitle="Are you sure delete this user?" (nzOnCancel)="cancel()" nzGhost nzShape="circle">
+                                                    <i nz-icon type="delete" theme="outline"></i>
+                                                </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                        </nz-table>
+                     </div>
+                 </nz-card>
+            </div>
+            <div class="col-md-8">
+                <nz-card>
+                    <div class="d-flex justify-content-between align-items-center ng-star-inserted">
+                            <h5 style="border-bottom: 3px solid #ccc">Country List</h5>
+                            <div> <a class="text-right" nz-button nzShape="round" nzSize="default" nzType="primary" (click)="isVisible = true">
+                                    <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
+                                    <span>Add country</span>
+                                </a></div> 
+                    </div>
+                    <nz-table #basicTable [nzData]="roleSet">
+                            <thead>
+                                <tr>
+                                    <th>Country</th>
+                                    <th>Country Code</th>
+                                    <th>Region Code</th>
+                                    <th>Economic Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of basicTable.data">
+                                    <td>{{data.name}}</td>
+                                    <td>{{data.address}}</td>
+                                    <td>Asia</td>
+                                    <td>Middle</td>
+                                    <td>
+                                            <a class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom">
+                                                <i nz-icon type="edit" theme="outline"></i>
+                                            </a>
+                                            <button nz-button nzType="default" nz-popconfirm nzPopoverTrigger="click" nzTitle="Are you sure delete this user?" (nzOnCancel)="cancel()" nzGhost nzShape="circle">
+                                                <i nz-icon type="delete" theme="outline"></i>
+                                            </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                    </nz-table>
+                    </nz-card>
+            </div>
+    
+        </div>
+    <!-- Adding New Role -->
     <nz-modal [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()"
-    [nzFooter]="modalFooter" nzTitle="Add New Role">
-        <form nz-form [formGroup]="roleForm">
-                    <nz-form-item>
-                        <nz-form-label nzFor="roleName">Role Name</nz-form-label>
-                        <nz-form-control>
-                            <input formControlName="roleName" nz-input type="text" placeholder="Role">
-                            <nz-form-explain *ngIf="changePWForm.get('roleName').dirty && changePWForm.get('roleName').errors">Please input role name!</nz-form-explain>
-                        </nz-form-control>
-                        </nz-form-item>
-        </form>
-          <ng-template #modalFooter>
-            <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
-            <button nz-button nzType="primary" [disabled]="!roleForm.valid" (click)="submitForm()">Add</button>
-          </ng-template>
-      </nz-modal>
+[nzFooter]="modalFooter" nzTitle="Add New Role">
+    <form nz-form [formGroup]="roleForm">
+                <nz-form-item>
+                    <nz-form-label nzFor="oldPassword">Role Name</nz-form-label>
+                    <nz-form-control>
+                        <input formControlName="roleName" nz-input type="text" placeholder="Role Name">
+                        <nz-form-explain *ngIf="roleForm.get('roleName').dirty && roleForm.get('roleName').errors">Please input Role Name!</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+                 <nz-form-item>
+                    <nz-form-label nzFor="roleDescription">Role Description</nz-form-label>
+                    <nz-form-control>
+                        <textarea formControlName="roleDescription" nz-input type="text" placeholder="Role Description"></textarea>
+                        <nz-form-explain *ngIf="roleForm.get('roleDescription').dirty && roleForm.get('roleDescription').errors">Please input Role Description!</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+    </form>
+      <ng-template #modalFooter>
+        <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
+        <button nz-button nzType="primary" [disabled]="!roleForm.valid" (click)="addRole()">Add</button>
+      </ng-template>
+  </nz-modal>

@@ -18,7 +18,7 @@ export class UsersListComponent implements OnInit {
     allChecked: boolean = false;
     indeterminate: boolean = false;
     search : any;
-     displayData = [];
+    displayData = [];
     listOfAllData = [];
     mapOfCheckedId: { [key: string]: boolean } = {};
     loading = false;
