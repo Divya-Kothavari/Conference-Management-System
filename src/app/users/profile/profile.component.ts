@@ -6,7 +6,11 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { Route, Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpEvent, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
 import { UploadXHRArgs } from 'ng-zorro-antd/upload';
+import { environment } from '../../../environments/environment';
 
+const apiUrl = environment.apiUrl;
+const portUsermgmt = environment.portUsermgmt;
+const portJournalmgmt = environment.portJournalmgmt;
 
 @Component({
     templateUrl: './profile.component.html'
@@ -145,20 +149,20 @@ export class ProfileComponent {
 
     ngOnInit(): void {
          //get user by id
-        this.http.get(`http://localhost:8081/cmsusermgmt/userMgmt/user/${this.userid}`).subscribe(
+        this.http.get(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/user/${this.userid}`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     //console.log(resp.user);
                    this.userDetails = resp.user;
                    this.dataAvailable = true;
-                   this.uploadUrl= `http://localhost:8081/cmsusermgmt/userMgmt/user/image/${this.userDetails.userId}`
+                   this.uploadUrl= `${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/user/image/${this.userDetails.userId}`
                 }
             },
             err => {
                  console.log(err);
             }
         );
-        this.http.get(`http://localhost:8081/cmsusermgmt/userMgmt/role`).subscribe(
+        this.http.get(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/role`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     resp.roles.forEach(role => {
@@ -219,7 +223,7 @@ export class ProfileComponent {
             interests: this.userDetails.interests,
             gender: this.userDetails.gender
         }
-        this.http.put('http://localhost:8081/cmsusermgmt/userMgmt/user', data).subscribe(
+        this.http.put('${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/user', data).subscribe(
             (resp: any) =>{
                 this.isLoading = false;
                  if (resp.status === 'Success') {
@@ -237,7 +241,7 @@ export class ProfileComponent {
         const data1 = {
             roleNames: userroles
         }
-        this.http.post(`http://localhost:8081/cmsusermgmt/userMgmt/userRoles/${this.userDetails.userId}`, data1).subscribe(
+        this.http.post(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/userRoles/${this.userDetails.userId}`, data1).subscribe(
             (resp: any) =>{
                 this.isLoading = false;
                  if (resp.status === 'Success') {

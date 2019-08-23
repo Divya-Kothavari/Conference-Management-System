@@ -15,6 +15,9 @@ const portJournalmgmt = environment.portJournalmgmt;
 
 export class DefaultDashboardComponent implements OnInit {
     isVisible:boolean = false;
+    isVisibleSub:boolean = false;
+    isLoading = false;
+    isLoadingSub = false;
     allChecked: boolean = false;
     indeterminate: boolean = false;
     search : any;
@@ -32,6 +35,7 @@ export class DefaultDashboardComponent implements OnInit {
     dispalySubjects = [];
 
     roleForm: FormGroup;
+    subjectForm: FormGroup;
     role: any;
     constructor(private colorConfig:ThemeConstantService,
         private http: HttpClient,
@@ -45,6 +49,12 @@ export class DefaultDashboardComponent implements OnInit {
             roleName: [ null, [ Validators.required ] ],
             roleDescription: [ null, [ Validators.required ] ]
         });
+
+        this.subjectForm = this.fb.group({
+            subjectName: [ null, [ Validators.required ] ],
+            subjectDescription: [ null, [ Validators.required ] ]
+        });
+
         this.getRolesList();
         this.getSubjectsList();
     }
@@ -82,6 +92,7 @@ export class DefaultDashboardComponent implements OnInit {
             if (resp.status === 'Success') {
                 this.listOfsubjects = resp.subjects;
             }
+           
             this.loadingSubjects = false;
         },
         err => {
@@ -94,15 +105,22 @@ export class DefaultDashboardComponent implements OnInit {
         this.isVisible = false;
         this.roleForm.reset();
     }
+
+    handleCancelSub() {
+        this.isVisibleSub = false;
+        this.subjectForm.reset();
+    }
    
     addRole() {
         if (this.editmode) {
+            this.isLoading = true;
             const role = {
                 roleName: this.roleForm.value.roleName,
                 roleDescription: this.roleForm.value.roleDescription
             }
             this.http.put(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/role`, role).subscribe(
             (resp: any) =>{
+                this.isLoading = false;
                 if (resp.status === 'Success') {
                     this.message.success(resp.message);
                     this.handleCancel();
@@ -115,14 +133,21 @@ export class DefaultDashboardComponent implements OnInit {
             }
         )
         } else {
+            this.isLoading = true;
             const role = {
                 roleName: this.roleForm.value.roleName,
                 roleDescription: this.roleForm.value.roleDescription
             }
             this.http.post(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/role`, role).subscribe(
             (resp: any) =>{
+                this.isLoading = false;
                 if (resp.status === 'Success') {
                     this.message.success(resp.message);
+                    this.handleCancel();
+                    this.getRolesList();
+                }
+                if (resp.status === 'Error') {
+                    this.message.error(resp.message);
                     this.handleCancel();
                     this.getRolesList();
                 }
@@ -133,6 +158,60 @@ export class DefaultDashboardComponent implements OnInit {
         )
         }
     }
+
+    addSubject() {
+        if (this.editmode) {
+            this.isLoadingSub = true;
+            const subject = {
+                subjectName: this.subjectForm.value.subjectName,
+                subjectDescription: this.subjectForm.value.subjectDescription
+            }
+            this.http.put(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journals/subject`, subject).subscribe(
+            (resp: any) =>{
+                this.isLoadingSub = false;
+                if (resp.status === 'Success') {
+                    this.message.success(resp.message);
+                    this.handleCancelSub();
+                    this.editmode = false;
+                    this.getSubjectsList();
+                }
+                if(resp.status === 'Error'){
+                    this.message.error(resp.message);
+                    this.handleCancelSub();
+                    this.getSubjectsList();
+                }
+            },
+            err => {
+                console.log(err);
+            }
+        )
+        } else {
+            this.isLoadingSub = true;
+            const subject = {
+                subjectName: this.subjectForm.value.subjectName,
+                subjectDescription: this.subjectForm.value.subjectDescription
+            }
+            this.http.post(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journals/subject`, subject).subscribe(
+            (resp: any) =>{
+                this.isLoadingSub = false;
+                if (resp.status === 'Success') {
+                    this.message.success(resp.message);
+                    this.handleCancelSub();
+                    this.getSubjectsList();
+                }
+                if(resp.status === 'Error'){
+                    this.message.error(resp.message);
+                    this.handleCancelSub();
+                    this.getSubjectsList();
+                }
+            },
+            err => {
+                console.log(err);
+            }
+        )
+        }
+    }
+
     deleteRole(rolename) {
         this.http.delete(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/role/${rolename}`).subscribe(
             (resp: any) =>{
@@ -146,9 +225,30 @@ export class DefaultDashboardComponent implements OnInit {
             }
         )
     }
+
+    deleteSubject(subjectname) {
+        this.http.delete(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journals/subject/${subjectname}`).subscribe(
+            (resp: any) =>{
+                if (resp.status === 'Success') {
+                    this.message.success(resp.message);
+                    this.getSubjectsList();
+                }
+            },
+            err => {
+                console.log(err);
+            }
+        )
+    }
+
     editRole(name, desc) {
         this.roleForm.controls['roleName'].setValue(name);
         this.roleForm.controls['roleDescription'].setValue(desc);
         this.isVisible = true;
+    }
+
+    editSubject(name, desc) {
+        this.subjectForm.controls['subjectName'].setValue(name);
+        this.subjectForm.controls['subjectDescription'].setValue(desc);
+        this.isVisibleSub = true;
     }
 }  

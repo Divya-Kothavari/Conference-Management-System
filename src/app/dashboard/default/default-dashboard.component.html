@@ -61,11 +61,15 @@
                  </div>
              </nz-card>
         </div>
+
+
+        <!-- Subject List Display -->
+
         <div class="col-md-6">
             <nz-card>
                 <div class="d-flex justify-content-between align-items-center ng-star-inserted">
                         <h5 style="border-bottom: 3px solid #ccc">Subjects</h5>
-                        <div> <a class="text-right" nz-button nzShape="round" nzSize="default" nzType="primary" (click)="isVisible = true">
+                        <div> <a class="text-right" nz-button nzShape="round" nzSize="default" nzType="primary" (click)="isVisibleSub = true">
                                 <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
                                 <span>Add Subject</span>
                             </a></div>
@@ -100,10 +104,10 @@
                                     </div>
                                 </td>
                             <td class="text-md-right">
-                                <a aria-readonly="true" class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom" (click)="editRole(item.roleName, item.roleDescription);editmode = true;">
+                                <a aria-readonly="true" class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom" (click)="editSubject(item.subjectName, item.subjectDescription);editmode = true;">
                                     <i nz-icon type="edit" theme="outline"></i>
                                 </a>
-                                <button aria-readonly="true" nz-button nzType="default" nz-popconfirm nzPopoverTrigger="click" nzTitle="Are you sure delete this role?" (nzOnConfirm)="deleteRole(item.roleName)" (nzOnCancel)="cancel()" nzGhost nzShape="circle">
+                                <button aria-readonly="true" nz-button nzType="default" nz-popconfirm nzPopoverTrigger="click" nzTitle="Are you sure delete this Subject?" (nzOnConfirm)="deleteSubject(item.subjectName)" (nzOnCancel)="cancel()" nzGhost nzShape="circle">
                                     <i nz-icon type="delete" theme="outline"></i>
                                 </button>
                             </td>
@@ -113,7 +117,6 @@
                  </div>     
                  </nz-card>
         </div>
-
     </div>
 
     <div class="row">
@@ -214,6 +217,32 @@
     </form>
       <ng-template #modalFooter>
         <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
-        <button nz-button nzType="primary" [disabled]="!roleForm.valid" (click)="addRole()">Add</button>
+        <button [nzLoading]="isLoading"  nz-button nzType="primary" [disabled]="!roleForm.valid" (click)="addRole()">Add</button>
+      </ng-template>
+  </nz-modal>
+
+  <!-- Adding Subject -->
+
+  <nz-modal [(nzVisible)]="isVisibleSub" (nzOnCancel)="handleCancelSub()"
+[nzFooter]="modalFooterSub" nzTitle="Add/Edit Subject">
+    <form nz-form [formGroup]="subjectForm">
+                <nz-form-item>
+                    <nz-form-label nzFor="Subject Name">Subject Name</nz-form-label>
+                    <nz-form-control>
+                        <input formControlName="subjectName" nz-input type="text" placeholder="Subject Name">
+                        <nz-form-explain *ngIf="subjectForm.get('subjectName').dirty && subjectForm.get('subjectName').errors">Please input Role Name!</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+                 <nz-form-item>
+                    <nz-form-label nzFor="subjectDescription">Role Description</nz-form-label>
+                    <nz-form-control>
+                        <textarea formControlName="subjectDescription" nz-input type="text" placeholder="Role Description"></textarea>
+                        <nz-form-explain *ngIf="subjectForm.get('subjectDescription').dirty && subjectForm.get('subjectDescription').errors">Please input Role Description!</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+    </form>
+      <ng-template #modalFooterSub>
+        <button nz-button nzType="default" (click)="handleCancelSub()">Cancel</button>
+        <button [nzLoading]="isLoadingSub" nz-button nzType="primary" [disabled]="!subjectForm.valid" (click)="addSubject()">Add</button>
       </ng-template>
   </nz-modal>

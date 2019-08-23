@@ -5,6 +5,11 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
+import { environment } from '../../../environments/environment';
+
+const apiUrl = environment.apiUrl;
+const portUsermgmt = environment.portUsermgmt;
+const portJournalmgmt = environment.portJournalmgmt;
 
 
 @Component({
@@ -50,7 +55,7 @@ export class UsersListComponent implements OnInit {
     }
     getUsersList(){
         this.loading = true;
-        this.http.get('http://localhost:8081/cmsusermgmt/userMgmt/users').subscribe(
+        this.http.get(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/users`).subscribe(
         (resp: any) =>{
             if (resp.status === 'Success') {
                 this.listOfAllData = resp.users;
@@ -66,7 +71,7 @@ export class UsersListComponent implements OnInit {
     
 
     deleteUser(userId){
-        this.http.delete(`http://localhost:8081/cmsusermgmt/userMgmt/user/${userId}`).subscribe(
+        this.http.delete(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/user/${userId}`).subscribe(
             (resp: any) =>{
                 
                 if(resp.status == 'Success'){
@@ -133,7 +138,7 @@ export class UsersListComponent implements OnInit {
         };
         console.log(userBean);
         this.http.post(
-            'http://localhost:8081/cmsusermgmt/userMgmt/user', userBean
+            `${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/user`, userBean
         ).subscribe(
             (resp: any) =>{
                 console.log(resp);
