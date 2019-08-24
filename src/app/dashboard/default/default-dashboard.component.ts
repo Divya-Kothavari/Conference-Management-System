@@ -38,6 +38,7 @@ export class DefaultDashboardComponent implements OnInit {
 
     listOfsubjects = [];
     listOfRegions = [];
+    displayRegions = [];
     dispalySubjects = [];
  
     roleForm: FormGroup;
@@ -86,10 +87,10 @@ export class DefaultDashboardComponent implements OnInit {
         this.dispalySubjects = $event;
     }
     currentPageDataChangeRegion($event: Array<{ 
-        name: string;
-        code: string;
+        regionName: string;
+        regionCode: string;
     }>): void {
-        this.listOfRegions = $event;
+        this.displayRegions = $event;
     }
 
     getRolesList(){
@@ -97,7 +98,6 @@ export class DefaultDashboardComponent implements OnInit {
         this.http.get(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/role`).subscribe(
         (resp: any) =>{
             if (resp.status === 'Success') {
-                console.log(resp.roles);
                 this.listOfAllData = resp.roles;
             }
             this.loading = false;
@@ -127,15 +127,7 @@ export class DefaultDashboardComponent implements OnInit {
         this.loadingRegions = true;
         this.http.get(`${apiUrl}${portLocations}/cmslocations/locations/region`).subscribe(
         (resp: any) =>{
-
-           this.listOfRegions = resp;
- 
-            // if (resp.status === 'Success') {
-            //     alert("it works sucess");
-            //     console.log(resp.region);
-            //     this.listOfRegions = resp.regions;
-            // }
-           
+           this.listOfRegions = resp.regions;
             this.loadingRegions = false;
         },
         err => {

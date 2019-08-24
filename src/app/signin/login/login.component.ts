@@ -33,7 +33,7 @@ export class LoginComponent {
                   this.updateUser(resp.user);
                    window.localStorage.setItem('is_loggedin', 'true');
                    window.localStorage.setItem('user', resp.user.userName);
-                   window.localStorage.setItem('role', resp.user.role);
+                   window.localStorage.setItem('role', resp.user.roles);
                    window.localStorage.setItem('userid', resp.user.userId);
                    this.route.navigate(['/users']);
                }

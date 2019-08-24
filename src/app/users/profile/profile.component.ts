@@ -155,6 +155,16 @@ export class ProfileComponent {
                     //console.log(resp.user);
                    this.userDetails = resp.user;
                    this.dataAvailable = true;
+                   this.http.get(`http://localhost:8081/cmsusermgmt/userMgmt/userRoles/${this.userDetails.userId}`).subscribe(
+                    (resp: any) =>{
+                        if (resp.status === 'Success') {
+                           this.selectedRole = resp.userRoles.roles.split(',');
+                        }
+                    },
+                    err => {
+                        console.log(err);
+                    }
+                );
                    this.uploadUrl= `http://localhost:8081/cmsusermgmt/userMgmt/user/image/${this.userDetails.userId}`
                 }
             },
@@ -175,7 +185,7 @@ export class ProfileComponent {
             err => {
                 console.log(err);
             }
-        )
+        );
 
     }
 
