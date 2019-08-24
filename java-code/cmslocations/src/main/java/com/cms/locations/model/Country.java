@@ -29,6 +29,23 @@ public class Country implements Serializable {
 	
 	@Column(name="description")
 	private String description;
+	
+	@Column(name="economicStatus")
+	private String economicStatus;
+
+	/**
+	 * @return the economicStatus
+	 */
+	public String getEconomicStatus() {
+		return economicStatus;
+	}
+
+	/**
+	 * @param economicStatus the economicStatus to set
+	 */
+	public void setEconomicStatus(String economicStatus) {
+		this.economicStatus = economicStatus;
+	}
 
 	/**
 	 * @return the countryId
@@ -106,8 +123,8 @@ public class Country implements Serializable {
 	@Override
 	public String toString() {
 		return "Country [countryId=" + countryId + ", regionCode=" + regionCode + ", countryCode=" + countryCode
-				+ ", countryName=" + countryName + ", description=" + description + "]";
+				+ ", countryName=" + countryName + ", description=" + description + ", economicStatus=" + economicStatus
+				+ "]";
 	}
-	
 	
 }

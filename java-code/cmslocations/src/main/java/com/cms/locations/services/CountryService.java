@@ -41,6 +41,8 @@ public class CountryService {
 					countryModel.setCountryName(countryBean.getCountryName());
 					if(null != countryBean.getDescription())
 					countryModel.setDescription(countryBean.getDescription());
+					if(null != countryBean.getEconomicStatus())
+						countryModel.setEconomicStatus(countryBean.getEconomicStatus());
 					countryRepo.save(countryModel);
 					jsonResponse.put("status", "Success");
 					jsonResponse.put("message", "Country record created successfully");
@@ -72,6 +74,8 @@ public class CountryService {
 					countryModel.setCountryName(countryBean.getCountryName());
 					if(null != countryBean.getDescription())
 					countryModel.setDescription(countryBean.getDescription());
+					if(null != countryBean.getEconomicStatus())
+					countryModel.setEconomicStatus(countryBean.getEconomicStatus());
 					countryRepo.save(countryModel);
 					jsonResponse.put("status", "Success");
 					jsonResponse.put("message", "Country record updated successfully");
@@ -107,6 +111,7 @@ public class CountryService {
 				jsonResponse.put("countryId", country.getCountryId());
 				jsonResponse.put("regionCode", country.getRegionCode());
 				jsonResponse.put("description", country.getDescription());
+				jsonResponse.put("economicStatus", country.getEconomicStatus());
 				jsonArray.add(jsonResponse);
 			}
 			jsonResponse = new JSONObject();
@@ -130,6 +135,7 @@ public String  getCountryByCountryCode(String countryCode){
 				jsonResponse.put("countryId", country.getCountryId());
 				jsonResponse.put("regionCode", country.getRegionCode());
 				jsonResponse.put("description", country.getDescription());
+				jsonResponse.put("economicStatus", country.getEconomicStatus());
 				finalJson = new JSONObject();
 				finalJson.put("status", "Success");
 				finalJson.put("message", "");
@@ -156,6 +162,7 @@ public String  getCountryByCountryCode(String countryCode){
 				jsonResponse.put("countryId", country.getCountryId());
 				jsonResponse.put("regionCode", country.getRegionCode());
 				jsonResponse.put("description", country.getDescription());
+				jsonResponse.put("economicStatus", country.getEconomicStatus());
 				jsonArray.add(jsonResponse);
 			}
 			jsonResponse = new JSONObject();

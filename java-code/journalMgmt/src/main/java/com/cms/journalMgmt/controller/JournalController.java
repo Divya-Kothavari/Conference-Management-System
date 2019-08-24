@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cms.journalMgmt.beans.AbstractingBean;
 import com.cms.journalMgmt.beans.JournalBean;
 import com.cms.journalMgmt.beans.SubjectBean;
+import com.cms.journalMgmt.services.AbstractingService;
 import com.cms.journalMgmt.services.JournalService;
 import com.cms.journalMgmt.services.SubjectService;
 
@@ -32,12 +34,14 @@ public class JournalController {
 	@Autowired
 	JournalService journalService;
 	
+	@Autowired
+	AbstractingService abstractingService;
+	
 	@ApiOperation(value = " Sample test service to check health check")
 	@GetMapping("/test")
 	public String testService(){
 		return " Application is running at "+new Date();
 	}
-	
 	
 	@ApiOperation(value = " Service to create Journal")
 	@PostMapping("/journal")
@@ -93,4 +97,33 @@ public class JournalController {
 		return subjectService.deleteSubject(subjectName);
 	}
 	
+	@ApiOperation(value = " Service to create Abstracting")
+	@PostMapping("/abstracting")
+	public String createAbstracting(@RequestBody AbstractingBean abstractingBean){
+		return abstractingService.createAbstracting(abstractingBean);
+	}
+	
+	@ApiOperation(value = " Service to update Abstracting")
+	@PutMapping("/abstracting")
+	public String updateAbstracting(@RequestBody AbstractingBean abstractingBean){
+		return abstractingService.updateAbstracting(abstractingBean);
+	}
+	
+	@ApiOperation(value = " Service to fetch all Abstracting records")
+	@GetMapping("/abstracting")
+	public String fetchAllAbstractings(){
+		return abstractingService.getAllAbstractings();
+	}
+	
+	@ApiOperation(value = " Service to fetch Abstracting record by abstracting name")
+	@GetMapping("/abstracting/{abstractingName}")
+	public String fetchAbstractingByName(@PathVariable String abstractingName){
+		return abstractingService.getAbstractingByName(abstractingName);
+	}
+	
+	@ApiOperation(value = " Service to delete Abstracting record by abstracting name")
+	@DeleteMapping("/abstracting/{abstractingName}")
+	public String deleteAbstractingByName(@PathVariable String abstractingName){
+		return abstractingService.deleteAbstracting(abstractingName);
+	}
 }
