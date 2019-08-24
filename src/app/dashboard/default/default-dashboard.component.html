@@ -20,9 +20,9 @@
                                 </a></div>
                     </div>
                  <div>
-                        <nz-table #ordersListTable [nzData]="listOfAllData" 
+                <nz-table #ordersListTable [nzData]="listOfAllData" 
                         [nzFrontPagination]= "true" 
-                        [nzPageSize]="10"
+                        [nzPageSize]="5"
                         (nzCurrentPageDataChange)="currentPageDataChange($event)"
                         nzShowPagination
                         [nzLoading]="loading"
@@ -78,7 +78,7 @@
                        <div>
                         <nz-table #subjectTable [nzData]="listOfsubjects" 
                         [nzFrontPagination]= "true" 
-                        [nzPageSize]="10"
+                        [nzPageSize]="5"
                         (nzCurrentPageDataChange)="currentPageDataChangeSubject($event)"
                         nzShowPagination
                         [nzLoading]="loadingSubjects"
@@ -87,7 +87,6 @@
                         <tr>
                             <th nzShowSort nzSortKey="name">Subject Name</th>
                             <th nzShowSort nzSortKey="date">Subject Description</th>
-                            
                             <th class="text-center">Actions</th>
                         </tr>
                     </thead>
