@@ -22,7 +22,7 @@
                  <div>
                 <nz-table #ordersListTable [nzData]="listOfAllData" 
                         [nzFrontPagination]= "true" 
-                        [nzPageSize]="5"
+                        [nzPageSize]="pageSize"
                         (nzCurrentPageDataChange)="currentPageDataChange($event)"
                         nzShowPagination
                         [nzLoading]="loading"
@@ -78,7 +78,7 @@
                        <div>
                         <nz-table #subjectTable [nzData]="listOfsubjects" 
                         [nzFrontPagination]= "true" 
-                        [nzPageSize]="5"
+                        [nzPageSize]="pageSize"
                         (nzCurrentPageDataChange)="currentPageDataChangeSubject($event)"
                         nzShowPagination
                         [nzLoading]="loadingSubjects"
@@ -123,35 +123,49 @@
                 <nz-card>
                     <div class="d-flex justify-content-between align-items-center ng-star-inserted">
                         <h5 style="border-bottom: 3px solid #ccc">Regions</h5>
-                        <div> <a class="text-right" nz-button nzShape="round" nzSize="default" nzType="primary" (click)="isVisible = true">
+                        <div> <a class="text-right" nz-button nzShape="round" nzSize="default" nzType="primary" (click)="isVisibleReg = true">
                                         <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
                                         <span>Add Region</span>
                                     </a></div>
                         </div>
                      <div>
-                        <nz-table #basicTable [nzData]="roleSet">
-                                <thead>
-                                    <tr>
-                                        <th>Region</th>
-                                        <th>Region Code</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let data of basicTable.data">
-                                        <td>{{data.name}}</td>
-                                            <td>{{data.address}}</td>
-                                        <td>
-                                                <a class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom">
-                                                    <i nz-icon type="edit" theme="outline"></i>
-                                                </a>
-                                                <button nz-button nzType="default" nz-popconfirm nzPopoverTrigger="click" nzTitle="Are you sure delete this user?" (nzOnCancel)="cancel()" nzGhost nzShape="circle">
-                                                    <i nz-icon type="delete" theme="outline"></i>
-                                                </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                        </nz-table>
+                            <nz-table #regionTable [nzData]="listOfRegions" 
+                            [nzFrontPagination]= "true" 
+                            [nzPageSize]="pageSize"
+                            (nzCurrentPageDataChange)="currentPageDataChangeRegion($event)"
+                            nzShowPagination
+                            [nzLoading]="loadingRegions"
+                             >
+                        <thead (nzSortChange)="sort($event)" nzSingleSort>
+                            <tr>
+                                <th nzShowSort nzSortKey="name">Region Name</th>
+                                <th nzShowSort nzSortKey="date">Region Code</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of listOfRegions | search:'name':search as count ; let i=index">
+                                 <td>
+                                    <div class="d-flex align-items-center">
+                                         <h6 class="m-l-10 m-b-0">{{item.regionName}}</h6>
+                                    </div>
+                                </td>
+                                <td>
+                                        <div class="d-flex align-items-center">
+                                            <h6 class="m-l-10 m-b-0">{{item.regionCode}}</h6>
+                                        </div>
+                                    </td>
+                                <td class="text-md-right">
+                                    <a aria-readonly="true" class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom" (click)="editRegion(item.regionName, item.regionCode);editmode = true;">
+                                        <i nz-icon type="edit" theme="outline"></i>
+                                    </a>
+                                    <button aria-readonly="true" nz-button nzType="default" nz-popconfirm nzPopoverTrigger="click" nzTitle="Are you sure delete this Region?" (nzOnConfirm)="deleteRegion(item.regionName)" (nzOnCancel)="cancel()" nzGhost nzShape="circle">
+                                        <i nz-icon type="delete" theme="outline"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
                      </div>
                  </nz-card>
             </div>
@@ -243,5 +257,31 @@
       <ng-template #modalFooterSub>
         <button nz-button nzType="default" (click)="handleCancelSub()">Cancel</button>
         <button [nzLoading]="isLoadingSub" nz-button nzType="primary" [disabled]="!subjectForm.valid" (click)="addSubject()">Add</button>
+      </ng-template>
+  </nz-modal>
+
+  <!-- Add New Region -->
+
+  <nz-modal [(nzVisible)]="isVisibleReg" (nzOnCancel)="handleCancelReg()"
+[nzFooter]="modalFooterReg" nzTitle="Add/Edit Region">
+    <form nz-form [formGroup]="regionForm">
+                <nz-form-item>
+                    <nz-form-label nzFor="Region Name">Region Name</nz-form-label>
+                    <nz-form-control>
+                        <input formControlName="regionName" nz-input type="text" placeholder="Region Name">
+                        <nz-form-explain *ngIf="regionForm.get('regionName').dirty && regionForm.get('regionName').errors">Please input Region Name!</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+                 <nz-form-item>
+                    <nz-form-label nzFor="regionCode">Region Code</nz-form-label>
+                    <nz-form-control>
+                        <input formControlName="regionCode" nz-input type="text" placeholder="Region Code">
+                        <nz-form-explain *ngIf="regionForm.get('regionCode').dirty && regionForm.get('regionCode').errors">Please input Region Code!</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+    </form>
+      <ng-template #modalFooterReg>
+        <button nz-button nzType="default" (click)="handleCancelReg()">Cancel</button>
+        <button [nzLoading]="isLoadingReg" nz-button nzType="primary" [disabled]="!regionForm.valid" (click)="addRegion()">Add</button>
       </ng-template>
   </nz-modal>

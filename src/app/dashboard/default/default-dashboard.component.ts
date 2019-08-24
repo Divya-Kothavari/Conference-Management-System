@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment';
 const apiUrl = environment.apiUrl;
 const portUsermgmt = environment.portUsermgmt;
 const portJournalmgmt = environment.portJournalmgmt;
+const portLocations = environment.portLocations;
 @Component({
     templateUrl: './default-dashboard.component.html'
 })
@@ -16,8 +17,11 @@ const portJournalmgmt = environment.portJournalmgmt;
 export class DefaultDashboardComponent implements OnInit {
     isVisible:boolean = false;
     isVisibleSub:boolean = false;
+    isVisibleReg:boolean = false;
     isLoading = false;
     isLoadingSub = false;
+    isLoadingReg = false;
+
     allChecked: boolean = false;
     indeterminate: boolean = false;
     search : any;
@@ -26,17 +30,22 @@ export class DefaultDashboardComponent implements OnInit {
     mapOfCheckedId: { [key: string]: boolean } = {};
     loading = false;
     loadingSubjects = false;
+    loadingRegions = false;
     pageSize = 5;
     pageIndex = 1;
     numberOfChecked = 0;
     editmode = false;
 
     listOfsubjects = [];
+    listOfRegions = [];
     dispalySubjects = [];
-
+ 
     roleForm: FormGroup;
     subjectForm: FormGroup;
+    regionForm: FormGroup;
     role: any;
+    
+
     constructor(private colorConfig:ThemeConstantService,
         private http: HttpClient,
         private fb: FormBuilder,
@@ -55,8 +64,14 @@ export class DefaultDashboardComponent implements OnInit {
             subjectDescription: [ null, [ Validators.required ] ]
         });
 
+        this.regionForm = this.fb.group({
+            regionName: [ null, [ Validators.required ] ],
+            regionCode: [ null, [ Validators.required ] ]
+        });
+
         this.getRolesList();
         this.getSubjectsList();
+        this.getRegionList();
     }
     currentPageDataChange($event: Array<{ 
         name: string;
@@ -70,6 +85,13 @@ export class DefaultDashboardComponent implements OnInit {
     }>): void {
         this.dispalySubjects = $event;
     }
+    currentPageDataChangeRegion($event: Array<{ 
+        name: string;
+        code: string;
+    }>): void {
+        this.listOfRegions = $event;
+    }
+
     getRolesList(){
         this.loading = true;
         this.http.get(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/role`).subscribe(
@@ -101,6 +123,29 @@ export class DefaultDashboardComponent implements OnInit {
     )
     }
 
+    getRegionList() {
+        this.loadingRegions = true;
+        this.http.get(`${apiUrl}${portLocations}/cmslocations/locations/region`).subscribe(
+        (resp: any) =>{
+
+           this.listOfRegions.push(resp);
+
+            alert("it works");
+ 
+            // if (resp.status === 'Success') {
+            //     alert("it works sucess");
+            //     console.log(resp.region);
+            //     this.listOfRegions = resp.regions;
+            // }
+           
+            this.loadingRegions = false;
+        },
+        err => {
+            console.log(err);
+        }
+    )
+    }
+
     handleCancel() {
         this.isVisible = false;
         this.roleForm.reset();
@@ -109,6 +154,11 @@ export class DefaultDashboardComponent implements OnInit {
     handleCancelSub() {
         this.isVisibleSub = false;
         this.subjectForm.reset();
+    }
+
+    handleCancelReg() {
+        this.isVisibleReg = false;
+        this.regionForm.reset();
     }
    
     addRole() {
