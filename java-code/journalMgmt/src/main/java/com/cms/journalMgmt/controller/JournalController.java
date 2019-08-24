@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cms.journalMgmt.beans.AbstractingBean;
+import com.cms.journalMgmt.beans.EditorialBoardBean;
 import com.cms.journalMgmt.beans.JournalBean;
 import com.cms.journalMgmt.beans.SubjectBean;
 import com.cms.journalMgmt.services.AbstractingService;
+import com.cms.journalMgmt.services.EditorialBoardService;
 import com.cms.journalMgmt.services.JournalService;
 import com.cms.journalMgmt.services.SubjectService;
 
@@ -25,7 +27,6 @@ import io.swagger.annotations.ApiOperation;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/journals")
 @Api(value = " Journal Management")
 public class JournalController {
 
@@ -36,6 +37,9 @@ public class JournalController {
 	
 	@Autowired
 	AbstractingService abstractingService;
+	
+	@Autowired 
+	EditorialBoardService ediotrialBoardService;
 	
 	@ApiOperation(value = " Sample test service to check health check")
 	@GetMapping("/test")
@@ -126,4 +130,40 @@ public class JournalController {
 	public String deleteAbstractingByName(@PathVariable String abstractingName){
 		return abstractingService.deleteAbstracting(abstractingName);
 	}
+	
+	@ApiOperation(value = "Service for creating editorial board")
+	@PostMapping("/editorialBoard")
+	public String createEditorialBoard(@RequestBody EditorialBoardBean editorialBoard){
+		return ediotrialBoardService.createOrUpdateEditorialBoard(editorialBoard, "create");
+	}
+	
+	@ApiOperation(value = "Service for updating editorial board")
+	@PutMapping("/editorialBoard")
+	public String updateEditorialBoard(@RequestBody EditorialBoardBean editorialBoard){
+		return ediotrialBoardService.createOrUpdateEditorialBoard(editorialBoard, "update");
+	}
+	@ApiOperation(value = "Service for fetching editorial board for journal")
+	@GetMapping("/editorialBoard/{journalShortName}")
+	public String getEditorialBoardForJournalShortName(@PathVariable String journalShortName){
+		return ediotrialBoardService.getEditorialBoardByJournalShortName(journalShortName);
+	}
+	
+	@ApiOperation(value = "Service for fetching editorial board by journalShortName and editorId")
+	@GetMapping("/editorialBoard/{journalShortName}/{editorId}")
+	public String getEditorialBoardForJournalShortNameAndEditorId(@PathVariable String journalShortName,@PathVariable String editorId){
+		return ediotrialBoardService.getEditorialBoardByJournalShortNameAndEditorId(journalShortName,editorId);
+	}
+	
+	@ApiOperation(value = "Service for deleting editorial board by journalShortName")
+	@DeleteMapping("/editorialBoard/{journalShortName}/{editorId}")
+	public String deleteEditorialBoardForJournalShortNameAndEditorId(@PathVariable String journalShortName,@PathVariable String editorId){
+		return ediotrialBoardService.deleteEditorialBoardByJournalShortNameAndEditorId(journalShortName,editorId);
+	}
+	
+	@ApiOperation(value = "Service for deleting editorial board by journalShortName and editorId")
+	@DeleteMapping("/editorialBoard/{journalShortName}")
+	public String deleteEditorialBoardForJournalShortName(@PathVariable String journalShortName){
+		return ediotrialBoardService.deleteEditorialBoardByJournalShortName(journalShortName);
+	}
+	
 }

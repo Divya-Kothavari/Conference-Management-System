@@ -10,6 +10,7 @@ public interface EditorialBoardRepo extends JpaRepository<EditorialBoard, Long> 
 
 	List<EditorialBoard> findAll();
 	
-	EditorialBoard findByJournalShortName(String journalShortName);
+	List<EditorialBoard> findByJournalShortName(String journalShortName);
 	
+	EditorialBoard findByJournalShortNameAndEditorId(String journalShortName,String editorId);
 }
