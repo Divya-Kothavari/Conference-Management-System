@@ -149,20 +149,20 @@ export class ProfileComponent {
 
     ngOnInit(): void {
          //get user by id
-        this.http.get(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/user/${this.userid}`).subscribe(
+        this.http.get(`http://localhost:8081/cmsusermgmt/userMgmt/user/${this.userid}`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     //console.log(resp.user);
                    this.userDetails = resp.user;
                    this.dataAvailable = true;
-                   this.uploadUrl= `${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/user/image/${this.userDetails.userId}`
+                   this.uploadUrl= `http://localhost:8081/cmsusermgmt/userMgmt/user/image/${this.userDetails.userId}`
                 }
             },
             err => {
                  console.log(err);
             }
         );
-        this.http.get(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/role`).subscribe(
+        this.http.get(`http://localhost:8081/cmsusermgmt/userMgmt/role`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     resp.roles.forEach(role => {
@@ -223,43 +223,33 @@ export class ProfileComponent {
             interests: this.userDetails.interests,
             gender: this.userDetails.gender
         }
-        this.http.put('${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/user', data).subscribe(
+        this.http.put('http://localhost:8081/cmsusermgmt/userMgmt/user', data).subscribe(
             (resp: any) =>{
-                this.isLoading = false;
                  if (resp.status === 'Success') {
-                    this.userDetails = resp.user;
+                    // this.userDetails = resp.user;
                    this.message.success(resp.message);
+                   this.isLoading = false;
                 }
             },
             err => {
-                this.isLoading = false;
                  console.log(err);
             }
         );
         const userroles = this.selectedRole.join().toString();
-
-        const data1 = {
-            roleNames: userroles
-        }
-        this.http.post(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/userRoles/${this.userDetails.userId}`, data1).subscribe(
-            (resp: any) =>{
-                this.isLoading = false;
-                 if (resp.status === 'Success') {
-                    this.userDetails = resp.user;
-                   this.message.success(resp.message);
+        if (userroles !== '') {
+            this.http.post(`http://localhost:8081/cmsusermgmt/userMgmt/userRoles/${this.userDetails.userId}`, userroles).subscribe(
+                (resp: any) =>{
+                     if (resp.status === 'Success') {
+                        this.userDetails = resp.user;
+                       this.message.success(resp.message);
+                    }
+                },
+                err => {
+                     console.log(err);
                 }
-            },
-            err => {
-                this.isLoading = false;
-                 console.log(err);
-            }
-        );
+            );
+        }
+       
       }
 
-      listOfOption = ['SuperAdmin', 'Admin', 'Editor', 'Author', 'Reviewer'];
-      listOfSelectedValue: string[] = [];
-  
-      isNotSelected(value: string): boolean {
-          return this.listOfSelectedValue.indexOf(value) === -1;
-      }
 }    

@@ -6,7 +6,8 @@
             <div class="row">
               <div class="col-md-8">
                 <div class="media align-items-center">
-                    <nz-avatar  [nzSize]="80" nzIcon="user" [nzSrc]="userDetails.image"></nz-avatar>
+                    <!-- <nz-avatar  [nzSize]="80" nzIcon="user" [nzSrc]="userDetails.image"></nz-avatar> -->
+                    <nz-avatar  [nzSize]="80" nzIcon="user" nzSrc="http://themenate.com/applicator/dist/assets/images/avatars/thumb-13.jpg"></nz-avatar>
                     <div class="m-l-20 m-r-20">
                         <h5 class="m-b-5 font-size-18">Change Avatar</h5>
                         <p class="opacity-07 font-size-13 m-b-0">
@@ -26,7 +27,6 @@
                     </nz-upload>
                  </div>
             </div>
-                
                     <div class="col-md-4"><button [nzLoading]="isLoading" class="float-right m-t-10" (click)="updateUser()" nz-button nzType="primary" nzGhost><span>Save Profile</span></button></div>
             </div>
                 <hr class="m-v-25">
@@ -91,7 +91,7 @@
                                             [(ngModel)]="selectedRole"
                                         >
                                             <ng-container *ngFor="let option of rolesList">
-                                                <nz-option [nzLabel]="option" [nzValue]="option" *ngIf="isNotSelected(option)"></nz-option>
+                                                <nz-option [nzLabel]="option" [nzValue]="option" ></nz-option>
                                             </ng-container>
                                         </nz-select>
                                 </nz-form-control>
@@ -201,4 +201,4 @@
     </nz-tab>
 </nz-tabset>
 
-<nz-skeleton [nzLoading]="skeletonLoading" [nzAvatar]="true" [nzActive]="true" [nzParagraph]="{ rows: 4 }"></nz-skeleton>
+<nz-skeleton [nzLoading]="!dataAvailable" [nzAvatar]="true" [nzActive]="true" [nzParagraph]="{ rows: 4 }"></nz-skeleton>
