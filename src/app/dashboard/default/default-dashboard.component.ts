@@ -16,8 +16,8 @@ const portLocations = environment.portLocations;
 
 export class DefaultDashboardComponent implements OnInit {
     isVisible:boolean = false;
-    isVisibleSub:boolean = false;
-    isVisibleReg:boolean = false;
+    isVisibleSub = false;
+    isVisibleReg = false;
     isLoading = false;
     isLoadingSub = false;
     isLoadingReg = false;
@@ -38,7 +38,6 @@ export class DefaultDashboardComponent implements OnInit {
 
     listOfsubjects = [];
     listOfRegions = [];
-    displayRegions = [];
     dispalySubjects = [];
  
     roleForm: FormGroup;
@@ -72,7 +71,7 @@ export class DefaultDashboardComponent implements OnInit {
 
         this.getRolesList();
         this.getSubjectsList();
-        this.getRegionList();
+        this.getRegionsList();
     }
     currentPageDataChange($event: Array<{ 
         name: string;
@@ -90,7 +89,7 @@ export class DefaultDashboardComponent implements OnInit {
         regionName: string;
         regionCode: string;
     }>): void {
-        this.displayRegions = $event;
+        this.listOfRegions = $event;
     }
 
     getRolesList(){
@@ -123,16 +122,18 @@ export class DefaultDashboardComponent implements OnInit {
     )
     }
 
-    getRegionList() {
+    getRegionsList() {
         this.loadingRegions = true;
         this.http.get(`${apiUrl}${portLocations}/cmslocations/locations/region`).subscribe(
-        (resp: any) =>{
-           this.listOfRegions = resp.regions;
-            this.loadingRegions = false;
-        },
-        err => {
-            console.log(err);
-        }
+            (resp: any) =>{
+                if (resp.status === 'Success') {
+                    this.listOfRegions = resp.regions;
+                }
+                this.loadingRegions = false;
+            },
+            err => {
+                console.log(err);
+            }
     )
     }
 
@@ -252,6 +253,62 @@ export class DefaultDashboardComponent implements OnInit {
         }
     }
 
+    addRegion() {
+        if (this.editmode) {
+            this.isLoadingReg = true;
+            const region = {
+                regionName: this.regionForm.value.regionName,
+                regionCode: this.regionForm.value.regionCode
+            }
+            this.http.put(`${apiUrl}${portLocations}/cmslocations/locations/region`, region).subscribe(
+            (resp: any) =>{
+                this.isLoadingReg = false;
+                if (resp.status === 'Success') {
+                    //console.log(resp.message);
+                    this.message.success(resp.message);
+                    this.handleCancelReg();
+                    this.editmode = false;
+                    this.getRegionsList();
+                }
+                if(resp.status === 'Error'){
+                    this.message.error(resp.message);
+                    this.handleCancelReg();
+                    this.getRegionsList();
+                }
+            },
+            err => {
+                console.log(err);
+            }
+        )
+        } else {
+            this.isLoadingReg = true;
+            const region = {
+                regionName: this.regionForm.value.regionName,
+                regionCode: this.regionForm.value.regionCode
+            }
+            this.http.post(`${apiUrl}${portLocations}/cmslocations/locations/region`, region).subscribe(
+            (resp: any) =>{
+                this.isLoadingReg = false;
+                if (resp.status === 'Success') {
+                    this.message.success(resp.message);
+                    this.handleCancelReg();
+                    this.getRegionsList();
+                }
+                if(resp.status === 'Error'){
+                    this.message.error(resp.message);
+                    this.handleCancelReg();
+                    this.getRegionsList();
+                }
+            },
+            err => {
+                console.log(err);
+            }
+        )
+        }
+    }
+
+
+
     deleteRole(rolename) {
         this.http.delete(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/role/${rolename}`).subscribe(
             (resp: any) =>{
@@ -280,6 +337,20 @@ export class DefaultDashboardComponent implements OnInit {
         )
     }
 
+    deleteRegion(regionCode) {
+        this.http.delete(`${apiUrl}${portLocations}/cmslocations/locations/region/${regionCode}`).subscribe(
+            (resp: any) =>{
+                if (resp.status === 'Success') {
+                    this.message.success(resp.message);
+                    this.getRegionsList();
+                }
+            },
+            err => {
+                console.log(err);
+            }
+        )
+    }
+
     editRole(name, desc) {
         this.roleForm.controls['roleName'].setValue(name);
         this.roleForm.controls['roleDescription'].setValue(desc);
@@ -290,5 +361,11 @@ export class DefaultDashboardComponent implements OnInit {
         this.subjectForm.controls['subjectName'].setValue(name);
         this.subjectForm.controls['subjectDescription'].setValue(desc);
         this.isVisibleSub = true;
+    }
+
+    editRegion(name, code) {
+        this.subjectForm.controls['regionName'].setValue(name);
+        this.subjectForm.controls['regionCode'].setValue(code);
+        this.isVisibleReg = true;
     }
 }  

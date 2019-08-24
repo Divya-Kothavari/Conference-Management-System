@@ -119,7 +119,7 @@
     </div>
 
     <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <nz-card>
                     <div class="d-flex justify-content-between align-items-center ng-star-inserted">
                         <h5 style="border-bottom: 3px solid #ccc">Regions</h5>
@@ -144,7 +144,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of displayRegions | search:'name':search as count ; let i=index">
+                            <tr *ngFor="let item of listOfRegions | search:'name':search as count ; let i=index">
                                  <td>
                                     <div class="d-flex align-items-center">
                                          <h6 class="m-l-10 m-b-0">{{item.regionName}}</h6>
@@ -159,7 +159,7 @@
                                     <a aria-readonly="true" class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom" (click)="editRegion(item.regionName, item.regionCode);editmode = true;">
                                         <i nz-icon type="edit" theme="outline"></i>
                                     </a>
-                                    <button aria-readonly="true" nz-button nzType="default" nz-popconfirm nzPopoverTrigger="click" nzTitle="Are you sure delete this Region?" (nzOnConfirm)="deleteRegion(item.regionName)" (nzOnCancel)="cancel()" nzGhost nzShape="circle">
+                                    <button aria-readonly="true" nz-button nzType="default" nz-popconfirm nzPopoverTrigger="click" nzTitle="Are you sure delete this Region?" (nzOnConfirm)="deleteRegion(item.regionCode)" (nzOnCancel)="cancel()" nzGhost nzShape="circle">
                                         <i nz-icon type="delete" theme="outline"></i>
                                     </button>
                                 </td>
@@ -169,7 +169,7 @@
                      </div>
                  </nz-card>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-7">
                 <nz-card>
                     <div class="d-flex justify-content-between align-items-center ng-star-inserted">
                             <h5 style="border-bottom: 3px solid #ccc">Country List</h5>
