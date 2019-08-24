@@ -1,8 +1,7 @@
 package com.cms.locations.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cms.locations.beans.CountryBean;
 import com.cms.locations.beans.RegionBean;
 import com.cms.locations.beans.StateBean;
-import com.cms.locations.model.Regions;
 import com.cms.locations.services.CountryService;
 import com.cms.locations.services.RegionService;
 import com.cms.locations.services.StateService;
@@ -23,6 +21,7 @@ import com.cms.locations.services.StateService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/locations")
 @Api(value="CmsLocationController")
@@ -39,14 +38,14 @@ public class CmsLocationController {
 	
 	@GetMapping("/region")
 	@ApiOperation(value = "Get All Regions")
-	public List<Regions> getAllRegions(){
+	public String getAllRegions(){
 		return regionsService.getAllRegions();
 	}
 	
 	
 	@GetMapping("/region/{regionCode}")
 	@ApiOperation(value = " Get region by regionCode")
-	public Regions getRegionByCode(@PathVariable String regionCode){
+	public String getRegionByCode(@PathVariable String regionCode){
 		return regionsService.getRegionByCode(regionCode);
 	}
 	
@@ -135,9 +134,9 @@ public class CmsLocationController {
 		return stateService.getStateByStateCode(stateCode);
 	}
 	
-	@DeleteMapping("/state/{stateCode}")
+	@DeleteMapping("/state")
 	@ApiOperation(value="Delete state")
-	public String deleteState(@PathVariable String stateCode){
+	public String deleteState(String stateCode){
 		return stateService.deleteState(stateCode);
 	}
 	
