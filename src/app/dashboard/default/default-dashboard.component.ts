@@ -128,9 +128,7 @@ export class DefaultDashboardComponent implements OnInit {
         this.http.get(`${apiUrl}${portLocations}/cmslocations/locations/region`).subscribe(
         (resp: any) =>{
 
-           this.listOfRegions.push(resp);
-
-            alert("it works");
+           this.listOfRegions = resp;
  
             // if (resp.status === 'Success') {
             //     alert("it works sucess");
