@@ -167,7 +167,7 @@ public String  getCountryByCountryCode(String countryCode){
 			}
 			jsonResponse = new JSONObject();
 			jsonResponse.put("status", "Success");
-			jsonResponse.put("message", "");
+			jsonResponse.put("message", "All Countries");
 			jsonResponse.put("countries", jsonArray);
 		}
 		return jsonResponse.toString();
