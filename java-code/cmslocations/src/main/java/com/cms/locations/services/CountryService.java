@@ -67,7 +67,6 @@ public class CountryService {
 				if(null != countryModel){
 					Regions regionModel = regionsRepo.findByRegionCode(countryBean.getRegionCode());
 					if(null != regionModel){
-					countryModel = new Country();
 					countryModel.setCountryCode(countryBean.getCountryCode());
 					countryModel.setRegionCode(countryBean.getRegionCode());
 					if(null != countryBean.getCountryName())

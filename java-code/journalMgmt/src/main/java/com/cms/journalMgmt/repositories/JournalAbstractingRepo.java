@@ -10,5 +10,7 @@ public interface JournalAbstractingRepo extends JpaRepository<JournalAbstracting
 
 	List<JournalAbstracting> findAll();
 	
-	JournalAbstracting findByJournalShortName(String journalShortName);
+	List<JournalAbstracting> findByJournalShortName(String journalShortName);
+	
+	JournalAbstracting findByJournalShortNameAndAbstractingName(String journalShortName,String abstractingName);
 }

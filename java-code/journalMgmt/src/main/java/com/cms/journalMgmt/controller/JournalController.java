@@ -20,6 +20,7 @@ import com.cms.journalMgmt.beans.SubjectBean;
 import com.cms.journalMgmt.services.AbstractingService;
 import com.cms.journalMgmt.services.ArticleTypeService;
 import com.cms.journalMgmt.services.EditorialBoardService;
+import com.cms.journalMgmt.services.JournalAbstractingService;
 import com.cms.journalMgmt.services.JournalService;
 import com.cms.journalMgmt.services.SubjectService;
 
@@ -44,6 +45,9 @@ public class JournalController {
 	
 	@Autowired 
 	ArticleTypeService articleTypeService;
+	
+	@Autowired
+	JournalAbstractingService journalAbstractingService;
 	
 	@ApiOperation(value = " Sample test service to check health check")
 	@GetMapping("/test")
@@ -206,4 +210,18 @@ public class JournalController {
 	public String deleteArticleType(@PathVariable String articleType){
 		return articleTypeService.deleteArticleType(articleType);
 	}
+	
+	@ApiOperation(value="Service to Add or remove abstractings for the journal")
+	@PostMapping("/journalAbstracting/{journalShortName}/{abstractingNames}")
+	public String assignJournalAbstractings(@PathVariable String journalShortName,String abstractingNames){
+		return journalAbstractingService.addOrUpdateJournalAbstracting(journalShortName, abstractingNames);
+	}
+	
+	@ApiOperation(value="Service to fetch abstractings for the journal")
+	@GetMapping("/journalAbstracting/{journalShortName}")
+	public String getJournalAbstracting(@PathVariable String journalShortName){
+		return journalAbstractingService.getJournalAbstractings(journalShortName);
+	}
+	
+	
 }
