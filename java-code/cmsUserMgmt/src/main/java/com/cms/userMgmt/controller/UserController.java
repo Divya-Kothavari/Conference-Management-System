@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cms.userMgmt.beans.PasswordResetReq;
 import com.cms.userMgmt.beans.RoleReq;
 import com.cms.userMgmt.beans.UserBean;
+import com.cms.userMgmt.service.ProfilePicService;
 import com.cms.userMgmt.service.RoleService;
 import com.cms.userMgmt.service.UserManagementService;
 import com.cms.userMgmt.service.UserRolesService;
@@ -35,6 +36,9 @@ public class UserController {
 	
 	@Autowired
 	private RoleService roleService;
+	
+	@Autowired
+	ProfilePicService profilePicService;
 	
 	@GetMapping("/userTestt")
 	@ApiOperation(value = " This is a test service under user management to check whether the usermanagement service is up or not")
@@ -93,9 +97,18 @@ public class UserController {
 		return userMgmtService.uploadUserImage(file, userId);
 	}
 	
+	@PostMapping("/user/profileImage/{userId}")
+	public String uploadUserProfileImage(@RequestBody MultipartFile file,@PathVariable String userId){
+		return profilePicService.uploadUserProfileImage(file, userId);
+	}
+	
 	@PutMapping("/user/image/{userId}")
 	public String updateUserImage(@RequestBody MultipartFile file,@PathVariable String userId){
 		return userMgmtService.uploadUserImage(file, userId);
+	}
+	@GetMapping("/user/profileImage/{userId}")
+	public byte[] getUserProfileImage(@PathVariable String userId){
+		return profilePicService.getUserProfileImage(userId);
 	}
 	
 	@GetMapping("/user/image/{userId}")
