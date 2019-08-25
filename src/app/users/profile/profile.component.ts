@@ -165,7 +165,7 @@ export class ProfileComponent {
                         console.log(err);
                     }
                 );
-                   this.uploadUrl= `http://localhost:8081/cmsusermgmt/userMgmt/user/image/${this.userDetails.userId}`
+                   this.uploadUrl= `http://localhost:8081/cmsusermgmt/userMgmt/user/profileImage/${this.userDetails.userId}`
                 }
             },
             err => {
@@ -213,6 +213,11 @@ export class ProfileComponent {
             } else if (event instanceof HttpResponse) {
               item.onSuccess!(event.body, item.file!, event);
               this.message.success(event.body.message);
+              this.http.get(this.uploadUrl).subscribe(
+                  resp => {
+                      console.log(resp);
+                  }
+              )
               this.userDetails.image = event.body.path;
             }
           },

@@ -32,7 +32,7 @@ export class UsersListComponent implements OnInit {
     numberOfChecked = 0;
     user;
     signUpForm: FormGroup;
-
+    isLoading = false;
     constructor(private tableSvc : TableService, private fb: FormBuilder, private http: HttpClient, private message: NzMessageService,
         private commonService: CommonService) { }
 
@@ -44,7 +44,7 @@ export class UsersListComponent implements OnInit {
             this.signUpForm = this.fb.group({
                 userId           : [ null, [ Validators.required ] ],
                 userName         : [ null, [ Validators.required ] ],
-                email            : [ null, [ Validators.required ] ],
+                email            : [ null,[Validators.email, Validators.required] ],
                 password         : [ null, [ Validators.required ] ],
                 checkPassword    : [ null, [ Validators.required, this.confirmationValidator ] ],
                 agree            : [ false ]
@@ -124,7 +124,7 @@ export class UsersListComponent implements OnInit {
       }
      
     submitForm(): void {
-
+      this.isLoading = true;
         for (const i in this.signUpForm.controls) {
             this.signUpForm.controls[ i ].markAsDirty();
             this.signUpForm.controls[ i ].updateValueAndValidity();
@@ -136,12 +136,11 @@ export class UsersListComponent implements OnInit {
             password: this.signUpForm.value.password,
             status: true
         };
-        console.log(userBean);
         this.http.post(
             `${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/user`, userBean
         ).subscribe(
             (resp: any) =>{
-                console.log(resp);
+                this.isLoading = false;
                 if(resp.status == 'Success'){
                     this.message.success(resp.message);
                     this.isVisible = false;
@@ -153,6 +152,7 @@ export class UsersListComponent implements OnInit {
                 this.signUpForm.reset()
              },
             err => {
+                this.isLoading = false;
                 console.log(err);
             }
         )

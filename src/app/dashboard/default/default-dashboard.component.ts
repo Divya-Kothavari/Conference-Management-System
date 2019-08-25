@@ -43,13 +43,15 @@ export class DefaultDashboardComponent implements OnInit {
     listOfRegions = [];
     listOfCountries = [];
     dispalySubjects = [];
- 
+    displayRegions = [];
+    displayCountries = [];
     roleForm: FormGroup;
     subjectForm: FormGroup;
     regionForm: FormGroup;
     countryForm: FormGroup;
     role: any;
-    
+    selectedRegion;
+    selectedStatus;
 
     constructor(private colorConfig:ThemeConstantService,
         private http: HttpClient,
@@ -76,7 +78,9 @@ export class DefaultDashboardComponent implements OnInit {
 
         this.countryForm = this.fb.group({
             countryName: [ null, [ Validators.required ] ],
-            countryCode: [ null, [ Validators.required ] ]
+            countryCode: [ null, [ Validators.required ] ],
+            regionCode: [ null, [ Validators.required ] ],
+            economicStatus: [ null, [ Validators.required ] ]
         });
 
         this.getRolesList();
@@ -100,13 +104,13 @@ export class DefaultDashboardComponent implements OnInit {
         regionName: string;
         regionCode: string;
     }>): void {
-        this.listOfRegions = $event;
+        this.displayRegions = $event;
     }
     currentPageDataChangeCountry($event: Array<{ 
         countryName: string;
         countryCode: string;
     }>): void {
-        this.listOfCountries = $event;
+    this.displayCountries = $event;
     }
 
     getRolesList(){
@@ -349,7 +353,9 @@ export class DefaultDashboardComponent implements OnInit {
             this.isLoadingCoun = true;
             const country = {
                 countryName: this.countryForm.value.countryName,
-                countryCode: this.countryForm.value.countryCode
+                countryCode: this.countryForm.value.countryCode,
+                regionCode: this.countryForm.value.regionCode,
+                economicStatus: this.countryForm.value.economicStatus,
             }
             this.http.put(`${apiUrl}${portLocations}/cmslocations/locations/country`, country).subscribe(
             (resp: any) =>{
@@ -375,7 +381,9 @@ export class DefaultDashboardComponent implements OnInit {
             this.isLoadingCoun = true;
             const country = {
                 countryName: this.countryForm.value.countryName,
-                countryCode: this.countryForm.value.countryCode
+                countryCode: this.countryForm.value.countryCode,
+                regionCode: this.countryForm.value.regionCode,
+                economicStatus: this.countryForm.value.economicStatus,
             }
             this.http.post(`${apiUrl}${portLocations}/cmslocations/locations/country`, country).subscribe(
             (resp: any) =>{
@@ -473,9 +481,11 @@ export class DefaultDashboardComponent implements OnInit {
         this.regionForm.controls['regionCode'].setValue(desc);
         this.isVisibleReg = true;
     }
-    editCountry(name, desc) {
-        this.countryForm.controls['countryName'].setValue(name);
-        this.countryForm.controls['countryCode'].setValue(desc);
+    editCountry(countryname, countrycode, regioncode, status) {
+        this.countryForm.controls['countryName'].setValue(countryname);
+        this.countryForm.controls['countryCode'].setValue(countrycode);
+        this.countryForm.controls['regionCode'].setValue(regioncode);
+        this.countryForm.controls['economicStatus'].setValue(status);
         this.isVisibleCoun = true;
     }
 

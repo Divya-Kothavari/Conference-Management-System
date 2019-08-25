@@ -144,7 +144,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of listOfRegions | search:'name':search as count ; let i=index">
+                            <tr *ngFor="let item of displayRegions | search:'name':search as count ; let i=index">
                                  <td>
                                     <div class="d-flex align-items-center">
                                          <h6 class="m-l-10 m-b-0">{{item.regionName}}</h6>
@@ -223,7 +223,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of listOfCountries | search:'name':search as count ; let i=index">
+                            <tr *ngFor="let item of displayCountries | search:'name':search as count ; let i=index">
                                  <td>
                                     <div class="d-flex align-items-center">
                                          <h6 class="m-l-10 m-b-0">{{item.countryName}}</h6>
@@ -245,7 +245,7 @@
                                     </div>
                                 </td>
                                 <td class="text-md-right">
-                                    <a aria-readonly="true" class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom" (click)="editCountry(item.countryName, item.countryCode);editmode = true;">
+                                    <a aria-readonly="true" class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom" (click)="editCountry(item.countryName, item.countryCode, item.regionCode, item.economicStatus);editmode = true;">
                                         <i nz-icon type="edit" theme="outline"></i>
                                     </a>
                                     <button aria-readonly="true" nz-button nzType="default" nz-popconfirm nzPopoverTrigger="click" nzTitle="Are you sure delete this Country?" (nzOnConfirm)="deleteCountry(item.countryCode)" (nzOnCancel)="cancel()" nzGhost nzShape="circle">
@@ -357,16 +357,21 @@
                     <nz-form-item>
                         <nz-form-label nzFor="regionCode">Region Code</nz-form-label>
                         <nz-form-control>
-                        <nz-select  nzShowSearch nzAllowClear nzPlaceHolder="Select a person" [(ngModel)]="selectedValue" [ngModelOptions]="{standalone: true}">
-                                <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
-                                <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
-                                <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+                        <nz-select formControlName="regionCode"  nzShowSearch  nzPlaceHolder="Select a region" [(ngModel)]="selectedRegion">
+                                <nz-option *ngFor="let region of listOfRegions" [nzLabel]="region.regionCode" [nzValue]="region.regionCode"></nz-option>
                             </nz-select>
+                            <nz-form-explain *ngIf="countryForm.get('regionCode').dirty && countryForm.get('regionCode').errors">Please input Region Code!</nz-form-explain>
                         </nz-form-control>
                     </nz-form-item>
                     <nz-form-item>
-                            <nz-form-label nzFor="regionCode">Region Code</nz-form-label>
+                            <nz-form-label nzFor="regionCode">Economic Status</nz-form-label>
                             <nz-form-control>
+                                    <nz-select formControlName="economicStatus"  nzShowSearch  nzPlaceHolder="Select economic status" [(ngModel)]="selectedStatus">
+                                            <nz-option nzLabel="Low" nzValue="Low"></nz-option>
+                                            <nz-option nzLabel="Middle" nzValue="Middle"></nz-option>
+                                            <nz-option nzLabel="High" nzValue="High"></nz-option>
+                                        </nz-select>
+                                        <nz-form-explain *ngIf="countryForm.get('economicStatus').dirty && countryForm.get('economicStatus').errors">Please input economic status!</nz-form-explain>
                             </nz-form-control>
                     </nz-form-item>
       </form>
