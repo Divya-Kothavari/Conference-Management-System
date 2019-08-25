@@ -12,7 +12,7 @@ import com.cms.journalMgmt.model.EditorialBoard;
 import com.cms.journalMgmt.repositories.EditorialBoardRepo;
 import com.google.gson.Gson;
 
-import net.minidev.json.JSONObject;
+import  org.json.simple.JSONObject;
 
 @Service
 public class EditorialBoardService {
@@ -69,6 +69,31 @@ public class EditorialBoardService {
 		return json.toString();
 	}
 	
+	public String getAllEditorialBoards(){
+		JSONObject json = new JSONObject();
+		JSONArray array = new JSONArray();
+		Gson gson = new Gson();
+		List<EditorialBoard> editorialBoards = editorialBoardRepo.findAll();
+		if(null != editorialBoards && editorialBoards.size() > 0){
+			for(EditorialBoard editorialBoard  : editorialBoards){
+				//journalJson = (JSONObject)  new JSONParser().parse(gson.toJson(journalModel,Journal.class));
+				try{
+					json = new JSONObject();
+					json = (JSONObject)  new JSONParser().parse(gson.toJson(editorialBoard,EditorialBoard.class));
+					array.add(json);
+				}catch(Exception e){}
+			}
+			json = new JSONObject();
+			json.put("status", "Success");
+			json.put("message", "EditorialBoard details for journal");
+			json.put("editorialBoards", array);
+		}else{
+			json.put("status", "Error");
+			json.put("message", "No records found");		
+		}
+		return json.toString();
+	}
+	
 	public String getEditorialBoardByJournalShortName(String journalShortName){
 		JSONObject json = new JSONObject();
 		JSONArray array = new JSONArray();
@@ -83,6 +108,7 @@ public class EditorialBoardService {
 					array.add(json);
 				}catch(Exception e){}
 			}
+			json = new JSONObject();
 			json.put("status", "Success");
 			json.put("message", "EditorialBoard details for journal");
 			json.put("editorialBoards", array);

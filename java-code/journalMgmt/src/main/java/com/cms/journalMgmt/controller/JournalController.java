@@ -10,14 +10,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cms.journalMgmt.beans.AbstractingBean;
+import com.cms.journalMgmt.beans.ArticleTypeBean;
 import com.cms.journalMgmt.beans.EditorialBoardBean;
 import com.cms.journalMgmt.beans.JournalBean;
 import com.cms.journalMgmt.beans.SubjectBean;
 import com.cms.journalMgmt.services.AbstractingService;
+import com.cms.journalMgmt.services.ArticleTypeService;
 import com.cms.journalMgmt.services.EditorialBoardService;
 import com.cms.journalMgmt.services.JournalService;
 import com.cms.journalMgmt.services.SubjectService;
@@ -40,6 +41,9 @@ public class JournalController {
 	
 	@Autowired 
 	EditorialBoardService ediotrialBoardService;
+	
+	@Autowired 
+	ArticleTypeService articleTypeService;
 	
 	@ApiOperation(value = " Sample test service to check health check")
 	@GetMapping("/test")
@@ -142,6 +146,13 @@ public class JournalController {
 	public String updateEditorialBoard(@RequestBody EditorialBoardBean editorialBoard){
 		return ediotrialBoardService.createOrUpdateEditorialBoard(editorialBoard, "update");
 	}
+	
+	@ApiOperation(value = "Service for fetching all editorial boards")
+	@GetMapping("/editorialBoard")
+	public String getAllEditorialBoards(){
+		return ediotrialBoardService.getAllEditorialBoards();
+	}
+	
 	@ApiOperation(value = "Service for fetching editorial board for journal")
 	@GetMapping("/editorialBoard/{journalShortName}")
 	public String getEditorialBoardForJournalShortName(@PathVariable String journalShortName){
@@ -166,4 +177,33 @@ public class JournalController {
 		return ediotrialBoardService.deleteEditorialBoardByJournalShortName(journalShortName);
 	}
 	
+	@ApiOperation(value="Service to create ArticleType")
+	@PostMapping("/articleType")
+	public String createArticleType(@RequestBody ArticleTypeBean articleTypeBean){
+		return articleTypeService.createorUpdateArticleType(articleTypeBean, "create");
+	}
+	
+	@ApiOperation(value="Service to update ArticleType")
+	@PutMapping("/articleType")
+	public String updateArticleType(@RequestBody ArticleTypeBean articleTypeBean){
+		return articleTypeService.createorUpdateArticleType(articleTypeBean, "update");
+	}
+	
+	@ApiOperation(value="Service to update ArticleType")
+	@GetMapping("/articleType")
+	public String getAllArticleTypes(){
+		return articleTypeService.getAllArticleTypes();
+	}
+	
+	@ApiOperation(value="Service to update ArticleType")
+	@GetMapping("/articleType/{articleType}")
+	public String getArticleType(@PathVariable String articleType){
+		return articleTypeService.getArticleType(articleType);
+	}
+	
+	@ApiOperation(value="Service to update ArticleType")
+	@DeleteMapping("/articleType/{articleType}")
+	public String deleteArticleType(@PathVariable String articleType){
+		return articleTypeService.deleteArticleType(articleType);
+	}
 }
