@@ -16,11 +16,13 @@ const portLocations = environment.portLocations;
 
 export class DefaultDashboardComponent implements OnInit {
     isVisible:boolean = false;
-    isVisibleSub = false;
-    isVisibleReg = false;
+    isVisibleSub:boolean  = false;
+    isVisibleReg:boolean  = false;
+    isVisibleCoun:boolean  = false;
     isLoading = false;
     isLoadingSub = false;
     isLoadingReg = false;
+    isLoadingCoun = false;
 
     allChecked: boolean = false;
     indeterminate: boolean = false;
@@ -31,6 +33,7 @@ export class DefaultDashboardComponent implements OnInit {
     loading = false;
     loadingSubjects = false;
     loadingRegions = false;
+    loadingCountries = false;
     pageSize = 5;
     pageIndex = 1;
     numberOfChecked = 0;
@@ -38,11 +41,13 @@ export class DefaultDashboardComponent implements OnInit {
 
     listOfsubjects = [];
     listOfRegions = [];
+    listOfCountries = [];
     dispalySubjects = [];
  
     roleForm: FormGroup;
     subjectForm: FormGroup;
     regionForm: FormGroup;
+    countryForm: FormGroup;
     role: any;
     
 
@@ -69,9 +74,15 @@ export class DefaultDashboardComponent implements OnInit {
             regionCode: [ null, [ Validators.required ] ]
         });
 
+        this.countryForm = this.fb.group({
+            countryName: [ null, [ Validators.required ] ],
+            countryCode: [ null, [ Validators.required ] ]
+        });
+
         this.getRolesList();
         this.getSubjectsList();
         this.getRegionsList();
+        this.getCountriesList();
     }
     currentPageDataChange($event: Array<{ 
         name: string;
@@ -91,6 +102,12 @@ export class DefaultDashboardComponent implements OnInit {
     }>): void {
         this.listOfRegions = $event;
     }
+    currentPageDataChangeCountry($event: Array<{ 
+        countryName: string;
+        countryCode: string;
+    }>): void {
+        this.listOfCountries = $event;
+    }
 
     getRolesList(){
         this.loading = true;
@@ -108,7 +125,7 @@ export class DefaultDashboardComponent implements OnInit {
     }
     getSubjectsList() {
         this.loadingSubjects = true;
-        this.http.get(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journals/subject`).subscribe(
+        this.http.get(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/subject`).subscribe(
         (resp: any) =>{
             if (resp.status === 'Success') {
                 this.listOfsubjects = resp.subjects;
@@ -137,6 +154,21 @@ export class DefaultDashboardComponent implements OnInit {
     )
     }
 
+    getCountriesList() {
+        this.loadingCountries = true;
+        this.http.get(`${apiUrl}${portLocations}/cmslocations/locations/country`).subscribe(
+            (resp: any) =>{
+                if (resp.status === 'Success') {
+                    this.listOfCountries = resp.countries;
+                }
+                this.loadingCountries = false;
+            },
+            err => {
+                console.log(err);
+            }
+    )
+    }
+
     handleCancel() {
         this.isVisible = false;
         this.roleForm.reset();
@@ -150,6 +182,11 @@ export class DefaultDashboardComponent implements OnInit {
     handleCancelReg() {
         this.isVisibleReg = false;
         this.regionForm.reset();
+    }
+
+    handleCancelCoun() {
+        this.isVisibleCoun = false;
+        this.countryForm.reset();
     }
    
     addRole() {
@@ -207,7 +244,7 @@ export class DefaultDashboardComponent implements OnInit {
                 subjectName: this.subjectForm.value.subjectName,
                 subjectDescription: this.subjectForm.value.subjectDescription
             }
-            this.http.put(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journals/subject`, subject).subscribe(
+            this.http.put(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt//subject`, subject).subscribe(
             (resp: any) =>{
                 this.isLoadingSub = false;
                 if (resp.status === 'Success') {
@@ -232,7 +269,7 @@ export class DefaultDashboardComponent implements OnInit {
                 subjectName: this.subjectForm.value.subjectName,
                 subjectDescription: this.subjectForm.value.subjectDescription
             }
-            this.http.post(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journals/subject`, subject).subscribe(
+            this.http.post(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/subject`, subject).subscribe(
             (resp: any) =>{
                 this.isLoadingSub = false;
                 if (resp.status === 'Success') {
@@ -307,6 +344,60 @@ export class DefaultDashboardComponent implements OnInit {
         }
     }
 
+    addCountry() {
+        if (this.editmode) {
+            this.isLoadingCoun = true;
+            const country = {
+                countryName: this.countryForm.value.countryName,
+                countryCode: this.countryForm.value.countryCode
+            }
+            this.http.put(`${apiUrl}${portLocations}/cmslocations/locations/country`, country).subscribe(
+            (resp: any) =>{
+                this.isLoadingCoun = false;
+                if (resp.status === 'Success') {
+                    //console.log(resp.message);
+                    this.message.success(resp.message);
+                    this.handleCancelCoun();
+                    this.editmode = false;
+                    this.getCountriesList();
+                }
+                if(resp.status === 'Error'){
+                    this.message.error(resp.message);
+                    this.handleCancelReg();
+                    this.getCountriesList();
+                }
+            },
+            err => {
+                console.log(err);
+            }
+        )
+        } else {
+            this.isLoadingCoun = true;
+            const country = {
+                countryName: this.countryForm.value.countryName,
+                countryCode: this.countryForm.value.countryCode
+            }
+            this.http.post(`${apiUrl}${portLocations}/cmslocations/locations/country`, country).subscribe(
+            (resp: any) =>{
+                this.isLoadingCoun = false;
+                if (resp.status === 'Success') {
+                    this.message.success(resp.message);
+                    this.handleCancelCoun();
+                    this.getCountriesList();
+                }
+                if(resp.status === 'Error'){
+                    this.message.error(resp.message);
+                    this.handleCancelCoun();
+                    this.getCountriesList();
+                }
+            },
+            err => {
+                console.log(err);
+            }
+        )
+        }
+    }
+
 
 
     deleteRole(rolename) {
@@ -324,7 +415,7 @@ export class DefaultDashboardComponent implements OnInit {
     }
 
     deleteSubject(subjectname) {
-        this.http.delete(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journals/subject/${subjectname}`).subscribe(
+        this.http.delete(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/subject/${subjectname}`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     this.message.success(resp.message);
@@ -351,6 +442,20 @@ export class DefaultDashboardComponent implements OnInit {
         )
     }
 
+    deleteCountry(countryCode) {
+        this.http.delete(`${apiUrl}${portLocations}/cmslocations/locations/country/${countryCode}`).subscribe(
+            (resp: any) =>{
+                if (resp.status === 'Success') {
+                    this.message.success(resp.message);
+                    this.getCountriesList();
+                }
+            },
+            err => {
+                console.log(err);
+            }
+        )
+    }
+
     editRole(name, desc) {
         this.roleForm.controls['roleName'].setValue(name);
         this.roleForm.controls['roleDescription'].setValue(desc);
@@ -363,9 +468,15 @@ export class DefaultDashboardComponent implements OnInit {
         this.isVisibleSub = true;
     }
 
-    editRegion(name, code) {
-        this.subjectForm.controls['regionName'].setValue(name);
-        this.subjectForm.controls['regionCode'].setValue(code);
+    editRegion(name, desc) {
+        this.regionForm.controls['regionName'].setValue(name);
+        this.regionForm.controls['regionCode'].setValue(desc);
         this.isVisibleReg = true;
     }
+    editCountry(name, desc) {
+        this.countryForm.controls['countryName'].setValue(name);
+        this.countryForm.controls['countryCode'].setValue(desc);
+        this.isVisibleCoun = true;
+    }
+
 }  

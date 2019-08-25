@@ -173,12 +173,12 @@
                 <nz-card>
                     <div class="d-flex justify-content-between align-items-center ng-star-inserted">
                             <h5 style="border-bottom: 3px solid #ccc">Country List</h5>
-                            <div> <a class="text-right" nz-button nzShape="round" nzSize="default" nzType="primary" (click)="isVisible = true">
+                            <div> <a class="text-right" nz-button nzShape="round" nzSize="default" nzType="primary" (click)="isVisibleCoun = true">
                                     <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
                                     <span>Add country</span>
                                 </a></div> 
                     </div>
-                    <nz-table #basicTable [nzData]="roleSet">
+                    <!-- <nz-table #basicTable [nzData]="roleSet">
                             <thead>
                                 <tr>
                                     <th>Country</th>
@@ -204,6 +204,56 @@
                                     </td>
                                 </tr>
                             </tbody>
+                    </nz-table> -->
+
+                    <nz-table #countryTable [nzData]="listOfCountries" 
+                            [nzFrontPagination]= "true" 
+                            [nzPageSize]="pageSize"
+                            (nzCurrentPageDataChange)="currentPageDataChangeCountry($event)"
+                            nzShowPagination
+                            [nzLoading]="loadingCountries"
+                             >
+                        <thead (nzSortChange)="sort($event)" nzSingleSort>
+                            <tr>
+                                    <th>Country</th>
+                                    <th>Country Code</th>
+                                    <th>Region Code</th>
+                                    <th>Economic Status</th>
+                                    <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of listOfCountries | search:'name':search as count ; let i=index">
+                                 <td>
+                                    <div class="d-flex align-items-center">
+                                         <h6 class="m-l-10 m-b-0">{{item.countryName}}</h6>
+                                    </div>
+                                </td>
+                                <td>
+                                        <div class="d-flex align-items-center">
+                                             <h6 class="m-l-10 m-b-0">{{item.countryCode}}</h6>
+                                        </div>
+                                    </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <h6 class="m-l-10 m-b-0">{{item.regionCode}}</h6>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <h6 class="m-l-10 m-b-0">{{item.economicStatus}}</h6>
+                                    </div>
+                                </td>
+                                <td class="text-md-right">
+                                    <a aria-readonly="true" class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom" (click)="editCountry(item.countryName, item.countryCode);editmode = true;">
+                                        <i nz-icon type="edit" theme="outline"></i>
+                                    </a>
+                                    <button aria-readonly="true" nz-button nzType="default" nz-popconfirm nzPopoverTrigger="click" nzTitle="Are you sure delete this Country?" (nzOnConfirm)="deleteCountry(item.countryCode)" (nzOnCancel)="cancel()" nzGhost nzShape="circle">
+                                        <i nz-icon type="delete" theme="outline"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
                     </nz-table>
                     </nz-card>
             </div>
@@ -285,3 +335,43 @@
         <button [nzLoading]="isLoadingReg" nz-button nzType="primary" [disabled]="!regionForm.valid" (click)="addRegion()">Add</button>
       </ng-template>
   </nz-modal>
+
+  <!-- Add/update country -->
+  <nz-modal [(nzVisible)]="isVisibleCoun" (nzOnCancel)="handleCancelCoun()"
+  [nzFooter]="modalFooterCoun" nzTitle="Add/Edit Country">
+      <form nz-form [formGroup]="countryForm">
+                  <nz-form-item>
+                      <nz-form-label nzFor="Country Name">Country Name</nz-form-label>
+                      <nz-form-control>
+                          <input formControlName="countryName" nz-input type="text" placeholder="Country Name">
+                          <nz-form-explain *ngIf="countryForm.get('countryName').dirty && countryForm.get('countryName').errors">Please input Country Name!</nz-form-explain>
+                      </nz-form-control>
+                  </nz-form-item>
+                   <nz-form-item>
+                      <nz-form-label nzFor="countryCode">Country Code</nz-form-label>
+                      <nz-form-control>
+                          <input formControlName="countryCode" nz-input type="text" placeholder="Country Code">
+                          <nz-form-explain *ngIf="countryForm.get('countryCode').dirty && countryForm.get('countryCode').errors">Please input country Code!</nz-form-explain>
+                      </nz-form-control>
+                  </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label nzFor="regionCode">Region Code</nz-form-label>
+                        <nz-form-control>
+                        <nz-select  nzShowSearch nzAllowClear nzPlaceHolder="Select a person" [(ngModel)]="selectedValue">
+                                <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
+                                <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
+                                <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                            <nz-form-label nzFor="regionCode">Region Code</nz-form-label>
+                            <nz-form-control>
+                            </nz-form-control>
+                    </nz-form-item>
+      </form>
+        <ng-template #modalFooterCoun>
+          <button nz-button nzType="default" (click)="handleCancelCoun()">Cancel</button>
+          <button [nzLoading]="isLoadingCoun" nz-button nzType="primary" [disabled]="!countryForm.valid" (click)="addCountry()">Add</button>
+        </ng-template>
+    </nz-modal>

@@ -21,9 +21,9 @@ export const CommonLayout_ROUTES: Routes = [
         },
         loadChildren: () => import('../../users/users.module').then(m => m.UsersModule)  
     },
+    
 
     //Admin profile
-
     {
         path: 'adminprofile',
         canActivate: [AuthGuard],

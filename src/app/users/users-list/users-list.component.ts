@@ -67,7 +67,6 @@ export class UsersListComponent implements OnInit {
         }
     )
     }
-   
     
 
     deleteUser(userId){
@@ -125,6 +124,7 @@ export class UsersListComponent implements OnInit {
       }
      
     submitForm(): void {
+
         for (const i in this.signUpForm.controls) {
             this.signUpForm.controls[ i ].markAsDirty();
             this.signUpForm.controls[ i ].updateValueAndValidity();
