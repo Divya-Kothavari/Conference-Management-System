@@ -74,7 +74,7 @@ public class RegionService {
 			if(null != region.getRegionCode()){
 			regionModel = regionsRepo.findByRegionCode(region.getRegionCode());
 			if(null != regionModel){
-				json.put("Status", "Error");
+				json.put("status", "Error");
 				json.put("message", "Region already available with given regionCode");
 			}else{
 			regionModel = new Regions();
@@ -86,16 +86,16 @@ public class RegionService {
 			if(null != region.getRegionName())
 			regionModel.setRegionName(region.getRegionName());
 			regionsRepo.save(regionModel);
-			json.put("Status", "Success");
+			json.put("status", "Success");
 			json.put("message", "Region record created successfully");
 			}
 			}else{
-			json.put("Status", "Error");
+			json.put("status", "Error");
 			json.put("message", "Invalid request");
 			}
 		}catch(Exception e){
 			System.out.println("Error incurred while creating Region record"+e);
-			json.put("Status", "Error");
+			json.put("status", "Error");
 			json.put("message", "Error incurred while creating Region record");
 		}
 		return json.toString();
@@ -108,10 +108,10 @@ public class RegionService {
 			regionModel = regionsRepo.findByRegionCode(regionCode);
 			if(null != regionModel){
 				regionsRepo.delete(regionModel);
-				json.put("Status", "Success");
+				json.put("status", "Success");
 				json.put("message", "Region record deleted successfully");
 			}else{
-				json.put("Status", "Error");
+				json.put("status", "Error");
 				json.put("message", "Region does not exist");
 			}
 		}catch(Exception e){
@@ -135,19 +135,19 @@ public class RegionService {
 				regionModel.setRegionName(region.getRegionName());
 					
 				regionsRepo.save(regionModel);
-				json.put("Status", "Success");
+				json.put("status", "Success");
 				json.put("message", "Region details updated successfully");
 			}else{
-				json.put("Status", "Error");
+				json.put("status", "Error");
 				json.put("message", "Region does not exists");
 			}
 			}else{
-				json.put("Status", "Error");
+				json.put("status", "Error");
 				json.put("message", "Invalid request");
 			}
 		}catch(Exception e){
 			System.out.println("Error incurred while updating Region record"+e);
-			json.put("Status", "Error");
+			json.put("status", "Error");
 			json.put("message", "Error incurred while updating Region record");
 		}
 		return json.toString();
