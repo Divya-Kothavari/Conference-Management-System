@@ -357,7 +357,7 @@
                     <nz-form-item>
                         <nz-form-label nzFor="regionCode">Region Code</nz-form-label>
                         <nz-form-control>
-                        <nz-select  nzShowSearch nzAllowClear nzPlaceHolder="Select a person" [(ngModel)]="selectedValue">
+                        <nz-select  nzShowSearch nzAllowClear nzPlaceHolder="Select a person" [(ngModel)]="selectedValue" [ngModelOptions]="{standalone: true}">
                                 <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
                                 <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
                                 <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
