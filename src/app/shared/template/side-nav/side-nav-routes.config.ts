@@ -17,4 +17,12 @@ export const ROUTES: SideNavInterface[] = [
         icon: 'team',
         submenu: []
     },
+    {
+        path: '/journals',
+        title: 'Journals',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'book',
+        submenu: []
+    },
 ]    
