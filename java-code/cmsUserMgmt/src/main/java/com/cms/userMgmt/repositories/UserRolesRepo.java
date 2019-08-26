@@ -9,4 +9,7 @@ import com.cms.userMgmt.model.UserRoles;
 public interface UserRolesRepo extends JpaRepository<UserRoles, Long> {
 
 	List<UserRoles> findByUserId(String userId);
+	
+	List<UserRoles> findByRoleName(String roleName);
+	
 }

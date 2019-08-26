@@ -47,7 +47,6 @@ public class RoleService {
 		if(null != role){
 		Roles roleModel = rolesRepo.findByRoleName(role.getRoleName());
 		if(null != roleModel){
-			roleModel = new Roles();
 			roleModel.setRoleName(role.getRoleName());
 			roleModel.setRoleDescription(role.getRoleDescription());
 			rolesRepo.save(roleModel);

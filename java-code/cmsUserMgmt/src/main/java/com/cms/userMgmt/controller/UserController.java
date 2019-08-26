@@ -74,9 +74,13 @@ public class UserController {
 	
 	@GetMapping("/users")
 	public String getAllUser(){
-		
 		return userMgmtService.getAllUser();
-		
+	}
+	
+	@ApiOperation(value = "Service to fetch userIds by roleName")
+	@GetMapping("/users/{roleName}")
+	public String getUsersByRole(@PathVariable String roleName){
+		return userMgmtService.getUsersByRole(roleName);
 	}
 	
 	@PutMapping("/user")

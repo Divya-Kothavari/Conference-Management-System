@@ -22,6 +22,7 @@ import com.cms.journalMgmt.services.ArticleTypeService;
 import com.cms.journalMgmt.services.EditorialBoardService;
 import com.cms.journalMgmt.services.JournalAbstractingService;
 import com.cms.journalMgmt.services.JournalService;
+import com.cms.journalMgmt.services.JournalSubjectService;
 import com.cms.journalMgmt.services.SubjectService;
 
 import io.swagger.annotations.Api;
@@ -48,6 +49,9 @@ public class JournalController {
 	
 	@Autowired
 	JournalAbstractingService journalAbstractingService;
+	
+	@Autowired
+	JournalSubjectService journalSubjectService;
 	
 	@ApiOperation(value = " Sample test service to check health check")
 	@GetMapping("/test")
@@ -229,5 +233,22 @@ public class JournalController {
 		return journalAbstractingService.getJournalAbstractings(journalShortName);
 	}
 	
+	@ApiOperation(value = " Service for updating subject details for journal ")
+	@PostMapping("/journalSubjects/{journalShortName}/{subjectsList}")
+	public String assignJournalSubjects(@PathVariable String journalShortName,@PathVariable String subjectsList){
+		
+		return journalSubjectService.addOrUpdateSubjectToJournal(journalShortName, subjectsList);
+	}
 	
+	@ApiOperation(value = " Service for fetching subject details for journal ")
+	@GetMapping("/journalSubjects/{journalShortName}")
+	public String getSubjectDetailsForJournal(@PathVariable String journalShortName){
+		return journalSubjectService.getJournalSubjects(journalShortName);
+	}
+	
+	@ApiOperation(value = " Service for fetching subject details for journal ")
+	@GetMapping("/subjectJournals/{subjectName}")
+	public String getJournalDetailsForSubject(@PathVariable String subjectName){
+		return journalSubjectService.getSubjectJournals(subjectName);
+	}
 }

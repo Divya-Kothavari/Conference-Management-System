@@ -35,6 +35,9 @@ public class UserManagementService {
 	@Autowired
 	UserRepository userRepo;
 	
+	@Autowired
+	UserRolesRepo userRolesRepo;
+	
 	public String createUser(UserBean userBean){
 		
 		JSONObject json = new JSONObject();
@@ -200,9 +203,22 @@ public class UserManagementService {
 		return json.toString();
 	}
 	
+	public String getUsersByRole(String roleName){
+		
+		JSONObject json = new JSONObject();
+		List<String> userIds = new ArrayList<>();
+		
+		List<UserRoles> usersByRole = userRolesRepo.findByRoleName(roleName);
+		for(UserRoles userRole: usersByRole ){
+			userIds.add(userRole.getUserId());
+		}
+		json.put("status", "Success");
+		json.put("message", "user logged-in successfully");
+		json.put("userIds",userIds);
+		
+		return json.toString();
+	}
 	
-	@Autowired
-	UserRolesRepo userRolesRepo;
 	
 	private String getUserRoles(String userId){
 		StringBuilder roles = new StringBuilder();
