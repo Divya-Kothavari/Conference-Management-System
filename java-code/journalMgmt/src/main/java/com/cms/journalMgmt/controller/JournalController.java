@@ -72,6 +72,12 @@ public class JournalController {
 	public String getJournal(@PathVariable String journalShortName){
 		return journalService.getJournalByShortName(journalShortName);
 	}
+
+	@ApiOperation(value = " Service to fetch all Journals")
+	@GetMapping("/journal")
+	public String getAllJournals(){
+		return journalService.getAllJournals();
+	}
 	
 	@ApiOperation(value = " Service to delete Journal by Journal short name")
 	@DeleteMapping("/journal/{journalShortName}")

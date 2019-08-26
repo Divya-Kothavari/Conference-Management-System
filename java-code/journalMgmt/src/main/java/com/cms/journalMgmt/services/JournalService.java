@@ -1,7 +1,9 @@
 package com.cms.journalMgmt.services;
 
 import java.util.Date;
+import java.util.List;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -203,6 +205,29 @@ public String updateJournal(JournalBean journal){
 		return json.toString();
 	}
 
+	public String getAllJournals(){
+		JSONObject json = new JSONObject();
+		JSONArray array = new JSONArray();
+		List<Journal> journalModels = journalRepo.findAll();
+		if(null != journalModels && journalModels.size() > 0){
+			Gson gson = new Gson();
+			for(Journal journalModel : journalModels){
+			 json = new JSONObject();
+			 try {
+			 json = (JSONObject)  new JSONParser().parse(gson.toJson(journalModel,Journal.class));
+			 array.add(json);
+			 } catch (ParseException e){}
+			}
+			json = new JSONObject();
+			json.put("status", "Success");
+			json.put("message","Journal details fetched successfully");
+			json.put("journals", array);
+		}else{
+			json.put("status", "Error");
+			json.put("message","No Data found");
+		}
+		return json.toString();
+	}
 	
 	public String getJournalByShortName(String journalShortName){
 		
