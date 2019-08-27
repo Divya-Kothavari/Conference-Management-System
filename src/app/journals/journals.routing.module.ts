@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
  import { JournalListComponent } from './journals-list/journal-list.component';
+ import { JournalDetailsComponent } from './journal-details/journal-details.component';
 
 
  const routes: Routes = [
@@ -10,6 +11,13 @@ import { Routes, RouterModule } from '@angular/router';
         component: JournalListComponent,
         data: {
             title: 'Journals'
+        }
+    },
+    {
+        path: 'journal-details/:id',
+        component: JournalDetailsComponent,
+        data: {
+            title: 'Journal Details'
         }
     }
  ];

@@ -95,15 +95,15 @@
         </div>
     </div>
     <div class="container-fluid">
-        <div class="row" *ngIf="view == 'cardView'">
-            <div class="col-md-3" *ngFor="let item of projectList">
+        <div class="row" *ngIf="view == 'cardView' && dataAvailable">
+            <div class="col-md-3" *ngFor="let item of listOfAllJournals">
                 <nz-card>
                     <div class="d-flex justify-content-between">
                         <div class="media">
                             <nz-avatar [nzSize]="40" nzShape="square" [nzSrc]="item.avatar"></nz-avatar>
                             <div class="m-l-10">
-                                <h5 class="m-b-0">{{item.project}}</h5>
-                                <span class="text-muted font-size-13">{{item.tasks}} Tasks</span>
+                                <h5 class="m-b-0">{{item.aboutJournal}}</h5>
+                                <span class="text-muted font-size-13">{{item.issnNumber}}</span>
                             </div>
                         </div>
                         <div>
@@ -118,7 +118,7 @@
                                             <span class="m-l-10">View</span>
                                         </a>
                                     </li>
-                                    <li nz-menu-item>
+                                    <li nz-menu-item [routerLink]="['journal-details', item.journalShortName]">
                                         <a>
                                             <i nz-icon type="edit" theme="outline"></i>
                                             <span class="m-l-10">Edit</span>
@@ -155,16 +155,16 @@
                                 <a routerLinkActive="router-link-active"  class="m-r-5" *ngFor="let item of (item.member ? item.member.slice(0,2): [])">
                                     <nz-avatar  nzSize="small" [nzSrc]="item.avatar" nz-tooltip [nzTitle]="item.name"></nz-avatar>
                                 </a>
-                                <a *ngIf="item.member.length > 2">
+                                <!-- <a *ngIf="item.member.length > 2">
                                     <nz-avatar class="font-size-11 text-dark" nzSize="small" [nzText]="'+' + [item.member.length - 2].toString()" nz-tooltip [nzTitle]="[item.member.length - 2].toString() + ' More'"></nz-avatar>
-                                </a>
+                                </a> -->
                             </div>
                         </div>
                     </div>
                 </nz-card>
             </div>
         </div>    
-        <nz-card *ngIf="view == 'listView'">
+        <nz-card *ngIf="view == 'listView' && dataAvailable">
             <nz-table #listViewTable [nzData]="projectList">
                 <thead>
                     <tr>
@@ -177,12 +177,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of listViewTable.data">
+                    <tr *ngFor="let item of listOfAllJournals">
                         <td>
                             <div class="media align-items-center">
                                 <nz-avatar nzShape="square" [nzSrc]="item.avatar"></nz-avatar>
                                 <div class="m-l-10">
-                                    <h5 class="m-b-0">{{item.project}}</h5>
+                                    <h5 class="m-b-0">{{item.journalName}}</h5>
                                 </div>
                             </div>
                         </td>
@@ -191,9 +191,9 @@
                             <a routerLinkActive="router-link-active"  class="m-r-5" *ngFor="let item of (item.member ? item.member.slice(0,2): [])">
                                 <nz-avatar  nzSize="small" [nzSrc]="item.avatar" nz-tooltip [nzTitle]="item.name"></nz-avatar>
                             </a>
-                            <a *ngIf="item.member.length > 2">
+                            <!-- <a *ngIf="item.member.length > 2">
                                 <nz-avatar class="font-size-11 text-dark" nzSize="small" [nzText]="'+' + [item.member.length - 2].toString()" nz-tooltip [nzTitle]="[item.member.length - 2].toString() + ' More'"></nz-avatar>
-                            </a>
+                            </a> -->
                         </td>
                         <td>
                             <nz-progress *ngIf="item.status !== 'Behind'" [nzPercent]="item.progress" nzSize="small"></nz-progress>
@@ -217,7 +217,7 @@
                                                     <span class="m-l-10">View</span>
                                                 </a>
                                             </li>
-                                            <li nz-menu-item>
+                                            <li nz-menu-item [routerLink]="['journal-details', item.journalShortName]">
                                                 <a>
                                                     <i nz-icon type="edit" theme="outline"></i>
                                                     <span class="m-l-10">Edit</span>

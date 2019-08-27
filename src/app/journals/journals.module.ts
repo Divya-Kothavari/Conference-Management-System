@@ -6,6 +6,8 @@ import { JournalsRoutingModule } from './journals.routing.module';
 import { CoreModule } from '../core/core.module';
 import { JournalListComponent } from './journals-list/journal-list.component';
 import { AppsService } from '../shared/services/apps.service';
+import { JournalDetailsComponent } from './journal-details/journal-details.component';
+
 
 @NgModule({
     imports: [
@@ -16,7 +18,8 @@ import { AppsService } from '../shared/services/apps.service';
         JournalsRoutingModule
     ],
     declarations: [
-        JournalListComponent
+        JournalListComponent,
+        JournalDetailsComponent
     ],
     providers: [
         AppsService,

@@ -44,7 +44,7 @@ export class UsersListComponent implements OnInit {
             this.signUpForm = this.fb.group({
                 userId           : [ null, [ Validators.required ] ],
                 userName         : [ null, [ Validators.required ] ],
-                email            : [ null,[Validators.email, Validators.required] ],
+                email            : [ null, [Validators.email, Validators.required] ],
                 password         : [ null, [ Validators.required ] ],
                 checkPassword    : [ null, [ Validators.required, this.confirmationValidator ] ],
                 agree            : [ false ]

@@ -48,7 +48,7 @@
                                     </div>
                                 </td>
                             <td class="text-md-right">
-                                <a aria-readonly="true" class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom" (click)="editRole(item.roleName, item.roleDescription);editmode = true;">
+                                <a aria-readonly="true" class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom" (click)="editRole(item.roleName, item.roleDescription); editmode = true;">
                                     <i nz-icon type="edit" theme="outline"></i>
                                 </a>
                                 <button aria-readonly="true" nz-button nzType="default" nz-popconfirm nzPopoverTrigger="click" nzTitle="Are you sure delete this role?" (nzOnConfirm)="deleteRole(item.roleName)" (nzOnCancel)="cancel()" nzGhost nzShape="circle">
@@ -245,7 +245,7 @@
                                     </div>
                                 </td>
                                 <td class="text-md-right">
-                                    <a aria-readonly="true" class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom" (click)="editCountry(item.countryName, item.countryCode, item.regionCode, item.economicStatus);editmode = true;">
+                                    <a aria-readonly="true" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom" (click)="editCountry(item.countryName, item.countryCode, item.regionCode, item.economicStatus);editmode = true;">
                                         <i nz-icon type="edit" theme="outline"></i>
                                     </a>
                                     <button aria-readonly="true" nz-button nzType="default" nz-popconfirm nzPopoverTrigger="click" nzTitle="Are you sure delete this Country?" (nzOnConfirm)="deleteCountry(item.countryCode)" (nzOnCancel)="cancel()" nzGhost nzShape="circle">
@@ -266,7 +266,7 @@
                 <nz-form-item>
                     <nz-form-label nzFor="oldPassword">Role Name</nz-form-label>
                     <nz-form-control>
-                        <input formControlName="roleName" nz-input type="text" placeholder="Role Name">
+                        <input [disabled]="editmode" formControlName="roleName" nz-input type="text" placeholder="Role Name">
                         <nz-form-explain *ngIf="roleForm.get('roleName').dirty && roleForm.get('roleName').errors">Please input Role Name!</nz-form-explain>
                     </nz-form-control>
                 </nz-form-item>
@@ -292,7 +292,7 @@
                 <nz-form-item>
                     <nz-form-label nzFor="Subject Name">Subject Name</nz-form-label>
                     <nz-form-control>
-                        <input formControlName="subjectName" nz-input type="text" placeholder="Subject Name">
+                        <input formControlName="subjectName" [disabled]="editmode" nz-input type="text" placeholder="Subject Name">
                         <nz-form-explain *ngIf="subjectForm.get('subjectName').dirty && subjectForm.get('subjectName').errors">Please input Role Name!</nz-form-explain>
                     </nz-form-control>
                 </nz-form-item>
@@ -315,20 +315,21 @@
   <nz-modal [(nzVisible)]="isVisibleReg" (nzOnCancel)="handleCancelReg()"
 [nzFooter]="modalFooterReg" nzTitle="Add/Edit Region">
     <form nz-form [formGroup]="regionForm">
-                <nz-form-item>
-                    <nz-form-label nzFor="Region Name">Region Name</nz-form-label>
-                    <nz-form-control>
-                        <input formControlName="regionName" nz-input type="text" placeholder="Region Name">
-                        <nz-form-explain *ngIf="regionForm.get('regionName').dirty && regionForm.get('regionName').errors">Please input Region Name!</nz-form-explain>
-                    </nz-form-control>
-                </nz-form-item>
-                 <nz-form-item>
+            <nz-form-item>
                     <nz-form-label nzFor="regionCode">Region Code</nz-form-label>
                     <nz-form-control>
-                        <input formControlName="regionCode" nz-input type="text" placeholder="Region Code">
+                        <input formControlName="regionCode" [disabled]="editmode" nz-input type="text" placeholder="Region Code">
                         <nz-form-explain *ngIf="regionForm.get('regionCode').dirty && regionForm.get('regionCode').errors">Please input Region Code!</nz-form-explain>
                     </nz-form-control>
                 </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzFor="Region Name">Region Name</nz-form-label>
+                    <nz-form-control>
+                        <input formControlName="regionName"  nz-input type="text" placeholder="Region Name">
+                        <nz-form-explain *ngIf="regionForm.get('regionName').dirty && regionForm.get('regionName').errors">Please input Region Name!</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+                
     </form>
       <ng-template #modalFooterReg>
         <button nz-button nzType="default" (click)="handleCancelReg()">Cancel</button>
@@ -350,7 +351,7 @@
                    <nz-form-item>
                       <nz-form-label nzFor="countryCode">Country Code</nz-form-label>
                       <nz-form-control>
-                          <input formControlName="countryCode" nz-input type="text" placeholder="Country Code">
+                          <input formControlName="countryCode" [disabled]="editmode" nz-input type="text" placeholder="Country Code">
                           <nz-form-explain *ngIf="countryForm.get('countryCode').dirty && countryForm.get('countryCode').errors">Please input country Code!</nz-form-explain>
                       </nz-form-control>
                   </nz-form-item>
