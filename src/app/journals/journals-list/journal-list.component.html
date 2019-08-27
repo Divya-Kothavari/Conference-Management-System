@@ -125,7 +125,7 @@
                                         </a>
                                     </li>
                                     <li nz-menu-divider></li>
-                                    <li nz-menu-item>
+                                    <li nz-menu-item (click)="showConfirm(); selectedJournal = item.journalShortName;">
                                         <a>
                                             <i nz-icon type="delete" theme="outline"></i>
                                             <span class="m-l-10">Delete</span>
@@ -242,3 +242,14 @@
                 <nz-skeleton [nzActive]="true"></nz-skeleton>
         </nz-card>
     </div>
+
+    <nz-modal
+    [(nzVisible)]="isVisible"
+    nzTitle="Conirm"
+    nzOkText="Ok"
+    nzCancelText="Cancel"
+    (nzOnOk)="handleOk()"
+    (nzOnCancel)="handleCancel()"
+  >
+
+  </nz-modal>

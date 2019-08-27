@@ -25,6 +25,8 @@ export class JournalListComponent  {
     newProject: boolean = false;
     // projectList: ProjectList[];
     journal: object;
+    selectedJournal;
+    isVisible = false;
     loading: boolean;
     dataAvailable = false;
     listOfAllJournals = [];
@@ -80,4 +82,35 @@ export class JournalListComponent  {
     )
     }
 
+   
+        showConfirm(): void {
+            this.modalService.confirm({
+              nzTitle: 'Confirm',
+              nzContent: 'Are you sure you want to delete this journal?',
+              nzOkText: 'OK',
+              nzCancelText: 'Cancel'
+            });
+          }
+          handleOk(): void {
+            this.http.delete(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journal/${this.selectedJournal}`).subscribe(
+                (resp: any) =>{
+                    if (resp.status === 'Success') {
+                       this.message.success(resp.message);
+                       this.getJournalsList();
+                    }
+                },
+                err => {
+                    console.log(err);
+                }
+            )
+            this.isVisible = false;
+          }
+        
+          handleCancel(): void {
+            this.isVisible = false;
+          }
+
+          showModal(): void {
+            this.isVisible = true;
+          }
 }
