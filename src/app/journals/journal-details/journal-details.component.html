@@ -46,7 +46,7 @@
                         <nz-form-item>
                             <nz-form-label>Journal Updated Date</nz-form-label>
                             <nz-form-control>
-                                <nz-date-picker class="w-100" nzFormat="dd/MM/yyyy" nzPlaceHolder="Date of Birth"></nz-date-picker>
+                                <nz-date-picker class="w-100" nzFormat="dd/MM/yyyy" nzPlaceHolder="Journal Updated Date"></nz-date-picker>
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -200,7 +200,91 @@
                             </nz-form-item>
                         </div>
                     </div>
-                 </nz-card>      
+                 </nz-card>
+                 
+                 <nz-card nzTitle="Journal Uploads">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                    <div class="media align-items-center">
+                                            <!-- <nz-avatar  [nzSize]="80" nzIcon="user" [nzSrc]="userDetails.image"></nz-avatar> -->
+                                            <nz-avatar  [nzSize]="80" nzIcon="user" nzSrc="http://themenate.com/applicator/dist/assets/images/avatars/thumb-13.jpg"></nz-avatar>
+                                            <div class="m-l-20 m-r-20">
+                                                <h5 class="m-b-5 font-size-18">Change Journal Banner</h5>
+                                             </div>
+                                            <nz-upload 
+                                                nzName="avatar"
+                                                [nzAction]="uploadUrl" 
+                                                [nzCustomRequest]="customReq"
+                                                [nzShowUploadList]="false"
+                                               >
+                                                <button nz-button nzType="primary" nzGhost>
+                                                    <span>Upload Banner</span>
+                                                </button>
+                                            </nz-upload>
+                                         </div>
+                            </div>
+                            <div class="col-md-6">
+                                    <div class="media align-items-center">
+                                            <!-- <nz-avatar  [nzSize]="80" nzIcon="user" [nzSrc]="userDetails.image"></nz-avatar> -->
+                                            <nz-avatar  [nzSize]="80" nzIcon="user" nzSrc="http://themenate.com/applicator/dist/assets/images/avatars/thumb-13.jpg"></nz-avatar>
+                                            <div class="m-l-20 m-r-20">
+                                                <h5 class="m-b-5 font-size-18">Change Journal Flyer</h5>
+                                             </div>
+                                            <nz-upload 
+                                                nzName="avatar"
+                                                [nzAction]="uploadUrl" 
+                                                [nzCustomRequest]="customReq"
+                                                [nzShowUploadList]="false"
+                                               >
+                                                <button nz-button nzType="primary" nzGhost>
+                                                    <span>Upload Flyer</span>
+                                                </button>
+                                            </nz-upload>
+                                         </div>
+                            </div>
+                        </div>
+                         
+                        <div class="row mb-4">
+                                <div class="col-md-6">
+                                        <div class="media align-items-center">
+                                                <!-- <nz-avatar  [nzSize]="80" nzIcon="user" [nzSrc]="userDetails.image"></nz-avatar> -->
+                                                <nz-avatar  [nzSize]="80" nzIcon="user" nzSrc="http://themenate.com/applicator/dist/assets/images/avatars/thumb-13.jpg"></nz-avatar>
+                                                <div class="m-l-20 m-r-20">
+                                                    <h5 class="m-b-5 font-size-18">Journal Flyer PDF</h5>
+                                                 </div>
+                                                <nz-upload 
+                                                    nzName="avatar"
+                                                    [nzAction]="uploadUrl" 
+                                                    [nzCustomRequest]="customReq"
+                                                    [nzShowUploadList]="false"
+                                                   >
+                                                    <button nz-button nzType="primary" nzGhost>
+                                                        <span>Upload Flyer PDF</span>
+                                                    </button>
+                                                </nz-upload>
+                                             </div>
+                                </div>
+                                <div class="col-md-6">
+                                        <div class="media align-items-center">
+                                                <!-- <nz-avatar  [nzSize]="80" nzIcon="user" [nzSrc]="userDetails.image"></nz-avatar> -->
+                                                <nz-avatar  [nzSize]="80" nzIcon="user" nzSrc="http://themenate.com/applicator/dist/assets/images/avatars/thumb-13.jpg"></nz-avatar>
+                                                <div class="m-l-20 m-r-20">
+                                                    <h5 class="m-b-5 font-size-18">Change Journal Flyer</h5>
+                                                 </div>
+                                                <nz-upload 
+                                                    nzName="avatar"
+                                                    [nzAction]="uploadUrl" 
+                                                    [nzCustomRequest]="customReq"
+                                                    [nzShowUploadList]="false"
+                                                   >
+                                                    <button nz-button nzType="primary" nzGhost>
+                                                        <span>Upload Flyer</span>
+                                                    </button>
+                                                </nz-upload>
+                                             </div>
+                                </div>
+                            </div>
+                     </nz-card>  
         </div>
     </nz-tab>
     <nz-tab nzTitle="Journal Settings">

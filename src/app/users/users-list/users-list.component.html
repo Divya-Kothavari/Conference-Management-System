@@ -64,12 +64,15 @@
                     <span *ngIf="item.status ==  false"  class="text-capitalize"> Inactive</span>
                 </td>
                 <td class="text-md-right">
+                        <a aria-readonly="true" [routerLink]="['/users/profile', item.userId]" class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Preview" nzPlacement="bottom">
+                            <i nz-icon type="eye" theme="outline"></i>
+                        </a>
                     <a aria-readonly="true" [routerLink]="['/users/profile', item.userId]" class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom">
                         <i nz-icon type="edit" theme="outline"></i>
                     </a>
-                    <button aria-readonly="true" nz-button nzType="default" nz-popconfirm nzPopoverTrigger="click" nzTitle="Are you sure delete this user?" (nzOnConfirm)="deleteUser(item.userId)" (nzOnCancel)="cancel()" nzGhost nzShape="circle">
+                    <a aria-readonly="true" nz-button nzType="default" nz-popconfirm nzPopoverTrigger="click" nzTitle="Are you sure delete this user?" (nzOnConfirm)="deleteUser(item.userId)" (nzOnCancel)="cancel()" nzGhost nzTitle="Delete" nzPlacement="bottom" nzShape="circle">
                         <i nz-icon type="delete" theme="outline"></i>
-                    </button>
+                    </a>
                 </td>
             </tr>
         </tbody>
