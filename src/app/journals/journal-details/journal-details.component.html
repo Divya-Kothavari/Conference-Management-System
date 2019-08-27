@@ -1,6 +1,6 @@
 
 <nz-tabset class="page-header-tab" *ngIf="dataAvailable">
-    <nz-tab nzTitle="Account">
+    <nz-tab nzTitle="Journal Content Information">
         <div class="container">
                 <nz-card [nzTitle]="BasicInfomation">
                         <ng-template #BasicInfomation>
@@ -46,7 +46,7 @@
                         <nz-form-item>
                             <nz-form-label>Journal Updated Date</nz-form-label>
                             <nz-form-control>
-                                <nz-date-picker class="w-100" nzFormat="yyyy/MM/dd" nzPlaceHolder="Date of Birth"></nz-date-picker>
+                                <nz-date-picker class="w-100" nzFormat="dd/MM/yyyy" nzPlaceHolder="Date of Birth"></nz-date-picker>
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -63,7 +63,7 @@
                     <div class="col-md-4">
                         <!-- assign role option should appear for SuperAdmin -->
                             <nz-form-item>
-                                    <nz-form-label>Assign Role to User</nz-form-label>
+                                    <nz-form-label>Select Related Subjects</nz-form-label>
                                     <nz-form-control>
                                             <nz-select
                                             class="w-100"
@@ -78,17 +78,41 @@
                                 </nz-form-control>
                                 </nz-form-item>
                     </div>
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                          <!-- assign role option should appear for SuperAdmin -->
+                          <nz-form-item>
+                                <nz-form-label>Select Admin (Primary User)</nz-form-label>
+                                <nz-form-control>
+                                        <nz-select
+                                        class="w-100"
+                                        nzMode="multiple"
+                                        nzPlaceHolder="Assign roles"
+                                        [(ngModel)]="selectedRole"
+                                    >
+                                        <ng-container *ngFor="let option of rolesList">
+                                            <nz-option [nzLabel]="option" [nzValue]="option" ></nz-option>
+                                        </ng-container>
+                                    </nz-select>
+                            </nz-form-control>
+                            </nz-form-item>
+                    </div>
+                    <div class="col-md-4">
+                            <nz-form-item>
+                                    <nz-form-label>Article Processing Charge</nz-form-label>
+                                    <nz-form-control>
+                                        <input  nz-input placeholder="Phone Number" name="mobile" [(ngModel)]="journalDetails.articleProcessingCharge">
+                                    </nz-form-control>
+                            </nz-form-item>
+                     </div>
                 </div>
             </nz-card> 
-            <nz-card nzTitle="Address Details">
+            <nz-card nzTitle="Journal Content">
                 <div class="row">
                     <div class="col-md-12">
                         <nz-form-item>
-                            <nz-form-label>Address</nz-form-label>
+                            <nz-form-label>About Journal</nz-form-label>
                             <nz-form-control>
-                                    <textarea rows="3"  nz-input placeholder="Address" name="address" [(ngModel)]="journalDetails.journalName"></textarea>
+                                    <textarea rows="3"  nz-input placeholder="Address" name="address" [(ngModel)]="journalDetails.aboutJournal"></textarea>
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -96,9 +120,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <nz-form-item>
-                            <nz-form-label>Biography</nz-form-label>
+                            <nz-form-label>Aim and Scope</nz-form-label>
                             <nz-form-control>
-                                    <textarea rows="3" nz-input placeholder="Biography" name="biography" [(ngModel)]="journalDetails.journalName"></textarea>
+                                    <textarea rows="3" nz-input placeholder="Biography" name="biography" [(ngModel)]="journalDetails.aimAndScope"></textarea>
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -106,17 +130,80 @@
                 <div class="row">
                     <div class="col-md-12">
                         <nz-form-item>
-                            <nz-form-label>Interests</nz-form-label>
+                            <nz-form-label>Article Inpress Text</nz-form-label>
                             <nz-form-control>
-                                <textarea rows="3" nz-input placeholder="Interests" name="interests" [(ngModel)]="journalDetails.journalName"></textarea>
+                                <textarea rows="3" nz-input placeholder="Interests" name="interests" [(ngModel)]="journalDetails.articleInPressText"></textarea>
                             </nz-form-control>
                         </nz-form-item>
                     </div>
                 </div>
-            </nz-card>      
+                <div class="row">
+                        <div class="col-md-12">
+                            <nz-form-item>
+                                <nz-form-label>Current Issue Text</nz-form-label>
+                                <nz-form-control>
+                                    <textarea rows="3" nz-input placeholder="Interests" name="interests" [(ngModel)]="journalDetails.currentIssueText"></textarea>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <div class="col-md-12">
+                                <nz-form-item>
+                                    <nz-form-label>Archieve Page Text</nz-form-label>
+                                    <nz-form-control>
+                                        <textarea rows="3" nz-input placeholder="Interests" name="interests" [(ngModel)]="journalDetails.archievePageText"></textarea>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                        </div>
+                        <div class="row">
+                                <div class="col-md-12">
+                                    <nz-form-item>
+                                        <nz-form-label>Guidlines</nz-form-label>
+                                        <nz-form-control>
+                                            <textarea rows="3" nz-input placeholder="Interests" name="interests" [(ngModel)]="journalDetails.guidlines"></textarea>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                            </div>
+ 
+             </nz-card>
+             <nz-card nzTitle="Journal Infomation">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <nz-form-item>
+                                <nz-form-label>Facebook Link (URL)</nz-form-label>
+                                <nz-form-control>
+                                        <input nz-input placeholder="Phone Number" name="mobile" [(ngModel)]="journalDetails.fbLink">
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <div class="col-md-12">
+                                <nz-form-item>
+                                    <nz-form-label>Linkedin Link (URL)</nz-form-label>
+                                    <nz-form-control>
+                                            <input nz-input placeholder="Phone Number" name="mobile" [(ngModel)]="journalDetails.linkedinLink">
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                        </div>
+                <div class="row">
+                        <div class="col-md-12">
+                            <nz-form-item>
+                                <nz-form-label>Twitter Link (URL)</nz-form-label>
+                                <nz-form-control>
+                                        <input nz-input placeholder="Phone Number" name="mobile" [(ngModel)]="journalDetails.twitterLink">
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                 </nz-card>      
         </div>
     </nz-tab>
-    <nz-tab nzTitle="Network">
+    <nz-tab nzTitle="Journal Settings">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 mx-auto">
@@ -148,7 +235,7 @@
             </div>
         </div>
     </nz-tab>
-    <nz-tab nzTitle="Notification">
+    <nz-tab nzTitle="Journal Notifications">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 mx-auto">
