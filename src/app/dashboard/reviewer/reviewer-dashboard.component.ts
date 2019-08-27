@@ -2,10 +2,10 @@ import { Component } from '@angular/core'
 import { ThemeConstantService } from '../../shared/services/theme-constant.service';
 
 @Component({
-    templateUrl: './e-commerce-dashboard.component.html'
+    templateUrl: './reviewer-dashboard.component.html'
 })
 
-export class EcommerceDashboardComponent {
+export class ReviewerDashboardComponent {
 
     themeColors = this.colorConfig.get().colors;
     blue = this.themeColors.blue;

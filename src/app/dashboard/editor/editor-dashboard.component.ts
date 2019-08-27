@@ -11,10 +11,10 @@ const portUsermgmt = environment.portUsermgmt;
 const portJournalmgmt = environment.portJournalmgmt;
 const portLocations = environment.portLocations;
 @Component({
-    templateUrl: './default-dashboard.component.html'
+    templateUrl: './editor-dashboard.component.html'
 })
 
-export class DefaultDashboardComponent implements OnInit {
+export class EditorDashboardComponent implements OnInit {
     isVisible:boolean = false;
     isVisibleSub:boolean  = false;
     isVisibleReg:boolean  = false;

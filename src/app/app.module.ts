@@ -17,6 +17,11 @@ import { FullLayoutComponent } from './layouts/full-layout/full-layout.component
 
 import { NgChartjsModule } from 'ng-chartjs';
 import { ThemeConstantService } from './shared/services/theme-constant.service';
+import { AuthGuardAdminService } from './core/services/auth-guard-admin.service';
+import { AuthGuardAuthorService } from './core/services/auth-guard-author.service';
+import { AuthGuardEditorService } from './core/services/auth-guard-editor.service';
+import { AuthGuardSuperadminService } from './core/services/auth-guard-superadmin.service';
+import { AuthGuardReviewerService } from './core/services/auth-guard-reviewer.service';
 
 registerLocaleData(en);
 
@@ -43,7 +48,12 @@ registerLocaleData(en);
             useValue: en_US, 
         },
         ThemeConstantService,
-        CommonService
+        CommonService,
+        AuthGuardEditorService,
+        AuthGuardAdminService,
+        AuthGuardAuthorService,
+        AuthGuardReviewerService,
+        AuthGuardSuperadminService
     ],
     bootstrap: [AppComponent]
 })

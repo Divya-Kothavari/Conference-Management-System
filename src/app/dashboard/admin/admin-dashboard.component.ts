@@ -2,7 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core'
 import { ThemeConstantService } from '../../shared/services/theme-constant.service';
 
 @Component({
-    templateUrl: './projects-dashboard.component.html',
+    templateUrl: './admin-dashboard.component.html',
     styles : [`
         @media only screen and (min-width: 992px) {
             .completion-chart {
@@ -12,7 +12,7 @@ import { ThemeConstantService } from '../../shared/services/theme-constant.servi
     `]
 })
 
-export class ProjectsDashboardComponent {
+export class AdminDashboardComponent {
 
     themeColors = this.colorConfig.get().colors;
     blue = this.themeColors.blue;

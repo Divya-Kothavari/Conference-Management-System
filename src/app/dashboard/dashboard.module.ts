@@ -7,11 +7,11 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 
 import { ThemeConstantService } from '../shared/services/theme-constant.service';
 
-import { DefaultDashboardComponent } from './default/default-dashboard.component';
-import { EcommerceDashboardComponent } from './e-commerce/e-commerce-dashboard.component';
-import { ProjectsDashboardComponent } from './projects/projects-dashboard.component';
-import { CrmDashboardComponent } from './crm/crm-dashboard.component';
-
+import { SuperadminDashboardComponent } from './superadmin/superadmin-dashboard.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard.component';
+import { EditorDashboardComponent } from './editor/editor-dashboard.component';
+import { ReviewerDashboardComponent } from './reviewer/reviewer-dashboard.component';
+import { AuthorDashboardComponent } from './author/author-dashboard.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -23,10 +23,11 @@ import { CrmDashboardComponent } from './crm/crm-dashboard.component';
     ],
     exports: [],
     declarations: [
-        DefaultDashboardComponent,
-        EcommerceDashboardComponent,
-        ProjectsDashboardComponent,
-        CrmDashboardComponent
+        AdminDashboardComponent,
+        SuperadminDashboardComponent,
+        AuthorDashboardComponent,
+        EditorDashboardComponent,
+        ReviewerDashboardComponent
     ],
     providers: [
         ThemeConstantService

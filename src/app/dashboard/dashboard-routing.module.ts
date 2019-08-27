@@ -1,44 +1,63 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { DefaultDashboardComponent } from './default/default-dashboard.component';
-import { EcommerceDashboardComponent } from './e-commerce/e-commerce-dashboard.component';
-import { ProjectsDashboardComponent } from './projects/projects-dashboard.component';
-import { CrmDashboardComponent } from './crm/crm-dashboard.component';
+import { SuperadminDashboardComponent } from './superadmin/superadmin-dashboard.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard.component';
+import { EditorDashboardComponent } from './editor/editor-dashboard.component';
+import { ReviewerDashboardComponent } from './reviewer/reviewer-dashboard.component';
+import { AuthorDashboardComponent } from './author/author-dashboard.component';
+import { AuthGuardSuperadminService } from '../core/services/auth-guard-superadmin.service';
+import { AuthGuardAuthorService } from '../core/services/auth-guard-author.service';
+import { AuthGuardEditorService } from '../core/services/auth-guard-editor.service';
+import { AuthGuardReviewerService } from '../core/services/auth-guard-reviewer.service';
+import { AuthGuardAdminService } from '../core/services/auth-guard-admin.service';
 
 const routes: Routes = [
     {
         path: '',
-        component: DefaultDashboardComponent,
+        canActivate: [AuthGuardSuperadminService ],
+        component: SuperadminDashboardComponent,
         data: {
             title: 'Dashboard ',
             headerDisplay: "none"
         }
     },
     {
-        path: 'e-commerce',
-        component: EcommerceDashboardComponent,
+        path: '',
+        canActivate: [AuthGuardAdminService ],
+        component: AdminDashboardComponent,
         data: {
-            title: 'E-Commerce Dashboard ',
+            title: 'Dashboard ',
             headerDisplay: "none"
         }
     },
     {
-        path: 'projects',
-        component: ProjectsDashboardComponent,
+        path: '',
+        canActivate: [ AuthGuardAuthorService ],
+        component: AuthorDashboardComponent,
         data: {
-            title: 'Projects Dashboard ',
+            title: 'Dashboard ',
             headerDisplay: "none"
         }
     },
     {
-        path: 'crm',
-        component: CrmDashboardComponent,
+        path: '',
+        canActivate: [AuthGuardEditorService ],
+        component: EditorDashboardComponent,
         data: {
-            title: 'CRM',
+            title: 'Dashboard ',
             headerDisplay: "none"
         }
-    }
+    },
+    {
+        path: '',
+        canActivate: [AuthGuardReviewerService],
+        component: ReviewerDashboardComponent,
+        data: {
+            title: 'Dashboard ',
+            headerDisplay: "none"
+        }
+    },
 ];
 
 @NgModule({
