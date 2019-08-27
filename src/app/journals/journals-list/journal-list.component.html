@@ -238,4 +238,7 @@
                 </tbody>
             </nz-table>
         </nz-card>
+        <nz-card *ngIf="!dataAvailable">
+                <nz-skeleton [nzActive]="true"></nz-skeleton>
+        </nz-card>
     </div>

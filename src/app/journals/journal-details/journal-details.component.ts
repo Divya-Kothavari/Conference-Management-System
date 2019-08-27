@@ -17,17 +17,15 @@ const portJournalmgmt = environment.portJournalmgmt;
 })
 
 export class JournalDetailsComponent {
-    changePWForm: FormGroup;
     avatarUrl: string = "http://themenate.com/applicator/dist/assets/images/avatars/thumb-13.jpg";
-    selectedCountry: any;
-    selectedLanguage: any;
-    userid;
     journalid;
     journalDetails;
-    userDetails;
     uploadUrl;
     rolesList =[];
-    selectedRole = [];
+    selectedUser = [];
+    selectedSubject = [];
+    adminsList = [];
+    subjectsList = [];
     isLoading = false;
     skeletonLoading = false;
     dataAvailable = false;
@@ -156,99 +154,61 @@ export class JournalDetailsComponent {
                 if (resp.status === 'Success') {
                     console.log(resp.journal);
                     this.journalDetails = resp.journal;
-                   this.dataAvailable = true;
+                 this.dataAvailable = true;
                 }
-
             },
             err => {
                  console.log(err);
             }
         );
-        this.http.get(`http://localhost:8081/cmsusermgmt/userMgmt/role`).subscribe(
+        this.http.get(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/users/Admin`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
-                    resp.roles.forEach(role => {
-                        if (role.roleName !== 'SuperAdmin') {
-                            this.rolesList.push(role.roleName);
-                        }
-                    });
+                   this.adminsList = resp.userIds;
                 }
             },
             err => {
                 console.log(err);
             }
         );
-
-    }
-
-
-    customReq = (item: UploadXHRArgs) => {
-        // Create a FormData here to store files and other parameters.
-        const formData = new FormData();
-        // tslint:disable-next-line:no-any
-        formData.append('file', item.file as any);
-        formData.append('userId', this.userDetails.userId);
-        const req = new HttpRequest('POST', this.uploadUrl, formData, {
-          reportProgress: false,
-          withCredentials: false
-        });
-        // Always returns a `Subscription` object. nz-upload would automatically unsubscribe it at correct time.
-        return this.http.request(req).subscribe(
-          // tslint:disable-next-line no-any
-          (event: HttpEvent<any>) => {
-            if (event.type === HttpEventType.UploadProgress) {
-              if (event.total! > 0) {
-                // tslint:disable-next-line:no-any
-                (event as any).percent = (event.loaded / event.total!) * 100;
-              }
-              item.onProgress!(event, item.file!);
-            } else if (event instanceof HttpResponse) {
-              item.onSuccess!(event.body, item.file!, event);
-              this.message.success(event.body.message);
-              this.http.get(this.uploadUrl).subscribe(
-                  resp => {
-                      console.log(resp);
-                  }
-              )
-              this.userDetails.image = event.body.path;
-            }
-          },
-          err => {
-            item.onError!(err, item.file!);
-          }
-        );
-      };
-    updateUser() {
-        this.isLoading = true;
-         const data = {
-            userId: this.userDetails.userId,
-            userName: this.userDetails.userName,
-            email: this.userDetails.email,
-            mobile: this.userDetails.mobile,
-            address: this.userDetails.address,
-            biography: this.userDetails.biography,
-            interests: this.userDetails.interests,
-            gender: this.userDetails.gender
-        }
-        this.http.put('http://localhost:8081/cmsusermgmt/userMgmt/user', data).subscribe(
+        this.http.get(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/subject`).subscribe(
             (resp: any) =>{
-                 if (resp.status === 'Success') {
-                    // this.userDetails = resp.user;
-                   this.message.success(resp.message);
-                   this.isLoading = false;
+                if (resp.status === 'Success') {
+                    resp.subjects.forEach(element => {
+                        this.subjectsList.push(element.subjectName);
+                    });
+                    
                 }
             },
             err => {
                  console.log(err);
             }
         );
-        const userroles = this.selectedRole.join().toString();
-        if (userroles !== '') {
-            this.http.post(`http://localhost:8081/cmsusermgmt/userMgmt/userRoles/${this.userDetails.userId}`, userroles).subscribe(
+
+    }
+
+    updateJournal() {
+        this.isLoading= true;
+        if (this.selectedUser.length !== 0 ) {
+            this.journalDetails.journalPrimaryAdmin = this.selectedUser.join().toString();
+        }
+        this.http.put(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journal`, this.journalDetails).subscribe(
+            (resp: any) =>{
+                this.isLoading= false;
+                if (resp.status === 'Success') {
+                    this.message.success(resp.message);
+                }
+            },
+            err => {
+                 console.log(err);
+            }
+        );
+        if (this.subjectsList.length !== 0) {
+            const data = this.subjectsList.join().toString();
+            this.http.post(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journalSubjects/${this.journalid}/${data}`, {}).subscribe(
                 (resp: any) =>{
-                     if (resp.status === 'Success') {
-                        this.userDetails = resp.user;
-                       this.message.success(resp.message);
+                    if (resp.status === 'Success') {
+                        this.message.success(resp.message);
                     }
                 },
                 err => {
@@ -256,7 +216,6 @@ export class JournalDetailsComponent {
                 }
             );
         }
-       
-      }
+    }
 
 }    

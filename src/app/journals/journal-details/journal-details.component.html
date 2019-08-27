@@ -4,7 +4,7 @@
         <div class="container">
                 <nz-card [nzTitle]="BasicInfomation">
                         <ng-template #BasicInfomation>
-                                <div>Journal Information <button [nzLoading]="isLoading" class="float-right m-t-10" (click)="updateUser()" nz-button nzType="primary" nzGhost><span>Save Journal Infomation</span></button></div>
+                                <div>Journal Information <button [nzLoading]="isLoading" class="float-right m-t-10" (click)="updateJournal()" nz-button nzType="primary" nzGhost><span>Save Journal Infomation</span></button></div>
                             </ng-template>
                 <div class="row">
                     <div class="col-md-6">
@@ -68,10 +68,10 @@
                                             <nz-select
                                             class="w-100"
                                             nzMode="multiple"
-                                            nzPlaceHolder="Assign roles"
-                                            [(ngModel)]="selectedRole"
+                                            nzPlaceHolder="Assign subject"
+                                            [(ngModel)]="selectedSubject"
                                         >
-                                            <ng-container *ngFor="let option of rolesList">
+                                            <ng-container *ngFor="let option of subjectsList">
                                                 <nz-option [nzLabel]="option" [nzValue]="option" ></nz-option>
                                             </ng-container>
                                         </nz-select>
@@ -86,10 +86,10 @@
                                         <nz-select
                                         class="w-100"
                                         nzMode="multiple"
-                                        nzPlaceHolder="Assign roles"
-                                        [(ngModel)]="selectedRole"
+                                        nzPlaceHolder="Assign user"
+                                        [(ngModel)]="selectedUser"
                                     >
-                                        <ng-container *ngFor="let option of rolesList">
+                                        <ng-container *ngFor="let option of adminsList">
                                             <nz-option [nzLabel]="option" [nzValue]="option" ></nz-option>
                                         </ng-container>
                                     </nz-select>
@@ -353,4 +353,4 @@
     </nz-tab>
 </nz-tabset>
 
-<!-- <nz-skeleton [nzLoading]="!dataAvailable" [nzAvatar]="true" [nzActive]="true" [nzParagraph]="{ rows: 4 }"></nz-skeleton> -->
+<nz-skeleton [nzLoading]="!dataAvailable" [nzAvatar]="true" [nzActive]="true" [nzParagraph]="{ rows: 4 }"></nz-skeleton>
