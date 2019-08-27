@@ -217,5 +217,22 @@ export class JournalDetailsComponent {
             );
         }
     }
-
+    onHtmlEditorKeyUpForAboutJornal(e) {
+        this.journalDetails.aboutJournal = e;
+    }
+    onHtmlEditorKeyUpForAimScope(e) {
+        this.journalDetails.aimAndScope = e;
+    }
+    onHtmlEditorKeyUpArticleInpress(e) {
+        this.journalDetails.articleInPressText = e;
+    }
+    onHtmlEditorKeyUpCurrentIssue(e) {
+        this.journalDetails.currentIssueText = e;
+    }
+    onHtmlEditorKeyUpArchivePage(e) {
+        this.journalDetails.archievePageText = e;
+    }
+    onHtmlEditorKeyUpGuidlines(e) {
+        this.journalDetails.guidlines = e;
+    }
 }    

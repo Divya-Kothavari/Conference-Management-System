@@ -112,7 +112,8 @@
                         <nz-form-item>
                             <nz-form-label>About Journal</nz-form-label>
                             <nz-form-control>
-                                    <textarea rows="3"  nz-input placeholder="Address" name="address" [(ngModel)]="journalDetails.aboutJournal"></textarea>
+                                    <!-- <textarea rows="3"  nz-input placeholder="Address" name="address" [(ngModel)]="journalDetails.aboutJournal"></textarea> -->
+                                    <textarea  htmlEditor [editorContent]="journalDetails.aboutJournal" (htmlEditorKeyUp)="onHtmlEditorKeyUpForAboutJornal($event)"></textarea>
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -122,8 +123,9 @@
                         <nz-form-item>
                             <nz-form-label>Aim and Scope</nz-form-label>
                             <nz-form-control>
-                                    <textarea rows="3" nz-input placeholder="Biography" name="biography" [(ngModel)]="journalDetails.aimAndScope"></textarea>
-                            </nz-form-control>
+                                    <!-- <textarea rows="3" nz-input placeholder="Biography" name="biography" [(ngModel)]="journalDetails.aimAndScope"></textarea> -->
+                                    <textarea  htmlEditor [editorContent]="journalDetails.aimAndScope" (htmlEditorKeyUp)="onHtmlEditorKeyUpForAimScope($event)"></textarea>
+                                </nz-form-control>
                         </nz-form-item>
                     </div>
                 </div>
@@ -132,7 +134,8 @@
                         <nz-form-item>
                             <nz-form-label>Article Inpress Text</nz-form-label>
                             <nz-form-control>
-                                <textarea rows="3" nz-input placeholder="Interests" name="interests" [(ngModel)]="journalDetails.articleInPressText"></textarea>
+                                <!-- <textarea rows="3" nz-input placeholder="Interests" name="interests" [(ngModel)]="journalDetails.articleInPressText"></textarea> -->
+                                <textarea  htmlEditor [editorContent]="journalDetails.articleInPressText" (htmlEditorKeyUp)="onHtmlEditorKeyUpArticleInpress($event)"></textarea>
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -142,7 +145,8 @@
                             <nz-form-item>
                                 <nz-form-label>Current Issue Text</nz-form-label>
                                 <nz-form-control>
-                                    <textarea rows="3" nz-input placeholder="Interests" name="interests" [(ngModel)]="journalDetails.currentIssueText"></textarea>
+                                    <!-- <textarea rows="3" nz-input placeholder="Interests" name="interests" [(ngModel)]="journalDetails.currentIssueText"></textarea> -->
+                                    <textarea  htmlEditor [editorContent]="journalDetails.currentIssueText" (htmlEditorKeyUp)="onHtmlEditorKeyUpCurrentIssue($event)"></textarea>
                                 </nz-form-control>
                             </nz-form-item>
                         </div>
@@ -152,7 +156,8 @@
                                 <nz-form-item>
                                     <nz-form-label>Archieve Page Text</nz-form-label>
                                     <nz-form-control>
-                                        <textarea rows="3" nz-input placeholder="Interests" name="interests" [(ngModel)]="journalDetails.archievePageText"></textarea>
+                                        <!-- <textarea rows="3" nz-input placeholder="Interests" name="interests" [(ngModel)]="journalDetails.archievePageText"></textarea> -->
+                                        <textarea  htmlEditor [editorContent]="journalDetails.archievePageText" (htmlEditorKeyUp)="onHtmlEditorKeyUpArchivePage($event)"></textarea>
                                     </nz-form-control>
                                 </nz-form-item>
                             </div>
@@ -162,7 +167,8 @@
                                     <nz-form-item>
                                         <nz-form-label>Guidlines</nz-form-label>
                                         <nz-form-control>
-                                            <textarea rows="3" nz-input placeholder="Interests" name="interests" [(ngModel)]="journalDetails.guidlines"></textarea>
+                                            <!-- <textarea rows="3" nz-input placeholder="Interests" name="interests" [(ngModel)]="journalDetails.guidlines"></textarea> -->
+                                            <textarea  htmlEditor [editorContent]="journalDetails.guidlines" (htmlEditorKeyUp)="onHtmlEditorKeyUpGuidlines($event)"></textarea>
                                         </nz-form-control>
                                     </nz-form-item>
                                 </div>
