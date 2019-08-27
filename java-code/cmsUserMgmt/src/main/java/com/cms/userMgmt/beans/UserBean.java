@@ -28,13 +28,29 @@ public class UserBean {
 	
 	private String biography;
 	
-	private Date createdDate;
+	private String createdDate;
 	
-	private Date updatedDate;
+	private String updatedDate;
 	
 	private String updatedBy;
 	
 	private Boolean status;
+	
+	private String dob;
+
+	/**
+	 * @return the dob
+	 */
+	public String getDob() {
+		return dob;
+	}
+
+	/**
+	 * @param dob the dob to set
+	 */
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
 
 	/**
 	 * @return the userId
@@ -207,28 +223,28 @@ public class UserBean {
 	/**
 	 * @return the createdDate
 	 */
-	public Date getCreatedDate() {
+	public String getCreatedDate() {
 		return createdDate;
 	}
 
 	/**
 	 * @param createdDate the createdDate to set
 	 */
-	public void setCreatedDate(Date createdDate) {
+	public void setCreatedDate(String createdDate) {
 		this.createdDate = createdDate;
 	}
 
 	/**
 	 * @return the updatedDate
 	 */
-	public Date getUpdatedDate() {
+	public String getUpdatedDate() {
 		return updatedDate;
 	}
 
 	/**
 	 * @param updatedDate the updatedDate to set
 	 */
-	public void setUpdatedDate(Date updatedDate) {
+	public void setUpdatedDate(String updatedDate) {
 		this.updatedDate = updatedDate;
 	}
 
@@ -265,11 +281,11 @@ public class UserBean {
 	 */
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", userName=" + userName + ", password=" + password + ", email=" + email
+		return "UserBean [userId=" + userId + ", userName=" + userName + ", password=" + password + ", email=" + email
 				+ ", altEmail=" + altEmail + ", mobile=" + mobile + ", gender=" + gender + ", designation="
 				+ designation + ", photo=" + photo + ", address=" + address + ", interests=" + interests
 				+ ", biography=" + biography + ", createdDate=" + createdDate + ", updatedDate=" + updatedDate
-				+ ", updatedBy=" + updatedBy + ", status=" + status + "]";
+				+ ", updatedBy=" + updatedBy + ", status=" + status + ", dob=" + dob + "]";
 	}
 	
 

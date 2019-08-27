@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +44,7 @@ public class UserManagementService {
 		JSONObject json = new JSONObject();
 		log.info("Entering createUser");
 		User userModel = null;
-		
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");  
 		if(null != userBean){
 			userModel = userRepo.findByUserId(userBean.getUserId().toLowerCase());
 			if(null != userModel){
@@ -64,7 +65,10 @@ public class UserManagementService {
 			userModel.setMobile(userBean.getMobile());
 			if(null != userBean.getGender())
 			userModel.setGender(userBean.getGender());
-			userModel.setCreatedDate(new Date());
+			try{
+				if(null != userBean.getCreatedDate())
+				userModel.setCreatedDate(formatter.parse(userBean.getCreatedDate()));
+				}catch(Exception e){}
 			userModel.setUpdatedDate(new Date());
 			userModel.setUpdatedBy("");
 			if(null != userBean.getStatus())
@@ -77,7 +81,11 @@ public class UserManagementService {
 			userModel.setInterests(userBean.getInterests());
 			if(null != userBean.getBiography())
 			userModel.setBiography(userBean.getBiography());
-			
+			if(null != userBean.getDob())
+			try{
+				if(null != userBean.getDob())
+				userModel.setDob(formatter.parse(userBean.getDob().toString()));
+			}catch(Exception e){}
 			userRepo.save(userModel);
 			log.info("User created successfully");
 			json.put("status", "Success");
@@ -95,7 +103,7 @@ public class UserManagementService {
 		
 		JSONObject json = new JSONObject();
 		User userModel = userRepo.findByUserId(userBean.getUserId().toLowerCase());
-		
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");  
 		if(null != userModel){
 			userModel.setUserId(userBean.getUserId().toLowerCase());
 			if(null != userBean.getUserName())
@@ -109,7 +117,10 @@ public class UserManagementService {
 			userModel.setMobile(userBean.getMobile());
 			if(null != userBean.getGender())
 			userModel.setGender(userBean.getGender());
-			userModel.setCreatedDate(new Date());
+			try{
+			if(null != userBean.getCreatedDate())
+			userModel.setCreatedDate(formatter.parse(userBean.getCreatedDate()));
+			}catch(Exception e){}
 			userModel.setUpdatedDate(new Date());
 			if(null != userBean.getUpdatedBy())
 			userModel.setUpdatedBy(userBean.getUpdatedBy());
@@ -123,7 +134,10 @@ public class UserManagementService {
 			userModel.setInterests(userBean.getInterests());
 			if(null != userBean.getBiography())
 			userModel.setBiography(userBean.getBiography());
-			
+			try{
+			if(null != userBean.getDob())
+			userModel.setDob(formatter.parse(userBean.getDob().toString()));
+				}catch(Exception e){}
 			userRepo.save(userModel);
 			log.info("User updated successfully");
 			json.put("status", "Success");
@@ -141,12 +155,18 @@ public class UserManagementService {
 		JSONObject json = new JSONObject();
 		Gson gson = new Gson();
 		User userModel = userRepo.findByUserId(userId);
-		
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 		if(null != userModel){
 			JSONObject userJson = new JSONObject();
 			try {
 				userJson = (JSONObject)  new JSONParser().parse(gson.toJson(userModel,User.class));
-			} catch (ParseException e) {
+				String createdDate = formatter.format(userModel.getCreatedDate());
+				String updatedDate = formatter.format(userModel.getUpdatedDate());
+				String dob = formatter.format(userModel.getDob());
+				userJson.put("createdDate", createdDate);
+				userJson.put("updatedDate", updatedDate);
+				userJson.put("dob", dob);
+			} catch (Exception e) {
 				log.error("Error while parsing the user json",e);
 			}
 			json.put("status", "Success");
@@ -182,14 +202,19 @@ public class UserManagementService {
 		Gson gson = new Gson();
 		List<UserBean> userList = new ArrayList<>();
 		List<User> userModels = userRepo.findAll();
-		
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 		if(null != userModels && userModels.size() > 0){
 			for(User userModel : userModels){
 			
 				JSONObject userJson = new JSONObject();
 				try {
 					userJson = (JSONObject)  new JSONParser().parse(gson.toJson(userModel,User.class));
-					
+					String createdDate = formatter.format(userModel.getCreatedDate());
+					String updatedDate = formatter.format(userModel.getUpdatedDate());
+					String dob = formatter.format(userModel.getDob());
+					userJson.put("createdDate", createdDate);
+					userJson.put("updatedDate", updatedDate);
+					userJson.put("dob", dob);
 				} catch (ParseException e) {
 					log.error("Error while parsing the user json",e);
 				}	
@@ -240,6 +265,7 @@ public class UserManagementService {
 	public String userLogin(UserBean user){
 		JSONObject json = new JSONObject();
 		Gson gson = new Gson();
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 		if(null != user){
 		User userModel = userRepo.findByUserId(user.getUserId().toLowerCase());
 		if(null != userModel){
@@ -248,6 +274,12 @@ public class UserManagementService {
 				JSONObject userJson = new JSONObject();
 				try {
 					userJson = (JSONObject)  new JSONParser().parse(gson.toJson(userModel,User.class));
+					String createdDate = formatter.format(userModel.getCreatedDate());
+					String updatedDate = formatter.format(userModel.getUpdatedDate());
+					String dob = formatter.format(userModel.getDob());
+					userJson.put("createdDate", createdDate);
+					userJson.put("updatedDate", updatedDate);
+					userJson.put("dob", dob);
 					userJson.put("roles", getUserRoles(user.getUserId()));
 				} catch (ParseException e) {
 					log.error("Error while parsing the user json",e);
@@ -410,8 +442,8 @@ public class UserManagementService {
 		user.setAltEmail(userModel.getAltEmail());
 		user.setMobile(userModel.getMobile());
 		user.setGender(userModel.getGender());
-		user.setCreatedDate(userModel.getCreatedDate());
-		user.setUpdatedDate(userModel.getUpdatedDate());
+		//user.setCreatedDate(userModel.getCreatedDate());
+		//user.setUpdatedDate(userModel.getUpdatedDate());
 		user.setUpdatedBy(userModel.getUpdatedBy());
 		user.setStatus(userModel.getStatus());
 		user.setDesignation(userModel.getDesignation());

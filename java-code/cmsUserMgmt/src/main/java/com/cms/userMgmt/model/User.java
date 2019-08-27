@@ -71,6 +71,23 @@ public class User implements Serializable {
 	
 	@Column(name="STATUS")
 	private Boolean status;
+	
+	@Column(name="DOB")
+	private Date dob;
+
+	/**
+	 * @return the dob
+	 */
+	public Date getDob() {
+		return dob;
+	}
+
+	/**
+	 * @param dob the dob to set
+	 */
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
 
 	/**
 	 * @return the iSd
@@ -320,7 +337,7 @@ public class User implements Serializable {
 				+ ", email=" + email + ", altEmail=" + altEmail + ", mobile=" + mobile + ", gender=" + gender
 				+ ", designation=" + designation + ", photo=" + photo + ", address=" + address + ", interests="
 				+ interests + ", biography=" + biography + ", createdDate=" + createdDate + ", updatedDate="
-				+ updatedDate + ", updatedBy=" + updatedBy + ", status=" + status + "]";
+				+ updatedDate + ", updatedBy=" + updatedBy + ", status=" + status + ", dob=" + dob + "]";
 	}
 	
 	
