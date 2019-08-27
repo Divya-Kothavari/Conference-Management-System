@@ -18,7 +18,7 @@ const portJournalmgmt = environment.portJournalmgmt;
 
 export class ProfileComponent {
     changePWForm: FormGroup;
-    avatarUrl: string = "http://themenate.com/applicator/dist/assets/images/avatars/thumb-13.jpg";
+    uploadUserPath: string = "http://themenate.com/applicator/dist/assets/images/avatars/thumb-13.jpg";
     selectedCountry: any;
     selectedLanguage: any;
     userid;
@@ -214,8 +214,17 @@ export class ProfileComponent {
               item.onSuccess!(event.body, item.file!, event);
               this.message.success(event.body.message);
               this.http.get(this.uploadUrl).subscribe(
-                  resp => {
+                  (resp: any) => {
                       console.log(resp);
+                      let binary = '';
+                      let bytes = resp; // get from server
+                      let uints = new Uint8Array(bytes);
+                      var len = bytes.byteLength;
+                    for (var i = 0; i < len; i++) {
+                        binary += String.fromCharCode( bytes[ i ] );
+                     }
+                      var base64 = btoa(binary);
+                      this.uploadUserPath = 'data:image/jpeg;base64,' + base64;
                   }
               )
               this.userDetails.image = event.body.path;
