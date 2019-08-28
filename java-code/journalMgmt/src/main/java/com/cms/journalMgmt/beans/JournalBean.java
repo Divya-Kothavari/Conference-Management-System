@@ -26,8 +26,8 @@ public class JournalBean {
 	private String journalSecondaryAdmin;
 	private String reviewStatus;
 	private String journalStatus;
-	private Date journalCreatedDate;
-	private Date journalUpdatedDate;
+	private String journalCreatedDate;
+	private String journalUpdatedDate;
 
 	
 	/**
@@ -341,28 +341,28 @@ public class JournalBean {
 	/**
 	 * @return the journalCreatedDate
 	 */
-	public Date getJournalCreatedDate() {
+	public String getJournalCreatedDate() {
 		return journalCreatedDate;
 	}
 
 	/**
 	 * @param journalCreatedDate the journalCreatedDate to set
 	 */
-	public void setJournalCreatedDate(Date journalCreatedDate) {
+	public void setJournalCreatedDate(String journalCreatedDate) {
 		this.journalCreatedDate = journalCreatedDate;
 	}
 
 	/**
 	 * @return the journalUpdatedDate
 	 */
-	public Date getJournalUpdatedDate() {
+	public String getJournalUpdatedDate() {
 		return journalUpdatedDate;
 	}
 
 	/**
 	 * @param journalUpdatedDate the journalUpdatedDate to set
 	 */
-	public void setJournalUpdatedDate(Date journalUpdatedDate) {
+	public void setJournalUpdatedDate(String journalUpdatedDate) {
 		this.journalUpdatedDate = journalUpdatedDate;
 	}
 

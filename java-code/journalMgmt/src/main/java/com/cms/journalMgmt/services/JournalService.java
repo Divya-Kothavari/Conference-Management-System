@@ -1,5 +1,6 @@
 package com.cms.journalMgmt.services;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class JournalService {
 	public String createJournal(JournalBean journal){
 		
 		JSONObject json = new JSONObject();
-		
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy"); 
 		if(null != journal && null != journal.getJournalShortName()){
 			Journal journalModel = journalRepo.findByJournalShortName(journal.getJournalShortName());
 			if(null != journalModel){
@@ -98,8 +99,15 @@ public class JournalService {
 				if(null != journal.getJournalStatus()){
 					journalModel.setJournalStatus(journal.getJournalStatus());
 				}
-				journalModel.setJournalCreatedDate(new Date());
-				journalModel.setJournalUpdatedDate(new Date());
+				
+				try{
+					journalModel.setJournalCreatedDate(formatter.parse((new Date()).toString()));
+					}catch(Exception e){}
+				try{
+					journalModel.setJournalUpdatedDate(formatter.parse((new Date()).toString()));
+					}catch(Exception e){}
+				//journalModel.setJournalCreatedDate(new Date());
+				//journalModel.setJournalUpdatedDate(new Date());
 				
 				journalRepo.save(journalModel);
 				json.put("status", "Success");
@@ -116,7 +124,7 @@ public class JournalService {
 public String updateJournal(JournalBean journal){
 		
 		JSONObject json = new JSONObject();
-		
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy"); 
 		if(null != journal && null != journal.getJournalShortName()){
 			Journal journalModel = journalRepo.findByJournalShortName(journal.getJournalShortName());
 			if(null != journalModel){
@@ -186,8 +194,14 @@ public String updateJournal(JournalBean journal){
 				if(null != journal.getJournalStatus()){
 					journalModel.setJournalStatus(journal.getJournalStatus());
 				}
-				journalModel.setJournalCreatedDate(new Date());
-				journalModel.setJournalUpdatedDate(new Date());
+
+				try{
+					if(null != journal.getJournalCreatedDate())
+					journalModel.setJournalCreatedDate(formatter.parse(journal.getJournalCreatedDate()));
+					}catch(Exception e){}
+				try{
+					journalModel.setJournalUpdatedDate(formatter.parse((new Date()).toString()));
+					}catch(Exception e){}
 				
 				journalRepo.save(journalModel);
 				json.put("status", "Success");
@@ -208,6 +222,7 @@ public String updateJournal(JournalBean journal){
 	public String getAllJournals(){
 		JSONObject json = new JSONObject();
 		JSONArray array = new JSONArray();
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 		List<Journal> journalModels = journalRepo.findAll();
 		if(null != journalModels && journalModels.size() > 0){
 			Gson gson = new Gson();
@@ -215,6 +230,10 @@ public String updateJournal(JournalBean journal){
 			 json = new JSONObject();
 			 try {
 			 json = (JSONObject)  new JSONParser().parse(gson.toJson(journalModel,Journal.class));
+			 String createdDate = formatter.format(journalModel.getJournalCreatedDate());
+				String updatedDate = formatter.format(journalModel.getJournalUpdatedDate());
+				json.put("journalCreatedDate", createdDate);
+				json.put("journalUpdatedDate", updatedDate);
 			 array.add(json);
 			 } catch (ParseException e){}
 			}
@@ -233,12 +252,17 @@ public String updateJournal(JournalBean journal){
 		
 		JSONObject json = new JSONObject();
 		JSONObject journalJson = new JSONObject();
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 		if(null != journalShortName){
 			Journal journalModel = journalRepo.findByJournalShortName(journalShortName);
 			if(null != journalModel){
 				Gson gson = new Gson();
 				try {
 					journalJson = (JSONObject)  new JSONParser().parse(gson.toJson(journalModel,Journal.class));
+					 String createdDate = formatter.format(journalModel.getJournalCreatedDate());
+						String updatedDate = formatter.format(journalModel.getJournalUpdatedDate());
+						journalJson.put("journalCreatedDate", createdDate);
+						journalJson.put("journalUpdatedDate", updatedDate);
 					json.put("journal", journalJson);
 					json.put("status", "Success");
 					json.put("message","Journal response");
