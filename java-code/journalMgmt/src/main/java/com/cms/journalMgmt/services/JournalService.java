@@ -25,7 +25,7 @@ public class JournalService {
 	public String createJournal(JournalBean journal){
 		
 		JSONObject json = new JSONObject();
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy"); 
+		//SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy"); 
 		if(null != journal && null != journal.getJournalShortName()){
 			Journal journalModel = journalRepo.findByJournalShortName(journal.getJournalShortName());
 			if(null != journalModel){
@@ -100,15 +100,9 @@ public class JournalService {
 					journalModel.setJournalStatus(journal.getJournalStatus());
 				}
 				
-				try{
-					journalModel.setJournalCreatedDate(formatter.parse((new Date()).toString()));
-					}catch(Exception e){}
-				try{
-					journalModel.setJournalUpdatedDate(formatter.parse((new Date()).toString()));
-					}catch(Exception e){}
-				//journalModel.setJournalCreatedDate(new Date());
-				//journalModel.setJournalUpdatedDate(new Date());
-				
+				journalModel.setJournalCreatedDate(new Date());
+				journalModel.setJournalUpdatedDate(new Date());
+
 				journalRepo.save(journalModel);
 				json.put("status", "Success");
 				json.put("message","Journal Created Successfully");
@@ -124,7 +118,7 @@ public class JournalService {
 public String updateJournal(JournalBean journal){
 		
 		JSONObject json = new JSONObject();
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy"); 
+		//SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD"); 
 		if(null != journal && null != journal.getJournalShortName()){
 			Journal journalModel = journalRepo.findByJournalShortName(journal.getJournalShortName());
 			if(null != journalModel){
@@ -194,14 +188,7 @@ public String updateJournal(JournalBean journal){
 				if(null != journal.getJournalStatus()){
 					journalModel.setJournalStatus(journal.getJournalStatus());
 				}
-
-				try{
-					if(null != journal.getJournalCreatedDate())
-					journalModel.setJournalCreatedDate(formatter.parse(journal.getJournalCreatedDate()));
-					}catch(Exception e){}
-				try{
-					journalModel.setJournalUpdatedDate(formatter.parse((new Date()).toString()));
-					}catch(Exception e){}
+				journalModel.setJournalUpdatedDate(new Date());
 				
 				journalRepo.save(journalModel);
 				json.put("status", "Success");
@@ -222,7 +209,7 @@ public String updateJournal(JournalBean journal){
 	public String getAllJournals(){
 		JSONObject json = new JSONObject();
 		JSONArray array = new JSONArray();
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");
 		List<Journal> journalModels = journalRepo.findAll();
 		if(null != journalModels && journalModels.size() > 0){
 			Gson gson = new Gson();
@@ -252,7 +239,7 @@ public String updateJournal(JournalBean journal){
 		
 		JSONObject json = new JSONObject();
 		JSONObject journalJson = new JSONObject();
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");
 		if(null != journalShortName){
 			Journal journalModel = journalRepo.findByJournalShortName(journalShortName);
 			if(null != journalModel){

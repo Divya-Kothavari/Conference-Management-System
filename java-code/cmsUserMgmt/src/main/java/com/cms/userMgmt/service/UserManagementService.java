@@ -44,7 +44,7 @@ public class UserManagementService {
 		JSONObject json = new JSONObject();
 		log.info("Entering createUser");
 		User userModel = null;
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");  
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");  
 		if(null != userBean){
 			userModel = userRepo.findByUserId(userBean.getUserId().toLowerCase());
 			if(null != userModel){
@@ -65,10 +65,7 @@ public class UserManagementService {
 			userModel.setMobile(userBean.getMobile());
 			if(null != userBean.getGender())
 			userModel.setGender(userBean.getGender());
-			try{
-				if(null != userBean.getCreatedDate())
-				userModel.setCreatedDate(formatter.parse(userBean.getCreatedDate()));
-				}catch(Exception e){}
+			userModel.setCreatedDate(new Date());
 			userModel.setUpdatedDate(new Date());
 			userModel.setUpdatedBy("");
 			if(null != userBean.getStatus())
@@ -103,7 +100,7 @@ public class UserManagementService {
 		
 		JSONObject json = new JSONObject();
 		User userModel = userRepo.findByUserId(userBean.getUserId().toLowerCase());
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");  
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");  
 		if(null != userModel){
 			userModel.setUserId(userBean.getUserId().toLowerCase());
 			if(null != userBean.getUserName())
@@ -155,7 +152,7 @@ public class UserManagementService {
 		JSONObject json = new JSONObject();
 		Gson gson = new Gson();
 		User userModel = userRepo.findByUserId(userId);
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");
 		if(null != userModel){
 			JSONObject userJson = new JSONObject();
 			try {
@@ -206,7 +203,7 @@ public class UserManagementService {
 		Gson gson = new Gson();
 		List<UserBean> userList = new ArrayList<>();
 		List<User> userModels = userRepo.findAll();
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");
 		if(null != userModels && userModels.size() > 0){
 			for(User userModel : userModels){
 			
@@ -273,7 +270,7 @@ public class UserManagementService {
 	public String userLogin(UserBean user){
 		JSONObject json = new JSONObject();
 		Gson gson = new Gson();
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");
 		if(null != user){
 		User userModel = userRepo.findByUserId(user.getUserId().toLowerCase());
 		if(null != userModel){
