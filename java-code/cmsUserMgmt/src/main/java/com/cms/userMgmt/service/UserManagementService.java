@@ -165,6 +165,8 @@ public class UserManagementService {
 				if(null != userModel.getDob()){
 				String dob = formatter.format(userModel.getDob());
 				userJson.put("dob", dob);
+				}else{
+					userJson.put("dob", "");
 				}
 				userJson.put("createdDate", createdDate);
 				userJson.put("updatedDate", updatedDate);
@@ -179,7 +181,6 @@ public class UserManagementService {
 			json.put("status", "Error");
 			json.put("message", "User does not exist");
 		}
-		
 		return json.toString();
 		
 	}
@@ -217,6 +218,8 @@ public class UserManagementService {
 					if(null != userModel.getDob()){
 					String dob = formatter.format(userModel.getDob());
 					userJson.put("dob", dob);
+					}else{
+						userJson.put("dob", "");
 					}
 					userJson.put("createdDate", createdDate);
 					userJson.put("updatedDate", updatedDate);
@@ -284,6 +287,8 @@ public class UserManagementService {
 					if(null != userModel.getDob()){
 						String dob = formatter.format(userModel.getDob());
 						userJson.put("dob", dob);
+						}else{
+							userJson.put("dob", "");
 						}
 					userJson.put("createdDate", createdDate);
 					userJson.put("updatedDate", updatedDate);
