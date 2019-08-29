@@ -162,10 +162,13 @@ public class UserManagementService {
 				userJson = (JSONObject)  new JSONParser().parse(gson.toJson(userModel,User.class));
 				String createdDate = formatter.format(userModel.getCreatedDate());
 				String updatedDate = formatter.format(userModel.getUpdatedDate());
+				if(null != userModel.getDob()){
 				String dob = formatter.format(userModel.getDob());
+				userJson.put("dob", dob);
+				}
 				userJson.put("createdDate", createdDate);
 				userJson.put("updatedDate", updatedDate);
-				userJson.put("dob", dob);
+				
 			} catch (Exception e) {
 				log.error("Error while parsing the user json",e);
 			}
@@ -211,10 +214,12 @@ public class UserManagementService {
 					userJson = (JSONObject)  new JSONParser().parse(gson.toJson(userModel,User.class));
 					String createdDate = formatter.format(userModel.getCreatedDate());
 					String updatedDate = formatter.format(userModel.getUpdatedDate());
+					if(null != userModel.getDob()){
 					String dob = formatter.format(userModel.getDob());
+					userJson.put("dob", dob);
+					}
 					userJson.put("createdDate", createdDate);
 					userJson.put("updatedDate", updatedDate);
-					userJson.put("dob", dob);
 				} catch (ParseException e) {
 					log.error("Error while parsing the user json",e);
 				}	
@@ -276,10 +281,13 @@ public class UserManagementService {
 					userJson = (JSONObject)  new JSONParser().parse(gson.toJson(userModel,User.class));
 					String createdDate = formatter.format(userModel.getCreatedDate());
 					String updatedDate = formatter.format(userModel.getUpdatedDate());
-					String dob = formatter.format(userModel.getDob());
+					if(null != userModel.getDob()){
+						String dob = formatter.format(userModel.getDob());
+						userJson.put("dob", dob);
+						}
 					userJson.put("createdDate", createdDate);
 					userJson.put("updatedDate", updatedDate);
-					userJson.put("dob", dob);
+					
 					userJson.put("roles", getUserRoles(user.getUserId()));
 				} catch (ParseException e) {
 					log.error("Error while parsing the user json",e);
