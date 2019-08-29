@@ -16,7 +16,15 @@ export class SideNavComponent{
     constructor( private themeService: ThemeConstantService) {}
 
     ngOnInit(): void {
-        this.menuItems = ROUTES.filter(menuItem => menuItem);
+        let role = window.localStorage.getItem('role');
+
+        // if (role === 'Admin') {
+        //     this.menuItems = ROUTES.filter(menuItem => menuItem.title === 'Journals') ;
+        // } 
+        // if (role === 'SuperAdmin') {
+        //     this.menuItems = ROUTES.filter(menuItem => menuItem); 
+        // }
+        this.menuItems = ROUTES.filter(menuItem => menuItem); 
         this.themeService.isMenuFoldedChanges.subscribe(isFolded => this.isFolded = isFolded);
         this.themeService.isSideNavDarkChanges.subscribe(isDark => this.isSideNavDark = isDark);
     }

@@ -8,6 +8,9 @@ import { HttpClient, HttpEvent, HttpEventType, HttpRequest, HttpResponse } from 
 import { UploadXHRArgs } from 'ng-zorro-antd/upload';
 import { environment } from '../../../environments/environment';
 
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+
+
 const apiUrl = environment.apiUrl;
 const portUsermgmt = environment.portUsermgmt;
 const portJournalmgmt = environment.portJournalmgmt;
@@ -237,6 +240,8 @@ export class ProfileComponent {
       };
     updateUser() {
         this.isLoading = true;
+        console.log(this.userDetails.dob);
+        this.userDetails.dob = this.userDetails.dob.toISOString().split('T')[0];
          const data = {
             userId: this.userDetails.userId,
             userName: this.userDetails.userName,
@@ -245,12 +250,13 @@ export class ProfileComponent {
             address: this.userDetails.address,
             biography: this.userDetails.biography,
             interests: this.userDetails.interests,
-            gender: this.userDetails.gender
+            gender: this.userDetails.gender,
+            dob:this.userDetails.dob
         }
         this.http.put('http://localhost:8081/cmsusermgmt/userMgmt/user', data).subscribe(
             (resp: any) =>{
                  if (resp.status === 'Success') {
-                    // this.userDetails = resp.user;
+                   this.userDetails = resp.user;
                    this.message.success(resp.message);
                    this.isLoading = false;
                 }

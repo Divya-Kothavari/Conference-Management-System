@@ -35,7 +35,7 @@
                         <nz-form-item>
                             <nz-form-label>User Name</nz-form-label>
                             <nz-form-control>
-                                <input nz-input placeholder="Username" name="username" [(ngModel)]="userDetails.userName">
+                                <input nz-input placeholder="Username" [(ngModel)]="userDetails.userName">
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -62,7 +62,8 @@
                         <nz-form-item>
                             <nz-form-label>Date of Birth</nz-form-label>
                             <nz-form-control>
-                                <nz-date-picker class="w-100" nzFormat="yyyy/MM/dd" nzPlaceHolder="Date of Birth"></nz-date-picker>
+                                <nz-date-picker class="w-100" [nzFormat]="yyyy-MM-DD" [nzDisabledTime]="disabledDateTime"
+                                name="dob" [(ngModel)]="userDetails.dob" nzPlaceHolder="Date of Birth"></nz-date-picker>
                             </nz-form-control>
                         </nz-form-item>
                     </div>

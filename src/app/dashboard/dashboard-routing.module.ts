@@ -15,49 +15,49 @@ import { AuthGuardAdminService } from '../core/services/auth-guard-admin.service
 const routes: Routes = [
     {
         path: '',
-        canActivate: [AuthGuardSuperadminService ],
         component: SuperadminDashboardComponent,
         data: {
             title: 'Dashboard ',
             headerDisplay: "none"
         }
-    },
-    {
-        path: '',
-        canActivate: [AuthGuardAdminService ],
-        component: AdminDashboardComponent,
-        data: {
-            title: 'Dashboard ',
-            headerDisplay: "none"
-        }
-    },
-    {
-        path: '',
-        canActivate: [ AuthGuardAuthorService ],
-        component: AuthorDashboardComponent,
-        data: {
-            title: 'Dashboard ',
-            headerDisplay: "none"
-        }
-    },
-    {
-        path: '',
-        canActivate: [AuthGuardEditorService ],
-        component: EditorDashboardComponent,
-        data: {
-            title: 'Dashboard ',
-            headerDisplay: "none"
-        }
-    },
-    {
-        path: '',
-        canActivate: [AuthGuardReviewerService],
-        component: ReviewerDashboardComponent,
-        data: {
-            title: 'Dashboard ',
-            headerDisplay: "none"
-        }
-    },
+    }
+    // },
+    // {
+    //     path: '',
+    //     canActivate: [AuthGuardAdminService ],
+    //     component: AdminDashboardComponent,
+    //     data: {
+    //         title: 'Dashboard ',
+    //         headerDisplay: "none"
+    //     }
+    // },
+    // {
+    //     path: '',
+    //     canActivate: [ AuthGuardAuthorService ],
+    //     component: AuthorDashboardComponent,
+    //     data: {
+    //         title: 'Dashboard ',
+    //         headerDisplay: "none"
+    //     }
+    // },
+    // {
+    //     path: '',
+    //     canActivate: [AuthGuardEditorService ],
+    //     component: EditorDashboardComponent,
+    //     data: {
+    //         title: 'Dashboard ',
+    //         headerDisplay: "none"
+    //     }
+    // },
+    // {
+    //     path: '',
+    //     canActivate: [AuthGuardReviewerService],
+    //     component: ReviewerDashboardComponent,
+    //     data: {
+    //         title: 'Dashboard ',
+    //         headerDisplay: "none"
+    //     }
+    // },
 ];
 
 @NgModule({

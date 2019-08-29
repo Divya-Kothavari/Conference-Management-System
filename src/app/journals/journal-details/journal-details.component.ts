@@ -189,6 +189,7 @@ export class JournalDetailsComponent {
 
     updateJournal() {
         this.isLoading= true;
+        //console.log(this.journalDetails.journalUpdatedDate);
         if (this.selectedUser.length !== 0 ) {
             this.journalDetails.journalPrimaryAdmin = this.selectedUser.join().toString();
         }

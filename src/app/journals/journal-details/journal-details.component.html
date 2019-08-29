@@ -45,16 +45,15 @@
                     <div class="col-md-4">
                         <nz-form-item>
                             <nz-form-label>Journal Updated Date</nz-form-label>
-                            <nz-form-control>
-                                <nz-date-picker class="w-100" nzFormat="dd/MM/yyyy" nzPlaceHolder="Journal Updated Date"></nz-date-picker>
-                            </nz-form-control>
+                            <input disabled nz-input placeholder="Phone Number" name="mobile" placeholder="{{journalDetails.journalUpdatedDate}}">
+                            
                         </nz-form-item>
                     </div>
                     <div class="col-md-4">
                             <nz-form-item>
                                     <nz-form-label>journalShortName</nz-form-label>
                                     <nz-form-control>
-                                        <input  nz-input placeholder="Phone Number" name="mobile" [(ngModel)]="journalDetails.journalShortName">
+                                        <input disabled  nz-input placeholder="Phone Number" name="mobile" [(ngModel)]="journalDetails.journalShortName">
                                     </nz-form-control>
                             </nz-form-item>
                     </div>
@@ -359,4 +358,4 @@
     </nz-tab>
 </nz-tabset>
 
-<nz-skeleton [nzLoading]="!dataAvailable" [nzAvatar]="true" [nzActive]="true" [nzParagraph]="{ rows: 4 }"></nz-skeleton>
+<!-- <nz-skeleton [nzLoading]="!dataAvailable" [nzAvatar]="true" [nzActive]="true" [nzParagraph]="{ rows: 4 }"></nz-skeleton> -->
