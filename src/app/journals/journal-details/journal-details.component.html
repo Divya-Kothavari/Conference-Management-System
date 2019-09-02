@@ -112,8 +112,11 @@
                             <nz-form-label>About Journal</nz-form-label>
                             <nz-form-control>
                                     <!-- <textarea rows="3"  nz-input placeholder="Address" name="address" [(ngModel)]="journalDetails.aboutJournal"></textarea> -->
-                                    <textarea  htmlEditor [editorContent]="journalDetails.aboutJournal" (htmlEditorKeyUp)="onHtmlEditorKeyUpForAboutJornal($event)"></textarea>
-                            </nz-form-control>
+                                    <!-- <textarea  htmlEditor [editorContent]="journalDetails.aboutJournal" (htmlEditorKeyUp)="onHtmlEditorKeyUpForAboutJornal($event)"></textarea> -->
+                                    <nz-form-item>
+                                        <quill-editor [style]="{height: '150px'}" [modules]="editorConfig"  [(ngModel)]="journalDetails.aboutJournal" placeholder=""></quill-editor>
+                                    </nz-form-item>
+                                </nz-form-control>
                         </nz-form-item>
                     </div>
                 </div>
@@ -122,8 +125,11 @@
                         <nz-form-item>
                             <nz-form-label>Aim and Scope</nz-form-label>
                             <nz-form-control>
+                                    <nz-form-item>
+                                            <quill-editor [style]="{height: '150px'}" [modules]="editorConfig"  [(ngModel)]="journalDetails.aimAndScope" placeholder=""></quill-editor>
+                                        </nz-form-item>
                                     <!-- <textarea rows="3" nz-input placeholder="Biography" name="biography" [(ngModel)]="journalDetails.aimAndScope"></textarea> -->
-                                    <textarea  htmlEditor [editorContent]="journalDetails.aimAndScope" (htmlEditorKeyUp)="onHtmlEditorKeyUpForAimScope($event)"></textarea>
+                                    <!-- <textarea  htmlEditor [editorContent]="journalDetails.aimAndScope" (htmlEditorKeyUp)="onHtmlEditorKeyUpForAimScope($event)"></textarea> -->
                                 </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -133,8 +139,11 @@
                         <nz-form-item>
                             <nz-form-label>Article Inpress Text</nz-form-label>
                             <nz-form-control>
+                                    <nz-form-item>
+                                            <quill-editor [style]="{height: '150px'}" [modules]="editorConfig"  [(ngModel)]="journalDetails.articleInPressText" placeholder=""></quill-editor>
+                                        </nz-form-item>
                                 <!-- <textarea rows="3" nz-input placeholder="Interests" name="interests" [(ngModel)]="journalDetails.articleInPressText"></textarea> -->
-                                <textarea  htmlEditor [editorContent]="journalDetails.articleInPressText" (htmlEditorKeyUp)="onHtmlEditorKeyUpArticleInpress($event)"></textarea>
+                                <!-- <textarea  htmlEditor [editorContent]="journalDetails.articleInPressText" (htmlEditorKeyUp)="onHtmlEditorKeyUpArticleInpress($event)"></textarea> -->
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -144,8 +153,11 @@
                             <nz-form-item>
                                 <nz-form-label>Current Issue Text</nz-form-label>
                                 <nz-form-control>
+                                        <nz-form-item>
+                                                <quill-editor [style]="{height: '150px'}" [modules]="editorConfig"  [(ngModel)]="journalDetails.currentIssueText" placeholder=""></quill-editor>
+                                            </nz-form-item>
                                     <!-- <textarea rows="3" nz-input placeholder="Interests" name="interests" [(ngModel)]="journalDetails.currentIssueText"></textarea> -->
-                                    <textarea  htmlEditor [editorContent]="journalDetails.currentIssueText" (htmlEditorKeyUp)="onHtmlEditorKeyUpCurrentIssue($event)"></textarea>
+                                    <!-- <textarea  htmlEditor [editorContent]="journalDetails.currentIssueText" (htmlEditorKeyUp)="onHtmlEditorKeyUpCurrentIssue($event)"></textarea> -->
                                 </nz-form-control>
                             </nz-form-item>
                         </div>
@@ -155,8 +167,11 @@
                                 <nz-form-item>
                                     <nz-form-label>Archieve Page Text</nz-form-label>
                                     <nz-form-control>
+                                            <nz-form-item>
+                                                    <quill-editor [style]="{height: '150px'}" [modules]="editorConfig"  [(ngModel)]="journalDetails.archievePageText" placeholder=""></quill-editor>
+                                                </nz-form-item>
                                         <!-- <textarea rows="3" nz-input placeholder="Interests" name="interests" [(ngModel)]="journalDetails.archievePageText"></textarea> -->
-                                        <textarea  htmlEditor [editorContent]="journalDetails.archievePageText" (htmlEditorKeyUp)="onHtmlEditorKeyUpArchivePage($event)"></textarea>
+                                        <!-- <textarea  htmlEditor [editorContent]="journalDetails.archievePageText" (htmlEditorKeyUp)="onHtmlEditorKeyUpArchivePage($event)"></textarea> -->
                                     </nz-form-control>
                                 </nz-form-item>
                             </div>
@@ -166,8 +181,11 @@
                                     <nz-form-item>
                                         <nz-form-label>Guidlines</nz-form-label>
                                         <nz-form-control>
+                                                <nz-form-item>
+                                                        <quill-editor [style]="{height: '150px'}" [modules]="editorConfig"  [(ngModel)]="journalDetails.guidlines" placeholder=""></quill-editor>
+                                                    </nz-form-item>
                                             <!-- <textarea rows="3" nz-input placeholder="Interests" name="interests" [(ngModel)]="journalDetails.guidlines"></textarea> -->
-                                            <textarea  htmlEditor [editorContent]="journalDetails.guidlines" (htmlEditorKeyUp)="onHtmlEditorKeyUpGuidlines($event)"></textarea>
+                                            <!-- <textarea  htmlEditor [editorContent]="journalDetails.guidlines" (htmlEditorKeyUp)="onHtmlEditorKeyUpGuidlines($event)"></textarea> -->
                                         </nz-form-control>
                                     </nz-form-item>
                                 </div>

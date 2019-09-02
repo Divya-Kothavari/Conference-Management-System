@@ -29,6 +29,17 @@ export class JournalDetailsComponent {
     isLoading = false;
     skeletonLoading = false;
     dataAvailable = false;
+    editorConfig = {
+        toolbar: [
+            ['bold', 'italic', 'underline', 'strike'],        
+            ['blockquote', 'code-block'],
+            [{ 'header': 1 }, { 'header': 2 }],               
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            [{ 'size': ['small', false, 'large', 'huge'] }],  
+            [{ 'align': [] }],
+            ['link', 'image']                        
+        ]
+    };
     networkList = [
         {
             name: 'Facebook',
@@ -154,6 +165,7 @@ export class JournalDetailsComponent {
                 if (resp.status === 'Success') {
                     console.log(resp.journal);
                     this.journalDetails = resp.journal;
+                    this.selectedUser = this.journalDetails.journalPrimaryAdmin.split(',');
                  this.dataAvailable = true;
                 }
             },
@@ -185,6 +197,19 @@ export class JournalDetailsComponent {
             }
         );
 
+        this.http.get(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journalSubjects/${this.journalid}`).subscribe(
+            (resp: any) =>{
+                if (resp.status === 'Success') {
+                    resp.journalSubjects.forEach(element => {
+                        this.selectedSubject.push(element.subjectName);
+                    });
+                    
+                }
+            },
+            err => {
+                 console.log(err);
+            }
+        );
     }
 
     updateJournal() {

@@ -6,9 +6,11 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { Route, Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpEvent, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
 import { UploadXHRArgs } from 'ng-zorro-antd/upload';
+import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from '../../../environments/environment';
 
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { Observable } from 'rxjs';
 
 
 const apiUrl = environment.apiUrl;
@@ -21,7 +23,7 @@ const portJournalmgmt = environment.portJournalmgmt;
 
 export class ProfileComponent {
     changePWForm: FormGroup;
-    uploadUserPath: string = "http://themenate.com/applicator/dist/assets/images/avatars/thumb-13.jpg";
+    uploadUserPath = "http://themenate.com/applicator/dist/assets/images/avatars/thumb-13.jpg";
     selectedCountry: any;
     selectedLanguage: any;
     userid;
@@ -142,7 +144,9 @@ export class ProfileComponent {
         },
     ]
 
-    constructor(private fb: FormBuilder, private modalService: NzModalService, private message: NzMessageService,
+    constructor(private fb: FormBuilder, 
+        private sanitizer : DomSanitizer,
+        private modalService: NzModalService, private message: NzMessageService,
         private http: HttpClient,
         private route: ActivatedRoute) {
             this.route.params.subscribe( params => {
@@ -216,21 +220,7 @@ export class ProfileComponent {
             } else if (event instanceof HttpResponse) {
               item.onSuccess!(event.body, item.file!, event);
               this.message.success(event.body.message);
-              this.http.get(this.uploadUrl).subscribe(
-                  (resp: any) => {
-                      console.log(resp);
-                      let binary = '';
-                      let bytes = resp; // get from server
-                      let uints = new Uint8Array(bytes);
-                      var len = bytes.byteLength;
-                    for (var i = 0; i < len; i++) {
-                        binary += String.fromCharCode( bytes[ i ] );
-                     }
-                      var base64 = btoa(binary);
-                      this.uploadUserPath = 'data:image/jpeg;base64,' + base64;
-                  }
-              )
-              this.userDetails.image = event.body.path;
+              this.getImageFromService();
             }
           },
           err => {
@@ -238,6 +228,27 @@ export class ProfileComponent {
           }
         );
       };
+
+      getImage(imageUrl: string): Observable<Blob> {
+        return this.http.get(this.uploadUrl, { responseType: 'blob' });
+      }
+
+      imageToShow: any;
+
+createImageFromBlob(image: Blob) {
+   let reader = new FileReader();
+   reader.readAsDataURL(image);
+   reader.addEventListener("load", () => {
+      this.imageToShow = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,' + reader.result);
+   }, false);
+}
+getImageFromService() {
+    this.getImage(this.uploadUrl).subscribe(data => {
+      this.createImageFromBlob(data);
+    }, error => {
+      console.log(error);
+    });
+}
     updateUser() {
         this.isLoading = true;
         console.log(this.userDetails.dob);
