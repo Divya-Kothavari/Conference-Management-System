@@ -7,7 +7,9 @@
                 </div>
                 <div>
                     <h1 class="text-white m-b-20 font-weight-normal">Exploring Enlink</h1>
-                    <p class="text-white font-size-16 lh-2 w-80 opacity-08">Climb leg rub face on everything give attitude nap all day for under the bed. Chase mice attack feet but rub face on everything hopped up.</p>
+                    <p class="text-white font-size-16 lh-2 w-80 opacity-08">Climb leg rub face on everything give
+                        attitude nap all day for under the bed. Chase mice attack feet but rub face on everything hopped
+                        up.</p>
                 </div>
                 <div class="d-flex justify-content-between">
                     <span class="text-white">© 2019 ThemeNate</span>
@@ -26,146 +28,215 @@
             <div class="container h-100">
                 <div class="row no-gutters h-100 align-items-center">
                     <div class="col-md-8 col-lg-7 col-xl-6 mx-auto">
-                            <nz-tabset>
-                                    <nz-tab nzTitle="Sign In">
-                                            <p class="m-b-30">Enter your credential to get access</p>
-                                            <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm()">
-                                                <nz-form-item>
-                                                    <nz-form-label nzRequired nzFor="userName">Username</nz-form-label>
-                                                    <nz-form-control>
-                                                        <nz-input-group [nzPrefix]="prefixUser">
-                                                            <input type="text" nz-input formControlName="userName" placeholder="Username">
-                                                        </nz-input-group>
-                                                        <nz-form-explain *ngIf="loginForm.get('userName').dirty && loginForm.get('userName').errors">Please input your username!</nz-form-explain>
-                                                    </nz-form-control>
-                                                </nz-form-item>
-                                                <nz-form-item>
-                                                    <nz-form-label nzRequired nzFor="password">Password</nz-form-label>
-                                                    <a class="float-right font-size-13 p-t-10 text-muted" [routerLink]="['/authentication/reset-password-1']">Forget Password?</a>
-                                                    <nz-form-control>
-                                                        <nz-input-group [nzPrefix]="prefixLock">
-                                                            <input type="password" nz-input formControlName="password" placeholder="Password">
-                                                        </nz-input-group>
-                                                        <nz-form-explain *ngIf="loginForm.get('password').dirty && loginForm.get('password').errors">Please input your Password!</nz-form-explain>
-                                                    </nz-form-control>
-                                                </nz-form-item>
-                                                <nz-form-item>
-                                                    <nz-form-control>
-                                                        <div class="d-flex align-items-center justify-content-between">
-                                                            <!-- <span class="font-size-13 text-muted">Don't have an account? <a class="small" [routerLink]="['/authentication/sign-up-1']"> Signup</a></span> -->
-                                                            <button 
-                                                            [nzLoading]="isLoading" 
-                                                            nz-button 
-                                                            class="login-form-button" 
-                                                            [nzType]="'primary'">Sign In</button>
-                                                        </div>
-                                                    </nz-form-control>
-                                                </nz-form-item>
-                                            </form>
-                                            <ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
-                                            <ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>                                    </nz-tab>
-                                    <nz-tab nzTitle="Sign Up">
-                                            <p class="m-b-30">Please fill fom to register!</p>
-                                            <form nz-form [formGroup]="signupForm" class="login-form" (ngSubmit)="submitSignup()">
-                                                    <nz-form-item>
-                                                            <nz-form-label nzRequired nzFor="userId">UserId</nz-form-label>
-                                                            <nz-form-control>
-                                                                <nz-input-group>
-                                                                    <input type="text" nz-input formControlName="userId" placeholder="Userid">
-                                                                </nz-input-group>
-                                                                <nz-form-explain *ngIf="signupForm.get('userId').dirty && signupForm.get('userId').errors">Please input your userid!</nz-form-explain>
-                                                            </nz-form-control>
-                                                        </nz-form-item>
-                                                <nz-form-item>
-                                                    <nz-form-label nzRequired nzFor="userName">Username</nz-form-label>
-                                                    <nz-form-control>
-                                                        <nz-input-group>
-                                                            <input type="text" nz-input formControlName="userName" placeholder="Username">
-                                                        </nz-input-group>
-                                                        <nz-form-explain *ngIf="signupForm.get('userName').dirty && signupForm.get('userName').errors">Please input your username!</nz-form-explain>
-                                                    </nz-form-control>
-                                                </nz-form-item>
-                                                <nz-form-item>
-                                                        <nz-form-label nzRequired nzFor="email">Email</nz-form-label>
-                                                        <nz-form-control>
-                                                            <nz-input-group>
-                                                                <input type="text" nz-input formControlName="email" placeholder="Email">
-                                                            </nz-input-group>
-                                                            <nz-form-explain *ngIf="signupForm.get('email').dirty && signupForm.get('email').errors">Please input your email!</nz-form-explain>
-                                                        </nz-form-control>
-                                                    </nz-form-item>
-                                                    <nz-form-item>
-                                                            <nz-form-label nzRequired nzFor="phoneNumber">Phone Number</nz-form-label>
-                                                            <nz-form-control>
-                                                                <nz-input-group>
-                                                                    <input type="text" nz-input formControlName="phoneNumber" placeholder="Phone Number">
-                                                                </nz-input-group>
-                                                                <nz-form-explain *ngIf="signupForm.get('phoneNumber').dirty && signupForm.get('phoneNumber').errors">Please input your phone number!</nz-form-explain>
-                                                            </nz-form-control>
-                                                        </nz-form-item>
-                                                        <nz-form-item>
-                                                                <nz-form-label nzRequired nzFor="region">Region</nz-form-label>
-                                                                <nz-form-control>
-                                                                    <nz-input-group>
-                                                                        <nz-select  style="width: 200px;"  formControlName="region" placeholder="Region">
-                                                                            <nz-option *ngFor="let region of listofregions" [nzLabel]="region" [nzValue]="region"></nz-option>
-                                                                        </nz-select>
-                                                                    </nz-input-group>
-                                                                    <nz-form-explain *ngIf="signupForm.get('region').dirty && signupForm.get('region').errors">Please select your region!</nz-form-explain>
-                                                                </nz-form-control>
-                                                            </nz-form-item>
-                                                            <nz-form-item>
-                                                                    <nz-form-label nzRequired nzFor="country">Country</nz-form-label>
-                                                                    <nz-form-control>
-                                                                        <nz-input-group>
-                                                                            <nz-select  style="width: 200px;"  formControlName="country" placeholder="Country">
-                                                                                <nz-option *ngFor="let country of listofcountries" [nzLabel]="country" [nzValue]="country" ></nz-option>
-                                                                            </nz-select>
-                                                                        </nz-input-group>
-                                                                        <nz-form-explain *ngIf="signupForm.get('country').dirty && signupForm.get('country').errors">Please select your country!</nz-form-explain>
-                                                                    </nz-form-control>
-                                                                </nz-form-item>
-                                                                <nz-form-item>
-                                                                        <nz-form-label nzRequired nzFor="interestedSubjects">Interested Subjects</nz-form-label>
-                                                                        <nz-form-control>
-                                                                            <nz-input-group>
-                                                                                <nz-select  style="width: 200px;"  formControlName="interestedSubjects" placeholder="Interested Subjects">
-                                                                                    <nz-option *ngFor="let subject of listofsubjects" [nzLabel]="subject" [nzValue]="subject" ></nz-option>
-                                                                                </nz-select>
-                                                                            </nz-input-group>
-                                                                            <nz-form-explain *ngIf="signupForm.get('interestedSubjects').dirty && signupForm.get('interestedSubjects').errors">Please select your interested subjects!</nz-form-explain>
-                                                                        </nz-form-control>
-                                                                    </nz-form-item>
-                                                                    <nz-form-item>
-                                                                            <nz-form-label nzRequired nzFor="country">Intrested As</nz-form-label>
-                                                                            <nz-form-control>
-                                                                                <nz-input-group>
-                                                                                    <nz-select  style="width: 200px;"  formControlName="insteresedAs" placeholder="Phone Number">
-                                                                                        <nz-option *ngFor="let role of listofroles" [nzLabel]="role" [nzValue]="role" ></nz-option>
-                                                                                    </nz-select>
-                                                                                </nz-input-group>
-                                                                                <nz-form-explain *ngIf="signupForm.get('insteresedAs').dirty && signupForm.get('insteresedAs').errors">Please select your interested role!</nz-form-explain>
-                                                                            </nz-form-control>
-                                                                        </nz-form-item>
-                                                            
-                                                <nz-form-item>
-                                                    <nz-form-control>
-                                                        <div class="d-flex align-items-center justify-content-between">
-                                                            <!-- <span class="font-size-13 text-muted">Don't have an account? <a class="small" [routerLink]="['/authentication/sign-up-1']"> Signup</a></span> -->
-                                                            <button 
-                                                            [nzLoading]="isLoading1" 
-                                                            nz-button 
-                                                            class="login-form-button" 
-                                                            [nzType]="'primary'">Sign Up</button>
-                                                        </div>
-                                                    </nz-form-control>
-                                                </nz-form-item>
-                                            </form>
-                                            <ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
-                                            <ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>                                     </nz-tab>
-                                  </nz-tabset>                        
+                        <nz-tabset>
+                            <nz-tab nzTitle="Sign In">
+                                <p class="m-b-30">Enter your credential to get access</p>
+                                <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm()">
+                                    <nz-form-item>
+                                        <nz-form-label nzRequired nzFor="userName">Username</nz-form-label>
+                                        <nz-form-control>
+                                            <nz-input-group [nzPrefix]="prefixUser">
+                                                <input type="text" nz-input formControlName="userName"
+                                                    placeholder="Username">
+                                            </nz-input-group>
+                                            <nz-form-explain
+                                                *ngIf="loginForm.get('userName').dirty && loginForm.get('userName').errors">
+                                                Please input your username!</nz-form-explain>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                    <nz-form-item>
+                                        <nz-form-label nzRequired nzFor="password">Password</nz-form-label>
+                                        <a class="float-right font-size-13 p-t-10 text-muted"
+                                            [routerLink]="['/authentication/reset-password-1']">Forget Password?</a>
+                                        <nz-form-control>
+                                            <nz-input-group [nzPrefix]="prefixLock">
+                                                <input type="password" nz-input formControlName="password"
+                                                    placeholder="Password">
+                                            </nz-input-group>
+                                            <nz-form-explain
+                                                *ngIf="loginForm.get('password').dirty && loginForm.get('password').errors">
+                                                Please input your Password!</nz-form-explain>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                    <nz-form-item>
+                                        <nz-form-control>
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <!-- <span class="font-size-13 text-muted">Don't have an account? <a class="small" [routerLink]="['/authentication/sign-up-1']"> Signup</a></span> -->
+                                                <button [nzLoading]="isLoading" nz-button class="login-form-button"
+                                                    [nzType]="'primary'">Sign In</button>
+                                            </div>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </form>
+                                <ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
+                                <ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>
+                            </nz-tab>
+                            <nz-tab nzTitle="Sign Up">
+                                <p class="m-b-30">Please fill fom to register!</p>
+                                <form nz-form [formGroup]="signupForm" class="login-form" (ngSubmit)="submitSignup()">
+                                    <nz-form-item>
+                                        <nz-form-label nzRequired nzFor="userId">UserId</nz-form-label>
+                                        <nz-form-control>
+                                            <nz-input-group>
+                                                <input type="text" nz-input formControlName="userId"
+                                                    placeholder="Userid" (keypress)="validateUserId($event)" (focusout)="duplicateCheck()">
+                                            </nz-input-group>
+                                            <nz-form-explain
+                                                *ngIf="signupForm.get('userId').dirty && signupForm.get('userId').errors">
+                                                Please input your userid!</nz-form-explain>
+                                                <nz-form-explain class="form-error"
+                                                *ngIf="invalidId">
+                                                Please choose userId without any spaces!</nz-form-explain>
+                                                <nz-form-explain class="form-error"
+                                                *ngIf="duplicateUser">
+                                                This userId already taken. Please choose other name.</nz-form-explain>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                    <nz-form-item>
+                                        <nz-form-label nzRequired nzFor="userName">Username</nz-form-label>
+                                        <nz-form-control>
+                                            <nz-input-group>
+                                                <input type="text" nz-input formControlName="userName"
+                                                    placeholder="Username">
+                                            </nz-input-group>
+                                            <nz-form-explain
+                                                *ngIf="signupForm.get('userName').dirty && signupForm.get('userName').errors">
+                                                Please input your username!</nz-form-explain>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                    <nz-form-item>
+                                        <nz-form-label nzRequired nzFor="email">Email</nz-form-label>
+                                        <nz-form-control>
+                                            <nz-input-group>
+                                                <input type="text" nz-input formControlName="email" placeholder="Email">
+                                            </nz-input-group>
+                                            <nz-form-explain
+                                                *ngIf="signupForm.get('email').dirty && signupForm.get('email').errors">
+                                                Please input your email!</nz-form-explain>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                    <nz-form-item>
+                                        <nz-form-label nzRequired nzFor="phoneNumber">Phone Number</nz-form-label>
+                                        <nz-form-control>
+                                            <nz-input-group>
+                                                <input type="text" nz-input formControlName="phoneNumber"
+                                                    placeholder="Phone Number">
+                                            </nz-input-group>
+                                            <nz-form-explain
+                                                *ngIf="signupForm.get('phoneNumber').dirty && signupForm.get('phoneNumber').errors">
+                                                Please input your phone number!</nz-form-explain>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                    <nz-form-item>
+                                        <nz-form-label nzRequired nzFor="region">Region</nz-form-label>
+                                        <nz-form-control>
+                                            <nz-input-group>
+                                                <nz-select style="width: 200px;" formControlName="region"
+                                                    nzPlaceholder="Region" (focusout)="getCountriesList()">
+                                                    <nz-option *ngFor="let region of listofregions"
+                                                        [nzLabel]="region.name" [nzValue]="region.code"></nz-option>
+                                                </nz-select>
+                                            </nz-input-group>
+                                            <nz-form-explain
+                                                *ngIf="signupForm.get('region').dirty && signupForm.get('region').errors">
+                                                Please select your region!</nz-form-explain>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                    <nz-form-item>
+                                        <nz-form-label nzRequired nzFor="country">Country</nz-form-label>
+                                        <nz-form-control>
+                                            <nz-input-group>
+                                                <nz-select style="width: 200px;" formControlName="country"
+                                                    nzPlaceholder="Country">
+                                                    <nz-option *ngFor="let country of listofcountries"
+                                                        [nzLabel]="country" [nzValue]="country"></nz-option>
+                                                </nz-select>
+                                            </nz-input-group>
+                                            <nz-form-explain
+                                                *ngIf="signupForm.get('country').dirty && signupForm.get('country').errors">
+                                                Please select your country!</nz-form-explain>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                    <nz-form-item>
+                                        <nz-form-label nzRequired nzFor="interestedSubjects">Interested Subjects
+                                        </nz-form-label>
+                                        <nz-form-control>
+                                            <nz-input-group>
+                                                <nz-select style="width: 200px;" formControlName="interestedSubjects"
+                                                    nzPlaceholder="Interested Subjects"
+                                                    nzMode="multiple">
+                                                    <nz-option *ngFor="let subject of listofsubjects"
+                                                        [nzLabel]="subject" [nzValue]="subject"></nz-option>
+                                                </nz-select>
+                                            </nz-input-group>
+                                            <nz-form-explain
+                                                *ngIf="signupForm.get('interestedSubjects').dirty && signupForm.get('interestedSubjects').errors">
+                                                Please select your interested subjects!</nz-form-explain>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                    <nz-form-item>
+                                        <nz-form-label nzRequired nzFor="country">Intrested As</nz-form-label>
+                                        <nz-form-control>
+                                            <nz-input-group>
+                                                <nz-select style="width: 200px;" formControlName="insteresedAs"
+                                                    nzPlaceholder="Interested As" nzMode="multiple">
+                                                    <nz-option *ngFor="let role of listofroles" [nzLabel]="role"
+                                                        [nzValue]="role"></nz-option>
+                                                </nz-select>
+                                            </nz-input-group>
+                                            <nz-form-explain
+                                                *ngIf="signupForm.get('insteresedAs').dirty && signupForm.get('insteresedAs').errors">
+                                                Please select your interested role!</nz-form-explain>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                    <nz-form-item>
+                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="captcha" nzRequired>Captcha
+                                        </nz-form-label>
+                                        <nz-form-control [nzSm]="14" [nzXs]="24"
+                                            nzErrorTip="Please input the captcha you got!"
+                                            nzExtra="We must make sure that your are a human.">
+                                            <div nz-row [nzGutter]="8">
+                                                <!-- <div nz-col [nzSpan]="12">
+                                                    <input nz-input formControlName="captcha" id="captcha" />
+                                                </div> -->
+                                                <!-- <div nz-col [nzSpan]="12">
+                                                    <button nz-button (click)="getCaptcha($event)">Get captcha</button>
+                                                </div> -->
+                                                <re-captcha formControlName="captcha"  (resolved)="resolved($event)" siteKey="6LfEeLYUAAAAAKqZ1U3pUogOjUuVi9Lcn7dAqgu5"></re-captcha>
+                                            </div>
+                                            <nz-form-explain
+                                                *ngIf="signupForm.get('captcha').dirty && signupForm.get('captcha').errors">
+                                                Please verify captcha!</nz-form-explain>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                    <nz-form-item nz-row class="register-area">
+                                        <nz-form-control [nzSpan]="14" [nzOffset]="6">
+                                            <label nz-checkbox formControlName="agree">
+                                                <span>I have read the <a>agreement</a></span>
+                                            </label>
+                                            <nz-form-explain
+                                                *ngIf="signupForm.get('agree').dirty && signupForm.get('agree').errors">
+                                                Please agree terms!</nz-form-explain>
+                                        </nz-form-control>
+                                    </nz-form-item>
+
+                                    <nz-form-item>
+                                        <nz-form-control>
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <!-- <span class="font-size-13 text-muted">Don't have an account? <a class="small" [routerLink]="['/authentication/sign-up-1']"> Signup</a></span> -->
+                                                <button [nzLoading]="isLoading1" nz-button class="login-form-button"
+                                                [disabled]="duplicateUser || invalidId || invlidCaptcha || !signupForm.valid"
+                                                    [nzType]="'primary'">Sign Up</button>
+                                            </div>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </form>
+                                <ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
+                                <ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>
+                            </nz-tab>
+                        </nz-tabset>
                     </div>
-                </div>  
+                </div>
             </div>
         </div>
     </div>

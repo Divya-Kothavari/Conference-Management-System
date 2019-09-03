@@ -172,7 +172,8 @@ export class ProfileComponent {
                         console.log(err);
                     }
                 );
-                   this.uploadUrl= `http://localhost:8081/cmsusermgmt/userMgmt/user/profileImage/${this.userDetails.userId}`
+                   this.uploadUrl= `http://localhost:8081/cmsusermgmt/userMgmt/user/profileImage/${this.userDetails.userId}`;
+                   this.getImageFromService();
                 }
             },
             err => {
@@ -240,7 +241,7 @@ createImageFromBlob(image: Blob) {
    reader.readAsDataURL(image);
    reader.addEventListener("load", () => {
     
-      this.imageToShow = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,' + reader.result);
+      this.imageToShow = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());
       
    }, false);
 }

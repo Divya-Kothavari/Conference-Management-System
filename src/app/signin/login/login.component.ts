@@ -20,6 +20,9 @@ export class LoginComponent {
     signupForm: FormGroup;
    isLoading = false;
    isLoading1 = false;
+   invalidId = false;
+   duplicateUser = false;
+   invlidCaptcha = false;
    listofregions = [];
    listofcountries = [];
    listofroles = [];
@@ -64,7 +67,7 @@ export class LoginComponent {
 
     ngOnInit(): void {
         this.getRegionsList();
-        this.getCountriesList();
+        // this.getCountriesList();
         this.getRolesList();
         this.getSubjectsList();
 
@@ -82,7 +85,7 @@ export class LoginComponent {
             interestedSubjects :  [ null, [ Validators.required ] ],
             insteresedAs:  [ null, [ Validators.required ] ],
             captcha: [null, [Validators.required]],
-            agree: [false]
+            agree: [false, [Validators.required]]
         });
         this.commonService.userData.subscribe(data =>{
             console.log(data);
@@ -91,27 +94,69 @@ export class LoginComponent {
     private updateUser(user) {
         this.commonService.updateUserData(user);
     }
-
+    resolved(e) {
+        if (e) {
+           this.invlidCaptcha = false;
+        } else {
+            this.invlidCaptcha = true;
+        }
+    }
     submitSignup() {
         for (const i in this.signupForm.controls) {
             this.signupForm.controls[ i ].markAsDirty();
             this.signupForm.controls[ i ].updateValueAndValidity();
-        }  
+        } 
+        
+        const userBean = {
+            userId:  this.signupForm.value.userId,
+            userName: this.signupForm.value.userName,
+            email: this.signupForm.value.email,
+            mobile: this.signupForm.value.phoneNumber,
+        };
+        this.http.post(
+            `${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/user`, userBean
+        ).subscribe(
+            (resp: any) =>{
+                this.isLoading = false;
+                if(resp.status == 'Success'){
+                    this.message.success(resp.message);
+                    this.http.post(`http://localhost:8081/cmsusermgmt/userMgmt/userRoles/${this.signupForm.value.userId}`, 'Author').subscribe(
+                (resp: any) =>{
+                     if (resp.status === 'Success') {
+                         console.log(resp);
+                    }
+                },
+                err => {
+                     console.log(err);
+                }
+            );
+                }
+                if(resp.status == 'Error'){
+                    this.message.error(resp.errorMessage);
+                }
+                this.signupForm.reset()
+             },
+            err => {
+                this.isLoading = false;
+                console.log(err);
+            }
+        )
     }
     getRolesList(){
-        this.http.get(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/role`).subscribe(
-        (resp: any) =>{
-            if (resp.status === 'Success') {
-                this.listofroles = [];
-                resp.roles.forEach(element => {
-                    this.listofroles.push(element.roleName);
-                });
-            }
-        },
-        err => {
-            console.log(err);
-        }
-    )
+    //     this.http.get(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/role`).subscribe(
+    //     (resp: any) =>{
+    //         if (resp.status === 'Success') {
+    //             this.listofroles = [];
+    //             resp.roles.forEach(element => {
+    //                 this.listofroles.push(element.roleName);
+    //             });
+    //         }
+    //     },
+    //     err => {
+    //         console.log(err);
+    //     }
+    // )
+    this.listofroles = ['Editor', 'Reviewer'];
     }
     getSubjectsList() {
         this.http.get(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/subject`).subscribe(
@@ -135,7 +180,7 @@ export class LoginComponent {
                 if (resp.status === 'Success') {
                 this.listofregions = [];
                 resp.regions.forEach(element => {
-                    this.listofregions.push(element.regionName);
+                    this.listofregions.push({name: element.regionName, code: element.regionCode});
                 });
             }
             },
@@ -146,7 +191,7 @@ export class LoginComponent {
     }
 
     getCountriesList() {
-        this.http.get(`${apiUrl}${portLocations}/cmslocations/locations/country`).subscribe(
+        this.http.get(`${apiUrl}${portLocations}/cmslocations/locations/countries/${this.signupForm.value.region}`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     this.listofcountries = [];
@@ -159,5 +204,34 @@ export class LoginComponent {
                 console.log(err);
             }
     )
+    }
+    validateUserId(e) {
+       if (e.code === 'Space') {
+        this.invalidId = true;
+        e.preventDefault();
+       } else {
+           this.invalidId = false;
+       }
+    }
+
+    duplicateCheck() {
+        this.http.get(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/users`).subscribe(
+            (resp: any) =>{
+                if (resp.status === 'Success') {
+                    let usersList = [];
+                    resp.users.forEach(user => {
+                        usersList.push(user.userId);
+                    });
+                    if (usersList.indexOf(this.signupForm.value.userId) === -1) {
+                        this.duplicateUser = false;
+                    } else {
+                        this.duplicateUser = true;
+                    }
+                }
+            },
+            err => {
+                console.log(err);
+            }
+        )
     }
 }    
