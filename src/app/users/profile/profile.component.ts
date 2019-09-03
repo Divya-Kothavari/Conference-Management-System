@@ -239,7 +239,9 @@ createImageFromBlob(image: Blob) {
    let reader = new FileReader();
    reader.readAsDataURL(image);
    reader.addEventListener("load", () => {
+    
       this.imageToShow = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,' + reader.result);
+      
    }, false);
 }
 getImageFromService() {
