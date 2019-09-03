@@ -16,10 +16,10 @@ const portUsermgmt = environment.portUsermgmt;
 const portJournalmgmt = environment.portJournalmgmt;
 
 @Component({
-    templateUrl: './profile.component.html'
+    templateUrl: './profile-view.component.html'
 })
 
-export class ProfileComponent {
+export class ProfileViewComponent {
     changePWForm: FormGroup;
     uploadUserPath: string = "http://themenate.com/applicator/dist/assets/images/avatars/thumb-13.jpg";
     selectedCountry: any;

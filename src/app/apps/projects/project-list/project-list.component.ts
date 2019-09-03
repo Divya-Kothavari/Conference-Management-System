@@ -2,6 +2,9 @@ import { Component, TemplateRef } from '@angular/core';
 import { AppsService } from '../../../shared/services/apps.service';
 import { NzModalService } from 'ng-zorro-antd';
 import { ProjectList } from '../../../shared/interfaces/project-list.type';
+ import { Mail } from '../../../shared/interfaces/mail.type';
+ import { ThemeConstantService } from '../../../shared/services/theme-constant.service';
+
 
 @Component({
     templateUrl: './project-list.component.html'

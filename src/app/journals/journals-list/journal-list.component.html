@@ -96,7 +96,7 @@
     </div>
     <div class="container-fluid">
         <div class="row" *ngIf="view == 'cardView' && dataAvailable">
-            <div class="col-md-3" *ngFor="let item of listOfAllJournals">
+            <div class="col-md-6" *ngFor="let item of listOfAllJournals">
                 <nz-card>
                     <div class="d-flex justify-content-between">
                         <div class="media">
@@ -104,7 +104,7 @@
                             <div class="m-l-10">
                                 <h5 class="m-b-0">{{item.journalName}}</h5>
                                 <span class="text-muted font-size-13">{{item.issnNumber}}</span>
-                            </div>
+                             </div>
                         </div>
                         <div>
                             <a class="text-gray font-size-18" nz-dropdown nzPlacement="bottomRight" nzTrigger="click" [nzDropdownMenu]="projectListSetting">
@@ -135,11 +135,11 @@
                             </nz-dropdown-menu>
                         </div>
                     </div>
-                    <p class="m-t-25">{{item.desc}}</p>
+                    <p class="m-t-25">{{item.aboutJournal}}</p>
                     <div class="m-t-30">
                         <div class="d-flex justify-content-between">
-                            <span class="font-weight-semibold">Progress</span>
-                            <span class="font-weight-semibold">{{item.progress}}%</span>
+                            <span class="font-weight-semibold">Assigned Users</span>
+                            <span class="font-weight-semibold">{{item.progress}}</span>
                         </div>
                         <nz-progress *ngIf="item.status !== 'Behind'" [nzPercent]="item.progress" [nzShowInfo]="false" nzSize="small"></nz-progress>
                         <nz-progress *ngIf="item.status == 'Behind'" [nzPercent]="item.progress" [nzShowInfo]="false" nzSize="small" nzStatus="exception"></nz-progress>
@@ -155,6 +155,7 @@
                                 <a routerLinkActive="router-link-active"  class="m-r-5" *ngFor="let item of (item.member ? item.member.slice(0,2): [])">
                                     <nz-avatar  nzSize="small" [nzSrc]="item.avatar" nz-tooltip [nzTitle]="item.name"></nz-avatar>
                                 </a>
+                                <nz-avatar class="font-size-11 text-dark" nzSize="small"></nz-avatar>
                                 <!-- <a *ngIf="item.member.length > 2">
                                     <nz-avatar class="font-size-11 text-dark" nzSize="small" [nzText]="'+' + [item.member.length - 2].toString()" nz-tooltip [nzTitle]="[item.member.length - 2].toString() + ' More'"></nz-avatar>
                                 </a> -->

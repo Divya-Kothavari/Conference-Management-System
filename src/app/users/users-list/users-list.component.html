@@ -64,7 +64,7 @@
                     <span *ngIf="item.status ==  false"  class="text-capitalize"> Inactive</span>
                 </td>
                 <td class="text-md-right">
-                        <a aria-readonly="true" [routerLink]="['/users/profile', item.userId]" class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Preview" nzPlacement="bottom">
+                        <a aria-readonly="true" [routerLink]="['/users/profile-preview', item.userId]" class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Preview" nzPlacement="bottom">
                             <i nz-icon type="eye" theme="outline"></i>
                         </a>
                     <a aria-readonly="true" [routerLink]="['/users/profile', item.userId]" class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom">

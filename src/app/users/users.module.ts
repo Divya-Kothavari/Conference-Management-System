@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersListComponent } from './users-list/users-list.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ProfileViewComponent } from './profile/profile-view.component';
+
 import { TableService } from '../shared/services/table.service';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -22,7 +24,8 @@ import { NzInputModule } from 'ng-zorro-antd/input';
     ],
     declarations: [
         UsersListComponent,
-        ProfileComponent
+        ProfileComponent,
+        ProfileViewComponent
     ],
     providers: [
         TableService

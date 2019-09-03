@@ -236,4 +236,5 @@ export class JournalDetailsComponent {
     onHtmlEditorKeyUpGuidlines(e) {
         this.journalDetails.guidlines = e;
     }
+    
 }    
