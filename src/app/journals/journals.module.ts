@@ -7,6 +7,7 @@ import { CoreModule } from '../core/core.module';
 import { JournalListComponent } from './journals-list/journal-list.component';
 import { AppsService } from '../shared/services/apps.service';
 import { JournalDetailsComponent } from './journal-details/journal-details.component';
+import { QuillModule } from 'ngx-quill';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { JournalDetailsComponent } from './journal-details/journal-details.compo
         SharedModule,
         CoreModule,
         ReactiveFormsModule,
-        JournalsRoutingModule
+        JournalsRoutingModule,
+        QuillModule
     ],
     declarations: [
         JournalListComponent,
