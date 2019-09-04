@@ -16,14 +16,20 @@ export class SideNavComponent{
     constructor( private themeService: ThemeConstantService) {}
 
     ngOnInit(): void {
-        let role = window.localStorage.getItem('role');
-
-        // if (role === 'Admin') {
-        //     this.menuItems = ROUTES.filter(menuItem => menuItem.title === 'Journals') ;
-        // } 
-        // if (role === 'SuperAdmin') {
-        //     this.menuItems = ROUTES.filter(menuItem => menuItem); 
-        // }
+        let roles = window.localStorage.getItem('role');
+         const userroles = roles.split(',');
+         if (userroles.includes('SuperAdmin')) {
+            this.menuItems = ROUTES.filter(menuItem => menuItem); 
+         } else if (userroles.includes('Admin')) {
+            this.menuItems = ROUTES.filter(menuItem => menuItem.title === 'Journals') ;
+         } else if (userroles.includes('Author')) {
+            this.menuItems = ROUTES.filter(menuItem => menuItem.title === 'Journals') ;
+         } else if (userroles.includes('Editor')) {
+            this.menuItems = ROUTES.filter(menuItem => menuItem.title === 'Journals') ;
+         } else if (userroles.includes('Reviewer')) {
+            this.menuItems = ROUTES.filter(menuItem => menuItem.title === 'Journals') ;
+         }
+        
         this.menuItems = ROUTES.filter(menuItem => menuItem); 
         this.themeService.isMenuFoldedChanges.subscribe(isFolded => this.isFolded = isFolded);
         this.themeService.isSideNavDarkChanges.subscribe(isDark => this.isSideNavDark = isDark);
