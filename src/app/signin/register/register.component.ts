@@ -113,6 +113,8 @@ export class RegisterComponent {
             userName: this.signupForm.value.userName,
             email: this.signupForm.value.email,
             mobile: this.signupForm.value.phoneNumber,
+            password: this.signupForm.value.password,
+            active: true
         };
         this.http.post(
             `${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/user`, userBean
