@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
  import { JournalListComponent } from './journals-list/journal-list.component';
  import { JournalDetailsComponent } from './journal-details/journal-details.component';
-
+ import { JournalViewComponent } from './journal-view/journal-view.component';
 
  const routes: Routes = [
     {
@@ -18,6 +18,13 @@ import { Routes, RouterModule } from '@angular/router';
         component: JournalDetailsComponent,
         data: {
             title: 'Journal Details'
+        }
+    },
+    {
+        path: 'journal-view/:id',
+        component: JournalViewComponent,
+        data: {
+            title: 'Journal Preview'
         }
     }
  ];

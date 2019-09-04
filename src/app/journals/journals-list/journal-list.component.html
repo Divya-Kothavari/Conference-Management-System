@@ -112,8 +112,8 @@
                             </a>
                             <nz-dropdown-menu #projectListSetting="nzDropdownMenu">
                                 <ul nz-menu nzSelectable>
-                                    <li nz-menu-item>
-                                        <a [routerLink]="['/apps/projects/project-details']">
+                                    <li nz-menu-item  [routerLink]="['journal-view', item.journalShortName]">
+                                        <a>
                                             <i nz-icon type="eye" theme="outline"></i>
                                             <span class="m-l-10">View</span>
                                         </a>
