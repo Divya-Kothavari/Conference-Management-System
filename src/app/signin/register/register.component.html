@@ -74,6 +74,17 @@
                                     </nz-form-control>
                                 </nz-form-item>
                                 <nz-form-item>
+                                        <nz-form-label nzRequired nzFor="Password">Password</nz-form-label>
+                                        <nz-form-control>
+                                            <nz-input-group>
+                                                <input type="password" nz-input formControlName="password" placeholder="Enter Password">
+                                            </nz-input-group>
+                                            <nz-form-explain
+                                                *ngIf="signupForm.get('password').dirty && signupForm.get('password').errors">
+                                                Please input your Password!</nz-form-explain>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                <nz-form-item>
                                     <nz-form-label nzRequired nzFor="phoneNumber">Phone Number</nz-form-label>
                                     <nz-form-control>
                                         <nz-input-group>
