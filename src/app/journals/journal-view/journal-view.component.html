@@ -83,7 +83,12 @@
             </nz-card>
         </div>
         <div class="col-md-4">
-            <nz-card nzTitle="Editorial Board Members">
+            <nz-card [nzTitle]="EditorialBoardMembers">
+
+                    <ng-template #EditorialBoardMembers>
+                            <div>EB Members <a class="float-right" href=""><i nz-icon nzType="plus-circle" nzTheme="outline"></i> Add EBMebmer</a> </div>
+                    </ng-template>
+
                 <nz-timeline>
                     <nz-timeline-item *ngFor="let item of activityList" [nzDot]="dotTemplate">
                         <div class="m-l-20">
