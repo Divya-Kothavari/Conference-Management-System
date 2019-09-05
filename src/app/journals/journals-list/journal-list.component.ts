@@ -48,15 +48,15 @@ export class JournalListComponent  {
 
     showNewProject(newProjectContent: TemplateRef<{}>) {
         const modal = this.modalService.create({
-            nzTitle: 'Create New Project',
+            nzTitle: 'Create New Journal',
             nzContent: newProjectContent,
             nzFooter: [
                 {
-                    label: 'Create Project',
+                    label: 'Create Journal',
                     type: 'primary',
                     onClick: () => this.modalService.confirm(
                         { 
-                            nzTitle: 'Are you sure you want to create this project?',
+                            nzTitle: 'Are you sure you want to create this Journal?',
                             nzOnOk: () => this.modalService.closeAll()
                         }
                     )
