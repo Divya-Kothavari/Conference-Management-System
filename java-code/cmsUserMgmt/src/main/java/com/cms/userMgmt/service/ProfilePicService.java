@@ -25,7 +25,7 @@ public class ProfilePicService {
 			}
 			profilePic = new Profilepic();
 			profilePic.setUserId(userId);
-			profilePic.setFileName(file.getName());
+			profilePic.setFileName(file.getOriginalFilename());
 			profilePic.setProfilePic(file.getBytes());
 			profilePicRepo.save(profilePic);
 			json.put("status", "Success");
@@ -39,7 +39,6 @@ public class ProfilePicService {
 	
 	
 	public byte[] getUserProfileImage(String userId){
-		JSONObject json = new JSONObject();
 		//Gson gson = new Gson();
 		Profilepic profilePic = profilePicRepo.findByUserId(userId);
 		if(null != profilePic){
@@ -49,13 +48,9 @@ public class ProfilePicService {
 			//json.put("status", "Success");
 			//json.put("message", "Profile picture downloaded successfully");
 			}catch(Exception e){
-				json.put("status", "Error");
-				json.put("message", "Error while downloading profile picture");
 			}
 			//journalJson = (JSONObject)  new JSONParser().parse(gson.toJson(journalModel,Journal.class));
 		}else{
-			json.put("status", "Error");
-			json.put("message", "profile picture not available");
 		}
 		return null;
 	}

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cms.journalMgmt.beans.AbstractingBean;
 import com.cms.journalMgmt.beans.ArticleTypeBean;
@@ -21,6 +22,8 @@ import com.cms.journalMgmt.services.AbstractingService;
 import com.cms.journalMgmt.services.ArticleTypeService;
 import com.cms.journalMgmt.services.EditorialBoardService;
 import com.cms.journalMgmt.services.JournalAbstractingService;
+import com.cms.journalMgmt.services.JournalBannerService;
+import com.cms.journalMgmt.services.JournalPDFService;
 import com.cms.journalMgmt.services.JournalService;
 import com.cms.journalMgmt.services.JournalSubjectService;
 import com.cms.journalMgmt.services.SubjectService;
@@ -52,6 +55,12 @@ public class JournalController {
 	
 	@Autowired
 	JournalSubjectService journalSubjectService;
+	
+	@Autowired
+	JournalPDFService journalPDFService;
+	
+	@Autowired
+	JournalBannerService journalBannerService;
 	
 	@ApiOperation(value = " Sample test service to check health check")
 	@GetMapping("/test")
@@ -250,5 +259,43 @@ public class JournalController {
 	@GetMapping("/subjectJournals/{subjectName}")
 	public String getJournalDetailsForSubject(@PathVariable String subjectName){
 		return journalSubjectService.getSubjectJournals(subjectName);
+	}
+	
+	@PostMapping("/journalPDF/{journalShortName}")
+	public String uploadJournalPDF(@RequestBody MultipartFile file,@PathVariable String journalShortName){
+		return journalPDFService.uploadJournalPDF(file, journalShortName);
+	}
+	
+	@GetMapping("/journalPDFString/{journalShortName}")
+	public String getJournalPDFSrting(@PathVariable String journalShortName){
+		return journalPDFService.getJournalPDFData(journalShortName);
+	}
+	@GetMapping("/journalPDF/{journalShortName}")
+	public byte[] getJournalPDF(@PathVariable String journalShortName){
+		return journalPDFService.getJournalPDF(journalShortName);
+	}
+	
+	@DeleteMapping("/journalPDF/{journalShortName}")
+	public String deleteJournalPDF(@PathVariable String journalShortName){
+		return journalPDFService.deleteJournalPDF(journalShortName);
+	}
+	
+	@PostMapping("/journalBanner/{journalShortName}")
+	public String uploadJournalBanner(@RequestBody MultipartFile file,@PathVariable String journalShortName){
+		return journalBannerService.uploadJournalBanner(file, journalShortName);
+	}
+	
+	@GetMapping("/journalBannerString/{journalShortName}")
+	public String getJournalBannerSrting(@PathVariable String journalShortName){
+		return journalBannerService.getJournalBannerData(journalShortName);
+	}
+	@GetMapping("/journalBanner/{journalShortName}")
+	public byte[] getJournalBanner(@PathVariable String journalShortName){
+		return journalBannerService.getJournalBanner(journalShortName);
+	}
+	
+	@DeleteMapping("/journalBanner/{journalShortName}")
+	public String deleteJournalBanner(@PathVariable String journalShortName){
+		return journalBannerService.deleteJournalBanner(journalShortName);
 	}
 }
