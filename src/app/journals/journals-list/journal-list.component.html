@@ -22,7 +22,7 @@
                             <i class="font-size-16" nz-icon type="ordered-list" theme="outline"></i>
                         </label>
                     </nz-radio-group> 
-                    <button nz-button nzType="primary" (click)="showNewProject(newJournal)">
+                    <button nz-button nzType="primary" (click)="showNewProject(newJournal, newJournalFooter)">
                         <i nz-icon type="plus"></i>
                         <span>Add Journal</span>
                     </button>  
@@ -32,6 +32,9 @@
                                 <nz-form-label>Journal Name</nz-form-label>
                                 <nz-form-control>
                                     <input type="text" nz-input formControlName="journalName" placeholder="Please input journal name">
+                                    <nz-form-explain
+                                    *ngIf="journalForm.get('journalName').dirty && journalForm.get('journalName').errors">
+                                    Please input journal name!</nz-form-explain>
                                 </nz-form-control>
                             </nz-form-item>
                             <div class="row">
@@ -39,7 +42,14 @@
                                     <nz-form-item>
                                         <nz-form-label>Journal Shortname</nz-form-label>
                                         <nz-form-control >
-                                            <input type="text" nz-input placeholder="Please input journal short name">
+                                            <input type="text" nz-input placeholder="Please input journal short name" formControlName="journalShortName"
+                                            (keypress)="validateJournal($event)">
+                                            <nz-form-explain
+                                            *ngIf="journalForm.get('journalShortName').dirty && journalForm.get('journalShortName').errors">
+                                            Please input journal shortname!</nz-form-explain>
+                                            <nz-form-explain class="form-error"
+                                            *ngIf="invalidId">
+                                            Please choose journal shortname without any spaces!</nz-form-explain>
                                         </nz-form-control>
                                     </nz-form-item>
                                 </div>
@@ -47,7 +57,10 @@
                                     <nz-form-item>
                                         <nz-form-label>Journal Email-id</nz-form-label>
                                         <nz-form-control >
-                                            <input type="text" nz-input placeholder="Please input journal email id">
+                                            <input type="text" nz-input placeholder="Please input journal email id" formControlName="journalEmail">
+                                            <nz-form-explain
+                                            *ngIf="journalForm.get('journalEmail').dirty && journalForm.get('journalEmail').errors">
+                                            Please input journal email!</nz-form-explain>
                                         </nz-form-control>
                                     </nz-form-item>
                                 </div>
@@ -55,7 +68,10 @@
                             <nz-form-item>
                                 <nz-form-label>About Journal</nz-form-label>
                                 <nz-form-control >
-                                    <textarea nz-input></textarea>
+                                    <textarea nz-input formControlName="aboutJounal"></textarea>
+                                    <nz-form-explain
+                                    *ngIf="journalForm.get('aboutJounal').dirty && journalForm.get('aboutJounal').errors">
+                                    Please input about journal!</nz-form-explain>
                                 </nz-form-control>
                             </nz-form-item>
                             <div class="row">
@@ -68,12 +84,15 @@
                                             class="w-100"
                                             nzMode="multiple"
                                             nzPlaceHolder="Assign subject"
-                                            [(ngModel)]="selectedSubject"
+                                            formControlName="subject"
                                         >
                                             <ng-container *ngFor="let option of subjectsList">
                                                 <nz-option [nzLabel]="option" [nzValue]="option" ></nz-option>
                                             </ng-container>
                                         </nz-select>
+                                        <nz-form-explain
+                                        *ngIf="journalForm.get('subject').dirty && journalForm.get('subject').errors">
+                                        Please select subject!</nz-form-explain>
                                             </nz-form-control>
                                         </nz-form-control>
                                     </nz-form-item>
@@ -86,12 +105,15 @@
                                             class="w-100"
                                             nzMode="multiple"
                                             nzPlaceHolder="Assign user"
-                                            [(ngModel)]="selectedUser"
+                                            formControlName="primayUser"
                                         >
                                             <ng-container *ngFor="let option of adminsList">
                                                 <nz-option [nzLabel]="option" [nzValue]="option" ></nz-option>
                                             </ng-container>
                                         </nz-select>
+                                        <nz-form-explain
+                                        *ngIf="journalForm.get('primayUser').dirty && journalForm.get('primayUser').errors">
+                                        Please assign user!</nz-form-explain>
                                         </nz-form-control>
                                     </nz-form-item>
                                 </div>
@@ -104,6 +126,10 @@
                             </nz-form-item> -->
                         </form>
                     </ng-template>
+                    <ng-template #newJournalFooter>
+                        <button nz-button nzType="default" (click)="handleCancelJournal()">Cancel</button>
+                        <button [nzLoading]="isLoading" nz-button nzType="primary" [disabled]="!journalForm.valid || invalidId" (click)="addJournal()">Create Journal</button>
+                      </ng-template>
                 </div>
             </div>
         </div>

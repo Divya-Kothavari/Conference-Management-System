@@ -18,8 +18,7 @@ const portLocations = environment.portLocations;
 export class RegisterComponent {
     loginForm: FormGroup;
     signupForm: FormGroup;
-   isLoading = false;
-   isLoading1 = false;
+    isLoading = false;
    invalidId = false;
    duplicateUser = false;
    invlidCaptcha = false;
@@ -27,38 +26,6 @@ export class RegisterComponent {
    listofcountries = [];
    listofroles = [];
    listofsubjects = [];
-    submitForm(): void {
-        this.isLoading = true;
-        for (const i in this.loginForm.controls) {
-            this.loginForm.controls[ i ].markAsDirty();
-            this.loginForm.controls[ i ].updateValueAndValidity();
-        }       
-        const userBean = {
-            password: this.loginForm.value.password,
-            userId:  this.loginForm.value.userName,
-        };
-        this.http.post(
-            'http://localhost:8081/cmsusermgmt/userMgmt/login', userBean
-        ).subscribe(
-            (resp: any) =>{
-              this.isLoading = false;
-               if (resp.status === 'Error') {
-                   this.message.error(resp.message);
-               } else if (resp.status === 'Success') {
-                  this.updateUser(resp.user);
-                   window.localStorage.setItem('is_loggedin', 'true');
-                   window.localStorage.setItem('user', resp.user.userName);
-                   window.localStorage.setItem('role', resp.user.roles);
-                   window.localStorage.setItem('userid', resp.user.userId);
-                   this.route.navigate(['/users']);
-               }
-            },
-            err => {
-                this.isLoading = false;
-               this.message.error(err);
-            }
-        )
-    }
 
     constructor(private fb: FormBuilder, private http: HttpClient, private route: Router, 
         private message: NzMessageService,
@@ -103,6 +70,7 @@ export class RegisterComponent {
         }
     }
     submitSignup() {
+        this.isLoading = true;
         for (const i in this.signupForm.controls) {
             this.signupForm.controls[ i ].markAsDirty();
             this.signupForm.controls[ i ].updateValueAndValidity();
@@ -126,7 +94,7 @@ export class RegisterComponent {
                     this.http.post(`http://localhost:8081/cmsusermgmt/userMgmt/userRoles/${this.signupForm.value.userId}`, 'Author').subscribe(
                 (resp: any) =>{
                      if (resp.status === 'Success') {
-                         console.log(resp);
+                        this.route.navigate(['/signin/login']);
                     }
                 },
                 err => {

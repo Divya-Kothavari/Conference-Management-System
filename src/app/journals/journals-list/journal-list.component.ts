@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { NzMessageService } from 'ng-zorro-antd';
 import { CommonService } from 'src/app/shared/services/common.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 const apiUrl = environment.apiUrl;
 const portUsermgmt = environment.portUsermgmt;
@@ -25,6 +26,8 @@ export class JournalListComponent  {
     newProject: boolean = false;
     // projectList: ProjectList[];
     journal: object;
+    invalidId = false;
+    journalForm: FormGroup;
     selectedJournal;
     isVisible = false;
     loading: boolean;
@@ -35,19 +38,24 @@ export class JournalListComponent  {
     subjectForm: any;
     isLoading = false;
     editmode = false;
-
-    constructor (private projectListSvc: AppsService, private modalService: NzModalService, private http: HttpClient, private message: NzMessageService,
+  journalmodal;
+    constructor (private projectListSvc: AppsService, 
+        private fb: FormBuilder,
+        private modalService: NzModalService, private http: HttpClient, private message: NzMessageService,
         private commonService: CommonService) {}
 
     ngOnInit(): void {
-        // this.projectListSvc.getProjectListJson().subscribe(data => {
-        //     this.listOfAllJournals = data;
-        // })
 
+        this.journalForm = this.fb.group({
+            journalName: [ null, [ Validators.required ] ],
+            journalShortName: [ null, [ Validators.required ] ],
+            journalEmail: [ null, [Validators.email, Validators.required] ],
+            aboutJounal:  [ null, [ Validators.required ] ],
+            subject :  [ null, [ Validators.required ] ],
+            primayUser: [null, [Validators.required]],
+        });
+       
         this.getJournalsList();
-        // this.commonService.userData.subscribe(data =>{
-        //     this.journal = data;
-        // });
 
         this.http.get(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/subject`).subscribe(
             (resp: any) =>{
@@ -75,70 +83,58 @@ export class JournalListComponent  {
        
     }
 
-    showNewProject(newProjectContent: TemplateRef<{}>) {
-        const modal = this.modalService.create({
+    showNewProject(newProjectContent: TemplateRef<{}>, newProjectFooter: TemplateRef<{}>) {
+        this.journalmodal = this.modalService.create({
             nzTitle: 'Create New Journal',
             nzContent: newProjectContent,
-            nzFooter: [
-                {
-                    label: 'Create Journal',
-                    type: 'primary',
-                    onClick: () => this.modalService.confirm(
-                        { 
-                            nzTitle: 'Are you sure you want to create this Journal?',
-                            nzOnOk: () => this.modalService.closeAll()
-                        }
-                    )
-                },
-            ],
+            nzFooter: newProjectFooter,
             nzWidth: 800
         })    
     }
+    handleCancelJournal() {
+       this.journalmodal.destroy();
+       this.journalForm.reset();
+    }
 
     addJournal() {
-        if (this.editmode) {
             this.isLoading = true;
-            const role = {
-                journalName: this.subjectForm.value.journalName,
-                journalShortName: this.subjectForm.value.journalShortName,
-                
+            const journal = {
+                journalName: this.journalForm.value.journalName,
+                journalShortName: this.journalForm.value.journalShortName,
+                journalEmail: this.journalForm.value.journalEmail,
+                aboutJournal: this.journalForm.value.aboutJounal,
+                journalPrimaryAdmin: this.journalForm.value.primayUser
             }
-            this.http.put(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/role`, role).subscribe(
+            this.http.post(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journal`, journal).subscribe(
             (resp: any) =>{
                 this.isLoading = false;
                 if (resp.status === 'Success') {
                     this.message.success(resp.message);
-                    this.handleCancel();
-                    this.editmode = false;
-                }
-            },
-            err => {
-                console.log(err);
-            }
-        )
-        } else {
-            this.isLoading = true;
-            const role = {
-                roleName: this.subjectForm.value.roleName,
-                roleDescription: this.subjectForm.value.roleDescription
-            }
-            this.http.post(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/role`, role).subscribe(
-            (resp: any) =>{
-                this.isLoading = false;
-                if (resp.status === 'Success') {
-                    this.message.success(resp.message);
-                    this.handleCancel();
+                    this.http.post(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journalSubjects/${this.journalForm.value.journalShortName}/${this.journalForm.value.subject}`, {}).subscribe(
+                        (resp: any) =>{
+                            if (resp.status === 'Success') {
+                                this.handleCancelJournal();
+                                this.getJournalsList();
+                             }
+                            if (resp.status === 'Error') {
+                                this.message.error(resp.message);
+                                this.handleCancelJournal();
+                             }
+                        },
+                        err => {
+                            console.log(err);
+                        }
+                    )
                  }
                 if (resp.status === 'Error') {
                     this.message.error(resp.message);
-                    this.handleCancel();
+                    this.handleCancelJournal();
                  }
             },
             err => {
                 console.log(err);
             }
         )
-        }
     }
 
     
@@ -164,30 +160,37 @@ export class JournalListComponent  {
             this.modalService.confirm({
               nzTitle: 'Confirm',
               nzContent: 'Are you sure you want to delete this journal?',
-              nzOkText: 'OK',
-              nzCancelText: 'Cancel'
-            });
-          }
-          handleOk(): void {
-            this.http.delete(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journal/${this.selectedJournal}`).subscribe(
-                (resp: any) =>{
-                    if (resp.status === 'Success') {
-                       this.message.success(resp.message);
-                       this.getJournalsList();
+              nzOnOk: () => {
+                this.http.delete(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journal/${this.selectedJournal}`).subscribe(
+                    (resp: any) =>{
+                        if (resp.status === 'Success') {
+                           this.message.success(resp.message);
+                           this.getJournalsList();
+                        }
+                    },
+                    err => {
+                        console.log(err);
                     }
-                },
-                err => {
-                    console.log(err);
-                }
-            )
-            this.isVisible = false;
-          }
-        
-          handleCancel(): void {
-            this.isVisible = false;
+                )
+                this.isVisible = false;
+              },
+            nzOnCancel: () => {
+                this.isVisible = false;
+            }
+
+            });
           }
 
           showModal(): void {
             this.isVisible = true;
+          }
+          validateJournal(e) 
+          {
+            if (e.code === 'Space') {
+                this.invalidId = true;
+                e.preventDefault();
+               } else {
+                   this.invalidId = false;
+               }
           }
 }

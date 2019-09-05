@@ -180,11 +180,11 @@
                                 </nz-form-item>
                                 <nz-form-item nz-row class="register-area">
                                     <nz-form-control [nzSpan]="14">
-                                        <label requaired nz-checkbox formControlName="agree">
+                                        <label required nz-checkbox formControlName="agree">
                                             <span>I have read the <a>agreement</a></span>
                                         </label>
                                         <nz-form-explain
-                                            *ngIf="signupForm.get('agree').dirty && signupForm.get('agree').errors">
+                                            *ngIf="signupForm.get('agree').dirty && signupForm.get('agree').errors || !signupForm.get('agree')" >
                                             Please agree terms!</nz-form-explain>
                                     </nz-form-control>
                                 </nz-form-item>
@@ -193,8 +193,8 @@
                                     <nz-form-control>
                                         <div class="d-flex align-items-center justify-content-between">
                                             <!-- <span class="font-size-13 text-muted">Don't have an account? <a class="small" [routerLink]="['/authentication/sign-up-1']"> Signup</a></span> -->
-                                            <button [nzLoading]="isLoading1" nz-button class="login-form-button"
-                                            [disabled]="duplicateUser || invalidId || invlidCaptcha || !signupForm.valid"
+                                            <button [nzLoading]="isLoading" nz-button class="login-form-button"
+                                            [disabled]="duplicateUser || invalidId || invlidCaptcha || !signupForm.valid || !signupForm.value.agree"
                                                 [nzType]="'primary'">Sign Up</button>
                                         </div>
                                     </nz-form-control>
