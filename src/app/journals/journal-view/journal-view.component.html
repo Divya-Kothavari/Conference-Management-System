@@ -86,8 +86,54 @@
             <nz-card [nzTitle]="EditorialBoardMembers">
 
                     <ng-template #EditorialBoardMembers>
-                            <div>EB Members <a class="float-right" href=""><i nz-icon nzType="plus-circle" nzTheme="outline"></i> Add EBMebmer</a> </div>
+                            <div>EB Members <a (click)="isVisibleEbmember = true" class="float-right" href="Javascript:void("><i nz-icon nzType="plus-circle" nzTheme="outline"></i> Add EBMebmer</a> </div>
                     </ng-template>
+
+
+                    <nz-modal [(nzVisible)]="isVisibleEbmember" (nzOnCancel)="handleCancelEbmmeber()"
+                    [nzFooter]="modalFooterEbmember" nzTitle="Add/Edit EBMebmer">
+                        <form nz-form [formGroup]="ebmemberForm">
+                                <nz-form-item>
+                                        <nz-form-label nzFor="Country Name">Country Name</nz-form-label>
+                                        <nz-form-control>
+                                            <input formControlName="countryName" nz-input type="text" placeholder="Country Name">
+                                            <nz-form-explain *ngIf="ebmemberForm.get('countryName').dirty && ebmemberForm.get('countryName').errors">Please input Country Name!</nz-form-explain>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                     <nz-form-item>
+                                        <nz-form-label nzFor="countryCode">Country Code</nz-form-label>
+                                        <nz-form-control>
+                                            <input formControlName="countryCode" disabled="editmode" nz-input type="text" placeholder="Country Code">
+                                            <nz-form-explain *ngIf="ebmemberForm.get('countryCode').dirty && ebmemberForm.get('countryCode').errors">Please input country Code!</nz-form-explain>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                      <nz-form-item>
+                                          <nz-form-label nzFor="regionCode">Region Code</nz-form-label>
+                                          <nz-form-control>
+                                          <nz-select formControlName="regionCode"  nzShowSearch  nzPlaceHolder="Select a region" [(ngModel)]="selectedRegion">
+                                                  <nz-option *ngFor="let region of listOfRegions" [nzLabel]="region.regionCode" [nzValue]="region.regionCode"></nz-option>
+                                              </nz-select>
+                                              <nz-form-explain *ngIf="ebmemberForm.get('regionCode').dirty && ebmemberForm.get('regionCode').errors">Please input Region Code!</nz-form-explain>
+                                          </nz-form-control>
+                                      </nz-form-item>
+                                      <nz-form-item>
+                                              <nz-form-label nzFor="regionCode">Economic Status</nz-form-label>
+                                              <nz-form-control>
+                                                      <nz-select formControlName="economicStatus"  nzShowSearch  nzPlaceHolder="Select economic status" [(ngModel)]="selectedStatus">
+                                                              <nz-option nzLabel="Low" nzValue="Low"></nz-option>
+                                                              <nz-option nzLabel="Middle" nzValue="Middle"></nz-option>
+                                                              <nz-option nzLabel="High" nzValue="High"></nz-option>
+                                                          </nz-select>
+                                                          <nz-form-explain *ngIf="ebmemberForm.get('economicStatus').dirty && ebmemberForm.get('economicStatus').errors">Please input economic status!</nz-form-explain>
+                                              </nz-form-control>
+                                      </nz-form-item>     
+                        </form>
+                          <ng-template #modalFooterEbmember>
+                            <button nz-button nzType="default" (click)="handleCancelEbmember()">Cancel</button>
+                            <button [nzLoading]="isLoadingEbmember" nz-button nzType="primary" [disabled]="!ebmemberForm.valid" (click)="addEbmember()">Add</button>
+                          </ng-template>
+                      </nz-modal>
+
 
                 <nz-timeline>
                     <nz-timeline-item *ngFor="let item of activityList" [nzDot]="dotTemplate">

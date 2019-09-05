@@ -11,6 +11,8 @@ import { environment } from '../../../environments/environment';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 
+
+
 const apiUrl = environment.apiUrl;
 const portUsermgmt = environment.portUsermgmt;
 const portJournalmgmt = environment.portJournalmgmt;
@@ -24,6 +26,9 @@ export class JournalViewComponent {
     journalDetails;
     selectedUser;
     dataAvailable = false;
+    isLoadingEbmember = false;
+    isVisibleEbmember;
+
     constructor(private fb: FormBuilder, private modalService: NzModalService, private message: NzMessageService,
         private http: HttpClient,
         private route: ActivatedRoute) {
