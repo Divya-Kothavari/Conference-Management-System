@@ -27,11 +27,11 @@
                         <span>Add Journal</span>
                     </button>  
                     <ng-template #newJournal>
-                        <form nz-form nzLayout="vertical">
+                        <form nz-form nzLayout="vertical" [formGroup]="journalForm">
                             <nz-form-item>
                                 <nz-form-label>Journal Name</nz-form-label>
-                                <nz-form-control >
-                                    <input type="text" nz-input placeholder="Please input journal name">
+                                <nz-form-control>
+                                    <input type="text" nz-input formControlName="journalName" placeholder="Please input journal name">
                                 </nz-form-control>
                             </nz-form-item>
                             <div class="row">
@@ -64,12 +64,16 @@
                                         <nz-form-label>Select Subject</nz-form-label>
                                         <nz-form-control >
                                             <nz-form-control >
-                                                <nz-select class="w-100" nzMode="multiple" nzPlaceHolder="Select Label" >
-                                                    <nz-option nzLabel="Web" nzValue="web"></nz-option>
-                                                    <nz-option nzLabel="Mobile App" nzValue="mobile app"></nz-option>
-                                                    <nz-option nzLabel="Design" nzValue="design"></nz-option>
-                                                    <nz-option nzLabel="Web App" nzValue="web app"></nz-option>
-                                                </nz-select>
+                                                <nz-select
+                                            class="w-100"
+                                            nzMode="multiple"
+                                            nzPlaceHolder="Assign subject"
+                                            [(ngModel)]="selectedSubject"
+                                        >
+                                            <ng-container *ngFor="let option of subjectsList">
+                                                <nz-option [nzLabel]="option" [nzValue]="option" ></nz-option>
+                                            </ng-container>
+                                        </nz-select>
                                             </nz-form-control>
                                         </nz-form-control>
                                     </nz-form-item>
@@ -78,24 +82,16 @@
                                     <nz-form-item>
                                         <nz-form-label>Assign Primary Admin</nz-form-label>
                                         <nz-form-control >
-                                            <nz-select class="w-100" nzMode="multiple" nzShowSearch nzAllowClear nzPlaceHolder="Select Member">
-                                                <nz-option class="d-flex align-items-center" nzCustomContent nzLabel="Erin Gonzales" nzValue="erin gonzales">
-                                                    <nz-avatar nzIcon="user" [nzSize]="25" nzSrc="assets/images/avatars/thumb-1.jpg"></nz-avatar>
-                                                    <span class="m-l-10">Erin Gonzales</span>
-                                                </nz-option>
-                                                <nz-option class="d-flex align-items-center" nzCustomContent nzLabel="Darryl Day" nzValue="darryl day">
-                                                    <nz-avatar nzIcon="user" [nzSize]="25" nzSrc="assets/images/avatars/thumb-2.jpg"></nz-avatar>
-                                                    <span class="m-l-10">Darryl Day</span>
-                                                </nz-option>
-                                                <nz-option class="d-flex align-items-center" nzCustomContent nzLabel="Marshall Nichols" nzValue="marshall nichols">
-                                                    <nz-avatar nzIcon="user" [nzSize]="25" nzSrc="assets/images/avatars/thumb-3.jpg"></nz-avatar>
-                                                    <span class="m-l-10">Marshall Nichols</span>
-                                                </nz-option>
-                                                <nz-option class="d-flex align-items-center" nzCustomContent nzLabel="Virgil Gonzales" nzValue="virgil gonzales">
-                                                    <nz-avatar nzIcon="user" [nzSize]="25" nzSrc="assets/images/avatars/thumb-4.jpg"></nz-avatar>
-                                                    <span class="m-l-10">Virgil Gonzales</span>
-                                                </nz-option>
-                                            </nz-select>
+                                            <nz-select
+                                            class="w-100"
+                                            nzMode="multiple"
+                                            nzPlaceHolder="Assign user"
+                                            [(ngModel)]="selectedUser"
+                                        >
+                                            <ng-container *ngFor="let option of adminsList">
+                                                <nz-option [nzLabel]="option" [nzValue]="option" ></nz-option>
+                                            </ng-container>
+                                        </nz-select>
                                         </nz-form-control>
                                     </nz-form-item>
                                 </div>

@@ -30,6 +30,11 @@ export class JournalListComponent  {
     loading: boolean;
     dataAvailable = false;
     listOfAllJournals = [];
+    subjectsList = [];
+    adminsList = [];
+    subjectForm: any;
+    isLoading = false;
+    editmode = false;
 
     constructor (private projectListSvc: AppsService, private modalService: NzModalService, private http: HttpClient, private message: NzMessageService,
         private commonService: CommonService) {}
@@ -43,6 +48,30 @@ export class JournalListComponent  {
         // this.commonService.userData.subscribe(data =>{
         //     this.journal = data;
         // });
+
+        this.http.get(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/subject`).subscribe(
+            (resp: any) =>{
+                if (resp.status === 'Success') {
+                    resp.subjects.forEach(element => {
+                        this.subjectsList.push(element.subjectName);
+                    });
+                    
+                }
+            },
+            err => {
+                 console.log(err);
+            }
+        );
+        this.http.get(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/users/Admin`).subscribe(
+            (resp: any) =>{
+                if (resp.status === 'Success') {
+                   this.adminsList = resp.userIds;
+                }
+            },
+            err => {
+                console.log(err);
+            }
+        );
        
     }
 
@@ -65,6 +94,54 @@ export class JournalListComponent  {
             nzWidth: 800
         })    
     }
+
+    addJournal() {
+        if (this.editmode) {
+            this.isLoading = true;
+            const role = {
+                journalName: this.subjectForm.value.journalName,
+                journalShortName: this.subjectForm.value.journalShortName,
+                
+            }
+            this.http.put(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/role`, role).subscribe(
+            (resp: any) =>{
+                this.isLoading = false;
+                if (resp.status === 'Success') {
+                    this.message.success(resp.message);
+                    this.handleCancel();
+                    this.editmode = false;
+                }
+            },
+            err => {
+                console.log(err);
+            }
+        )
+        } else {
+            this.isLoading = true;
+            const role = {
+                roleName: this.subjectForm.value.roleName,
+                roleDescription: this.subjectForm.value.roleDescription
+            }
+            this.http.post(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/role`, role).subscribe(
+            (resp: any) =>{
+                this.isLoading = false;
+                if (resp.status === 'Success') {
+                    this.message.success(resp.message);
+                    this.handleCancel();
+                 }
+                if (resp.status === 'Error') {
+                    this.message.error(resp.message);
+                    this.handleCancel();
+                 }
+            },
+            err => {
+                console.log(err);
+            }
+        )
+        }
+    }
+
+    
 
     getJournalsList(){
         this.loading = true;
