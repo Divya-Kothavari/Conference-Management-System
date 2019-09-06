@@ -49,7 +49,19 @@ export class LoginComponent {
                    window.localStorage.setItem('user', resp.user.userName);
                    window.localStorage.setItem('role', resp.user.roles);
                    window.localStorage.setItem('userid', resp.user.userId);
-                   this.route.navigate(['/users']);
+                   let roles = window.localStorage.getItem('role');
+                   const userroles = roles.split(',');
+                   if (userroles.includes('SuperAdmin')) {
+                    this.route.navigate(['/users']);
+                   } else if (userroles.includes('Admin')) {
+                    this.route.navigate(['/journals']);
+                   } else if (userroles.includes('Author')) {
+                    this.route.navigate(['/articles']);
+                   } else if (userroles.includes('Editor')) {
+                    this.route.navigate(['/articles']);
+                   } else if (userroles.includes('Reviewer')) {
+                    this.route.navigate(['/articles']);
+                   }
                }
             },
             err => {

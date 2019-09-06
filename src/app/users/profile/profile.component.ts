@@ -27,7 +27,7 @@ export class ProfileComponent {
     selectedCountry: any;
     selectedLanguage: any;
     userid;
-    userDetails;
+    userDetails: any;
     uploadUrl;
     rolesList =[];
     selectedRole = [];
@@ -161,7 +161,6 @@ export class ProfileComponent {
                 if (resp.status === 'Success') {
                     //console.log(resp.user);
                    this.userDetails = resp.user;
-                   this.dataAvailable = true;
                    this.http.get(`http://localhost:8081/cmsusermgmt/userMgmt/userRoles/${this.userDetails.userId}`).subscribe(
                     (resp: any) =>{
                         if (resp.status === 'Success') {
@@ -174,6 +173,7 @@ export class ProfileComponent {
                 );
                    this.uploadUrl= `http://localhost:8081/cmsusermgmt/userMgmt/user/profileImage/${this.userDetails.userId}`;
                    this.getImageFromService();
+                   this.dataAvailable = true;
                 }
             },
             err => {
@@ -183,10 +183,18 @@ export class ProfileComponent {
         this.http.get(`http://localhost:8081/cmsusermgmt/userMgmt/role`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
+                    const userroles = window.localStorage.getItem('role').split(',');
                     resp.roles.forEach(role => {
-                        if (role.roleName !== 'SuperAdmin') {
-                            this.rolesList.push(role.roleName);
+                        if (userroles.includes('SuperAdmin')) {
+                            if (role.roleName !== 'SuperAdmin') {
+                                this.rolesList.push(role.roleName);
+                            }
+                        } else if (userroles.includes('Admin')) {
+                            if (role.roleName !== 'SuperAdmin' && role.roleName !== 'Admin') {
+                                this.rolesList.push(role.roleName);
+                            }
                         }
+                        
                     });
                 }
             },
@@ -254,8 +262,6 @@ getImageFromService() {
 }
     updateUser() {
         this.isLoading = true;
-        //console.log(this.userDetails.dob);
-        //this.userDetails.dob = this.userDetails.dob.toISOString().split('T')[0];
          const data = {
             userId: this.userDetails.userId,
             userName: this.userDetails.userName,
@@ -270,9 +276,9 @@ getImageFromService() {
         this.http.put('http://localhost:8081/cmsusermgmt/userMgmt/user', data).subscribe(
             (resp: any) =>{
                  if (resp.status === 'Success') {
-                   this.userDetails = resp.user;
                    this.message.success(resp.message);
                    this.isLoading = false;
+                   this.userDetails = data;
                 }
             },
             err => {
@@ -284,7 +290,6 @@ getImageFromService() {
             this.http.post(`http://localhost:8081/cmsusermgmt/userMgmt/userRoles/${this.userDetails.userId}`, userroles).subscribe(
                 (resp: any) =>{
                      if (resp.status === 'Success') {
-                        this.userDetails = resp.user;
                         this.message.success(resp.message);
                         this.isLoading = false;
                     }

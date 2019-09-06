@@ -8,30 +8,38 @@ import { HttpClient, HttpEvent, HttpEventType, HttpRequest, HttpResponse } from 
 import { UploadXHRArgs } from 'ng-zorro-antd/upload';
 import { environment } from '../../../environments/environment';
 
-import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
-
-
 const apiUrl = environment.apiUrl;
 const portUsermgmt = environment.portUsermgmt;
 const portJournalmgmt = environment.portJournalmgmt;
 
 @Component({
-    templateUrl: './profile-view.component.html'
+    templateUrl: './article-details.component.html'
 })
 
-export class ProfileViewComponent {
-    changePWForm: FormGroup;
-    uploadUserPath: string = "http://themenate.com/applicator/dist/assets/images/avatars/thumb-13.jpg";
-    selectedCountry: any;
-    selectedLanguage: any;
-    userid;
-    userDetails;
+export class ArticleDetailsComponent {
+    avatarUrl: string = "http://themenate.com/applicator/dist/assets/images/avatars/thumb-13.jpg";
+    journalid;
+    journalDetails;
     uploadUrl;
     rolesList =[];
-    selectedRole = [];
+    selectedUser = [];
+    selectedSubject = [];
+    adminsList = [];
+    subjectsList = [];
     isLoading = false;
     skeletonLoading = false;
     dataAvailable = false;
+    editorConfig = {
+        toolbar: [
+            ['bold', 'italic', 'underline', 'strike'],        
+            ['blockquote', 'code-block'],
+            [{ 'header': 1 }, { 'header': 2 }],               
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            [{ 'size': ['small', false, 'large', 'huge'] }],  
+            [{ 'align': [] }],
+            ['link', 'image']                        
+        ]
+    };
     networkList = [
         {
             name: 'Facebook',
@@ -146,50 +154,112 @@ export class ProfileViewComponent {
         private http: HttpClient,
         private route: ActivatedRoute) {
             this.route.params.subscribe( params => {
-               this.userid = params.id;
+               this.journalid = params.id;
             } );
     }
 
     ngOnInit(): void {
          //get user by id
-        this.http.get(`http://localhost:8081/cmsusermgmt/userMgmt/user/${this.userid}`).subscribe(
+        this.http.get(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journal/${this.journalid}`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
-                    //console.log(resp.user);
-                   this.userDetails = resp.user;
-                   this.dataAvailable = true;
-                   this.http.get(`http://localhost:8081/cmsusermgmt/userMgmt/userRoles/${this.userDetails.userId}`).subscribe(
-                    (resp: any) =>{
-                        if (resp.status === 'Success') {
-                           this.selectedRole = resp.userRoles.roles.split(',');
-                        }
-                    },
-                    err => {
-                        console.log(err);
-                    }
-                );
-                   this.uploadUrl= `http://localhost:8081/cmsusermgmt/userMgmt/user/profileImage/${this.userDetails.userId}`
+                    console.log(resp.journal);
+                    this.journalDetails = resp.journal;
+                    this.selectedUser = this.journalDetails.journalPrimaryAdmin.split(',');
+                 this.dataAvailable = true;
                 }
             },
             err => {
                  console.log(err);
             }
         );
-        this.http.get(`http://localhost:8081/cmsusermgmt/userMgmt/role`).subscribe(
+        this.http.get(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/users/Admin`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
-                    resp.roles.forEach(role => {
-                        if (role.roleName !== 'SuperAdmin') {
-                            this.rolesList.push(role.roleName);
-                        }
-                    });
+                   this.adminsList = resp.userIds;
                 }
             },
             err => {
                 console.log(err);
             }
         );
+        this.http.get(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/subject`).subscribe(
+            (resp: any) =>{
+                if (resp.status === 'Success') {
+                    resp.subjects.forEach(element => {
+                        this.subjectsList.push(element.subjectName);
+                    });
+                    
+                }
+            },
+            err => {
+                 console.log(err);
+            }
+        );
 
+        this.http.get(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journalSubjects/${this.journalid}`).subscribe(
+            (resp: any) =>{
+                if (resp.status === 'Success') {
+                    resp.journalSubjects.forEach(element => {
+                        this.selectedSubject.push(element.subjectName);
+                    });
+                    
+                }
+            },
+            err => {
+                 console.log(err);
+            }
+        );
     }
 
+    updateJournal() {
+        this.isLoading= true;
+        //console.log(this.journalDetails.journalUpdatedDate);
+        if (this.selectedUser.length !== 0 ) {
+            this.journalDetails.journalPrimaryAdmin = this.selectedUser.join().toString();
+        }
+        this.http.put(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journal`, this.journalDetails).subscribe(
+            (resp: any) =>{
+                this.isLoading= false;
+                if (resp.status === 'Success') {
+                    this.message.success(resp.message);
+                }
+            },
+            err => {
+                 console.log(err);
+            }
+        );
+        if (this.subjectsList.length !== 0) {
+            const data = this.subjectsList.join().toString();
+            this.http.post(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journalSubjects/${this.journalid}/${data}`, {}).subscribe(
+                (resp: any) =>{
+                    if (resp.status === 'Success') {
+                        this.message.success(resp.message);
+                    }
+                },
+                err => {
+                     console.log(err);
+                }
+            );
+        }
+    }
+    onHtmlEditorKeyUpForAboutJornal(e) {
+        this.journalDetails.aboutJournal = e;
+    }
+    onHtmlEditorKeyUpForAimScope(e) {
+        this.journalDetails.aimAndScope = e;
+    }
+    onHtmlEditorKeyUpArticleInpress(e) {
+        this.journalDetails.articleInPressText = e;
+    }
+    onHtmlEditorKeyUpCurrentIssue(e) {
+        this.journalDetails.currentIssueText = e;
+    }
+    onHtmlEditorKeyUpArchivePage(e) {
+        this.journalDetails.archievePageText = e;
+    }
+    onHtmlEditorKeyUpGuidlines(e) {
+        this.journalDetails.guidlines = e;
+    }
+    
 }    

@@ -165,8 +165,10 @@ export class JournalDetailsComponent {
                 if (resp.status === 'Success') {
                     console.log(resp.journal);
                     this.journalDetails = resp.journal;
-                    this.selectedUser = this.journalDetails.journalPrimaryAdmin.split(',');
-                 this.dataAvailable = true;
+                    if (this.journalDetails.journalPrimaryAdmin) {
+                        this.selectedUser = this.journalDetails.journalPrimaryAdmin.split(',');
+                    }                 
+                    this.dataAvailable = true;
                 }
             },
             err => {

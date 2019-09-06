@@ -58,7 +58,14 @@ export class UsersListComponent implements OnInit {
         this.http.get(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/users`).subscribe(
         (resp: any) =>{
             if (resp.status === 'Success') {
-                this.listOfAllData = resp.users;
+                let roles = window.localStorage.getItem('role');
+               const userroles = roles.split(',');
+               if (userroles.includes('SuperAdmin')) {
+                  this.listOfAllData = resp.users;
+               } else if (userroles.includes('Admin')) {
+                //  this.listOfAllData = resp.users.filter(user => user.role !== 'SuperAdmin' && user.role !== 'Admin');
+                 this.listOfAllData = resp.users;
+               }
             }
             this.loading = false;
         },

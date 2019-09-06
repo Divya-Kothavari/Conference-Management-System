@@ -34,7 +34,7 @@
                         <nz-form-item>
                             <nz-form-label>User Name</nz-form-label>
                             <nz-form-control>
-                                <input nz-input placeholder="Username" [(ngModel)]="userDetails.userName">
+                                <input nz-input placeholder="Username" [(ngModel)]="userDetails.userName" [ngModelOptions]="{standalone: true}">
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -42,7 +42,7 @@
                         <nz-form-item>
                             <nz-form-label>Email</nz-form-label>
                             <nz-form-control>
-                                <input nz-input placeholder="Email" type="email" name = "email" [(ngModel)]="userDetails.email">
+                                <input nz-input placeholder="Email" type="email" name = "email" [(ngModel)]="userDetails.email" [ngModelOptions]="{standalone: true}">
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -53,7 +53,7 @@
                         <nz-form-item>
                             <nz-form-label>Phone Number</nz-form-label>
                             <nz-form-control>
-                                <input nz-input placeholder="Phone Number" name="mobile" [(ngModel)]="userDetails.mobile">
+                                <input nz-input placeholder="Phone Number" name="mobile" [(ngModel)]="userDetails.mobile" [ngModelOptions]="{standalone: true}">
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -62,7 +62,7 @@
                             <nz-form-label>Date of Birth</nz-form-label>
                             <nz-form-control>
                                 <nz-date-picker class="w-100" [nzFormat]="yyyy-MM-DD" [nzDisabledTime]="disabledDateTime"
-                                name="dob" [(ngModel)]="userDetails.dob" nzPlaceHolder="Date of Birth"></nz-date-picker>
+                                name="dob" [(ngModel)]="userDetails.dob" nzPlaceHolder="Date of Birth" [ngModelOptions]="{standalone: true}"></nz-date-picker>
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -70,7 +70,7 @@
                         <nz-form-item>
                             <nz-form-label>Gender</nz-form-label>
                             <nz-form-control>
-                            <nz-radio-group [(ngModel)]="userDetails.gender" nzName="radiogroup">
+                            <nz-radio-group [(ngModel)]="userDetails.gender" nzName="radiogroup" [ngModelOptions]="{standalone: true}">
                                     <label nz-radio nzValue="Male">Male</label>
                                     <label nz-radio nzValue="Female">Female</label>
                                     </nz-radio-group>
@@ -89,6 +89,7 @@
                                             nzMode="multiple"
                                             nzPlaceHolder="Assign roles"
                                             [(ngModel)]="selectedRole"
+                                            [ngModelOptions]="{standalone: true}"
                                         >
                                             <ng-container *ngFor="let option of rolesList">
                                                 <nz-option [nzLabel]="option" [nzValue]="option" ></nz-option>
@@ -107,7 +108,7 @@
                         <nz-form-item>
                             <nz-form-label>Address</nz-form-label>
                             <nz-form-control>
-                                    <textarea rows="3"  nz-input placeholder="Address" name="address" [(ngModel)]="userDetails.address"></textarea>
+                                    <textarea rows="3"  nz-input placeholder="Address" name="address" [(ngModel)]="userDetails.address" [ngModelOptions]="{standalone: true}"></textarea>
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -117,7 +118,7 @@
                         <nz-form-item>
                             <nz-form-label>Biography</nz-form-label>
                             <nz-form-control>
-                                    <textarea rows="3" nz-input placeholder="Biography" name="biography" [(ngModel)]="userDetails.biography"></textarea>
+                                    <textarea rows="3" nz-input placeholder="Biography" name="biography" [(ngModel)]="userDetails.biography" [ngModelOptions]="{standalone: true}"></textarea>
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -127,7 +128,7 @@
                         <nz-form-item>
                             <nz-form-label>Interests</nz-form-label>
                             <nz-form-control>
-                                <textarea rows="3" nz-input placeholder="Interests" name="interests" [(ngModel)]="userDetails.interests"></textarea>
+                                <textarea rows="3" nz-input placeholder="Interests" name="interests" [(ngModel)]="userDetails.interests" [ngModelOptions]="{standalone: true}"></textarea>
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -140,7 +141,7 @@
             <div class="row">
                 <div class="col-md-8 mx-auto">
                     <nz-card nzTitle="Network Integration">
-                        <nz-list [nzDataSource]="networkList" [nzRenderItem]="network" [nzItemLayout]="'horizontal'">
+                        <nz-list [nzDataSource]="networkList" [nzRenderItem]="network" [nzItemLayout]="'horizontal'" >
                             <ng-template #network let-item>
                                 <nz-list-item [nzActions]="[moreAction]">
                                     <ng-template #moreAction>

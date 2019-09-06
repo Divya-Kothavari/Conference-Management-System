@@ -17,10 +17,10 @@ const portJournalmgmt = environment.portJournalmgmt;
 
 
 @Component({
-    templateUrl: './journal-list.component.html'
+    templateUrl: './article-list.component.html'
 })
 
-export class JournalListComponent  {
+export class ArticleListComponent  {
 
     view: string = 'cardView';
     newProject: boolean = false;
@@ -144,14 +144,7 @@ export class JournalListComponent  {
         this.http.get(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journal`).subscribe(
         (resp: any) =>{
             if (resp.status === 'Success') {
-                let roles = window.localStorage.getItem('role');
-                let currentUser = window.localStorage.getItem('userid');
-               const userroles = roles.split(',');
-               if (userroles.includes('SuperAdmin')) {
-                  this.listOfAllJournals = resp.journals;
-               } else if (userroles.includes('Admin')) {
-                 this.listOfAllJournals = resp.journals.filter(journal => journal.journalPrimaryAdmin === currentUser);
-               }
+                this.listOfAllJournals = resp.journals;
                 this.dataAvailable = true;
             }
             this.loading = false;

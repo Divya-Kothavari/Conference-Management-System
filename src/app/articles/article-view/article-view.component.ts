@@ -20,10 +20,10 @@ const portLocations = environment.portLocations;
 
 
 @Component({
-    templateUrl: './journal-view.component.html'
+    templateUrl: './article-view.component.html'
 })
 
-export class JournalViewComponent {
+export class ArticleViewComponent {
     journalid;
     journalDetails;
     selectedUser;
@@ -65,10 +65,9 @@ export class JournalViewComponent {
         this.http.get(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journal/${this.journalid}`).subscribe(
             (resp: any) => {
                 if (resp.status === 'Success') {
+                    console.log(resp.journal);
                     this.journalDetails = resp.journal;
-                    if (this.journalDetails.journalPrimaryAdmin) {
-                        this.selectedUser = this.journalDetails.journalPrimaryAdmin.split(',');
-                    }
+                    this.selectedUser = this.journalDetails.journalPrimaryAdmin.split(',');
                     this.getEbList();
                     this.dataAvailable = true;
                 }
