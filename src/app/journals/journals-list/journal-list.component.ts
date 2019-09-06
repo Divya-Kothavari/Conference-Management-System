@@ -103,7 +103,7 @@ export class JournalListComponent  {
                 journalShortName: this.journalForm.value.journalShortName,
                 journalEmail: this.journalForm.value.journalEmail,
                 aboutJournal: this.journalForm.value.aboutJounal,
-                journalPrimaryAdmin: this.journalForm.value.primayUser
+                journalPrimaryAdmin: this.journalForm.value.primayUser.join()
             }
             this.http.post(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journal`, journal).subscribe(
             (resp: any) =>{

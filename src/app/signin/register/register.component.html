@@ -34,12 +34,14 @@
                             <form nz-form [formGroup]="signupForm" class="login-form" (ngSubmit)="submitSignup()">
                                 <nz-form-item>
                                     <nz-form-label nzRequired nzFor="userId">UserId</nz-form-label>
-                                    <nz-form-control>
-                                        <nz-input-group>
-                                            <input type="text" nz-input formControlName="userId"
-                                                placeholder="Userid" (keypress)="validateUserId($event)" (focusout)="duplicateCheck()">
-                                        </nz-input-group>
-                                        <nz-form-explain
+                                    <nz-form-control
+                                    [nzValidateStatus]="validatingStatus"
+                                    nzHasFeedback
+                                  >
+                                  <nz-input-group>
+                                    <input type="text" formControlName="userId" nz-input (keypress)="validateUserId($event)" (focusout)="duplicateCheck()" />
+                                </nz-input-group>
+                                <nz-form-explain
                                             *ngIf="signupForm.get('userId').dirty && signupForm.get('userId').errors">
                                             Please input your userid!</nz-form-explain>
                                             <nz-form-explain class="form-error"
@@ -48,7 +50,7 @@
                                             <nz-form-explain class="form-error"
                                             *ngIf="duplicateUser">
                                             This userId already taken. Please choose other name.</nz-form-explain>
-                                    </nz-form-control>
+                                  </nz-form-control>
                                 </nz-form-item>
                                 <nz-form-item>
                                     <nz-form-label nzRequired nzFor="userName">Username</nz-form-label>
@@ -192,7 +194,7 @@
                                 <nz-form-item>
                                     <nz-form-control>
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <!-- <span class="font-size-13 text-muted">Don't have an account? <a class="small" [routerLink]="['/authentication/sign-up-1']"> Signup</a></span> -->
+                                            <span class="font-size-13 text-muted">Do you have Account, <a class="small" [routerLink]="['/signin/login']"> Click Here</a> to Login</span>
                                             <button [nzLoading]="isLoading" nz-button class="login-form-button"
                                             [disabled]="duplicateUser || invalidId || invlidCaptcha || !signupForm.valid || !signupForm.value.agree"
                                                 [nzType]="'primary'">Sign Up</button>

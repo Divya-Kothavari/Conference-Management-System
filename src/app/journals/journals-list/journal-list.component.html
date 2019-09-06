@@ -175,7 +175,8 @@
                             </nz-dropdown-menu>
                         </div>
                     </div>
-                    <p class="m-t-25">{{item.aboutJournal}}</p>
+                    <p class="m-t-25" [innerHtml] = "item.aboutJournal"></p>
+                    
                     <div class="m-t-30">
                         <div class="d-flex justify-content-between">
                             <span class="font-weight-semibold">Assigned Users</span>

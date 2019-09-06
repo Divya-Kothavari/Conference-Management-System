@@ -34,6 +34,8 @@ export class JournalViewComponent {
     listofregions = [];
     eblist= [];
     listofcountries = [];
+    isLoading: boolean;
+    editmode: any;
     constructor(private fb: FormBuilder, private modalService: NzModalService, private message: NzMessageService,
         private http: HttpClient,
         private route: ActivatedRoute) {
@@ -124,7 +126,40 @@ export class JournalViewComponent {
         this.ebmemberForm.reset();
     }
     addEbmember() {
-        this.isLoadingEbmember = true;
+        if (this.editmode) {
+            this.isLoading = true;
+            const editorialBoard = {
+                biography: this.ebmemberForm.value.biography,
+                country: this.ebmemberForm.value.country,
+                editorDescription: this.ebmemberForm.value.editorDescription,
+                editorId: this.ebmemberForm.value.editorId,
+                editorName: this.ebmemberForm.value.editorName,
+                editorType: this.ebmemberForm.value.editorType,
+                interests: this.ebmemberForm.value.interests,
+                journalShortName: this.ebmemberForm.value.journalShortName,
+                region: this.ebmemberForm.value.region,
+                universityName: this.ebmemberForm.value.universityName,
+
+            }
+            this.http.put(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/editorialBoard`, editorialBoard).subscribe(
+            (resp: any) =>{
+                this.isLoadingEbmember = false;
+                if (resp.status === 'Success') {
+                    this.message.success(resp.message);
+                    this.handleCancelEbmmeber();
+                    this.getEbList();
+                 }
+                if (resp.status === 'Error') {
+                    this.message.error(resp.message);
+                    this.handleCancelEbmmeber();
+                 }
+            },
+            err => {
+                console.log(err);
+            }
+        )
+        } else {
+            this.isLoadingEbmember = true;
             const editorialBoard = {
                 biography: this.ebmemberForm.value.biography,
                 country: this.ebmemberForm.value.country,
@@ -156,4 +191,6 @@ export class JournalViewComponent {
             }
         )
     }
+    }
+
 }    

@@ -375,5 +375,8 @@
         </div>
     </nz-tab>
 </nz-tabset>
+<nz-card *ngIf="!dataAvailable">
+        <nz-skeleton [nzActive]="true"></nz-skeleton>
+</nz-card>
 
 <!-- <nz-skeleton [nzLoading]="!dataAvailable" [nzAvatar]="true" [nzActive]="true" [nzParagraph]="{ rows: 4 }"></nz-skeleton> -->

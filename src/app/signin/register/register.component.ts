@@ -26,7 +26,9 @@ export class RegisterComponent {
    listofcountries = [];
    listofroles = [];
    listofsubjects = [];
+   validatingStatus; 
 
+   
     constructor(private fb: FormBuilder, private http: HttpClient, private route: Router, 
         private message: NzMessageService,
         private commonService: CommonService) {
@@ -162,6 +164,7 @@ export class RegisterComponent {
     }
 
     getCountriesList() {
+
         this.http.get(`${apiUrl}${portLocations}/cmslocations/locations/countries/${this.signupForm.value.region}`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
@@ -186,6 +189,7 @@ export class RegisterComponent {
     }
 
     duplicateCheck() {
+        this.validatingStatus = 'validating';
         this.http.get(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/users`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
@@ -194,8 +198,10 @@ export class RegisterComponent {
                         usersList.push(user.userId);
                     });
                     if (usersList.indexOf(this.signupForm.value.userId) === -1) {
+                        this.validatingStatus = 'success';
                         this.duplicateUser = false;
                     } else {
+                        this.validatingStatus = 'warning';
                         this.duplicateUser = true;
                     }
                 }
