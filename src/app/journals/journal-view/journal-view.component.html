@@ -176,6 +176,9 @@
                                                 nzPlaceHolder="Select Country">
                                                     <nz-option *ngFor="let country of listofcountries"
                                                         [nzLabel]="country" [nzValue]="country"></nz-option>
+                                                        <nz-option *ngIf="isLoadingCountry" nzDisabled nzCustomContent>
+                                                            <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
+                                                          </nz-option>
                                                 </nz-select>
                                             </nz-input-group>
                                             <nz-form-explain

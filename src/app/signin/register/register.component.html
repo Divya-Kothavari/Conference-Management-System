@@ -106,6 +106,9 @@
                                             nzPlaceHolder="Select Region" (focusout)="getCountriesList()">
                                                 <nz-option *ngFor="let region of listofregions"
                                                     [nzLabel]="region.name" [nzValue]="region.code"></nz-option>
+                                                    <nz-option *ngIf="isLoadingCountry" nzDisabled nzCustomContent>
+                                                        <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
+                                                      </nz-option>
                                             </nz-select>
                                         </nz-input-group>
                                         <nz-form-explain

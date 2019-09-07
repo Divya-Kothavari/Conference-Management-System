@@ -20,6 +20,7 @@ export class RegisterComponent {
     signupForm: FormGroup;
     isLoading = false;
    invalidId = false;
+   isLoadingCountry = true;
    duplicateUser = false;
    invlidCaptcha = false;
    listofregions = [];
@@ -164,7 +165,6 @@ export class RegisterComponent {
     }
 
     getCountriesList() {
-
         this.http.get(`${apiUrl}${portLocations}/cmslocations/locations/countries/${this.signupForm.value.region}`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
@@ -172,6 +172,7 @@ export class RegisterComponent {
                     resp.countries.forEach(element => {
                         this.listofcountries.push(element.countryName)
                     });
+                    this.isLoadingCountry = false;
                 }
             },
             err => {

@@ -36,6 +36,7 @@ export class JournalViewComponent {
     eblist = [];
     listofcountries = [];
     isLoading: boolean;
+    isLoadingCountry = true;
     editmode = false;;
     constructor(private fb: FormBuilder, private modalService: NzModalService, private message: NzMessageService,
         private http: HttpClient,
@@ -120,6 +121,7 @@ export class JournalViewComponent {
                     resp.countries.forEach(element => {
                         this.listofcountries.push(element.countryName)
                     });
+                    this.isLoadingCountry = false;
                 }
             },
             err => {
