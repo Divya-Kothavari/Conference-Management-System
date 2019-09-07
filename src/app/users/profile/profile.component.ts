@@ -34,6 +34,7 @@ export class ProfileComponent {
     isLoading = false;
     skeletonLoading = false;
     dataAvailable = false;
+    isLoadingProfile = false;
     networkList = [
         {
             name: 'Facebook',
@@ -207,6 +208,7 @@ export class ProfileComponent {
 
 
     customReq = (item: UploadXHRArgs) => {
+        this.isLoadingProfile = true;
         // Create a FormData here to store files and other parameters.
         const formData = new FormData();
         // tslint:disable-next-line:no-any
@@ -230,10 +232,12 @@ export class ProfileComponent {
               item.onSuccess!(event.body, item.file!, event);
               this.message.success(event.body.message);
               this.getImageFromService();
+              this.isLoadingProfile = false;
             }
           },
           err => {
             item.onError!(err, item.file!);
+            this.isLoadingProfile = false;
           }
         );
       };

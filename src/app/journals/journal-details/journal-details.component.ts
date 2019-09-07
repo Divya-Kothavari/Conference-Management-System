@@ -7,6 +7,8 @@ import { Route, Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpEvent, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
 import { UploadXHRArgs } from 'ng-zorro-antd/upload';
 import { environment } from '../../../environments/environment';
+import { Observable } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
 
 const apiUrl = environment.apiUrl;
 const portUsermgmt = environment.portUsermgmt;
@@ -21,14 +23,24 @@ export class JournalDetailsComponent {
     journalid;
     journalDetails;
     uploadUrl;
+    isLoadingBanner = false;
+    isLoadingFlyer = false;
+    isLoadingPdf = false;
     rolesList =[];
     selectedUser = [];
     selectedSubject = [];
     adminsList = [];
     subjectsList = [];
+    imageToShowBanner: any;
+    imageToShowFlyer: any
+    FlyerPdf: any;
+    pdfFile;
     isLoading = false;
     skeletonLoading = false;
     dataAvailable = false;
+    upoadBannerUrl;
+    upoadFlyerUrl;
+    uploadPdfFlyer;
     editorConfig = {
         toolbar: [
             ['bold', 'italic', 'underline', 'strike'],        
@@ -152,6 +164,7 @@ export class JournalDetailsComponent {
 
     constructor(private fb: FormBuilder, private modalService: NzModalService, private message: NzMessageService,
         private http: HttpClient,
+        private sanitizer : DomSanitizer,
         private route: ActivatedRoute) {
             this.route.params.subscribe( params => {
                this.journalid = params.id;
@@ -160,14 +173,20 @@ export class JournalDetailsComponent {
 
     ngOnInit(): void {
          //get user by id
+        this.upoadBannerUrl = `${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journalBanner/${this.journalid}`;
+        this.upoadFlyerUrl = `${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journalFlyer/${this.journalid}`;
+        this.uploadPdfFlyer = `${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journalPDF/${this.journalid}`;
+
         this.http.get(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journal/${this.journalid}`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
-                    console.log(resp.journal);
                     this.journalDetails = resp.journal;
                     if (this.journalDetails.journalPrimaryAdmin) {
                         this.selectedUser = this.journalDetails.journalPrimaryAdmin.split(',');
-                    }                 
+                    }         
+                    this.imageToShowBanner = "http://themenate.com/applicator/dist/assets/images/avatars/thumb-13.jpg";
+                    this.imageToShowFlyer = "http://themenate.com/applicator/dist/assets/images/avatars/thumb-13.jpg";
+                    this.FlyerPdf = "http://themenate.com/applicator/dist/assets/images/avatars/thumb-13.jpg";
                     this.dataAvailable = true;
                 }
             },
@@ -245,23 +264,144 @@ export class JournalDetailsComponent {
             );
         }
     }
-    onHtmlEditorKeyUpForAboutJornal(e) {
-        this.journalDetails.aboutJournal = e;
+
+    getImage(imageUrl: string): Observable<Blob> {
+        return this.http.get(imageUrl, { responseType: 'blob' });
+      }
+      getPdf(imageUrl: string): Observable<ArrayBuffer> {
+        return this.http.get(imageUrl, { responseType: 'arraybuffer' });
+      }
+    createImageFromBlob(image: Blob, url) {
+        let reader = new FileReader();
+        reader.readAsDataURL(image);
+        if (url = this.upoadBannerUrl){
+            reader.addEventListener("load", () => {
+                this.imageToShowBanner = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());  
+             }, false);
+        } else {
+            reader.addEventListener("load", () => {
+                this.imageToShowFlyer = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());  
+             }, false);
+        }
+     }
+     getImageFromService(url) {
+         this.getImage(url).subscribe(data => {
+           this.createImageFromBlob(data, url);
+         }, error => {
+           console.log(error);
+         });
+     }
+
+     getPdfFromService(url) {
+        this.getPdf(url).subscribe(data => {
+            var file = new Blob([data], {type: 'application/pdf'});
+            this.pdfFile = URL.createObjectURL(file);
+            this.pdfFile = this.sanitizer.bypassSecurityTrustUrl(this.pdfFile.toString()); 
+            this.FlyerPdf = '/assets/images/pdf.png';
+        }, error => {
+          console.log(error);
+        });
     }
-    onHtmlEditorKeyUpForAimScope(e) {
-        this.journalDetails.aimAndScope = e;
-    }
-    onHtmlEditorKeyUpArticleInpress(e) {
-        this.journalDetails.articleInPressText = e;
-    }
-    onHtmlEditorKeyUpCurrentIssue(e) {
-        this.journalDetails.currentIssueText = e;
-    }
-    onHtmlEditorKeyUpArchivePage(e) {
-        this.journalDetails.archievePageText = e;
-    }
-    onHtmlEditorKeyUpGuidlines(e) {
-        this.journalDetails.guidlines = e;
-    }
-    
+     customReqBanner = (item: UploadXHRArgs) => {
+         this.isLoadingBanner = true;
+        // Create a FormData here to store files and other parameters.
+        const formData = new FormData();
+        // tslint:disable-next-line:no-any
+        formData.append('file', item.file as any);
+        formData.append('journalShortName', this.journalid);
+        const req = new HttpRequest('POST', this.upoadBannerUrl, formData, {
+          reportProgress: false,
+          withCredentials: false
+        });
+        // Always returns a `Subscription` object. nz-upload would automatically unsubscribe it at correct time.
+        return this.http.request(req).subscribe(
+          // tslint:disable-next-line no-any
+          (event: HttpEvent<any>) => {
+            if (event.type === HttpEventType.UploadProgress) {
+              if (event.total! > 0) {
+                // tslint:disable-next-line:no-any
+                (event as any).percent = (event.loaded / event.total!) * 100;
+              }
+              item.onProgress!(event, item.file!);
+            } else if (event instanceof HttpResponse) {
+              item.onSuccess!(event.body, item.file!, event);
+              this.message.success(event.body.message);
+              this.getImageFromService(this.upoadBannerUrl);
+              this.isLoadingBanner = false;
+            }
+          },
+          err => {
+            item.onError!(err, item.file!);
+            this.isLoadingBanner = false;
+          }
+        );
+      };
+      customReqFlyer = (item: UploadXHRArgs) => {
+          this.isLoadingFlyer = true;
+        // Create a FormData here to store files and other parameters.
+        const formData = new FormData();
+        // tslint:disable-next-line:no-any
+        formData.append('file', item.file as any);
+        formData.append('journalShortName', this.journalid);
+        const req = new HttpRequest('POST', this.upoadFlyerUrl, formData, {
+          reportProgress: false,
+          withCredentials: false
+        });
+        // Always returns a `Subscription` object. nz-upload would automatically unsubscribe it at correct time.
+        return this.http.request(req).subscribe(
+          // tslint:disable-next-line no-any
+          (event: HttpEvent<any>) => {
+            if (event.type === HttpEventType.UploadProgress) {
+              if (event.total! > 0) {
+                // tslint:disable-next-line:no-any
+                (event as any).percent = (event.loaded / event.total!) * 100;
+              }
+              item.onProgress!(event, item.file!);
+            } else if (event instanceof HttpResponse) {
+              item.onSuccess!(event.body, item.file!, event);
+              this.message.success(event.body.message);
+              this.getImageFromService(this.upoadFlyerUrl);
+            }
+            this.isLoadingFlyer = false;
+          },
+          err => {
+            item.onError!(err, item.file!);
+            this.isLoadingFlyer = false;
+          }
+        );
+      };
+      customReqPdfFlyer = (item: UploadXHRArgs) => {
+          this.isLoadingPdf = true;
+        // Create a FormData here to store files and other parameters.
+        const formData = new FormData();
+        // tslint:disable-next-line:no-any
+        formData.append('file', item.file as any);
+        formData.append('journalShortName', this.journalid);
+        const req = new HttpRequest('POST', this.uploadPdfFlyer, formData, {
+          reportProgress: false,
+          withCredentials: false
+        });
+        // Always returns a `Subscription` object. nz-upload would automatically unsubscribe it at correct time.
+        return this.http.request(req).subscribe(
+          // tslint:disable-next-line no-any
+          (event: HttpEvent<any>) => {
+            if (event.type === HttpEventType.UploadProgress) {
+              if (event.total! > 0) {
+                // tslint:disable-next-line:no-any
+                (event as any).percent = (event.loaded / event.total!) * 100;
+              }
+              item.onProgress!(event, item.file!);
+            } else if (event instanceof HttpResponse) {
+              item.onSuccess!(event.body, item.file!, event);
+              this.message.success(event.body.message);
+              this.getPdfFromService(this.uploadPdfFlyer);
+              this.isLoadingPdf = false;
+            }
+          },
+          err => {
+            item.onError!(err, item.file!);
+            this.isLoadingPdf = false;
+          }
+        );
+      };
 }    

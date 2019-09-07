@@ -247,10 +247,10 @@
                         </div>
                         
                  </nz-timeline>
-            </nz-card>
-            <nz-card *ngIf="!dataAvailable">
-                    <nz-skeleton [nzActive]="true"></nz-skeleton>
-            </nz-card>
+            </nz-card>   
         </div>
+    </div>
+    <div class="row" *ngIf="!dataAvailable"> 
+            <nz-skeleton [nzActive]="true"></nz-skeleton>
     </div>
 </div>
