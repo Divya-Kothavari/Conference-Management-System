@@ -78,6 +78,8 @@ public class UserManagementService {
 			userModel.setInterests(userBean.getInterests());
 			if(null != userBean.getBiography())
 			userModel.setBiography(userBean.getBiography());
+			if(null != userBean.getInterestedSubjects())
+				userModel.setInterestedSubjects(userBean.getInterestedSubjects());
 			if(null != userBean.getDob())
 			try{
 				if(null != userBean.getDob())
@@ -131,6 +133,8 @@ public class UserManagementService {
 			userModel.setInterests(userBean.getInterests());
 			if(null != userBean.getBiography())
 			userModel.setBiography(userBean.getBiography());
+			if(null != userBean.getInterestedSubjects())
+				userModel.setInterestedSubjects(userBean.getInterestedSubjects());
 			try{
 			if(null != userBean.getDob())
 			userModel.setDob(formatter.parse(userBean.getDob().toString()));

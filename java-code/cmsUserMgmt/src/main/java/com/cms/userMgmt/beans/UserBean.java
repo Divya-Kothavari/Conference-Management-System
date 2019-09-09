@@ -37,6 +37,22 @@ public class UserBean {
 	private Boolean status;
 	
 	private String dob;
+	
+	private String interestedSubjects;
+
+	/**
+	 * @return the interestedSubjects
+	 */
+	public String getInterestedSubjects() {
+		return interestedSubjects;
+	}
+
+	/**
+	 * @param interestedSubjects the interestedSubjects to set
+	 */
+	public void setInterestedSubjects(String interestedSubjects) {
+		this.interestedSubjects = interestedSubjects;
+	}
 
 	/**
 	 * @return the dob

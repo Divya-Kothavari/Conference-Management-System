@@ -57,6 +57,9 @@ public class User implements Serializable {
 	@Column(name="INTERESTS")
 	private String interests;
 	
+	@Column(name="INTERESTEDSUBJECTS")
+	private String interestedSubjects;
+	
 	@Column(name="BIOGRAPHY")
 	private String biography;
 	
@@ -75,6 +78,22 @@ public class User implements Serializable {
 	@Column(name="DOB")
 	private Date dob;
 
+	
+	/**
+	 * @return the interestedSubjects
+	 */
+	public String getInterestedSubjects() {
+		return interestedSubjects;
+	}
+
+	/**
+	 * @param interestedSubjects the interestedSubjects to set
+	 */
+	public void setInterestedSubjects(String interestedSubjects) {
+		this.interestedSubjects = interestedSubjects;
+	}
+
+	
 	/**
 	 * @return the dob
 	 */
@@ -336,8 +355,9 @@ public class User implements Serializable {
 		return "User [id=" + id + ", userId=" + userId + ", userName=" + userName + ", password=" + password
 				+ ", email=" + email + ", altEmail=" + altEmail + ", mobile=" + mobile + ", gender=" + gender
 				+ ", designation=" + designation + ", photo=" + photo + ", address=" + address + ", interests="
-				+ interests + ", biography=" + biography + ", createdDate=" + createdDate + ", updatedDate="
-				+ updatedDate + ", updatedBy=" + updatedBy + ", status=" + status + ", dob=" + dob + "]";
+				+ interests + ", interestedSubjects=" + interestedSubjects + ", biography=" + biography
+				+ ", createdDate=" + createdDate + ", updatedDate=" + updatedDate + ", updatedBy=" + updatedBy
+				+ ", status=" + status + ", dob=" + dob + "]";
 	}
 	
 	

@@ -23,6 +23,8 @@ import com.cms.journalMgmt.services.ArticleTypeService;
 import com.cms.journalMgmt.services.EditorialBoardService;
 import com.cms.journalMgmt.services.JournalAbstractingService;
 import com.cms.journalMgmt.services.JournalBannerService;
+import com.cms.journalMgmt.services.JournalFlyerService;
+import com.cms.journalMgmt.services.JournalLogoService;
 import com.cms.journalMgmt.services.JournalPDFService;
 import com.cms.journalMgmt.services.JournalService;
 import com.cms.journalMgmt.services.JournalSubjectService;
@@ -61,6 +63,12 @@ public class JournalController {
 	
 	@Autowired
 	JournalBannerService journalBannerService;
+	
+	@Autowired
+	JournalLogoService journalLogoService;
+	
+	@Autowired
+	JournalFlyerService journalFlyerService;
 	
 	@ApiOperation(value = " Sample test service to check health check")
 	@GetMapping("/test")
@@ -297,5 +305,43 @@ public class JournalController {
 	@DeleteMapping("/journalBanner/{journalShortName}")
 	public String deleteJournalBanner(@PathVariable String journalShortName){
 		return journalBannerService.deleteJournalBanner(journalShortName);
+	}
+	
+	@PostMapping("/journalLogo/{journalShortName}")
+	public String uploadJournalLogo(@RequestBody MultipartFile file,@PathVariable String journalShortName){
+		return journalLogoService.uploadJournalLogo(file, journalShortName);
+	}
+	
+	@GetMapping("/journalLogoString/{journalShortName}")
+	public String getJournalLogoSrting(@PathVariable String journalShortName){
+		return journalLogoService.getJournalLogoData(journalShortName);
+	}
+	@GetMapping("/journalLogo/{journalShortName}")
+	public byte[] getJournalLogo(@PathVariable String journalShortName){
+		return journalLogoService.getJournalLogo(journalShortName);
+	}
+	
+	@DeleteMapping("/journalLogo/{journalShortName}")
+	public String deleteJournalLogo(@PathVariable String journalShortName){
+		return journalLogoService.deleteJournalLogo(journalShortName);
+	}
+	
+	@PostMapping("/journalFlyer/{journalShortName}")
+	public String uploadJournalFlyer(@RequestBody MultipartFile file,@PathVariable String journalShortName){
+		return journalFlyerService.uploadJournalFlyer(file, journalShortName);
+	}
+	
+	@GetMapping("/journalFlyerString/{journalShortName}")
+	public String getJournalFlyerSrting(@PathVariable String journalShortName){
+		return journalFlyerService.getJournalFlyerData(journalShortName);
+	}
+	@GetMapping("/journalFlyer/{journalShortName}")
+	public byte[] getJournalFlyer(@PathVariable String journalShortName){
+		return journalFlyerService.getJournalFlyer(journalShortName);
+	}
+	
+	@DeleteMapping("/journalFlyer/{journalShortName}")
+	public String deleteJournalFlyer(@PathVariable String journalShortName){
+		return journalFlyerService.deleteJournalFlyer(journalShortName);
 	}
 }
