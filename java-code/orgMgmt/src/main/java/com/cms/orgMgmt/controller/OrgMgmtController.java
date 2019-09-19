@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cms.orgMgmt.beans.OrgMenuBean;
 import com.cms.orgMgmt.services.OrgMenuService;
@@ -59,5 +60,15 @@ public class OrgMgmtController {
 	@DeleteMapping("/orgMenu/{menuId}")
 	public String deleteOrgMenu(@PathVariable Long menuId){
 		return orgMenuSerice.deleteOrgMenu(menuId);
+	}
+	
+	@PostMapping("/orgMenu/orgMenuImage/{orgMenuIdId}")
+	public String uploadOrgMenuImage(@RequestBody MultipartFile file,@PathVariable Long orgMenuIdId){
+		return orgMenuSerice.uploadOrgMenuImage(file, orgMenuIdId);
+	}
+	
+	@GetMapping("/orgMenu/orgMenuImage/{orgMenuIdId}")
+	public byte[] getUserProfileImage(@PathVariable Long orgMenuIdId){
+		return orgMenuSerice.getOrgMenuImage(orgMenuIdId);
 	}
 }
