@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TableService } from '../../shared/services/table.service';
 import { HttpClient } from '@angular/common/http';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
-import { CommonService } from 'src/app/shared/services/common.service';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 
@@ -33,14 +31,11 @@ export class UsersListComponent implements OnInit {
     user;
     signUpForm: FormGroup;
     isLoading = false;
-    constructor(private tableSvc : TableService, private fb: FormBuilder, private http: HttpClient, private message: NzMessageService,
-        private commonService: CommonService) { }
+    constructor( private fb: FormBuilder, private http: HttpClient, private message: NzMessageService,
+        ) { }
 
     ngOnInit(){
             this.getUsersList();
-            this.commonService.userData.subscribe(data =>{
-                this.user = data;
-            });
             this.signUpForm = this.fb.group({
                 userId           : [ null, [ Validators.required ] ],
                 userName         : [ null, [ Validators.required ] ],
@@ -94,7 +89,6 @@ export class UsersListComponent implements OnInit {
     }
 
     sort(sortAttribute: any) {
-        this.displayData = this.tableSvc.sort(sortAttribute, this.displayData);
     }
 
     currentPageDataChange($event: Array<{ 

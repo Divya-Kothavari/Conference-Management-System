@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup,  Validators } from '@angular/forms
 import { HttpClient } from '@angular/common/http';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
-import { CommonService } from '../../shared/services/common.service';
  
 import { environment } from '../../../environments/environment';
 
@@ -44,7 +43,6 @@ export class LoginComponent {
                if (resp.status === 'Error') {
                    this.message.error(resp.message);
                } else if (resp.status === 'Success') {
-                  this.updateUser(resp.user);
                    window.localStorage.setItem('is_loggedin', 'true');
                    window.localStorage.setItem('user', resp.user.userName);
                    window.localStorage.setItem('role', resp.user.roles);
@@ -72,8 +70,8 @@ export class LoginComponent {
     }
 
     constructor(private fb: FormBuilder, private http: HttpClient, private route: Router, 
-        private message: NzMessageService,
-        private commonService: CommonService) {
+        private message: NzMessageService
+        ) {
     }
 
     ngOnInit(): void {
@@ -81,12 +79,7 @@ export class LoginComponent {
             userName: [ null, [ Validators.required ] ],
             password: [ null, [ Validators.required ] ]
         });
-        this.commonService.userData.subscribe(data =>{
-            console.log(data);
-        });
     }
-    private updateUser(user) {
-        this.commonService.updateUserData(user);
-    }
+    
   
 }    

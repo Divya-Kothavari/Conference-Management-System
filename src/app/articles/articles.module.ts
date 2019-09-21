@@ -5,7 +5,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ArticlesRoutingModule } from './articles.routing.module';
 import { CoreModule } from '../core/core.module';
 import { ArticleListComponent } from './articles-list/article-list.component';
-import { AppsService } from '../shared/services/apps.service';
 import { ArticleDetailsComponent } from './article-details/article-details.component';
 import { ArticleViewComponent } from './article-view/article-view.component';
 import { QuillModule } from 'ngx-quill';
@@ -26,7 +25,6 @@ import { QuillModule } from 'ngx-quill';
         ArticleViewComponent
     ],
     providers: [
-        AppsService,
     ]
 })
 
