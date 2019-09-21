@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ThemeConstantService } from '../../services/theme-constant.service';
-import { CommonService } from '../../services/common.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
@@ -23,16 +22,13 @@ export class HeaderComponent{
     changePWForm: FormGroup;
     isVisible:false;
     constructor( private themeService: ThemeConstantService,
-        private commonService: CommonService, private router: Router,
+        private router: Router,
         private http: HttpClient,
         private fb: FormBuilder,  private modalService: NzModalService,private message: NzMessageService,) {}
 
     ngOnInit(): void {
         this.themeService.isMenuFoldedChanges.subscribe(isFolded => this.isFolded = isFolded);
         this.themeService.isExpandChanges.subscribe(isExpand => this.isExpand = isExpand);
-        this.commonService.userData.subscribe(data =>{
-            this.user = data;
-        });
         this.changePWForm = this.fb.group({
             oldPassword: [ null, [ Validators.required ] ],
             newPassword: [ null, [ Validators.required ] ],

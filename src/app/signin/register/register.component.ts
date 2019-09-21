@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup,  Validators } from '@angular/forms
 import { HttpClient } from '@angular/common/http';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
-import { CommonService } from '../../shared/services/common.service';
  
 import { environment } from '../../../environments/environment';
 
@@ -31,8 +30,8 @@ export class RegisterComponent {
 
    
     constructor(private fb: FormBuilder, private http: HttpClient, private route: Router, 
-        private message: NzMessageService,
-        private commonService: CommonService) {
+        private message: NzMessageService
+        ) {
     }
 
     ngOnInit(): void {
@@ -58,12 +57,6 @@ export class RegisterComponent {
             captcha: [null, [Validators.required]],
             agree: [false, [Validators.required]]
         });
-        this.commonService.userData.subscribe(data =>{
-            console.log(data);
-        });
-    }
-    private updateUser(user) {
-        this.commonService.updateUserData(user);
     }
     resolved(e) {
         if (e) {

@@ -23,16 +23,6 @@ export const CommonLayout_ROUTES: Routes = [
     },
     
 
-    //Admin profile
-    {
-        path: 'adminprofile',
-        canActivate: [AuthGuard],
-        data: {
-            title: 'Admin Profile '
-        },
-        loadChildren: () => import('../../adminprofile/adminprofile.module').then(m => m.AdminProfileModule)   
-    },
-
     // Journals
 
     {

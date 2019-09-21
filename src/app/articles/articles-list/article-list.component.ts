@@ -1,5 +1,4 @@
 import { Component, TemplateRef } from '@angular/core';
-import { AppsService } from '../../shared/services/apps.service';
 import { NzModalService } from 'ng-zorro-antd';
 import { ProjectList } from '../../shared/interfaces/project-list.type';
 
@@ -8,7 +7,6 @@ import { environment } from '../../../environments/environment';
 
 import { HttpClient } from '@angular/common/http';
 import { NzMessageService } from 'ng-zorro-antd';
-import { CommonService } from 'src/app/shared/services/common.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 const apiUrl = environment.apiUrl;
@@ -39,10 +37,10 @@ export class ArticleListComponent  {
     isLoading = false;
     editmode = false;
   journalmodal;
-    constructor (private projectListSvc: AppsService, 
+    constructor (
         private fb: FormBuilder,
         private modalService: NzModalService, private http: HttpClient, private message: NzMessageService,
-        private commonService: CommonService) {}
+        ) {}
 
     ngOnInit(): void {
 
