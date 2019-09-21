@@ -16,7 +16,7 @@ import { FullLayoutComponent } from './layouts/full-layout/full-layout.component
 
 import { NgChartjsModule } from 'ng-chartjs';
 import { ThemeConstantService } from './shared/services/theme-constant.service';
-
+import { SortablejsModule } from 'ngx-sortablejs';
 
 registerLocaleData(en);
 
@@ -31,6 +31,7 @@ registerLocaleData(en);
         BrowserAnimationsModule,
         NgZorroAntdModule,
         AppRoutingModule,
+        SortablejsModule.forRoot({ animation: 150 }),
         TemplateModule,
         SharedModule,
         FormsModule,
