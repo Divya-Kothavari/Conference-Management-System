@@ -53,6 +53,14 @@ export const CommonLayout_ROUTES: Routes = [
         },
         loadChildren: () => import('../../articles/articles.module').then(m => m.ArticlesModule)   
     },
+    {
+        path: 'organization',
+        canActivate: [AuthGuard],
+        data: {
+            title: 'Organization'
+        },
+        loadChildren: () => import('../../organization/organization.module').then(m => m.OrganizationModule)   
+    }
 
 
 ];
