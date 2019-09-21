@@ -7,7 +7,8 @@ export const environment = {
   apiUrl: 'http://localhost',
   portUsermgmt: ':8081',
   portJournalmgmt: ':8082',
-  portLocations: ':8089'
+  portLocations: ':8089',
+  portOrgs: '8084'
 };
 
 /*
