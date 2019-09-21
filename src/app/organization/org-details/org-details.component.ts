@@ -8,10 +8,23 @@ import { Component, OnInit } from '@angular/core';
 export class OrgDetailsComponent implements OnInit {
 
   active:boolean = true;
+  isVisible: boolean = false;
+
+
 
   constructor() { }
 
   ngOnInit() {
   }
+
+  addMenu(): void {
+    this.isVisible = true;
+  }
+
+  handleCancel(): void {
+    //console.log('Button cancel clicked!');
+    this.isVisible = false;
+  }
+  
 
 }

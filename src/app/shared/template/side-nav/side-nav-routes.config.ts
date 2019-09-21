@@ -35,7 +35,7 @@ export const ROUTES: SideNavInterface[] = [
     },
     {
         path: '/articles',
-        title: 'Articles',
+        title: 'Articles Tracking',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'book',

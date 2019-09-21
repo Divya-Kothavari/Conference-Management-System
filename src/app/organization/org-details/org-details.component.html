@@ -14,28 +14,50 @@
             <div class="justify-content-between align-items-center ng-star-inserted">
                 
                     <ul nz-menu nzMode="inline">
-                            <li nz-submenu nzTitle="Navigation One" nzIcon="drag">
+                        <li nz-submenu [nzTitle]="Menu1" nzIcon="drag">
                                     <ul>
-                                      <li nz-menu-item><i nz-icon nzType="drag" nzTheme="outline"></i> Option 11</li>
-                                      <li nz-menu-item><i nz-icon nzType="drag" nzTheme="outline"></i> Option 12</li>
-                                      <li nz-menu-item><i nz-icon nzType="drag" nzTheme="outline"></i> Option 13</li>
+                                      <li nz-menu-item><i nz-icon nzType="drag" nzTheme="outline"></i> Option 11 <button style="float:right" nz-button nzType="danger" [nzSize]="size" nzShape="circle"><i class="mr-0" nz-icon nzType="delete"></i></button>
+                                        <button style="float:right; margin-right: 5px" nz-button nzType="primary" [nzSize]="size" nzShape="circle"><i class="mr-0" nz-icon nzType="edit"></i></button>
+                                      </li>
+                                      <li nz-menu-item><i nz-icon nzType="drag" nzTheme="outline"></i> Option 12 <button style="float:right" nz-button nzType="danger" [nzSize]="size" nzShape="circle"><i class="mr-0" nz-icon nzType="delete"></i></button>
+                                        <button style="float:right; margin-right: 5px" nz-button nzType="primary" [nzSize]="size" nzShape="circle"><i class="mr-0" nz-icon nzType="edit"></i></button>
+                                      </li>
+                                      <li nz-menu-item><i nz-icon nzType="drag" nzTheme="outline"></i> Option 13 <button style="float:right" nz-button nzType="danger" [nzSize]="size" nzShape="circle"><i class="mr-0" nz-icon nzType="delete"></i></button>
+                                        <button style="float:right; margin-right: 5px" nz-button nzType="primary" [nzSize]="size" nzShape="circle"><i class="mr-0" nz-icon nzType="edit"></i></button>
+                                      </li>
                                     </ul>
-                                  </li>
-                           <li nz-submenu nzTitle="Navigation Two" nzIcon="drag">
+                             <ng-template #Menu1>
+                                Menu 1 
+                                <button style="float:right" nz-button nzType="danger" [nzSize]="size" nzShape="circle"><i class="mr-0" nz-icon nzType="delete"></i></button>
+                                <button style="float:right; margin-right: 5px" nz-button nzType="primary" [nzSize]="size" nzShape="circle"><i class="mr-0" nz-icon nzType="edit"></i></button>
+                                <!-- <button style="float:right" nz-button nzType="primary" [nzSize]="size" nzShape="circle"><i nz-icon nzType="download"></i></button> -->
+
+                             </ng-template>
+                        </li>
+                           <li nz-submenu [nzTitle]="Menu2" nzIcon="drag">
                               <ul>
                                 <li nz-menu-item><i nz-icon nzType="drag" nzTheme="outline"></i> Option 11</li>
                                 <li nz-menu-item><i nz-icon nzType="drag" nzTheme="outline"></i> Option 12</li>
                                 <li nz-menu-item><i nz-icon nzType="drag" nzTheme="outline"></i> Option 13</li>
                               </ul>
+                              <ng-template #Menu2>
+                                    Menu 2
+                                </ng-template>
                             </li>
-                            <li nz-submenu nzTitle="Navigation Three" nzIcon="drag">
+                            <li nz-submenu [nzTitle]="Menu3" nzIcon="drag">
                                     <ul>
                                       <li nz-menu-item><i nz-icon nzType="drag" nzTheme="outline"></i> Option 11</li>
                                       <li nz-menu-item><i nz-icon nzType="drag" nzTheme="outline"></i> Option 12</li>
                                       <li nz-menu-item><i nz-icon nzType="drag" nzTheme="outline"></i> Option 13</li>
                                     </ul>
+                                    <ng-template #Menu3>
+                                            Menu 3
+                                        </ng-template>
                                   </li>
-                          </ul>
+                    </ul>
+
+                    <button class="mt-5" nzShape="round" nz-button nzType="primary" nzBlock  (click)="addMenu()"><i nz-icon nzType="plus-circle" nzTheme="outline"></i> Add Menu</button>
+
                 </div>
              <div>
                 
@@ -43,3 +65,54 @@
          </nz-card>
     </div>
 </div>
+<nz-modal [(nzVisible)]="isVisible" [nzWidth]="900" nzTitle="Add/Edit Menu" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    
+    <form nz-form >
+            <nz-form-item>
+                <nz-form-label nzFor="Menu Name">Menu Name</nz-form-label>
+                <nz-form-control>
+                    <input formControlName="MenuName" nz-input type="text" placeholder="Menu Name">
+                 </nz-form-control>
+            </nz-form-item>
+             <nz-form-item>
+                <nz-form-label nzFor="menuLink">Menu Link</nz-form-label>
+                <nz-form-control>
+                    <input formControlName="menuLink" [disabled]="editmode" nz-input type="text" placeholder="Menu Link">
+                 </nz-form-control>
+            </nz-form-item>
+              <nz-form-item>
+                  <nz-form-label nzFor="menuDescription">Menu Short Description</nz-form-label>
+                  <nz-form-control>
+                        <textarea formControlName="menuDescription" nz-input rows="2" placeholder="Short Description of Menu"></textarea>
+
+                   </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                    <nz-form-label nzFor="menuContent">Menu Content</nz-form-label>
+                    <nz-form-control>
+                            <nz-form-item>
+                                    <quill-editor [style]="{height: '150px'}" [modules]="editorConfig"  [(ngModel)]="menuContent" placeholder="add content of Menu -- page"></quill-editor>
+                                </nz-form-item>
+                     </nz-form-control>
+                </nz-form-item>
+              <nz-form-item>
+                      <nz-form-label nzFor="regionCode">Status</nz-form-label>
+                      <nz-form-control>
+                            <nz-select
+                                style="width: 200px;"
+                                nzShowSearch
+                                nzAllowClear
+                                nzPlaceHolder="Select Status"
+                                [(ngModel)]="selectedValue"
+                                >
+                                <nz-option nzLabel="Active" nzValue="Active"></nz-option>
+                                <nz-option nzLabel="Inactive" nzValue="Inactive"></nz-option>
+                             </nz-select>
+                       </nz-form-control>
+              </nz-form-item>
+</form>
+      <ng-template #modalFooterMenu>
+        <button nz-button nzType="default" (click)="handleCancelCoun()">Cancel</button>
+        <button [nzLoading]="isLoadingCoun" nz-button nzType="primary" [disabled]="!countryForm.valid" (click)="addMenu()">Submit</button>
+      </ng-template>
+    </nz-modal>
