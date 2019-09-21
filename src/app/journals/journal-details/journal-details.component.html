@@ -283,19 +283,18 @@
                                 </div>
                                 <div class="col-md-6">
                                         <div class="media align-items-center">
-                                                <!-- <nz-avatar  [nzSize]="80" nzIcon="user" [nzSrc]="userDetails.image"></nz-avatar> -->
-                                                <nz-avatar  [nzSize]="80" nzIcon="user" nzSrc="http://themenate.com/applicator/dist/assets/images/avatars/thumb-13.jpg"></nz-avatar>
+                                                <img [src]="imageToFlyerLogo" style="width:80px; border-radius: 50%;vertical-align: middle;" />
                                                 <div class="m-l-20 m-r-20">
-                                                    <h5 class="m-b-5 font-size-18">Change Journal Flyer</h5>
+                                                    <h5 class="m-b-5 font-size-18">Change Journal Flyer Logo</h5>
                                                  </div>
                                                 <nz-upload 
                                                     nzName="avatar"
-                                                    [nzAction]="uploadUrl" 
-                                                    [nzCustomRequest]="customReq"
+                                                    [nzAction]="uploadFlyerLogo" 
+                                                    [nzCustomRequest]="customReqFlyerLogo"
                                                     [nzShowUploadList]="false"
                                                    >
-                                                    <button nz-button nzType="primary" nzGhost>
-                                                        <span>Upload Flyer</span>
+                                                    <button [nzLoading]="isLoadingLogo" nz-button nzType="primary" nzGhost>
+                                                        <span>Upload Flyer Logo</span>
                                                     </button>
                                                 </nz-upload>
                                              </div>

@@ -26,13 +26,15 @@ export class JournalDetailsComponent {
     isLoadingBanner = false;
     isLoadingFlyer = false;
     isLoadingPdf = false;
+    isLoadingLogo = false;
     rolesList =[];
     selectedUser = [];
     selectedSubject = [];
     adminsList = [];
     subjectsList = [];
     imageToShowBanner: any;
-    imageToShowFlyer: any
+    imageToShowFlyer: any;
+    imageToFlyerLogo: any;
     FlyerPdf: any;
     pdfFile;
     isLoading = false;
@@ -41,6 +43,7 @@ export class JournalDetailsComponent {
     upoadBannerUrl;
     upoadFlyerUrl;
     uploadPdfFlyer;
+    uploadFlyerLogo;
     editorConfig = {
         toolbar: [
             ['bold', 'italic', 'underline', 'strike'],        
@@ -176,6 +179,7 @@ export class JournalDetailsComponent {
         this.upoadBannerUrl = `${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journalBanner/${this.journalid}`;
         this.upoadFlyerUrl = `${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journalFlyer/${this.journalid}`;
         this.uploadPdfFlyer = `${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journalPDF/${this.journalid}`;
+        this.uploadFlyerLogo = `${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journalLogo/${this.journalid}`;
 
         this.http.get(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journal/${this.journalid}`).subscribe(
             (resp: any) =>{
@@ -187,6 +191,11 @@ export class JournalDetailsComponent {
                     this.imageToShowBanner = "http://themenate.com/applicator/dist/assets/images/avatars/thumb-13.jpg";
                     this.imageToShowFlyer = "http://themenate.com/applicator/dist/assets/images/avatars/thumb-13.jpg";
                     this.FlyerPdf = "http://themenate.com/applicator/dist/assets/images/avatars/thumb-13.jpg";
+                    this.imageToFlyerLogo = "http://themenate.com/applicator/dist/assets/images/avatars/thumb-13.jpg";
+                    this.getImageFromService(this.upoadBannerUrl);
+                    this.getImageFromService(this.upoadFlyerUrl);
+                    this.getPdfFromService(this.uploadPdfFlyer);
+                    this.getImageFromService(this.uploadFlyerLogo)
                     this.dataAvailable = true;
                 }
             },
@@ -278,10 +287,14 @@ export class JournalDetailsComponent {
             reader.addEventListener("load", () => {
                 this.imageToShowBanner = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());  
              }, false);
-        } else {
+        } else if (url = this.upoadFlyerUrl) {
             reader.addEventListener("load", () => {
                 this.imageToShowFlyer = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());  
              }, false);
+        } else  {
+          reader.addEventListener("load", () => {
+            this.imageToFlyerLogo = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());  
+         }, false);
         }
      }
      getImageFromService(url) {
@@ -370,6 +383,40 @@ export class JournalDetailsComponent {
           }
         );
       };
+      customReqFlyerLogo = (item: UploadXHRArgs) => {
+        this.isLoadingLogo = true;
+      // Create a FormData here to store files and other parameters.
+      const formData = new FormData();
+      // tslint:disable-next-line:no-any
+      formData.append('file', item.file as any);
+      formData.append('journalShortName', this.journalid);
+      const req = new HttpRequest('POST', this.uploadFlyerLogo, formData, {
+        reportProgress: false,
+        withCredentials: false
+      });
+      // Always returns a `Subscription` object. nz-upload would automatically unsubscribe it at correct time.
+      return this.http.request(req).subscribe(
+        // tslint:disable-next-line no-any
+        (event: HttpEvent<any>) => {
+          if (event.type === HttpEventType.UploadProgress) {
+            if (event.total! > 0) {
+              // tslint:disable-next-line:no-any
+              (event as any).percent = (event.loaded / event.total!) * 100;
+            }
+            item.onProgress!(event, item.file!);
+          } else if (event instanceof HttpResponse) {
+            item.onSuccess!(event.body, item.file!, event);
+            this.message.success(event.body.message);
+            this.getImageFromService(this.uploadFlyerLogo);
+          }
+          this.isLoadingLogo = false;
+        },
+        err => {
+          item.onError!(err, item.file!);
+          this.isLoadingLogo = false;
+        }
+      );
+    };
       customReqPdfFlyer = (item: UploadXHRArgs) => {
           this.isLoadingPdf = true;
         // Create a FormData here to store files and other parameters.
