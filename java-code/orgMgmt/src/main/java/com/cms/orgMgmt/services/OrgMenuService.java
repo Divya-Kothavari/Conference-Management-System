@@ -47,6 +47,9 @@ public class OrgMenuService {
 			 orgMenuModel.setMenuParentId(orgMenuModel.getId());
 			 orgMenuModel.setMenuLevel(0L);
 			 }
+			 if(null != orgMenu.getMenuContent()){
+				 orgMenuModel.setMenuContent(orgMenu.getMenuContent());
+			 }
 			 orgMenuModel = orgMenusRepo.save(orgMenuModel);
 			 json.put("status", "Success");
 			 json.put("message", "OrgMenu saved successfully");
@@ -82,11 +85,18 @@ public String updateOrgMenu(OrgMenuBean orgMenu){
 			 if(null != oprionalParentOrgMenuModel && oprionalParentOrgMenuModel.isPresent()){
 			 OrgMenus parentOrgMenuModel = oprionalParentOrgMenuModel.get();
 			 orgMenuModel.setMenuParentId(parentOrgMenuModel.getId());
+			 if(orgMenu.getId() != orgMenu.getMenuParentId()){
 			 orgMenuModel.setMenuLevel(parentOrgMenuModel.getMenuLevel()+1);
+			 }else{
+				 orgMenuModel.setMenuLevel(0L);	 
+			 }
 			 }
 			 else{
 			 orgMenuModel.setMenuParentId(orgMenuModel.getId());
 			 orgMenuModel.setMenuLevel(0L);
+			 }
+			 if(null != orgMenu.getMenuContent()){
+				 orgMenuModel.setMenuContent(orgMenu.getMenuContent());
 			 }
 			 orgMenuModel = orgMenusRepo.save(orgMenuModel);
 			 json.put("status", "Success");
@@ -198,14 +208,14 @@ public String updateOrgMenu(OrgMenuBean orgMenu){
 			}
 			orgMenuImageRepo.save(orgMenuImage);
 			json.put("status", "Success");
-			json.put("message", "Profile picture uploaded successfully");
+			json.put("message", "Org Menu Image uploaded successfully");
 			}else{
 				json.put("status", "Error");
 				json.put("message", "OrgMenu does not exist with given id");
 			}
 		  }catch(Exception e){
 			json.put("status", "Error");
-			json.put("message", "Error while uploading profile picture");
+			json.put("message", "Error while uploading OrgMenu Image");
 		}
 		return json.toString();
 	}
@@ -218,7 +228,6 @@ public String updateOrgMenu(OrgMenuBean orgMenu){
 				return orgMenuImage.getOrgMenuImageData();
 			}catch(Exception e){
 			}
-		}else{
 		}
 		return null;
 	}

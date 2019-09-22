@@ -35,11 +35,30 @@ public class OrgMenus implements Serializable {
 	@Column(name="MENUSTATUS")
 	private String menuStatus;
 	
+	@Column(name="MENUCONTENT")
+	private String menuContent;
+	
 	@Column(name="MENUPARENTID")
 	private Long menuParentId;
 	
 	@Column(name="MENULEVEL")
 	private Long menuLevel;
+	
+	
+
+	/**
+	 * @return the menuContent
+	 */
+	public String getMenuContent() {
+		return menuContent;
+	}
+
+	/**
+	 * @param menuContent the menuContent to set
+	 */
+	public void setMenuContent(String menuContent) {
+		this.menuContent = menuContent;
+	}
 
 	/**
 	 * @return the id
@@ -145,8 +164,8 @@ public class OrgMenus implements Serializable {
 	@Override
 	public String toString() {
 		return "OrgMenus [id=" + id + ", menuName=" + menuName + ", menuDescription=" + menuDescription + ", menuLink="
-				+ menuLink + ", menuStatus=" + menuStatus + ", menuParentId=" + menuParentId + ", menuLevel="
-				+ menuLevel + "]";
+				+ menuLink + ", menuStatus=" + menuStatus + ", menuContent=" + menuContent + ", menuParentId="
+				+ menuParentId + ", menuLevel=" + menuLevel + "]";
 	}
 	
 }

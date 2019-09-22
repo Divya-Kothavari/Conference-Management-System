@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cms.articleMgmt.beans.ArticleStatusBean;
+import com.cms.articleMgmt.beans.ArticleSubmissionBean;
 import com.cms.articleMgmt.services.ArticleStatusService;
+import com.cms.articleMgmt.services.ArticleSubmissionsService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,6 +27,9 @@ public class ArticleController {
 
 	@Autowired
 	ArticleStatusService articleStatusService;
+	
+	@Autowired
+	ArticleSubmissionsService articleSubmissionsService;
 	
 	
 	@ApiOperation(value = " Sample test service to check health check")
@@ -64,5 +69,11 @@ public class ArticleController {
 		return articleStatusService.deleteArticleStatus(articleStatusCode);
 	}
 	
+	
+	@ApiOperation(value = " Service to Create ArticleSubmission")
+	@PostMapping("/articleSubmission")
+	public String createArticleSubmission(@RequestBody ArticleSubmissionBean articleSubmissionBean){
+		return articleSubmissionsService.createArticleSubmission(articleSubmissionBean);
+	}
 	
 }
