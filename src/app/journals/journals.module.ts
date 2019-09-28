@@ -9,6 +9,7 @@ import { JournalDetailsComponent } from './journal-details/journal-details.compo
 import { JournalViewComponent } from './journal-view/journal-view.component';
 import { QuillModule } from 'ngx-quill';
 
+import { SortablejsModule } from 'ngx-sortablejs';
 
 @NgModule({
     imports: [
@@ -17,7 +18,8 @@ import { QuillModule } from 'ngx-quill';
         CoreModule,
         ReactiveFormsModule,
         JournalsRoutingModule,
-        QuillModule
+        QuillModule,
+        SortablejsModule
     ],
     declarations: [
         JournalListComponent,

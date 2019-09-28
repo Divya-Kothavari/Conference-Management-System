@@ -57,6 +57,9 @@ getMenuList() {
         if (resp.status === 'Success') {
             this.menuList = resp.orgMenus;
             this.dataAvailable = true;
+            this.menuList.forEach((menu) => {
+              menu.submenu = [];
+            })
             this.message.success(resp.message);
         }
     },

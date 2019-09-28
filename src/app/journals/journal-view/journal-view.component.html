@@ -198,13 +198,11 @@
                             <button [nzLoading]="isLoadingEbmember" nz-button nzType="primary" [disabled]="!ebmemberForm.valid || invalidId" (click)="addEbmember()">Add</button>
                           </ng-template>
                       </nz-modal>
-
-
-                <nz-timeline *ngFor="let item of eblist">
-                         <div class="m-l-20">
-                            <div class="row">
+                <nz-timeline>
+                         <div class="m-l-20" [sortablejs]="eblist" [sortablejsOptions]="{ animation: 150 }">
+                            <div class="row" style="border-bottom: 0.5px solid rgba(114,132,154,0.7); margin-bottom: 0.5rem;"  *ngFor="let item of eblist">
                                 <div class="col-md-12">
-                                        <h6 class="m-b-0">{{item.editorName}} <a style="float: right"  class="text-gray font-size-18" nz-dropdown nzPlacement="bottomRight" nzTrigger="click" [nzDropdownMenu]="ebOptions">
+                                        <h6 class="m-b-0 handle">{{item.editorName}} <a style="float: right"  class="text-gray font-size-18" nz-dropdown nzPlacement="bottomRight" nzTrigger="click" [nzDropdownMenu]="ebOptions">
                                                 <i nz-icon type="ellipsis" theme="outline"></i>
                                             </a></h6>
                                             <span class="text-muted font-size-13">
@@ -216,10 +214,7 @@
                                                     <i nz-icon type="clock-circle" theme="outline"></i>
                                                     <span class="m-l-5">{{item.universityName}}</span>
                                             </span>
-                                </div>
-                                
-                               
-                                
+                                        </div>                                   
                                     <nz-dropdown-menu #ebOptions="nzDropdownMenu">
                                         <ul nz-menu nzSelectable>
                                             <li nz-menu-item>
@@ -244,9 +239,8 @@
                                             </li>
                                         </ul>
                                     </nz-dropdown-menu>
-                            
                             </div>
-                             <hr class="mt-2 mb-2">
+                             
                         </div>
                         
                  </nz-timeline>
