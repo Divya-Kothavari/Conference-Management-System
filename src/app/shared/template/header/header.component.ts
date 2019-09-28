@@ -18,6 +18,7 @@ export class HeaderComponent{
     isExpand : boolean;
     user;
     username;
+    userid;
     role;
     changePWForm: FormGroup;
     isVisible:false;
@@ -35,6 +36,7 @@ export class HeaderComponent{
             confirmPassword: [ null, [ Validators.required, this.confirmationValidator ] ]
         });
      this.username = window.localStorage.getItem('user');
+     this.userid = window.localStorage.getItem('userid');
      if (window.localStorage.getItem('role')) {
         this.role = window.localStorage.getItem('role');
      }
