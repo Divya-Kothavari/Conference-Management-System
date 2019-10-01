@@ -196,8 +196,8 @@ h6 {
 }
 
 #intro .intro-info h2 span {
-  color: #74b5fc;
-  text-decoration: underline;
+  color: yellowgreen;
+  /* text-decoration: underline; */
 }
 
 #intro .intro-info .btn-get-started,
