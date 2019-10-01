@@ -11,10 +11,11 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { JournalsComponent } from './journals/journals.component';
+import { SubmitManuscriptComponent } from './submit-manuscript/submit-manuscript.component';
 
 
 @NgModule({
-  declarations: [FooterComponent, HeaderComponent, AboutComponent, HomeComponent, OpenAccessComponent, GuidelinesComponent, ContactUsComponent, PageNotFoundComponent, JournalsComponent],
+  declarations: [FooterComponent, HeaderComponent, AboutComponent, HomeComponent, OpenAccessComponent, GuidelinesComponent, ContactUsComponent, PageNotFoundComponent, JournalsComponent, SubmitManuscriptComponent],
   imports: [
     CommonModule,
     PagesRoutingModule

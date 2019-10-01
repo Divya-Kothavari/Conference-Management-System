@@ -8,6 +8,7 @@ import { GuidelinesComponent } from './guidelines/guidelines.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { JournalsComponent } from './journals/journals.component';
+import { SubmitManuscriptComponent } from './submit-manuscript/submit-manuscript.component';
 
 
 const routes: Routes = [
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path:'journals',
     component: JournalsComponent
+  },
+  {
+    path:'submit-manuscript',
+    component: SubmitManuscriptComponent
   },
   {
     path:'contact-us',
