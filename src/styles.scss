@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-// @import '~bootstrap/dist/css/bootstrap.min.css';
-// @import '~ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
-// @import '~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@import '~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
 
 a:hover{
     text-decoration: none !important;
@@ -252,11 +252,7 @@ body {
   
   /* Desktop Navigation */
   
-  .main-nav {
-    /* Drop Down */
-    /* Deep Drop Down */
-  }
-  
+   
   .main-nav,
   .main-nav * {
     margin: 0;
@@ -376,7 +372,7 @@ body {
   .mobile-nav a {
     display: block;
     position: relative;
-    color: #fff;
+    color: #fff !important;
     padding: 10px 20px;
     font-weight: 500;
   }
@@ -440,7 +436,7 @@ body {
     top: 0;
     left: 0;
     position: fixed;
-    background: rgba(19, 39, 57, 0.8);
+    // background: rgba(19, 39, 57, 0.8);
     overflow: hidden;
     display: none;
   }
