@@ -4,10 +4,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { environment } from '../../../environments/environment';
-
-const apiUrl = environment.apiUrl;
-const portUsermgmt = environment.portUsermgmt;
-const portJournalmgmt = environment.portJournalmgmt;
+ 
 
 
 @Component({
@@ -50,7 +47,7 @@ export class UsersListComponent implements OnInit {
     }
     getUsersList(){
         this.loading = true;
-        this.http.get(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/users`).subscribe(
+        this.http.get(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/users`).subscribe(
         (resp: any) =>{
             if (resp.status === 'Success') {
                 let roles = window.localStorage.getItem('role');
@@ -72,7 +69,7 @@ export class UsersListComponent implements OnInit {
     
 
     deleteUser(userId){
-        this.http.delete(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/user/${userId}`).subscribe(
+        this.http.delete(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/user/${userId}`).subscribe(
             (resp: any) =>{
                 
                 if(resp.status == 'Success'){
@@ -138,7 +135,7 @@ export class UsersListComponent implements OnInit {
             status: true
         };
         this.http.post(
-            `${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/user`, userBean
+            `http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/user`, userBean
         ).subscribe(
             (resp: any) =>{
                 this.isLoading = false;

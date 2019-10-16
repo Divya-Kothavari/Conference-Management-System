@@ -5,11 +5,7 @@ import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms'
 import { NzMessageService } from 'ng-zorro-antd';
  
 import { environment } from '../../../environments/environment';
-
-const apiUrl = environment.apiUrl;
-const portUsermgmt = environment.portUsermgmt;
-const portJournalmgmt = environment.portJournalmgmt;
-const portLocations = environment.portLocations;
+ 
 @Component({
     templateUrl: './editor-dashboard.component.html'
 })
@@ -115,7 +111,7 @@ export class EditorDashboardComponent implements OnInit {
 
     getRolesList(){
         this.loading = true;
-        this.http.get(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/role`).subscribe(
+        this.http.get(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/role`).subscribe(
         (resp: any) =>{
             if (resp.status === 'Success') {
                 this.listOfAllData = resp.roles;
@@ -129,7 +125,7 @@ export class EditorDashboardComponent implements OnInit {
     }
     getSubjectsList() {
         this.loadingSubjects = true;
-        this.http.get(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/subject`).subscribe(
+        this.http.get(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/subject`).subscribe(
         (resp: any) =>{
             if (resp.status === 'Success') {
                 this.listOfsubjects = resp.subjects;
@@ -145,7 +141,7 @@ export class EditorDashboardComponent implements OnInit {
 
     getRegionsList() {
         this.loadingRegions = true;
-        this.http.get(`${apiUrl}${portLocations}/cmslocations/locations/region`).subscribe(
+        this.http.get(`http://cmslocations-dev.6dviapaszi.ap-south-1.elasticbeanstalk.com/cmslocations/locations/region`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     this.listOfRegions = resp.regions;
@@ -160,7 +156,7 @@ export class EditorDashboardComponent implements OnInit {
 
     getCountriesList() {
         this.loadingCountries = true;
-        this.http.get(`${apiUrl}${portLocations}/cmslocations/locations/country`).subscribe(
+        this.http.get(`http://cmslocations-dev.6dviapaszi.ap-south-1.elasticbeanstalk.com/cmslocations/locations/country`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     this.listOfCountries = resp.countries;
@@ -200,7 +196,7 @@ export class EditorDashboardComponent implements OnInit {
                 roleName: this.roleForm.value.roleName,
                 roleDescription: this.roleForm.value.roleDescription
             }
-            this.http.put(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/role`, role).subscribe(
+            this.http.put(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/role`, role).subscribe(
             (resp: any) =>{
                 this.isLoading = false;
                 if (resp.status === 'Success') {
@@ -220,7 +216,7 @@ export class EditorDashboardComponent implements OnInit {
                 roleName: this.roleForm.value.roleName,
                 roleDescription: this.roleForm.value.roleDescription
             }
-            this.http.post(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/role`, role).subscribe(
+            this.http.post(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/role`, role).subscribe(
             (resp: any) =>{
                 this.isLoading = false;
                 if (resp.status === 'Success') {
@@ -248,7 +244,7 @@ export class EditorDashboardComponent implements OnInit {
                 subjectName: this.subjectForm.value.subjectName,
                 subjectDescription: this.subjectForm.value.subjectDescription
             }
-            this.http.put(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt//subject`, subject).subscribe(
+            this.http.put(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt//subject`, subject).subscribe(
             (resp: any) =>{
                 this.isLoadingSub = false;
                 if (resp.status === 'Success') {
@@ -273,7 +269,7 @@ export class EditorDashboardComponent implements OnInit {
                 subjectName: this.subjectForm.value.subjectName,
                 subjectDescription: this.subjectForm.value.subjectDescription
             }
-            this.http.post(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/subject`, subject).subscribe(
+            this.http.post(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/subject`, subject).subscribe(
             (resp: any) =>{
                 this.isLoadingSub = false;
                 if (resp.status === 'Success') {
@@ -301,7 +297,7 @@ export class EditorDashboardComponent implements OnInit {
                 regionName: this.regionForm.value.regionName,
                 regionCode: this.regionForm.value.regionCode
             }
-            this.http.put(`${apiUrl}${portLocations}/cmslocations/locations/region`, region).subscribe(
+            this.http.put(`http://cmslocations-dev.6dviapaszi.ap-south-1.elasticbeanstalk.com/cmslocations/locations/region`, region).subscribe(
             (resp: any) =>{
                 this.isLoadingReg = false;
                 if (resp.status === 'Success') {
@@ -327,7 +323,7 @@ export class EditorDashboardComponent implements OnInit {
                 regionName: this.regionForm.value.regionName,
                 regionCode: this.regionForm.value.regionCode
             }
-            this.http.post(`${apiUrl}${portLocations}/cmslocations/locations/region`, region).subscribe(
+            this.http.post(`http://cmslocations-dev.6dviapaszi.ap-south-1.elasticbeanstalk.com/cmslocations/locations/region`, region).subscribe(
             (resp: any) =>{
                 this.isLoadingReg = false;
                 if (resp.status === 'Success') {
@@ -357,7 +353,7 @@ export class EditorDashboardComponent implements OnInit {
                 regionCode: this.countryForm.value.regionCode,
                 economicStatus: this.countryForm.value.economicStatus,
             }
-            this.http.put(`${apiUrl}${portLocations}/cmslocations/locations/country`, country).subscribe(
+            this.http.put(`http://cmslocations-dev.6dviapaszi.ap-south-1.elasticbeanstalk.com/cmslocations/locations/country`, country).subscribe(
             (resp: any) =>{
                 this.isLoadingCoun = false;
                 if (resp.status === 'Success') {
@@ -385,7 +381,7 @@ export class EditorDashboardComponent implements OnInit {
                 regionCode: this.countryForm.value.regionCode,
                 economicStatus: this.countryForm.value.economicStatus,
             }
-            this.http.post(`${apiUrl}${portLocations}/cmslocations/locations/country`, country).subscribe(
+            this.http.post(`http://cmslocations-dev.6dviapaszi.ap-south-1.elasticbeanstalk.com/cmslocations/locations/country`, country).subscribe(
             (resp: any) =>{
                 this.isLoadingCoun = false;
                 if (resp.status === 'Success') {
@@ -409,7 +405,7 @@ export class EditorDashboardComponent implements OnInit {
 
 
     deleteRole(rolename) {
-        this.http.delete(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/role/${rolename}`).subscribe(
+        this.http.delete(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/role/${rolename}`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     this.message.success(resp.message);
@@ -423,7 +419,7 @@ export class EditorDashboardComponent implements OnInit {
     }
 
     deleteSubject(subjectname) {
-        this.http.delete(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/subject/${subjectname}`).subscribe(
+        this.http.delete(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/subject/${subjectname}`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     this.message.success(resp.message);
@@ -437,7 +433,7 @@ export class EditorDashboardComponent implements OnInit {
     }
 
     deleteRegion(regionCode) {
-        this.http.delete(`${apiUrl}${portLocations}/cmslocations/locations/region/${regionCode}`).subscribe(
+        this.http.delete(`http://cmslocations-dev.6dviapaszi.ap-south-1.elasticbeanstalk.com/cmslocations/locations/region/${regionCode}`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     this.message.success(resp.message);
@@ -451,7 +447,7 @@ export class EditorDashboardComponent implements OnInit {
     }
 
     deleteCountry(countryCode) {
-        this.http.delete(`${apiUrl}${portLocations}/cmslocations/locations/country/${countryCode}`).subscribe(
+        this.http.delete(`http://cmslocations-dev.6dviapaszi.ap-south-1.elasticbeanstalk.com/cmslocations/locations/country/${countryCode}`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     this.message.success(resp.message);

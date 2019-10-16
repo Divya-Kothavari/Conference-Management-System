@@ -10,10 +10,7 @@ import { environment } from '../../../environments/environment';
 
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
-
-const apiUrl = environment.apiUrl;
-const portUsermgmt = environment.portUsermgmt;
-const portJournalmgmt = environment.portJournalmgmt;
+ 
 
 @Component({
     templateUrl: './profile-view.component.html'
@@ -152,13 +149,13 @@ export class ProfileViewComponent {
 
     ngOnInit(): void {
          //get user by id
-        this.http.get(`http://localhost:8081/cmsusermgmt/userMgmt/user/${this.userid}`).subscribe(
+        this.http.get(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/user/${this.userid}`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     //console.log(resp.user);
                    this.userDetails = resp.user;
                    this.dataAvailable = true;
-                   this.http.get(`http://localhost:8081/cmsusermgmt/userMgmt/userRoles/${this.userDetails.userId}`).subscribe(
+                   this.http.get(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/userRoles/${this.userDetails.userId}`).subscribe(
                     (resp: any) =>{
                         if (resp.status === 'Success') {
                            this.selectedRole = resp.userRoles.roles.split(',');
@@ -168,14 +165,14 @@ export class ProfileViewComponent {
                         console.log(err);
                     }
                 );
-                   this.uploadUrl= `http://localhost:8081/cmsusermgmt/userMgmt/user/profileImage/${this.userDetails.userId}`
+                   this.uploadUrl= `http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/user/profileImage/${this.userDetails.userId}`
                 }
             },
             err => {
                  console.log(err);
             }
         );
-        this.http.get(`http://localhost:8081/cmsusermgmt/userMgmt/role`).subscribe(
+        this.http.get(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/role`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     resp.roles.forEach(role => {

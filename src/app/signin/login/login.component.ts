@@ -5,11 +5,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
  
 import { environment } from '../../../environments/environment';
-
-const apiUrl = environment.apiUrl;
-const portUsermgmt = environment.portUsermgmt;
-const portJournalmgmt = environment.portJournalmgmt;
-const portLocations = environment.portLocations;
+ 
 @Component({
     templateUrl: './login.component.html'
 })
@@ -36,7 +32,7 @@ export class LoginComponent {
             userId:  this.loginForm.value.userName,
         };
         this.http.post(
-            'http://localhost:8081/cmsusermgmt/userMgmt/login', userBean
+            'http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/login', userBean
         ).subscribe(
             (resp: any) =>{
               this.isLoading = false;

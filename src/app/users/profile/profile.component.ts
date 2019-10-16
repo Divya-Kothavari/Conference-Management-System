@@ -11,11 +11,7 @@ import { environment } from '../../../environments/environment';
 
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { Observable } from 'rxjs';
-
-
-const apiUrl = environment.apiUrl;
-const portUsermgmt = environment.portUsermgmt;
-const portJournalmgmt = environment.portJournalmgmt;
+ 
 
 @Component({
     templateUrl: './profile.component.html'
@@ -157,12 +153,12 @@ export class ProfileComponent {
 
     ngOnInit(): void {
          //get user by id
-        this.http.get(`http://localhost:8081/cmsusermgmt/userMgmt/user/${this.userid}`).subscribe(
+        this.http.get(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/user/${this.userid}`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     //console.log(resp.user);
                    this.userDetails = resp.user;
-                   this.http.get(`http://localhost:8081/cmsusermgmt/userMgmt/userRoles/${this.userDetails.userId}`).subscribe(
+                   this.http.get(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/userRoles/${this.userDetails.userId}`).subscribe(
                     (resp: any) =>{
                         if (resp.status === 'Success') {
                            this.selectedRole = resp.userRoles.roles.split(',');
@@ -172,7 +168,7 @@ export class ProfileComponent {
                         console.log(err);
                     }
                 );
-                   this.uploadUrl= `http://localhost:8081/cmsusermgmt/userMgmt/user/profileImage/${this.userDetails.userId}`;
+                   this.uploadUrl= `http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/user/profileImage/${this.userDetails.userId}`;
                    this.getImageFromService();
                    this.dataAvailable = true;
                 }
@@ -181,7 +177,7 @@ export class ProfileComponent {
                  console.log(err);
             }
         );
-        this.http.get(`http://localhost:8081/cmsusermgmt/userMgmt/role`).subscribe(
+        this.http.get(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/role`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     const userroles = window.localStorage.getItem('role').split(',');
@@ -277,7 +273,7 @@ getImageFromService() {
             gender: this.userDetails.gender,
             dob:this.userDetails.dob
         }
-        this.http.put('http://localhost:8081/cmsusermgmt/userMgmt/user', data).subscribe(
+        this.http.put('http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/user', data).subscribe(
             (resp: any) =>{
                  if (resp.status === 'Success') {
                    this.message.success(resp.message);
@@ -291,7 +287,7 @@ getImageFromService() {
         );
         const userroles = this.selectedRole.join().toString();
         if (userroles !== '') {
-            this.http.post(`http://localhost:8081/cmsusermgmt/userMgmt/userRoles/${this.userDetails.userId}`, userroles).subscribe(
+            this.http.post(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/userRoles/${this.userDetails.userId}`, userroles).subscribe(
                 (resp: any) =>{
                      if (resp.status === 'Success') {
                         this.message.success(resp.message);

@@ -111,7 +111,7 @@ export class HeaderComponent{
                     nPasswordConf: this.changePWForm.value.confirmPassword,
                     userId: window.localStorage.getItem('userid')
                 }
-                this.http.post('http://localhost:8081/cmsusermgmt/userMgmt/passwordReset', data).subscribe(
+                this.http.post('http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/passwordReset', data).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                    this.message.success(resp.message);

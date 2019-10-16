@@ -9,10 +9,7 @@ import { UploadXHRArgs } from 'ng-zorro-antd/upload';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
-
-const apiUrl = environment.apiUrl;
-const portUsermgmt = environment.portUsermgmt;
-const portJournalmgmt = environment.portJournalmgmt;
+ 
 
 @Component({
     templateUrl: './journal-details.component.html'
@@ -176,12 +173,12 @@ export class JournalDetailsComponent {
 
     ngOnInit(): void {
          //get user by id
-        this.upoadBannerUrl = `${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journalBanner/${this.journalid}`;
-        this.upoadFlyerUrl = `${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journalFlyer/${this.journalid}`;
-        this.uploadPdfFlyer = `${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journalPDF/${this.journalid}`;
-        this.uploadFlyerLogo = `${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journalLogo/${this.journalid}`;
+        this.upoadBannerUrl = `http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journalBanner/${this.journalid}`;
+        this.upoadFlyerUrl = `http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journalFlyer/${this.journalid}`;
+        this.uploadPdfFlyer = `http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journalPDF/${this.journalid}`;
+        this.uploadFlyerLogo = `http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journalLogo/${this.journalid}`;
 
-        this.http.get(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journal/${this.journalid}`).subscribe(
+        this.http.get(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journal/${this.journalid}`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     this.journalDetails = resp.journal;
@@ -203,7 +200,7 @@ export class JournalDetailsComponent {
                  console.log(err);
             }
         );
-        this.http.get(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/users/Admin`).subscribe(
+        this.http.get(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/users/Admin`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                    this.adminsList = resp.userIds;
@@ -213,7 +210,7 @@ export class JournalDetailsComponent {
                 console.log(err);
             }
         );
-        this.http.get(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/subject`).subscribe(
+        this.http.get(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/subject`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     resp.subjects.forEach(element => {
@@ -227,7 +224,7 @@ export class JournalDetailsComponent {
             }
         );
 
-        this.http.get(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journalSubjects/${this.journalid}`).subscribe(
+        this.http.get(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journalSubjects/${this.journalid}`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     resp.journalSubjects.forEach(element => {
@@ -248,7 +245,7 @@ export class JournalDetailsComponent {
         if (this.selectedUser.length !== 0 ) {
             this.journalDetails.journalPrimaryAdmin = this.selectedUser.join().toString();
         }
-        this.http.put(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journal`, this.journalDetails).subscribe(
+        this.http.put(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journal`, this.journalDetails).subscribe(
             (resp: any) =>{
                 this.isLoading= false;
                 if (resp.status === 'Success') {
@@ -261,7 +258,7 @@ export class JournalDetailsComponent {
         );
         if (this.subjectsList.length !== 0) {
             const data = this.subjectsList.join().toString();
-            this.http.post(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/journalSubjects/${this.journalid}/${data}`, {}).subscribe(
+            this.http.post(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journalSubjects/${this.journalid}/${data}`, {}).subscribe(
                 (resp: any) =>{
                     if (resp.status === 'Success') {
                         this.message.success(resp.message);

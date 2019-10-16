@@ -17,7 +17,9 @@ import { FullLayoutComponent } from './layouts/full-layout/full-layout.component
 import { NgChartjsModule } from 'ng-chartjs';
 import { ThemeConstantService } from './shared/services/theme-constant.service';
 import { SortablejsModule } from 'ngx-sortablejs';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
+ 
 registerLocaleData(en);
 
 @NgModule({
@@ -37,12 +39,13 @@ registerLocaleData(en);
         FormsModule,
         CoreModule,
         NgChartjsModule
-    ],
+     ],
     providers: [
         { 
             provide: NZ_I18N,
             useValue: en_US, 
         },
+        {provide: LocationStrategy, useClass: HashLocationStrategy},
         ThemeConstantService
     ],
     bootstrap: [AppComponent]

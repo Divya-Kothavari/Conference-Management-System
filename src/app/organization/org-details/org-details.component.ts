@@ -5,10 +5,7 @@ import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
  
 import { environment } from '../../../environments/environment';
-
-const apiUrl = environment.apiUrl;
-const portUsermgmt = environment.portUsermgmt;
-const portOrgmgmt = environment.portOrgs;
+ 
 
 @Component({
   selector: 'app-org-details',
@@ -52,7 +49,7 @@ export class OrgDetailsComponent implements OnInit {
   }
 
 getMenuList() {
-  this.http.get(`${apiUrl}:${portOrgmgmt}/orgmgmt/orgMenu/`).subscribe(
+  this.http.get(`http://orgmgmt-dev.migrd96uwn.ap-south-1.elasticbeanstalk.com/orgmgmt/orgMenu/`).subscribe(
     (resp: any) =>{
         if (resp.status === 'Success') {
             this.menuList = resp.orgMenus;
@@ -93,7 +90,7 @@ getMenuList() {
           id: 0,
           menuParentId: 0,
         }
-        this.http.put(`${apiUrl}:${portOrgmgmt}/orgmgmt/orgMenu/`, menu).subscribe(
+        this.http.put(`http://orgmgmt-dev.migrd96uwn.ap-south-1.elasticbeanstalk.com/orgmgmt/orgMenu/`, menu).subscribe(
         (resp: any) =>{
             this.isLoading = false;
             if (resp.status === 'Success') {
@@ -118,7 +115,7 @@ getMenuList() {
           menuParentId: 0,
           menuLevel: 0
         }
-        this.http.post(`${apiUrl}:${portOrgmgmt}/orgmgmt/orgMenu/`, menu).subscribe(
+        this.http.post(`http://orgmgmt-dev.migrd96uwn.ap-south-1.elasticbeanstalk.com/orgmgmt/orgMenu/`, menu).subscribe(
         (resp: any) =>{
             this.isLoading = false;
             if (resp.status === 'Success') {
@@ -145,7 +142,7 @@ getMenuList() {
   }
   
   deleteMenu(menuData) {
-    this.http.delete(`${apiUrl}:${portOrgmgmt}/orgmgmt/orgMenu/${menuData.id}`).subscribe(
+    this.http.delete(`http://orgmgmt-dev.migrd96uwn.ap-south-1.elasticbeanstalk.com/orgmgmt/orgMenu/${menuData.id}`).subscribe(
       (resp: any) =>{
           this.isLoading = false;
           if (resp.status === 'Success') {

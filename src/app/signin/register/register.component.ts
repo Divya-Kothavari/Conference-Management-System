@@ -5,11 +5,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
  
 import { environment } from '../../../environments/environment';
-
-const apiUrl = environment.apiUrl;
-const portUsermgmt = environment.portUsermgmt;
-const portJournalmgmt = environment.portJournalmgmt;
-const portLocations = environment.portLocations;
+ 
 @Component({
     templateUrl: './register.component.html'
 })
@@ -81,13 +77,13 @@ export class RegisterComponent {
             status: true
         };
         this.http.post(
-            `${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/user`, userBean
+            `http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/user`, userBean
         ).subscribe(
             (resp: any) =>{
                 this.isLoading = false;
                 if(resp.status == 'Success'){
                     this.message.success(resp.message);
-                    this.http.post(`http://localhost:8081/cmsusermgmt/userMgmt/userRoles/${this.signupForm.value.userId}`, 'Author').subscribe(
+                    this.http.post(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/userRoles/${this.signupForm.value.userId}`, 'Author').subscribe(
                 (resp: any) =>{
                      if (resp.status === 'Success') {
                         this.route.navigate(['/signin/login']);
@@ -110,7 +106,7 @@ export class RegisterComponent {
         )
     }
     getRolesList(){
-    //     this.http.get(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/role`).subscribe(
+    //     this.http.get(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/role`).subscribe(
     //     (resp: any) =>{
     //         if (resp.status === 'Success') {
     //             this.listofroles = [];
@@ -126,7 +122,7 @@ export class RegisterComponent {
     this.listofroles = ['Editor', 'Reviewer'];
     }
     getSubjectsList() {
-        this.http.get(`${apiUrl}${portJournalmgmt}/cmsjournalmgmt/subject`).subscribe(
+        this.http.get(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/subject`).subscribe(
         (resp: any) =>{
             if (resp.status === 'Success') {
                 this.listofsubjects = [];
@@ -142,7 +138,7 @@ export class RegisterComponent {
     }
 
     getRegionsList() {
-        this.http.get(`${apiUrl}${portLocations}/cmslocations/locations/region`).subscribe(
+        this.http.get(`http://cmslocations-dev.6dviapaszi.ap-south-1.elasticbeanstalk.com/cmslocations/locations/region`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                 this.listofregions = [];
@@ -158,7 +154,7 @@ export class RegisterComponent {
     }
 
     getCountriesList() {
-        this.http.get(`${apiUrl}${portLocations}/cmslocations/locations/countries/${this.signupForm.value.region}`).subscribe(
+        this.http.get(`http://cmslocations-dev.6dviapaszi.ap-south-1.elasticbeanstalk.com/cmslocations/locations/countries/${this.signupForm.value.region}`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     this.listofcountries = [];
@@ -184,7 +180,7 @@ export class RegisterComponent {
 
     duplicateCheck() {
         this.validatingStatus = 'validating';
-        this.http.get(`${apiUrl}${portUsermgmt}/cmsusermgmt/userMgmt/users`).subscribe(
+        this.http.get(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/users`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     let usersList = [];
