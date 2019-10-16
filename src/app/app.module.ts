@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData, LocationStrategy, HashLocationStrategy } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { FormsModule  } from '@angular/forms';
 
@@ -17,9 +17,8 @@ import { FullLayoutComponent } from './layouts/full-layout/full-layout.component
 import { NgChartjsModule } from 'ng-chartjs';
 import { ThemeConstantService } from './shared/services/theme-constant.service';
 import { SortablejsModule } from 'ngx-sortablejs';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-
- 
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
 registerLocaleData(en);
 
 @NgModule({
@@ -38,8 +37,9 @@ registerLocaleData(en);
         SharedModule,
         FormsModule,
         CoreModule,
-        NgChartjsModule
-     ],
+        NgChartjsModule,
+        AngularFireModule.initializeApp(environment.firebase)
+    ],
     providers: [
         { 
             provide: NZ_I18N,

@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "jresearchvalley-adfd0"
+    "frontendapp": "jresearchvalley-5d1de",
+    "production": "conference-management-sy-4cc34",
+    "default": "conference-management-sy-4cc34"
   }
 }
