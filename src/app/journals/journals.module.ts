@@ -8,6 +8,7 @@ import { JournalListComponent } from './journals-list/journal-list.component';
 import { JournalDetailsComponent } from './journal-details/journal-details.component';
 import { JournalViewComponent } from './journal-view/journal-view.component';
 import { QuillModule } from 'ngx-quill';
+import { AvatarModule } from 'ngx-avatar';
 
 import { SortablejsModule } from 'ngx-sortablejs';
 
@@ -19,7 +20,8 @@ import { SortablejsModule } from 'ngx-sortablejs';
         ReactiveFormsModule,
         JournalsRoutingModule,
         QuillModule,
-        SortablejsModule
+        SortablejsModule,
+        AvatarModule
     ],
     declarations: [
         JournalListComponent,

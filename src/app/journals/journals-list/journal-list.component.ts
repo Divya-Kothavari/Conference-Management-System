@@ -8,6 +8,8 @@ import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { NzMessageService } from 'ng-zorro-antd';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
  
 
 
@@ -34,8 +36,11 @@ export class JournalListComponent  {
     isLoading = false;
     editmode = false;
   journalmodal;
+  uploadUrl;
+
     constructor (
         private fb: FormBuilder,
+        private sanitizer : DomSanitizer,
         private modalService: NzModalService, private http: HttpClient, private message: NzMessageService,
         ) {}
 
@@ -131,8 +136,8 @@ export class JournalListComponent  {
             }
         )
     }
-
-    
+    upoadFlyerUrl;
+    uploadFlyerLogo;
 
     getJournalsList(){
         this.loading = true;
@@ -147,6 +152,44 @@ export class JournalListComponent  {
                } else if (userroles.includes('Admin')) {
                  this.listOfAllJournals = resp.journals.filter(journal => journal.journalPrimaryAdmin === currentUser);
                }
+               this.listOfAllJournals.forEach((journal) => {
+                this.uploadUrl= `http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/user/profileImage/${journal.journalPrimaryAdmin}`;
+                this.http.get(this.uploadUrl, {responseType: 'blob'}).subscribe(
+                    (data: Blob) =>{
+                        let reader = new FileReader();
+                        reader.readAsDataURL(data);
+                        reader.addEventListener("load", () => {
+                         
+                        journal['userPic'] = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());
+                           
+                        }, false);
+                    }
+                );
+                this.upoadFlyerUrl = `http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journalFlyer/${journal.journalid}`;
+                this.http.get(this.upoadFlyerUrl, {responseType: 'blob'}).subscribe(
+                    (data: Blob) =>{
+                        let reader = new FileReader();
+                        reader.readAsDataURL(data);
+                        reader.addEventListener("load", () => {
+                         
+                        journal['journalFlyer'] = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());
+                           
+                        }, false);
+                    }
+                );
+                this.uploadFlyerLogo = `http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journalLogo/${journal.journalid}`;
+                this.http.get(this.uploadFlyerLogo, {responseType: 'blob'}).subscribe(
+                    (data: Blob) =>{
+                        let reader = new FileReader();
+                        reader.readAsDataURL(data);
+                        reader.addEventListener("load", () => {
+                         
+                        journal['flyerLogo'] = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());
+                           
+                        }, false);
+                    }
+                );
+               });
                 this.dataAvailable = true;
             }
             this.loading = false;
@@ -156,6 +199,17 @@ export class JournalListComponent  {
         }
     )
     }
+
+   
+      createImageFromBlob(image: Blob) {
+        let reader = new FileReader();
+        reader.readAsDataURL(image);
+        reader.addEventListener("load", () => {
+         
+           return this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());
+           
+        }, false);
+     }
 
    
         showConfirm(): void {

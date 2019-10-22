@@ -74,7 +74,8 @@
             </li>
             <li>
                 <span class="p-h-10 pointer" nz-dropdown [nzDropdownMenu]="profile" [nzTrigger]="'click'" [nzPlacement]="'bottomRight'">
-                    <nz-avatar [nzIcon]="'user'" nzSrc="assets/images/avatars/thumb-3.jpg"></nz-avatar>
+                    <!-- <nz-avatar [nzIcon]="'user'" nzSrc="assets/images/avatars/thumb-3.jpg"></nz-avatar> -->
+                    <img [src]="imageToShow" style="width:40px; border-radius: 50%;vertical-align: middle;" />
                 </span>
                 <nz-dropdown-menu #profile="nzDropdownMenu">
                     <ul nz-menu class="p-b-15 p-t-20">

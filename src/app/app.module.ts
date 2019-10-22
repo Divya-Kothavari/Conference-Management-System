@@ -13,6 +13,7 @@ import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
 import { CommonLayoutComponent } from './layouts/common-layout/common-layout.component';
 import { FullLayoutComponent } from './layouts/full-layout/full-layout.component';
+import { AvatarModule } from 'ngx-avatar';
 
 import { NgChartjsModule } from 'ng-chartjs';
 import { ThemeConstantService } from './shared/services/theme-constant.service';
@@ -36,6 +37,7 @@ registerLocaleData(en);
         SharedModule,
         FormsModule,
         CoreModule,
+        AvatarModule,
         NgChartjsModule
      ],
     providers: [

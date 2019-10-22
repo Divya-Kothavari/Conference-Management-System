@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-header',
@@ -22,9 +24,12 @@ export class HeaderComponent{
     role;
     changePWForm: FormGroup;
     isVisible:false;
+    imageToShow: any;
+    uploadUrl;
     constructor( private themeService: ThemeConstantService,
         private router: Router,
         private http: HttpClient,
+        private sanitizer : DomSanitizer,
         private fb: FormBuilder,  private modalService: NzModalService,private message: NzMessageService,) {}
 
     ngOnInit(): void {
@@ -40,6 +45,8 @@ export class HeaderComponent{
      if (window.localStorage.getItem('role')) {
         this.role = window.localStorage.getItem('role');
      }
+     this.uploadUrl= `http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/user/profileImage/${this.userid}`;
+     this.getImageFromService();
     }
 
     toggleFold() {
@@ -141,5 +148,23 @@ export class HeaderComponent{
         this.isVisible = false;
         this.changePWForm.reset();
     }
-   
+    getImageFromService() {
+        this.getImage(this.uploadUrl).subscribe(data => {
+          this.createImageFromBlob(data);
+        }, error => {
+          console.log(error);
+        });
+    }
+    getImage(imageUrl: string): Observable<Blob> {
+        return this.http.get(this.uploadUrl, { responseType: 'blob' });
+      }
+      createImageFromBlob(image: Blob) {
+        let reader = new FileReader();
+        reader.readAsDataURL(image);
+        reader.addEventListener("load", () => {
+         
+           this.imageToShow = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());
+           
+        }, false);
+     }
 }

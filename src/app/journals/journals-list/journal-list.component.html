@@ -140,7 +140,10 @@
                 <nz-card>
                     <div class="d-flex justify-content-between">
                         <div class="media">
-                            <nz-avatar [nzSize]="40" nzShape="square" [nzSrc]="item.avatar"></nz-avatar>
+                            <!-- <nz-avatar [nzSize]="40" nzShape="square" [nzSrc]="item.avatar"></nz-avatar> -->
+                            <img *ngIf="item.journalFlyer" [src]="item.journalFlyer" style="width:40px; border-radius: 10%;vertical-align: middle;" />
+                            <img *ngIf="!item.journalFlyer" [src]="item.flyerLogo" style="width:40px; border-radius: 10%;vertical-align: middle;" />
+
                             <div class="m-l-10">
                                 <h5 class="m-b-0">{{item.journalName}}</h5>
                                 <span class="text-muted font-size-13">{{item.issnNumber}}</span>
@@ -196,7 +199,9 @@
                                 <a routerLinkActive="router-link-active"  class="m-r-5" *ngFor="let item of (item.member ? item.member.slice(0,2): [])">
                                     <nz-avatar  nzSize="small" [nzSrc]="item.avatar" nz-tooltip [nzTitle]="item.name"></nz-avatar>
                                 </a>
-                                <nz-avatar class="font-size-11 text-dark" nzSize="small"></nz-avatar>
+                                <!-- <nz-avatar class="font-size-11 text-dark" nzSize="small"></nz-avatar> -->
+                                 <img *ngIf="item.userPic" [src]="item.userPic" style="width:20px; border-radius: 50%;vertical-align: middle;" />
+                                 <ngx-avatar *ngIf="!item.userPic" [name]="item.journalPrimaryAdmin"></ngx-avatar>
                                 <!-- <a *ngIf="item.member.length > 2">
                                     <nz-avatar class="font-size-11 text-dark" nzSize="small" [nzText]="'+' + [item.member.length - 2].toString()" nz-tooltip [nzTitle]="[item.member.length - 2].toString() + ' More'"></nz-avatar>
                                 </a> -->

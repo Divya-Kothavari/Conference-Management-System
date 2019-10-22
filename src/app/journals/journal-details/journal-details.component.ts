@@ -256,8 +256,8 @@ export class JournalDetailsComponent {
                  console.log(err);
             }
         );
-        if (this.subjectsList.length !== 0) {
-            const data = this.subjectsList.join().toString();
+        if (this.selectedSubject.length !== 0) {
+            const data = this.selectedSubject.join().toString();
             this.http.post(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journalSubjects/${this.journalid}/${data}`, {}).subscribe(
                 (resp: any) =>{
                     if (resp.status === 'Success') {
