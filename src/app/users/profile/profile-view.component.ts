@@ -9,7 +9,8 @@ import { UploadXHRArgs } from 'ng-zorro-antd/upload';
 import { environment } from '../../../environments/environment';
 
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
-
+import { Observable } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
  
 
 @Component({
@@ -21,7 +22,10 @@ export class ProfileViewComponent {
     uploadUserPath: string = "http://themenate.com/applicator/dist/assets/images/avatars/thumb-13.jpg";
     selectedCountry: any;
     selectedLanguage: any;
+    user;
+    username;
     userid;
+    role;
     userDetails;
     uploadUrl;
     rolesList =[];
@@ -29,6 +33,8 @@ export class ProfileViewComponent {
     isLoading = false;
     skeletonLoading = false;
     dataAvailable = false;
+    imageToShow: any;
+
     networkList = [
         {
             name: 'Facebook',
@@ -138,10 +144,13 @@ export class ProfileViewComponent {
             status: true
         },
     ]
-
-    constructor(private fb: FormBuilder, private modalService: NzModalService, private message: NzMessageService,
+ 
+    constructor(private fb: FormBuilder, 
+        private modalService: NzModalService, 
+        private message: NzMessageService,
         private http: HttpClient,
-        private route: ActivatedRoute) {
+        private route: ActivatedRoute,
+         private sanitizer : DomSanitizer) {
             this.route.params.subscribe( params => {
                this.userid = params.id;
             } );
@@ -187,6 +196,34 @@ export class ProfileViewComponent {
             }
         );
 
+        this.username = window.localStorage.getItem('user');
+        this.userid = window.localStorage.getItem('userid');
+        if (window.localStorage.getItem('role')) {
+           this.role = window.localStorage.getItem('role');
+        }
+        this.uploadUrl= `http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/user/profileImage/${this.userid}`;
+        this.getImageFromService();
+
     }
+
+    getImageFromService() {
+        this.getImage(this.uploadUrl).subscribe(data => {
+          this.createImageFromBlob(data);
+        }, error => {
+          console.log(error);
+        });
+    }
+    getImage(imageUrl: string): Observable<Blob> {
+        return this.http.get(this.uploadUrl, { responseType: 'blob' });
+      }
+      createImageFromBlob(image: Blob) {
+        let reader = new FileReader();
+        reader.readAsDataURL(image);
+        reader.addEventListener("load", () => {
+         
+           this.imageToShow = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());
+           
+        }, false);
+     }
 
 }    

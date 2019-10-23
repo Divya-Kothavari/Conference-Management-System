@@ -4,13 +4,13 @@
                 <div class="col-md-7">
                     <div class="d-md-flex align-items-center">
                         <div class="text-center text-sm-left ">
-                            <nz-avatar class="shadow-sm m-v-15" [nzSize]="150" nzSrc="assets/images/avatars/thumb-3.jpg"></nz-avatar>
+                                <img [src]="imageToShow" style="width:120px; border-radius: 50%;vertical-align: middle;" alt="{{userDetails.userName}}" />
                         </div>
                         <div class="text-center text-sm-left m-v-15 p-l-30">
                             <h2 class="m-b-5">{{userDetails.userName}}</h2>
                             <p class="text-opacity font-size-13">@{{userDetails.userId}}</p>
-                            <p class="text-dark m-b-20">Frontend Developer, UI/UX Designer</p>
-                            <button nz-button nzType="primary" nzGhost>Contact</button>
+                            <p class="text-dark m-b-20">{{role === 'undefined'? '' : role}}</p>
+                            <button [routerLink]="['/users/profile', userDetails.userId]" nz-button nzType="primary" nzGhost>Edit</button>
                         </div>
                     </div>
                 </div>
@@ -33,13 +33,13 @@
                                     </p>
                                     <p class="col font-weight-semibold"> {{userDetails.mobile}}</p>
                                 </li>
-                                <li class="row">
+                                <!-- <li class="row">
                                     <p class="col-sm-3 col-5 font-weight-semibold text-dark m-b-5">
                                         <i class="m-r-10 text-primary" nz-icon type="compass" theme="outline"></i>
                                         <span>Location: </span> 
                                     </p>
                                     <p class="col font-weight-semibold"> Los Angeles, CA</p>
-                                </li>
+                                </li> -->
                             </ul>
                             <div class="d-flex font-size-22">
                                 <a href="" class="text-gray p-r-20">
@@ -93,61 +93,18 @@
                         </div>
                     </div>
                 </nz-card>
-                <nz-card>
-                    <h5>Reviews (18)</h5>
-                    <div class="m-t-20">
-                        <nz-list [nzDataSource]="reviewListData" [nzRenderItem]="review" [nzItemLayout]="'vertical'" [nzPagination]="pagination">
-                            <ng-template #review let-item>
-                                <nz-list-item [nzContent]="item.review" [nzActions]="[rating]">
-                                    <ng-template #rating>
-                                        <nz-rate [ngModel]="item.rating" nzDisabled></nz-rate>
-                                    </ng-template>
-                                    <nz-list-item-meta
-                                        [nzTitle]="reviewTitle"
-                                        [nzAvatar]="item.img"
-                                        [nzDescription]="item.date">
-                                        <ng-template #reviewTitle>
-                                            <a class="font-size-15" href="">{{item.name}}</a>
-                                        </ng-template>
-                                    </nz-list-item-meta>
-                                </nz-list-item>
-                            </ng-template>
-                            <ng-template #pagination>
-                                <nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination>
-                            </ng-template>
-                        </nz-list>
-                    </div>
-                </nz-card>    
-            </div>
+             </div>
             <div class="col-md-4">
+                 
                 <nz-card>
-                    <h5>Connected</h5>
-                    <div class="m-t-20">
-                        <nz-list [nzDataSource]="connectedListData" [nzRenderItem]="item" [nzItemLayout]="'horizontal'">
-                            <ng-template #item let-item>
-                                <nz-list-item class="border-bottom-0">
-                                    <nz-list-item-meta
-                                        [nzTitle]="nzTitle"
-                                        [nzAvatar]="item.src"
-                                        [nzDescription]="item.title">
-                                        <ng-template #nzTitle>
-                                            <a class="font-size-15" href="">{{item.name}}</a>
-                                        </ng-template>
-                                    </nz-list-item-meta>
-                                </nz-list-item>
-                            </ng-template>
-                        </nz-list>
-                    </div>
-                </nz-card>
-                <nz-card>
-                    <h5>Projects</h5>
+                    <h5>Assinged Journals</h5>
                     <div class="m-t-20">
                         <div class="m-b-20 p-b-20 border-bottom" *ngFor="let item of projectListData">
                             <div class="media align-items-center m-b-15">
                                 <nz-avatar class="shadow-sm" [nzSrc]="item.img"></nz-avatar>
                                 <div class="media-body m-l-20">
                                     <h5 class="m-b-0">
-                                        <a href="" class="text-dark">{{item.name}}</a>
+                                        <a href="" class="text-dark">Journal Name</a>
                                     </h5>
                                 </div>
                             </div>

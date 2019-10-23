@@ -25,14 +25,14 @@
                     <i nz-icon [type]="isExpand? 'menu-fold': 'menu-unfold'" theme="outline"></i>
                 </a>
             </li>
-            <li>
+            <!-- <li>
                 <a (click)="searchToggle()">
                     <i nz-icon type="search" theme="outline"></i>
                 </a>
                 <nz-drawer [nzWidth]="380" nzTitle="Search" [nzVisible]="searchVisible" nzPlacement="left" (nzOnClose)="searchToggle()">
                     <app-search></app-search>
                 </nz-drawer>
-            </li>
+            </li> -->
         </ul>
         <ul class="nav-right">
             <li>
@@ -128,12 +128,13 @@
                 </nz-dropdown-menu >
             </li>
             <li>
-                <a (click)="quickViewToggle()">
+                &nbsp;
+                <!-- <a (click)="quickViewToggle()">
                     <i nz-icon type="appstore" theme="outline"></i>
                 </a>
                 <nz-drawer [nzWidth]="280" nzTitle="Theme Config" [nzClosable]="false" [nzVisible]="quickViewVisible" nzPlacement="right" (nzOnClose)="quickViewToggle()">
                     <app-quick-view></app-quick-view>
-                </nz-drawer>
+                </nz-drawer> -->
             </li>
         </ul>
     </div>
