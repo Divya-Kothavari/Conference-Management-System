@@ -32,7 +32,8 @@ export class ArticleListComponent  {
     subjectForm: any;
     isLoading = false;
     editmode = false;
-  journalmodal;
+    journalmodal;
+    visible: boolean = false;
     constructor (
         private fb: FormBuilder,
         private modalService: NzModalService, private http: HttpClient, private message: NzMessageService,
@@ -186,5 +187,12 @@ export class ArticleListComponent  {
                } else {
                    this.invalidId = false;
                }
+          }
+
+          openDrawer(){
+            this.visible = true;
+          }
+          closeDrawer(){
+            this.visible = false;
           }
 }

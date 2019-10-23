@@ -166,7 +166,10 @@
                 <nz-timeline>
                          <div class="m-l-20" [sortablejs]="eblist" [sortablejsOptions]="{ animation: 150 }">
                             <div class="row" style="border-bottom: 1px solid rgba(114,132,154,0.7); margin-bottom: 0.5rem; padding-bottom: 16px;"  *ngFor="let item of eblist">
-                                <div class="col-md-12">
+                                <div class="col-md-1">
+                                        <i nz-icon nzType="drag" nzTheme="outline"></i>
+                                </div>
+                                <div class="col-md-11">
                                         <h6 class="m-b-0 handle">{{item.editorName}} <a style="float: right"  class="text-gray font-size-18" nz-dropdown nzPlacement="bottomRight" nzTrigger="click" [nzDropdownMenu]="ebOptions">
                                                 <i nz-icon type="ellipsis" theme="outline"></i>
                                             </a></h6>
