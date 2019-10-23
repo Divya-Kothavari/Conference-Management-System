@@ -259,6 +259,60 @@
             </div>
     
         </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <nz-card>
+                    <div class="d-flex justify-content-between align-items-center ng-star-inserted">
+                        <h5 style="border-bottom: 3px solid #ccc">Article Status</h5>
+                        <div> <button class="text-right" nz-button nzShape="round" nzSize="default" nzType="primary" (click)="isVisibleArticle = true">
+                                        <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
+                                        <span>Add Article Status</span>
+                                    </button></div>
+                        </div>
+                     <div>
+                    <nz-table #ordersListTable [nzData]="listOfArticles" 
+                            [nzFrontPagination]= "true" 
+                            [nzPageSize]="pageSize"
+                            (nzCurrentPageDataChange)="currentPageDataChangeArticle($event)"
+                            nzShowPagination
+                            [nzLoading]="loadingArticles"
+                             >
+                        <thead (nzSortChange)="sort($event)" nzSingleSort>
+                            <tr>
+                                <th nzShowSort nzSortKey="name">Status Description</th>
+                                <th nzShowSort nzSortKey="date">Status Code</th>
+                                
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of displayArticles | search:'name':search as count ; let i=index">
+                                 <td>
+                                    <div class="d-flex align-items-center">
+                                         <h6 class="m-l-10 m-b-0">{{item.statusDescription}}</h6>
+                                    </div>
+                                </td>
+                                <td>
+                                        <div class="d-flex align-items-center">
+                                            <h6 class="m-l-10 m-b-0">{{item.statusCode}}</h6>
+                                        </div>
+                                    </td>
+                                <td class="text-md-right">
+                                    <a aria-readonly="true" class="m-r-5" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom" (click)="editArticleStatus(item.statusDescription, item.statusCode); editmode = true;">
+                                        <i nz-icon type="edit" theme="outline"></i>
+                                    </a>
+                                    <button aria-readonly="true" nz-button nzType="default" nz-popconfirm nzPopoverTrigger="click" nzTitle="Are you sure delete this article status?" (nzOnConfirm)="deleteArticleStatus(item.statusCode)" (nzOnCancel)="cancel()" nzGhost nzShape="circle">
+                                        <i nz-icon type="delete" theme="outline"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                     </div>
+                 </nz-card>
+            </div>
+        </div>
     <!-- Adding New Role -->
     <nz-modal [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()"
 [nzFooter]="modalFooter" nzTitle="Add New Role">
@@ -381,3 +435,29 @@
           <button [nzLoading]="isLoadingCoun" nz-button nzType="primary" [disabled]="!countryForm.valid" (click)="addCountry()">Add</button>
         </ng-template>
     </nz-modal>
+<!--Add Artcle Status-->
+<nz-modal [(nzVisible)]="isVisibleArticle" (nzOnCancel)="handleCancelArticle()"
+[nzFooter]="modalFooterArticle" nzTitle="Add/Edit Article Status">
+    <form nz-form [formGroup]="articleForm">
+                <nz-form-item>
+                    <nz-form-label nzFor="Artcle Status Code">Artcle Status Code</nz-form-label>
+                    <nz-form-control>
+                        <input [disabled]="editmode" formControlName="artcleCode" nz-input type="text" placeholder="Artcle Status Code">
+                        <nz-form-explain *ngIf="articleForm.get('artcleCode').dirty && articleForm.get('artcleCode').errors">Please input Artcle Status Code!</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+                
+                <nz-form-item>
+                    <nz-form-label nzFor="Artcle Status Description">Artcle Status Description</nz-form-label>
+                    <nz-form-control>
+                        <input formControlName="articleDescription" nz-input type="text" placeholder="Artcle Status Description">
+                        <nz-form-explain *ngIf="articleForm.get('articleDescription').dirty && articleForm.get('articleDescription').errors">Please input Artcle Status Description!</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>  
+                 
+    </form>
+      <ng-template #modalFooterArticle>
+        <button nz-button nzType="default" (click)="handleCancelArticle()">Cancel</button>
+        <button [nzLoading]="isLoadingArticle" nz-button nzType="primary" [disabled]="!articleForm.valid" (click)="addArticleStatus()">Add</button>
+      </ng-template>
+  </nz-modal>

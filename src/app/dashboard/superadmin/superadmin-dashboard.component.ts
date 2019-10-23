@@ -15,10 +15,12 @@ export class SuperadminDashboardComponent implements OnInit {
     isVisibleSub:boolean  = false;
     isVisibleReg:boolean  = false;
     isVisibleCoun:boolean  = false;
+    isVisibleArticle: boolean = false;
     isLoading = false;
     isLoadingSub = false;
     isLoadingReg = false;
     isLoadingCoun = false;
+    isLoadingArticle = false;
 
     allChecked: boolean = false;
     indeterminate: boolean = false;
@@ -30,6 +32,7 @@ export class SuperadminDashboardComponent implements OnInit {
     loadingSubjects = false;
     loadingRegions = false;
     loadingCountries = false;
+    loadingArticles = false;
     pageSize = 5;
     pageIndex = 1;
     numberOfChecked = 0;
@@ -38,13 +41,16 @@ export class SuperadminDashboardComponent implements OnInit {
     listOfsubjects = [];
     listOfRegions = [];
     listOfCountries = [];
+    listOfArticles = [];
     dispalySubjects = [];
     displayRegions = [];
     displayCountries = [];
+    displayArticles = [];
     roleForm: FormGroup;
     subjectForm: FormGroup;
     regionForm: FormGroup;
     countryForm: FormGroup;
+    articleForm: FormGroup;
     role: any;
     selectedRegion;
     selectedStatus;
@@ -79,10 +85,16 @@ export class SuperadminDashboardComponent implements OnInit {
             economicStatus: [ null, [ Validators.required ] ]
         });
 
+        this.articleForm = this.fb.group({
+            artcleCode: [ null, [ Validators.required ] ],
+            articleDescription: [ null, [ Validators.required ] ]
+        });
+
         this.getRolesList();
         this.getSubjectsList();
         this.getRegionsList();
         this.getCountriesList();
+        this.getArticleStatusList();
     }
     currentPageDataChange($event: Array<{ 
         name: string;
@@ -108,7 +120,12 @@ export class SuperadminDashboardComponent implements OnInit {
     }>): void {
     this.displayCountries = $event;
     }
-
+    currentPageDataChangeArticle($event: Array<{ 
+        articleName: string;
+        articleStatus: string;
+    }>): void {
+    this.displayArticles = $event;
+    }
     getRolesList(){
         this.loading = true;
         this.http.get(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/role`).subscribe(
@@ -169,6 +186,21 @@ export class SuperadminDashboardComponent implements OnInit {
     )
     }
 
+    getArticleStatusList() {
+        this.loadingArticles = true;
+        this.http.get(`http://articlemgmt-dev.zpnmrhhecb.ap-south-1.elasticbeanstalk.com/articlemgmt/articleStatus`).subscribe(
+            (resp: any) =>{
+                if (resp.status === 'Success') {
+                    this.listOfArticles = resp.articleStatuses;
+                }
+                this.loadingArticles = false;
+            },
+            err => {
+                console.log(err);
+            }
+    )
+    }
+
     handleCancel() {
         this.isVisible = false;
         this.roleForm.reset();
@@ -187,6 +219,11 @@ export class SuperadminDashboardComponent implements OnInit {
     handleCancelCoun() {
         this.isVisibleCoun = false;
         this.countryForm.reset();
+    }
+
+    handleCancelArticle() {
+        this.isVisibleArticle = false;
+        this.articleForm.reset();
     }
    
     addRole() {
@@ -402,7 +439,59 @@ export class SuperadminDashboardComponent implements OnInit {
         }
     }
 
-
+    addArticleStatus() {
+        if (this.editmode) {
+            this.isLoadingArticle = true;
+            const articleStatus = {
+                articleStatusCode: this.articleForm.value.artcleCode,
+                articleStatusDescription: this.articleForm.value.articleDescription
+            }
+            this.http.put(`http://articlemgmt-dev.zpnmrhhecb.ap-south-1.elasticbeanstalk.com/articlemgmt/articleStatus`, articleStatus).subscribe(
+            (resp: any) =>{
+                this.isLoadingArticle = false;
+                if (resp.status === 'Success') {
+                    //console.log(resp.message);
+                    this.message.success(resp.message);
+                    this.handleCancelArticle();
+                    this.editmode = false;
+                    this.getArticleStatusList();
+                }
+                if(resp.status === 'Error'){
+                    this.message.error(resp.message);
+                    this.handleCancelArticle();
+                    this.getArticleStatusList();
+                }
+            },
+            err => {
+                console.log(err);
+            }
+        )
+        } else {
+            this.isLoadingArticle = true;
+            const articleStatus = {
+                articleStatusCode: this.articleForm.value.artcleCode,
+                articleStatusDescription: this.articleForm.value.articleDescription
+            }
+            this.http.post(`http://articlemgmt-dev.zpnmrhhecb.ap-south-1.elasticbeanstalk.com/articlemgmt/articleStatus`, articleStatus).subscribe(
+            (resp: any) =>{
+                this.isLoadingArticle = false;
+                if (resp.status === 'Success') {
+                    this.message.success(resp.message);
+                    this.handleCancelArticle();
+                    this.getArticleStatusList();
+                }
+                if(resp.status === 'Error'){
+                    this.message.error(resp.message);
+                    this.handleCancelArticle();
+                    this.getArticleStatusList();
+                }
+            },
+            err => {
+                console.log(err);
+            }
+        )
+        }
+    }
 
     deleteRole(rolename) {
         this.http.delete(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/role/${rolename}`).subscribe(
@@ -460,6 +549,20 @@ export class SuperadminDashboardComponent implements OnInit {
         )
     }
 
+    deleteArticleStatus(articleStatusCode) {
+        this.http.delete(`http://articlemgmt-dev.zpnmrhhecb.ap-south-1.elasticbeanstalk.com/articlemgmt/articleStatus/${articleStatusCode}`).subscribe(
+            (resp: any) =>{
+                if (resp.status === 'Success') {
+                    this.message.success(resp.message);
+                    this.getArticleStatusList();
+                }
+            },
+            err => {
+                console.log(err);
+            }
+        )
+    }
+
     editRole(name, desc) {
         this.roleForm.controls['roleName'].setValue(name);
         this.roleForm.controls['roleDescription'].setValue(desc);
@@ -483,6 +586,11 @@ export class SuperadminDashboardComponent implements OnInit {
         this.countryForm.controls['regionCode'].setValue(regioncode);
         this.countryForm.controls['economicStatus'].setValue(status);
         this.isVisibleCoun = true;
+    }
+    editArticleStatus(desc, code) {
+        this.articleForm.controls['artcleCode'].setValue(code);
+        this.articleForm.controls['articleDescription'].setValue(desc);
+        this.isVisibleArticle = true;
     }
 
 }  
