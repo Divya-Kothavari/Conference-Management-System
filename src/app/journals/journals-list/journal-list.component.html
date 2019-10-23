@@ -142,8 +142,8 @@
                         <div class="media">
                             <!-- <nz-avatar [nzSize]="40" nzShape="square" [nzSrc]="item.avatar"></nz-avatar> -->
                             <img *ngIf="item.journalFlyer" [src]="item.journalFlyer" style="width:40px; border-radius: 10%;vertical-align: middle;" />
-                            <img *ngIf="!item.journalFlyer" [src]="item.flyerLogo" style="width:40px; border-radius: 10%;vertical-align: middle;" />
-
+                            <img *ngIf="!item.journalFlyer && item.flyerLogo" [src]="item.flyerLogo" style="width:40px; border-radius: 10%;vertical-align: middle;" />
+                            <ngx-avatar *ngIf="!item.journalFlyer && !item.flyerLogo" [name]="item.journalName"></ngx-avatar>
                             <div class="m-l-10">
                                 <h5 class="m-b-0">{{item.journalName}}</h5>
                                 <span class="text-muted font-size-13">{{item.issnNumber}}</span>

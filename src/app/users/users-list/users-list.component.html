@@ -51,7 +51,8 @@
                 <td>{{item.userId}}</td>
                 <td>
                     <div class="d-flex align-items-center">
-                        <nz-avatar [nzSize]="30" nzIcon="user" [nzSrc]="item.avatar"></nz-avatar>
+                        <img *ngIf="item.userPic" [src]="item.userPic" style="width:30px; border-radius: 50%;vertical-align: middle;" />
+                        <ngx-avatar *ngIf="!item.userPic" [name]="item.userName"></ngx-avatar>
                         <h6 class="m-l-10 m-b-0">{{item.userName}}</h6>
                     </div>
                 </td>

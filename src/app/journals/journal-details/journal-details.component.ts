@@ -280,11 +280,11 @@ export class JournalDetailsComponent {
     createImageFromBlob(image: Blob, url) {
         let reader = new FileReader();
         reader.readAsDataURL(image);
-        if (url = this.upoadBannerUrl){
+        if (url === this.upoadBannerUrl){
             reader.addEventListener("load", () => {
                 this.imageToShowBanner = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());  
              }, false);
-        } else if (url = this.upoadFlyerUrl) {
+        } else if (url === this.upoadFlyerUrl) {
             reader.addEventListener("load", () => {
                 this.imageToShowFlyer = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());  
              }, false);
