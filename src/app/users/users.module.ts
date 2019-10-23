@@ -6,6 +6,7 @@ import { UsersRoutingModule } from './users-routing.module';
 import { UsersListComponent } from './users-list/users-list.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileViewComponent } from './profile/profile-view.component';
+import { AvatarModule } from 'ngx-avatar';
 
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -19,7 +20,8 @@ import { NzInputModule } from 'ng-zorro-antd/input';
         ReactiveFormsModule,
         UsersRoutingModule,
         NzSkeletonModule,
-        NzInputModule
+        NzInputModule,
+        AvatarModule
     ],
     declarations: [
         UsersListComponent,

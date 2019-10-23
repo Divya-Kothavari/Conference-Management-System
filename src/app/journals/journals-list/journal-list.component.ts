@@ -156,39 +156,41 @@ export class JournalListComponent  {
                 this.uploadUrl= `http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/user/profileImage/${journal.journalPrimaryAdmin}`;
                 this.http.get(this.uploadUrl, {responseType: 'blob'}).subscribe(
                     (data: Blob) =>{
-                        let reader = new FileReader();
-                        reader.readAsDataURL(data);
-                        reader.addEventListener("load", () => {
-                         
-                        journal['userPic'] = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());
-                           
-                        }, false);
+                        if (data.size !== 0) {
+                            let reader = new FileReader();
+                            reader.readAsDataURL(data);
+                            reader.addEventListener("load", () => {
+                            journal['userPic'] = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());
+                            }, false);
+                        }
                     }
                 );
-                this.upoadFlyerUrl = `http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journalFlyer/${journal.journalid}`;
+                this.upoadFlyerUrl = `http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journalFlyer/${journal.journalShortName}`;
                 this.http.get(this.upoadFlyerUrl, {responseType: 'blob'}).subscribe(
                     (data: Blob) =>{
                         let reader = new FileReader();
+                        if (data.size !== 0) {
                         reader.readAsDataURL(data);
-                        reader.addEventListener("load", () => {
-                         
+                        reader.addEventListener("load", () => {       
                         journal['journalFlyer'] = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());
-                           
                         }, false);
+                      }
                     }
                 );
-                this.uploadFlyerLogo = `http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journalLogo/${journal.journalid}`;
-                this.http.get(this.uploadFlyerLogo, {responseType: 'blob'}).subscribe(
-                    (data: Blob) =>{
-                        let reader = new FileReader();
-                        reader.readAsDataURL(data);
-                        reader.addEventListener("load", () => {
-                         
-                        journal['flyerLogo'] = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());
-                           
-                        }, false);
-                    }
-                );
+                this.uploadFlyerLogo = `http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journalLogo/${journal.journalShortName}`;
+                if (!journal.journalFlyer) {
+                    this.http.get(this.uploadFlyerLogo, {responseType: 'blob'}).subscribe(
+                        (data: Blob) =>{
+                            if (data.size !== 0) {
+                                let reader = new FileReader();
+                                reader.readAsDataURL(data);
+                                reader.addEventListener("load", () => {
+                                journal['flyerLogo'] = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());
+                                }, false);
+                            }
+                        }
+                    );
+                }
                });
                 this.dataAvailable = true;
             }

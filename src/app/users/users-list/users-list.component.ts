@@ -4,6 +4,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { environment } from '../../../environments/environment';
+import { DomSanitizer } from '@angular/platform-browser';
  
 
 
@@ -26,9 +27,11 @@ export class UsersListComponent implements OnInit {
     pageIndex = 1;
     numberOfChecked = 0;
     user;
+    uploadUrl;
     signUpForm: FormGroup;
     isLoading = false;
-    constructor( private fb: FormBuilder, private http: HttpClient, private message: NzMessageService,
+    constructor( private fb: FormBuilder, private http: HttpClient, private sanitizer : DomSanitizer,
+        private message: NzMessageService,
         ) { }
 
     ngOnInit(){
@@ -55,9 +58,23 @@ export class UsersListComponent implements OnInit {
                if (userroles.includes('SuperAdmin')) {
                   this.listOfAllData = resp.users;
                } else if (userroles.includes('Admin')) {
-                //  this.listOfAllData = resp.users.filter(user => user.role !== 'SuperAdmin' && user.role !== 'Admin');
-                 this.listOfAllData = resp.users;
+                 this.listOfAllData = resp.users.filter(user => user.role !== 'SuperAdmin' && user.role !== 'Admin');
+                //  this.listOfAllData = resp.users;
                }
+               this.listOfAllData.forEach((user)=>{
+                this.uploadUrl= `http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/user/profileImage/${user.userId}`;
+                this.http.get(this.uploadUrl, {responseType: 'blob'}).subscribe(
+                    (data: Blob) =>{
+                        let reader = new FileReader();
+                        if (data.size !== 0) {
+                            reader.readAsDataURL(data);
+                            reader.addEventListener("load", () => {
+                              user['userPic'] = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString()); 
+                            }, false);
+                        }
+                    }
+                );
+               });
             }
             this.loading = false;
         },
