@@ -77,13 +77,13 @@ export class RegisterComponent {
             status: true
         };
         this.http.post(
-            `http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/user`, userBean
+            `http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/user`, userBean
         ).subscribe(
             (resp: any) =>{
                 this.isLoading = false;
                 if(resp.status == 'Success'){
                     this.message.success(resp.message);
-                    this.http.post(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/userRoles/${this.signupForm.value.userId}`, 'Author').subscribe(
+                    this.http.post(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/userRoles/${this.signupForm.value.userId}`, 'Author').subscribe(
                 (resp: any) =>{
                      if (resp.status === 'Success') {
                         this.route.navigate(['/signin/login']);
@@ -106,7 +106,7 @@ export class RegisterComponent {
         )
     }
     getRolesList(){
-    //     this.http.get(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/role`).subscribe(
+    //     this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/role`).subscribe(
     //     (resp: any) =>{
     //         if (resp.status === 'Success') {
     //             this.listofroles = [];
@@ -122,7 +122,7 @@ export class RegisterComponent {
     this.listofroles = ['Editor', 'Reviewer'];
     }
     getSubjectsList() {
-        this.http.get(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/subject`).subscribe(
+        this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmsjournalmgmt/subject`).subscribe(
         (resp: any) =>{
             if (resp.status === 'Success') {
                 this.listofsubjects = [];
@@ -138,7 +138,7 @@ export class RegisterComponent {
     }
 
     getRegionsList() {
-        this.http.get(`http://cmslocations-dev.6dviapaszi.ap-south-1.elasticbeanstalk.com/cmslocations/locations/region`).subscribe(
+        this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmslocations/region`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                 this.listofregions = [];
@@ -154,7 +154,7 @@ export class RegisterComponent {
     }
 
     getCountriesList() {
-        this.http.get(`http://cmslocations-dev.6dviapaszi.ap-south-1.elasticbeanstalk.com/cmslocations/locations/countries/${this.signupForm.value.region}`).subscribe(
+        this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmslocations/countries/${this.signupForm.value.region}`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     this.listofcountries = [];
@@ -180,7 +180,7 @@ export class RegisterComponent {
 
     duplicateCheck() {
         this.validatingStatus = 'validating';
-        this.http.get(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/users`).subscribe(
+        this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/users`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     let usersList = [];

@@ -55,7 +55,7 @@ export class ArticleViewComponent {
         this.ebmemberForm.controls['journalShortName'].setValue(this.journalid);
 
         //get user by id
-        this.http.get(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journal/${this.journalid}`).subscribe(
+        this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmsjournalmgmt/journal/${this.journalid}`).subscribe(
             (resp: any) => {
                 if (resp.status === 'Success') {
                     console.log(resp.journal);
@@ -73,7 +73,7 @@ export class ArticleViewComponent {
     }
 
     getEbList() {
-        this.http.get(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/editorialBoard/${this.journalid}`).subscribe(
+        this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmsjournalmgmt/editorialBoard/${this.journalid}`).subscribe(
             (resp: any) => {
                 if (resp.status === 'Success') {
                     this.eblist = resp.editorialBoards;
@@ -86,7 +86,7 @@ export class ArticleViewComponent {
     }
 
     getRegionsList() {
-        this.http.get(`http://cmslocations-dev.6dviapaszi.ap-south-1.elasticbeanstalk.com/cmslocations/locations/region`).subscribe(
+        this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmslocations/region`).subscribe(
             (resp: any) => {
                 if (resp.status === 'Success') {
                     this.listofregions = [];
@@ -105,7 +105,7 @@ export class ArticleViewComponent {
     }
 
     getCountriesList() {
-        this.http.get(`http://cmslocations-dev.6dviapaszi.ap-south-1.elasticbeanstalk.com/cmslocations/locations/countries/${this.ebmemberForm.value.region}`).subscribe(
+        this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmslocations/countries/${this.ebmemberForm.value.region}`).subscribe(
             (resp: any) => {
                 if (resp.status === 'Success') {
                     this.listofcountries = [];
@@ -140,7 +140,7 @@ export class ArticleViewComponent {
                 universityName: this.ebmemberForm.value.universityName,
 
             }
-            this.http.put(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/editorialBoard`, editorialBoard).subscribe(
+            this.http.put(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmsjournalmgmt/editorialBoard`, editorialBoard).subscribe(
                 (resp: any) => {
                     this.isLoadingEbmember = false;
                     if (resp.status === 'Success') {
@@ -172,7 +172,7 @@ export class ArticleViewComponent {
                 universityName: this.ebmemberForm.value.universityName,
 
             }
-            this.http.post(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/editorialBoard`, editorialBoard).subscribe(
+            this.http.post(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmsjournalmgmt/editorialBoard`, editorialBoard).subscribe(
                 (resp: any) => {
                     this.isLoadingEbmember = false;
                     if (resp.status === 'Success') {
@@ -210,7 +210,7 @@ export class ArticleViewComponent {
     }
 
     deleteEbMemeber(eId) {
-        this.http.delete(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/editorialBoard/${this.journalid}/${eId}`).subscribe(
+        this.http.delete(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmsjournalmgmt/editorialBoard/${this.journalid}/${eId}`).subscribe(
             (resp: any) => {
                 if (resp.status === 'Success') {
                     this.message.success(resp.message);

@@ -45,7 +45,7 @@ export class HeaderComponent{
      if (window.localStorage.getItem('role')) {
         this.role = window.localStorage.getItem('role');
      }
-     this.uploadUrl= `http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/user/profileImage/${this.userid}`;
+     this.uploadUrl= `http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/user/profileImage/${this.userid}`;
      this.getImageFromService();
     }
 
@@ -118,7 +118,7 @@ export class HeaderComponent{
                     nPasswordConf: this.changePWForm.value.confirmPassword,
                     userId: window.localStorage.getItem('userid')
                 }
-                this.http.post('http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/passwordReset', data).subscribe(
+                this.http.post('http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/passwordReset', data).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                    this.message.success(resp.message);

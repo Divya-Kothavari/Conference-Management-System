@@ -50,7 +50,7 @@ export class UsersListComponent implements OnInit {
     }
     getUsersList(){
         this.loading = true;
-        this.http.get(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/users`).subscribe(
+        this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/users`).subscribe(
         (resp: any) =>{
             if (resp.status === 'Success') {
                 let roles = window.localStorage.getItem('role');
@@ -62,7 +62,7 @@ export class UsersListComponent implements OnInit {
                 //  this.listOfAllData = resp.users;
                }
                this.listOfAllData.forEach((user)=>{
-                this.uploadUrl= `http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/user/profileImage/${user.userId}`;
+                this.uploadUrl= `http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/user/profileImage/${user.userId}`;
                 this.http.get(this.uploadUrl, {responseType: 'blob'}).subscribe(
                     (data: Blob) =>{
                         let reader = new FileReader();
@@ -86,7 +86,7 @@ export class UsersListComponent implements OnInit {
     
 
     deleteUser(userId){
-        this.http.delete(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/user/${userId}`).subscribe(
+        this.http.delete(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/user/${userId}`).subscribe(
             (resp: any) =>{
                 
                 if(resp.status == 'Success'){
@@ -152,7 +152,7 @@ export class UsersListComponent implements OnInit {
             status: true
         };
         this.http.post(
-            `http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/user`, userBean
+            `http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/user`, userBean
         ).subscribe(
             (resp: any) =>{
                 this.isLoading = false;

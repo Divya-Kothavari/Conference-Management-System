@@ -157,7 +157,7 @@ export class ArticleDetailsComponent {
 
     ngOnInit(): void {
          //get user by id
-        this.http.get(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journal/${this.journalid}`).subscribe(
+        this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmsjournalmgmt/journal/${this.journalid}`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     console.log(resp.journal);
@@ -170,7 +170,7 @@ export class ArticleDetailsComponent {
                  console.log(err);
             }
         );
-        this.http.get(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/users/Admin`).subscribe(
+        this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/users/Admin`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                    this.adminsList = resp.userIds;
@@ -180,7 +180,7 @@ export class ArticleDetailsComponent {
                 console.log(err);
             }
         );
-        this.http.get(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/subject`).subscribe(
+        this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmsjournalmgmt/subject`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     resp.subjects.forEach(element => {
@@ -194,7 +194,7 @@ export class ArticleDetailsComponent {
             }
         );
 
-        this.http.get(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journalSubjects/${this.journalid}`).subscribe(
+        this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmsjournalmgmt/journalSubjects/${this.journalid}`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     resp.journalSubjects.forEach(element => {
@@ -215,7 +215,7 @@ export class ArticleDetailsComponent {
         if (this.selectedUser.length !== 0 ) {
             this.journalDetails.journalPrimaryAdmin = this.selectedUser.join().toString();
         }
-        this.http.put(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journal`, this.journalDetails).subscribe(
+        this.http.put(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmsjournalmgmt/journal`, this.journalDetails).subscribe(
             (resp: any) =>{
                 this.isLoading= false;
                 if (resp.status === 'Success') {
@@ -228,7 +228,7 @@ export class ArticleDetailsComponent {
         );
         if (this.subjectsList.length !== 0) {
             const data = this.subjectsList.join().toString();
-            this.http.post(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journalSubjects/${this.journalid}/${data}`, {}).subscribe(
+            this.http.post(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmsjournalmgmt/journalSubjects/${this.journalid}/${data}`, {}).subscribe(
                 (resp: any) =>{
                     if (resp.status === 'Success') {
                         this.message.success(resp.message);

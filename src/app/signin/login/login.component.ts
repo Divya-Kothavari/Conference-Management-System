@@ -32,7 +32,7 @@ export class LoginComponent {
             userId:  this.loginForm.value.userName,
         };
         this.http.post(
-            'http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/login', userBean
+            'http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/login', userBean
         ).subscribe(
             (resp: any) =>{
               this.isLoading = false;

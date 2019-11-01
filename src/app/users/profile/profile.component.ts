@@ -153,12 +153,12 @@ export class ProfileComponent {
 
     ngOnInit(): void {
          //get user by id
-        this.http.get(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/user/${this.userid}`).subscribe(
+        this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/user/${this.userid}`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     //console.log(resp.user);
                    this.userDetails = resp.user;
-                   this.http.get(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/userRoles/${this.userDetails.userId}`).subscribe(
+                   this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/userRoles/${this.userDetails.userId}`).subscribe(
                     (resp: any) =>{
                         if (resp.status === 'Success') {
                            this.selectedRole = resp.userRoles.roles.split(',');
@@ -168,7 +168,7 @@ export class ProfileComponent {
                         console.log(err);
                     }
                 );
-                   this.uploadUrl= `http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/user/profileImage/${this.userDetails.userId}`;
+                   this.uploadUrl= `http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/user/profileImage/${this.userDetails.userId}`;
                    this.getImageFromService();
                    this.dataAvailable = true;
                 }
@@ -177,7 +177,7 @@ export class ProfileComponent {
                  console.log(err);
             }
         );
-        this.http.get(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/role`).subscribe(
+        this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/role`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     const userroles = window.localStorage.getItem('role').split(',');
@@ -273,7 +273,7 @@ getImageFromService() {
             gender: this.userDetails.gender,
             dob:this.userDetails.dob
         }
-        this.http.put('http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/user', data).subscribe(
+        this.http.put('http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/user', data).subscribe(
             (resp: any) =>{
                  if (resp.status === 'Success') {
                    this.message.success(resp.message);
@@ -287,7 +287,7 @@ getImageFromService() {
         );
         const userroles = this.selectedRole.join().toString();
         if (userroles !== '') {
-            this.http.post(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/userRoles/${this.userDetails.userId}`, userroles).subscribe(
+            this.http.post(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/userRoles/${this.userDetails.userId}`, userroles).subscribe(
                 (resp: any) =>{
                      if (resp.status === 'Success') {
                         this.message.success(resp.message);

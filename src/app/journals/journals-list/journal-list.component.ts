@@ -57,7 +57,7 @@ export class JournalListComponent  {
        
         this.getJournalsList();
 
-        this.http.get(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/subject`).subscribe(
+        this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmsjournalmgmt/subject`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     resp.subjects.forEach(element => {
@@ -70,7 +70,7 @@ export class JournalListComponent  {
                  console.log(err);
             }
         );
-        this.http.get(`http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/users/Admin`).subscribe(
+        this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/users/Admin`).subscribe(
             (resp: any) =>{
                 if (resp.status === 'Success') {
                    this.adminsList = resp.userIds;
@@ -105,12 +105,12 @@ export class JournalListComponent  {
                 aboutJournal: this.journalForm.value.aboutJounal,
                 journalPrimaryAdmin: this.journalForm.value.primayUser.join()
             }
-            this.http.post(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journal`, journal).subscribe(
+            this.http.post(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmsjournalmgmt/journal`, journal).subscribe(
             (resp: any) =>{
                 this.isLoading = false;
                 if (resp.status === 'Success') {
                     this.message.success(resp.message);
-                    this.http.post(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journalSubjects/${this.journalForm.value.journalShortName}/${this.journalForm.value.subject}`, {}).subscribe(
+                    this.http.post(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmsjournalmgmt/journalSubjects/${this.journalForm.value.journalShortName}/${this.journalForm.value.subject}`, {}).subscribe(
                         (resp: any) =>{
                             if (resp.status === 'Success') {
                                 this.handleCancelJournal();
@@ -141,7 +141,7 @@ export class JournalListComponent  {
 
     getJournalsList(){
         this.loading = true;
-        this.http.get(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journal`).subscribe(
+        this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmsjournalmgmt/journal`).subscribe(
         (resp: any) =>{
             if (resp.status === 'Success') {
                 let roles = window.localStorage.getItem('role');
@@ -153,7 +153,7 @@ export class JournalListComponent  {
                  this.listOfAllJournals = resp.journals.filter(journal => journal.journalPrimaryAdmin === currentUser);
                }
                this.listOfAllJournals.forEach((journal) => {
-                this.uploadUrl= `http://cmsusermgmt-dev.qi8tb22vi3.ap-south-1.elasticbeanstalk.com/cmsusermgmt/userMgmt/user/profileImage/${journal.journalPrimaryAdmin}`;
+                this.uploadUrl= `http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/user/profileImage/${journal.journalPrimaryAdmin}`;
                 this.http.get(this.uploadUrl, {responseType: 'blob'}).subscribe(
                     (data: Blob) =>{
                         if (data.size !== 0) {
@@ -165,7 +165,7 @@ export class JournalListComponent  {
                         }
                     }
                 );
-                this.upoadFlyerUrl = `http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journalFlyer/${journal.journalShortName}`;
+                this.upoadFlyerUrl = `http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmsjournalmgmt/journalFlyer/${journal.journalShortName}`;
                 this.http.get(this.upoadFlyerUrl, {responseType: 'blob'}).subscribe(
                     (data: Blob) =>{
                         let reader = new FileReader();
@@ -177,7 +177,7 @@ export class JournalListComponent  {
                       }
                     }
                 );
-                this.uploadFlyerLogo = `http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journalLogo/${journal.journalShortName}`;
+                this.uploadFlyerLogo = `http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmsjournalmgmt/journalLogo/${journal.journalShortName}`;
                 if (!journal.journalFlyer) {
                     this.http.get(this.uploadFlyerLogo, {responseType: 'blob'}).subscribe(
                         (data: Blob) =>{
@@ -219,7 +219,7 @@ export class JournalListComponent  {
               nzTitle: 'Confirm',
               nzContent: 'Are you sure you want to delete this journal?',
               nzOnOk: () => {
-                this.http.delete(`http://cmsjournalmgmt-dev.tkystmtqjm.ap-south-1.elasticbeanstalk.com/cmsjournalmgmt/journal/${this.selectedJournal}`).subscribe(
+                this.http.delete(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmsjournalmgmt/journal/${this.selectedJournal}`).subscribe(
                     (resp: any) =>{
                         if (resp.status === 'Success') {
                            this.message.success(resp.message);
