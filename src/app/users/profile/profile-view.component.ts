@@ -163,7 +163,6 @@ export class ProfileViewComponent {
                 if (resp.status === 'Success') {
                     //console.log(resp.user);
                    this.userDetails = resp.user;
-                   this.dataAvailable = true;
                    this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/userRoles/${this.userDetails.userId}`).subscribe(
                     (resp: any) =>{
                         if (resp.status === 'Success') {
@@ -174,7 +173,10 @@ export class ProfileViewComponent {
                         console.log(err);
                     }
                 );
-                   this.uploadUrl= `http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/user/profileImage/${this.userDetails.userId}`
+                this.dataAvailable = true;
+                this.uploadUrl = 
+                `http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/user/profileImage/${this.userDetails.userId}`;
+                this.getImageFromService();
                 }
             },
             err => {
@@ -195,14 +197,7 @@ export class ProfileViewComponent {
                 console.log(err);
             }
         );
-
-        this.username = window.localStorage.getItem('user');
-        this.userid = window.localStorage.getItem('userid');
-        if (window.localStorage.getItem('role')) {
-           this.role = window.localStorage.getItem('role');
-        }
-        this.uploadUrl= `http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/user/profileImage/${this.userid}`;
-        this.getImageFromService();
+        
 
     }
 
@@ -217,13 +212,13 @@ export class ProfileViewComponent {
         return this.http.get(this.uploadUrl, { responseType: 'blob' });
       }
       createImageFromBlob(image: Blob) {
+        if (image.size !== 0) {
         let reader = new FileReader();
         reader.readAsDataURL(image);
         reader.addEventListener("load", () => {
-         
            this.imageToShow = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());
-           
-        }, false);
+                }, false);
+    }
      }
 
 }    

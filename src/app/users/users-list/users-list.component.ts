@@ -154,17 +154,29 @@ export class UsersListComponent implements OnInit {
         this.http.post(
             `http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/user`, userBean
         ).subscribe(
-            (resp: any) =>{
+            (resp: any) => {
                 this.isLoading = false;
-                if(resp.status == 'Success'){
+                if (resp.status === 'Success') {
                     this.message.success(resp.message);
+                    this.http.post(
+                    `http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/userRoles/${this.signUpForm.value.userId}`,
+                         'Author').subscribe(
+                        (respose: any) => {
+                             if (resp.status === 'Success') {
+                                console.log(respose);
+                            }
+                        },
+                        err => {
+                             console.log(err);
+                        }
+                    );
                     this.isVisible = false;
                     this.getUsersList();
                 }
-                if(resp.status == 'Error'){
+                if (resp.status === 'Error') {
                     this.message.error(resp.errorMessage);
                 }
-                this.signUpForm.reset()
+                this.signUpForm.reset();
              },
             err => {
                 this.isLoading = false;
