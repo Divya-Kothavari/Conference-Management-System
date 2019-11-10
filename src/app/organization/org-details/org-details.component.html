@@ -54,7 +54,7 @@
              <nz-form-item>
                 <nz-form-label nzFor="menuLink">Menu Link</nz-form-label>
                 <nz-form-control>
-                    <input formControlName="menuLink" [disabled]="editmode" nz-input type="text" placeholder="Menu Link">
+                    <input formControlName="menuLink" nz-input type="text" placeholder="Menu Link">
                     <nz-form-explain
                     *ngIf="menuForm.get('menuLink').dirty && menuForm.get('menuLink').errors">
                     Please input menu link!</nz-form-explain>
@@ -73,13 +73,13 @@
                     <nz-form-label nzFor="menuContent">Menu Content</nz-form-label>
                     <nz-form-control>
                             <nz-form-item>
-                                    <quill-editor [style]="{height: '150px'}"  [modules]="editorConfig" placeholder="add content of Menu -- page"  
-                                    [(ngModel)]="menuContent"
-                                    [ngModelOptions]="{standalone: true}"></quill-editor>
+                                    <quill-editor [style]="{height: '150px'}"  [modules]="editorConfig" placeholder="add content of Menu -- page" 
+                                    formControlName="menuContent"
+                                    ></quill-editor>
                                 </nz-form-item>
-                                <!-- <nz-form-explain
+                                <nz-form-explain
                         *ngIf="menuForm.get('menuContent').dirty && menuForm.get('menuContent').errors">
-                        Please input menu content!</nz-form-explain> -->
+                        Please input menu content!</nz-form-explain>
                      </nz-form-control>
                 </nz-form-item>
               <nz-form-item>

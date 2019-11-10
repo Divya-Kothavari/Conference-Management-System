@@ -4,6 +4,7 @@ export class OrgMenu {
     menuLink: string;
     menuLevel: number;
     menuName: string;
+    menuContent: string;
     id: number;
     menuParentId: number;
     submenuList ?= new Array<OrgMenu>();

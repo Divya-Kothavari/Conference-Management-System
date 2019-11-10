@@ -15,6 +15,9 @@ import { SortablejsOptions } from 'ngx-sortablejs';
 export class OrgDetailsComponent implements OnInit {
   editMode = false;
   isLoading= false;
+  currentmenuId;
+  currentmenuParentId;
+  currentmenuLevel;
   dataAvailable = false;
   menuContent;
   menuList: OrgMenu[] = [];
@@ -84,9 +87,10 @@ options: SortablejsOptions = {
 
   ngOnInit() {
     this.menuForm = this.fb.group({
-      MenuName: [ null, [ Validators.required ] ],
-      menuLink: [ null, [ Validators.required ] ],
+      MenuName: [ {value: null, disabled: this.editMode}, [ Validators.required ] ],
+      menuLink: [  {value: null, disabled: this.editMode}, [ Validators.required ] ],
       menuDescription: [ null, [ Validators.required ] ],
+      menuContent: [ null, [ Validators.required ] ],
       status:  [ null, [ Validators.required ] ]
   });
    this.getMenuList();
@@ -109,6 +113,7 @@ getMenuList() {
                 menuName: menu.menuName,
                 menuParentId: menu.menuParentId,
                 menuStatus: menu.menuStatus,
+                menuContent: menu.menuContent,
                 id: menu.id,
                 submenuList: []
               });
@@ -138,7 +143,10 @@ getMenuList() {
     this.menuForm.controls['MenuName'].setValue(menuData.menuName);
     this.menuForm.controls['menuLink'].setValue(menuData.menuLink);
     this.menuForm.controls['menuDescription'].setValue(menuData.menuDescription);
+    this.menuForm.controls['menuContent'].setValue(menuData.menuContent);
     this.menuForm.controls['status'].setValue(menuData.menuStatus);
+    this.currentmenuId = menuData.id;
+    this.currentmenuParentId = menuData.menuParentId;
     this.editMode = true;
     this.isVisible = true;
   }
@@ -156,8 +164,10 @@ getMenuList() {
           menuLink: this.menuForm.value.menuLink,
           menuDescription: this.menuForm.value.menuDescription,
           menuStatus: this.menuForm.value.status,
-          id: 0,
-          menuParentId: 0,
+          menuContent: this.menuForm.value.menuContent,
+          id: this.currentmenuId,
+          menuLevel: 0,
+          menuParentId: this.currentmenuParentId
         }
         this.http.put(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/orgmgmt/orgMenu/`, menu).subscribe(
         (resp: any) =>{
@@ -181,6 +191,7 @@ getMenuList() {
           menuLink: this.menuForm.value.menuLink,
           menuDescription: this.menuForm.value.menuDescription,
           menuStatus: this.menuForm.value.status,
+          menuContent: this.menuForm.value.menuContent,
           id: 0,
           menuParentId: 0,
           menuLevel: 0
@@ -219,6 +230,7 @@ getMenuList() {
           this.isLoading = false;
           if (resp.status === 'Success') {
               this.message.success(resp.message);
+              this.getMenuList();
           }
           if (resp.status === 'Error') {
               this.message.error(resp.message);
