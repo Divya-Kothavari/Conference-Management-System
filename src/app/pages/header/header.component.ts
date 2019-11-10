@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { OrgMenu } from './org-menu.model';
+import { MenudataService } from 'src/app/shared/services/menudata.service';
 
 declare var $: any;
 
@@ -13,7 +14,7 @@ declare var $: any;
 export class HeaderComponent implements OnInit, AfterViewInit {
   menuList: OrgMenu[] = [];
 
-  constructor(private http: HttpClient, private route: Router) { }
+  constructor(private http: HttpClient, private route: Router, private data: MenudataService) { }
 
   ngOnInit() {
     this.getMenuList();
@@ -69,6 +70,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
                   menuName: menu.menuName,
                   menuParentId: menu.menuParentId,
                   menuStatus: menu.menuStatus,
+                  menuContent: menu.menuContent,
                   id: menu.id,
                   submenuList: []
                 });
@@ -85,6 +87,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
                 this.menuList.splice(list, 1);
               });
              console.log(this.menuList);
+             this.data.changeMessage(this.menuList);
           }
       },
       err => {

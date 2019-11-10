@@ -31,23 +31,13 @@
 
         <header class="section-header">
           <h3>Welcome to <strong>Research Valley</strong></h3>
-          <p>Research Valley is an Open Access publication model allows the dissemination of research articles to the worldwide community</p>
+          <p>{{homedesc}}</p>
         </header>
 
         <div class="row about-container">
 
-          <div class="col-lg-6 content order-lg-1 order-2">
-            <p>We offer you the advantage of interaction with the most effective minds from the
-              scientific community. Research Valley is committed to open access and all the
-              articles published in our online Journals are freely available to the readers across the
-              globe.
-            </p>
-            <p>We are a group of people with a combined passion for science and research, who wants to bring to the world a unified platform where all scientific information is
-              available. We want to bring original and genuine scientific research to the public with
-              the hope of spreading knowledge. Given our vast scope of curating scientific content,
-              it is safe to assume that what you read here could change life, as we know it.</p>
-
-          </div>
+          <div class="col-lg-6 content order-lg-1 order-2" [innerHTML]="homecontent">
+           </div>
 
           <div class="col-lg-6 background order-lg-2 order-1 wow fadeInUp">
             <img src="../../../assets/img/Home_page_banner_2.png" class="img-fluid" alt="Home_page_banner">

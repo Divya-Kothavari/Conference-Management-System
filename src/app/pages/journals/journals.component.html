@@ -21,7 +21,7 @@
     <section id="services" class="section-bg">
             <div class="container">
          
-              <div class="row">
+              <div class="row" *ngIf="dataAvailable">
                   <div 
                   class="col-md-6" 
                   data-wow-duration="1.4s" 
@@ -29,12 +29,15 @@
                   >
 
                   <div class="box" style="padding: 0px; margin-bottom: 16px">
-                    <div style="background-image:url(../assets/img/1.jpg);  background-position: center;
+                    <div 
+                    [id]="'jrnl'+index"
+                    style="background-position: center;
                       background-repeat: no-repeat;
-                      background-size: cover;">
+                      background-size: cover;"
+                      >
                       <div style="padding: 30px;">
                           <div class="icon"><i class="ion-ios-unlocked-outline" style="color: white;"></i></div>
-                          <h4 style="height: 36px;" class="title"><a href="/journals/journal-view/cancer" style="color: white">{{item.journalName}}</a></h4>
+                          <h4 style="height: 36px;" class="title"><a [routerLink]="['/journals/journal-view/', item.journalShortName]" style="color: white">{{item.journalName}}</a></h4>
                       </div>
                        
                       <!-- <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p> -->

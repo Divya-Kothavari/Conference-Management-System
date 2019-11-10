@@ -14,6 +14,7 @@ import { HeaderComponent } from './header/header.component';
 import { JournalsComponent } from './journals/journals.component';
 import { SubmitManuscriptComponent } from './submit-manuscript/submit-manuscript.component';
 import { JournalViewComponent } from './journals/journal-view/journal-view.component';
+import { MenudataService } from '../shared/services/menudata.service';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,9 @@ import { JournalViewComponent } from './journals/journal-view/journal-view.compo
   ],
   exports: [
     HttpClientModule
+  ],
+  providers: [
+    MenudataService
   ]
 })
 export class PagesModule { }

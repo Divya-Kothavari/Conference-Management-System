@@ -10,7 +10,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class JournalsComponent implements OnInit {
   listOfAllJournals = [];
   upoadBannerUrl;
-
+  imageToShow = [];
+  dataAvailable = false;
   constructor(private http: HttpClient, 
     private sanitizer : DomSanitizer,
     ) { }
@@ -24,21 +25,24 @@ export class JournalsComponent implements OnInit {
     (resp: any) => {
         if (resp.status === 'Success') {
           this.listOfAllJournals = resp.journals;
-          this.listOfAllJournals.forEach(jrnl => {
+          this.listOfAllJournals.forEach((jrnl, index) => {
             this.upoadBannerUrl = 
             `http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmsjournalmgmt/journalBanner/${jrnl.journalShortName}`;
             this.http.get(this.upoadBannerUrl, {responseType: 'blob'}).subscribe(
               (data: Blob) =>{
-                  if (data.size !== 0) {
                       let reader = new FileReader();
                       reader.readAsDataURL(data);
                       reader.addEventListener("load", () => {
-                        jrnl['bannerPic'] = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());
+                        this.imageToShow[index] = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());
+                        const img = new Image();
+                        img.src = this.imageToShow[index].changingThisBreaksApplicationSecurity;
+                        document.getElementById(`jrnl${index}`).style.backgroundImage = `url(${img.src})`;
                       }, false);
-                  }
               }
           );
           });
+          this.dataAvailable = true;
+          console.log(this.listOfAllJournals);
         }
       }
     );
