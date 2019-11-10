@@ -9,6 +9,7 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { JournalsComponent } from './journals/journals.component';
 import { SubmitManuscriptComponent } from './submit-manuscript/submit-manuscript.component';
+import { JournalViewComponent } from './journals/journal-view/journal-view.component';
 
 
 const routes: Routes = [
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path:'journals',
     component: JournalsComponent
+  },
+  {
+    path:'journals/journal-view/:id',
+    component: JournalViewComponent
   },
   {
     path:'submit-manuscript',

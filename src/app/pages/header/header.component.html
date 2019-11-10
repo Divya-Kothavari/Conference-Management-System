@@ -16,16 +16,26 @@
           <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/submit-manuscript']">Submit Manuscript</a></li>
           <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/guidelines']">Guidelines</a></li>
 
-          <!-- <li><a href="#team">Team</a></li> -->
-          <!-- <li class="drop-down"><a [routerLink]="['/guidelines']">Guidelines</a>
+          <li><a href="#team">Team</a></li>
+          <li class="drop-down"><a [routerLink]="['/guidelines']">Guidelines</a>
             <ul>
               <li><a [routerLink]="['/guidelines']">Author Guidelines</a></li>
               <li><a [routerLink]="['/guidelines']">Editor Guidelines</a></li>
               <li><a [routerLink]="['/guidelines']">Reviewer Guidelines</a></li>
              </ul>
-          </li> -->
+          </li>
           <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/contact-us']">Contact Us</a></li>
+          <!-- Dynamic Menu-->
+          <li *ngFor="let menu of menuList" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+          [ngClass]="{'drop-down':menu.submenuList.length !== 0}"
+          ><a [routerLink]="['/'+menu.menuLink+'']">{{menu.menuName}}</a>
+            <ul *ngIf="menu.submenuList.length !== 0">
+              <li *ngFor="let submenu of menu.submenuList"><a [routerLink]="['/'+submenu.menuLink+'']">{{submenu.menuName}}</a></li>
+             </ul>
+          </li>
+
         </ul>
+        
       </nav><!-- .main-nav -->
       
     </div>

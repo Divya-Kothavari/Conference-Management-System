@@ -1,0 +1,221 @@
+<!-- <div class="container-fluid">
+    <div class="row" *ngIf="dataAvailable">
+        <div class="col-md-12">
+            <nz-card>
+                <div class="d-flex justify-content-between">
+                    <div class="media align-items-center">
+                        <nz-avatar nzShape="square" nzSrc="assets/images/others/thumb-3.jpg"></nz-avatar>
+                        <div class="m-l-10">
+                            <h4 class="m-b-0">{{journalDetails.journalName}}</h4>
+                        </div>
+                    </div>
+                    <div>
+                        <nz-tag class="m-b-0" [nzColor]="'blue'">{{journalDetails.journalStatus}}</nz-tag>
+                    </div>
+                </div>
+                <div class="m-t-40">
+                    <h6>About Journal:</h6>
+                    <p [innerHtml] = "journalDetails.aboutJournal"></p>
+                </div>
+                <div class="d-md-flex m-t-10 align-items-center justify-content-between">
+                    <div class="d-flex align-items-center m-t-10">
+                        <h4 class="text-dark font-weight-semibold">Articles Management: </h4>
+                    </div>
+                    
+                </div>
+                <div class="off-gutter-x m-t-30">
+                    <nz-tabset>
+                        <nz-tab nzTitle="Articles Inpress">
+                            <div class="p-h-30 p-v-25">
+                                 Articles Inpress Articles list
+                            </div>
+                        </nz-tab>
+                        <nz-tab nzTitle="Current Issue Articles">
+                            <div class="p-h-30 p-v-25">
+                               Current Issue Articles
+                            </div>
+                        </nz-tab>
+                        <nz-tab nzTitle="Attachment">
+                            <div class="p-h-30 p-v-25">
+                                Archive Page
+                            </div>
+                        </nz-tab>
+                    </nz-tabset>
+                </div>
+            </nz-card>
+        </div>
+        <div class="col-md-12">
+            <nz-card [nzTitle]="EditorialBoardMembers">
+                    <ng-template #EditorialBoardMembers>
+                            <div>EB Members <a (click)="getRegionsList(); isVisibleEbmember = true" class="float-right" href="Javascript:Void(0)"><i nz-icon nzType="plus-circle" nzTheme="outline"></i> Add EBMebmer</a> </div>
+                    </ng-template>
+
+
+                    <nz-modal
+                    [(nzVisible)]="isVisibleEbmember" 
+                    (nzOnCancel)="handleCancelEbmmeber()"
+                    [nzFooter]="modalFooterEbmember"
+                    nzWidth = "70%"
+                    nzTitle="Add/Edit EBMebmer">
+                        <form nz-form [formGroup]="ebmemberForm">
+                                <nz-form-item>
+                                        <nz-form-label nzFor="editorId">Editor ID</nz-form-label>
+                                        <nz-form-control>
+                                            <input formControlName="editorId" [disabled]="editmode" 
+                                            (keypress)="validateEditorId($event)"
+                                            nz-input type="text" placeholder="editorId">
+                                            <nz-form-explain *ngIf="ebmemberForm.get('editorId').dirty && ebmemberForm.get('editorId').errors">
+                                                Please input Editor ID!</nz-form-explain>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                    <nz-form-item>
+                                            <nz-form-label nzFor="editorName">Editor Name</nz-form-label>
+                                            <nz-form-control>
+                                                <input formControlName="editorName" nz-input type="text" placeholder="Editor Name">
+                                                <nz-form-explain *ngIf="ebmemberForm.get('editorName').dirty && ebmemberForm.get('editorName').errors">
+                                                    Please input Editor Name!</nz-form-explain>
+                                            </nz-form-control>
+                                        </nz-form-item>
+                                        <nz-form-item>
+                                                <nz-form-label nzFor="editorType">Editor Type</nz-form-label>
+                                                <nz-form-control>
+                                                    <input formControlName="editorType" nz-input type="text" placeholder="Editor type">
+                                                    <nz-form-explain *ngIf="ebmemberForm.get('editorType').dirty && ebmemberForm.get('editorType').errors">
+                                                        Please input Editor Type!</nz-form-explain>
+                                                </nz-form-control>
+                                            </nz-form-item>
+                                            <nz-form-item>
+                                                    <nz-form-label nzFor="editorDescription">Editor Description</nz-form-label>
+                                                    <nz-form-control>
+                                                        <textarea formControlName="editorDescription" nz-input type="text" placeholder="Editor Description"></textarea>
+                                                        <nz-form-explain *ngIf="ebmemberForm.get('editorDescription').dirty && ebmemberForm.get('editorDescription').errors">
+                                                            Please input Editor Description!</nz-form-explain>
+                                                    </nz-form-control>
+                                                </nz-form-item>
+                                                <nz-form-item>
+                                                        <nz-form-label nzFor="biography">Biography</nz-form-label>
+                                                        <nz-form-control>
+                                                            <textarea formControlName="biography" nz-input type="text" placeholder="biography"></textarea>
+                                                            <nz-form-explain *ngIf="ebmemberForm.get('biography').dirty && ebmemberForm.get('biography').errors">
+                                                                Please input biography!</nz-form-explain>
+                                                        </nz-form-control>
+                                                    </nz-form-item>
+                                                <nz-form-item>
+                                                        <nz-form-label nzFor="interests">Interests</nz-form-label>
+                                                        <nz-form-control>
+                                                            <textarea formControlName="interests" nz-input type="text" placeholder="Interests"></textarea>
+                                                            <nz-form-explain *ngIf="ebmemberForm.get('interests').dirty && ebmemberForm.get('interests').errors">
+                                                                Please input Interests !</nz-form-explain>
+                                                        </nz-form-control>
+                                                    </nz-form-item>
+                                                    <nz-form-item>
+                                                            <nz-form-label nzFor="universityName">University Name</nz-form-label>
+                                                            <nz-form-control>
+                                                                <input formControlName="universityName" nz-input type="text" placeholder="University Name">
+                                                                <nz-form-explain *ngIf="ebmemberForm.get('universityName').dirty && ebmemberForm.get('universityName').errors">
+                                                                    Please input University Name!</nz-form-explain>
+                                                            </nz-form-control>
+                                                        </nz-form-item>   
+                                   
+                                        
+                                <nz-form-item>
+                                        <nz-form-label nzRequired nzFor="region">Region</nz-form-label>
+                                        <nz-form-control>
+                                            <nz-input-group>
+                                                <nz-select style="width: 100%;" formControlName="region"
+                                                nzPlaceHolder="Select Region" (focusout)="getCountriesList()">
+                                                    <nz-option *ngFor="let region of listofregions"
+                                                        [nzLabel]="region.name" [nzValue]="region.code"></nz-option>
+                                                </nz-select>
+                                            </nz-input-group>
+                                            <nz-form-explain
+                                                *ngIf="ebmemberForm.get('region').dirty && ebmemberForm.get('region').errors">
+                                                Please select your region!</nz-form-explain>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                    <nz-form-item>
+                                        <nz-form-label nzRequired nzFor="country">Country</nz-form-label>
+                                        <nz-form-control>
+                                            <nz-input-group>
+                                                <nz-select style="width: 100%;" formControlName="country"
+                                                nzPlaceHolder="Select Country">
+                                                    <nz-option *ngFor="let country of listofcountries"
+                                                        [nzLabel]="country" [nzValue]="country"></nz-option>
+                                                        <nz-option *ngIf="isLoadingCountry" nzDisabled nzCustomContent>
+                                                            <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
+                                                          </nz-option>
+                                                </nz-select>
+                                            </nz-input-group>
+                                            <nz-form-explain
+                                                *ngIf="ebmemberForm.get('country').dirty && ebmemberForm.get('country').errors">
+                                                Please select your country!</nz-form-explain>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                     <nz-form-item>
+                                        <nz-form-label nzFor="journalShortName">Journal ShortName</nz-form-label>
+                                        <nz-form-control>
+                                            <input disabled formControlName="journalShortName" nz-input type="text" placeholder="Journal ShortName">
+                                        </nz-form-control>      
+                                        </nz-form-item>             
+                        </form>
+                          <ng-template #modalFooterEbmember>
+                            <button nz-button nzType="default" (click)="handleCancelEbmmeber()">Cancel</button>
+                            <button [nzLoading]="isLoadingEbmember" nz-button nzType="primary" [disabled]="!ebmemberForm.valid || invalidId" (click)="addEbmember()">Add</button>
+                          </ng-template>
+                      </nz-modal>
+                <nz-timeline>
+                         <div class="m-l-20" [sortablejs]="eblist" [sortablejsOptions]="{ animation: 150 }">
+                            <div class="row" style="border-bottom: 1px solid rgba(114,132,154,0.7); margin-bottom: 0.5rem; padding-bottom: 16px;"  *ngFor="let item of eblist">
+                                <div class="col-md-1">
+                                        <i nz-icon nzType="drag" nzTheme="outline"></i>
+                                </div>
+                                <div class="col-md-11">
+                                        <h6 class="m-b-0 handle">{{item.editorName}} <a style="float: right"  class="text-gray font-size-18" nz-dropdown nzPlacement="bottomRight" nzTrigger="click" [nzDropdownMenu]="ebOptions">
+                                                <i nz-icon type="ellipsis" theme="outline"></i>
+                                            </a></h6>
+                                            <span class="text-muted font-size-13">
+                                                <i nz-icon type="clock-circle" theme="outline"></i>
+                                                <span class="m-l-5">{{item.editorType}}</span>
+                                            </span>
+                                            <br>
+                                            <span class="text-muted font-size-13">
+                                                    <i nz-icon type="clock-circle" theme="outline"></i>
+                                                    <span class="m-l-5">{{item.universityName}}</span>
+                                            </span>
+                                    </div>                                   
+                                    <nz-dropdown-menu #ebOptions="nzDropdownMenu">
+                                        <ul nz-menu nzSelectable>
+                                            <li nz-menu-item>
+                                                <a [routerLink]="['/apps/projects/project-details']">
+                                                    <i nz-icon type="eye" theme="outline"></i>
+                                                    <span class="m-l-10">View</span>
+                                                </a>
+                                            </li>
+                                            <li nz-menu-divider></li>
+                                            <li nz-menu-item (click)="getRegionsList();editEbMember(item); editmode = true;">
+                                                <a href="javascript:void(0)">
+                                                    <i nz-icon type="edit" theme="outline"></i>
+                                                    <span class="m-l-10">Edit</span>
+                                                </a>
+                                            </li>
+                                            <li nz-menu-divider></li>
+                                            <li nz-menu-item  nz-popconfirm nzPopoverTrigger="click"  nzTitle="Are you sure delete this user?" (nzOnConfirm)="deleteEbMemeber(item.editorId);" (nzOnCancel)="cancel()">
+                                                <a>
+                                                    <i nz-icon type="delete" theme="outline"></i>
+                                                    <span class="m-l-10">Delete</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nz-dropdown-menu>
+                            </div>
+                             
+                        </div>
+                        
+                 </nz-timeline>
+            </nz-card>   
+        </div>
+    </div>
+    <div class="row" *ngIf="!dataAvailable"> 
+            <nz-skeleton [nzActive]="true"></nz-skeleton>
+    </div>
+</div> -->

@@ -1,4 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { OrgMenu } from './org-menu.model';
+
 declare var $: any;
 
 @Component({
@@ -7,19 +11,21 @@ declare var $: any;
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
+  menuList: OrgMenu[] = [];
 
-  constructor() { }
+  constructor(private http: HttpClient, private route: Router) { }
 
   ngOnInit() {
+    this.getMenuList();
     if ($('.main-nav').length) {
-      var $mobile_nav = $('.main-nav').clone().prop({
+      let $mobile_nav = $('.main-nav').clone().prop({
         class: 'mobile-nav d-lg-none'
       });
       $('body').append($mobile_nav);
       $('body').prepend('<button type="button" class="mobile-nav-toggle d-lg-none"><i class="fa fa-bars"></i></button>');
       $('body').append('<div class="mobile-nav-overly"></div>');
-    }  else if ($(".mobile-nav, .mobile-nav-toggle").length) {
-      $(".mobile-nav, .mobile-nav-toggle").hide();
+    }  else if ($('.mobile-nav, .mobile-nav-toggle').length) {
+      $('.mobile-nav, .mobile-nav-toggle').hide();
     }
   }
 
@@ -28,10 +34,10 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       $('body').toggleClass('mobile-nav-active');
       $('.mobile-nav-toggle i').toggleClass('fa-times fa-bars');
       $('.mobile-nav-overly').toggle();
-    }); 
+    });
 
     $(document).click(function(e) {
-      var container = $(".mobile-nav, .mobile-nav-toggle");
+      let container = $('.mobile-nav, .mobile-nav-toggle');
       if (!container.is(e.target) && container.has(e.target).length === 0) {
         if ($('body').hasClass('mobile-nav-active')) {
           $('body').removeClass('mobile-nav-active');
@@ -45,6 +51,47 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       }
     });
   }
-     
+
+  getMenuList() {
+    this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/orgmgmt/orgMenu/`).subscribe(
+      (resp: any) => {
+          if (resp.status === 'Success') {
+             this.menuList = [];
+             const orgId = [];
+             resp.orgMenus.forEach(menu => {
+               orgId.push(menu.id);
+             });
+             resp.orgMenus.forEach(menu => {
+                this.menuList.push({
+                  menuDescription: menu.menuDescription,
+                  menuLevel: menu.menuLevel,
+                  menuLink: menu.menuLink,
+                  menuName: menu.menuName,
+                  menuParentId: menu.menuParentId,
+                  menuStatus: menu.menuStatus,
+                  id: menu.id,
+                  submenuList: []
+                });
+              });
+             const childmenulist = [];
+             this.menuList.forEach((menu, index) => {
+                if (menu.menuParentId !== menu.id) {
+                  const mindex = orgId.findIndex(fruit => fruit === menu.menuParentId);
+                  this.menuList[mindex].submenuList.push(menu);
+                  childmenulist.push(index);
+                }
+              });
+             childmenulist.forEach(list => {
+                this.menuList.splice(list, 1);
+              });
+             console.log(this.menuList);
+          }
+      },
+      err => {
+          console.log(err);
+      }
+  );
+  }
+
   }
 
