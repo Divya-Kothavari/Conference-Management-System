@@ -45,9 +45,9 @@ options: SortablejsOptions = {
     const movedItemId = $event.item.id;
     // menu moved to submenu
     if (movedItemId[0] === 'm') {
-      let id = parseInt(movedItemId[4]);
-      let pid = parseInt(movedItemId[5]);
-      let level = parseInt(movedItemId[6]);
+      let id = parseInt(movedItemId[4] + movedItemId[5]);
+      let pid = parseInt(movedItemId[6] + movedItemId[7]);
+      let level = parseInt(movedItemId[8]);
        this.menuList.forEach(menu => {
          menu.submenuList.forEach(submenu => {
           if (submenu.id === id) {
@@ -123,11 +123,12 @@ getMenuList() {
               if (menu.menuParentId !== menu.id) {
                 let mindex = orgId.findIndex(fruit => fruit === menu.menuParentId);
                 this.menuList[mindex].submenuList.push(menu);
-                childmenulist.push(index);
+                childmenulist.push(menu.id);
               }
             });
             childmenulist.forEach(list => {
-              this.menuList.splice(list, 1);
+              let mindex = this.menuList.findIndex(fruit => fruit.id === list);
+              this.menuList.splice(mindex, 1);
             });
             console.log(this.menuList);
             this.dataAvailable = true;
