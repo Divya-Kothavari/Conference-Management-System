@@ -80,13 +80,13 @@ export class HeaderComponent implements OnInit, AfterViewInit {
                 if (menu.menuParentId !== menu.id) {
                   const mindex = orgId.findIndex(fruit => fruit === menu.menuParentId);
                   this.menuList[mindex].submenuList.push(menu);
-                  childmenulist.push(index);
+                  childmenulist.push(menu.id);
                 }
               });
              childmenulist.forEach(list => {
-                this.menuList.splice(list, 1);
+                let mindex = this.menuList.findIndex(fruit => fruit.id === list);
+                this.menuList.splice(mindex, 1);
               });
-             console.log(this.menuList);
              this.data.changeMessage(this.menuList);
           }
       },

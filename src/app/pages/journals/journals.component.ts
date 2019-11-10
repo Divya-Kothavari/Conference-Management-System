@@ -30,6 +30,7 @@ export class JournalsComponent implements OnInit {
             `http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmsjournalmgmt/journalBanner/${jrnl.journalShortName}`;
             this.http.get(this.upoadBannerUrl, {responseType: 'blob'}).subscribe(
               (data: Blob) =>{
+                if (data.size !== 0) {
                       let reader = new FileReader();
                       reader.readAsDataURL(data);
                       reader.addEventListener("load", () => {
@@ -38,6 +39,9 @@ export class JournalsComponent implements OnInit {
                         img.src = this.imageToShow[index].changingThisBreaksApplicationSecurity;
                         document.getElementById(`jrnl${index}`).style.backgroundImage = `url(${img.src})`;
                       }, false);
+                    } else {
+                      document.getElementById(`jrnl${index}`).style.backgroundImage = `url(../assets/img/1.jpg)`;
+                    }
               }
           );
           });

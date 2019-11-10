@@ -15,6 +15,10 @@ import { JournalsComponent } from './journals/journals.component';
 import { SubmitManuscriptComponent } from './submit-manuscript/submit-manuscript.component';
 import { JournalViewComponent } from './journals/journal-view/journal-view.component';
 import { MenudataService } from '../shared/services/menudata.service';
+import { EditorialComponent } from './editorial/editorial.component';
+import { AuthorGuidelinesComponent } from './guidelines/author-guidelines/author-guidelines.component';
+import { EditorGuidelinesComponent } from './guidelines/editor-guidelines/editor-guidelines.component';
+import { ReviewerGuidelinesComponent } from './guidelines/reviewer-guidelines/reviewer-guidelines.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,11 @@ import { MenudataService } from '../shared/services/menudata.service';
       PageNotFoundComponent,
        JournalsComponent,
        JournalViewComponent,
-        SubmitManuscriptComponent],
+        SubmitManuscriptComponent,
+        EditorialComponent,
+        AuthorGuidelinesComponent,
+        EditorGuidelinesComponent,
+        ReviewerGuidelinesComponent],
   imports: [
     CommonModule,
     PagesRoutingModule

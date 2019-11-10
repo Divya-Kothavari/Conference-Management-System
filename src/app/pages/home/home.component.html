@@ -57,61 +57,25 @@
         </header>
   
         <div class="row">
-  
-            <div class="col-md-6  wow bounceInUp" data-wow-duration="1.4s" >
+            <div
+               class="col-md-6  wow bounceInUp" data-wow-duration="1.4s"
+               *ngFor="let item of listOfAllJournals; let index=index; let odd=odd; let even=even;" >
               <div class="box" style="padding: 0px; margin-bottom: 16px">
-                <div style="background-image:url(../assets/img/1.jpg);  background-position: center;
+                <div 
+                [id]="'jrnl'+index"
+                style="background-position: center;
                   background-repeat: no-repeat;
                   background-size: cover;">
                   <div style="padding: 30px;">
                       <div class="icon"><i class="ion-ios-unlocked-outline" style="color: white;"></i></div>
-                      <h4 style="height: 36px;" class="title"><a href="" style="color: white">Journal of Cardiovascular Medicine & Heart Surgery</a></h4>
+                      <h4 style="height: 36px;" class="title"><a href="" style="color: white">{{item.journalName}}</a></h4>
                   </div>
-                   
-                  <!-- <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p> -->
-                </div>
+                    </div>
               </div>
-              </div>
-              <div class="col-md-6 wow bounceInUp" data-wow-duration="1.4s">
-                  <div class="box">
-                      <div class="icon"><i class="ion-ios-unlocked-outline" style="color: #4680ff;"></i></div>
-                     <h4 class="title"><a href="">Journal of Skin Care and Cosmetic Surgery</a></h4>
-                     <!-- <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p> -->
-                   </div>
-              </div>
-      
-              <div class="col-md-6 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
-                  <div class="box">
-                      <div class="icon"><i class="ion-ios-unlocked-outline" style="color: #4680ff;"></i></div>
-                     <h4 class="title"><a href="">Journal of Clinical Endocrinology and Diabetes Research</a></h4>
-                     <!-- <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p> -->
-                   </div>
-              </div>
-              <div class="col-md-6 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
-                  <div class="box">
-                      <div class="icon"><i class="ion-ios-unlocked-outline" style="color: #4680ff;"></i></div>
-                     <h4 class="title"><a href="">Journal of Community Medicine and Health Care Systems</a></h4>
-                     <!-- <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p> -->
-                   </div>
-              </div>
-      
-              <div class="col-md-6 wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
-                  <div class="box">
-                      <div class="icon"><i class="ion-ios-unlocked-outline" style="color: #4680ff;"></i></div>
-                     <h4 class="title"><a href="">Journal of Molecular Genetics and Genetic Disorders</a></h4>
-                     <!-- <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p> -->
-                   </div>
-              </div>
-              <div class="col-md-6 wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
-                  <div class="box">
-                      <div class="icon"><i class="ion-ios-unlocked-outline" style="color: #4680ff;"></i></div>
-                     <h4 class="title"><a href="">Journal of Dietetics and Food Technology</a></h4>
-                     <!-- <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p> -->
-                   </div>
               </div>
 
           <div class="col-md-12 text-center wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
-            <a class="btn btn-primary" href="/journals">View all journals</a>
+            <a class="btn btn-primary" [routerLink]="['/journals']">View all journals</a>
           </div>
   
         </div>

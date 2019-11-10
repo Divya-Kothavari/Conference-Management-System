@@ -11,25 +11,25 @@
 <div class="container">
 
 <header class="section-header">
-<h3 style="color: #fff;
-text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;">Journal Name</h3>
+<h3  *ngIf="dataAvailable" style="color: #fff;
+text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;">{{journalDetails.journalName}}</h3>
 <!-- <p><?php if($journal_info_rows->issn !='') { ?> <?php echo "ISSN: ".$journal_info_rows->issn; ?> <?php } else { echo "Open Access"; } ?></p> -->
-<p> <a class="btn btn-light" href="">Journal Home</a>  | 
-<a class="btn btn-light" href="">Aims and Scope</a>  | 
-<a class="btn btn-light" href="">Instructions for Authors</a> |
-<a class="btn btn-light" href=""> Editorial Board</a> |
-<a class="btn btn-light" href="">Submit Manuscript</a>
+<p> <a class="btn btn-light"  (click)="aboutClicked()">Journal Home</a>  | 
+<a class="btn btn-light"  (click)="aimsClicked()">Aims and Scope</a>  | 
+<a class="btn btn-light" (click)="instructionsClicked()">Instructions for Authors</a> |
+<a class="btn btn-light"  (click)="ebClicked()"> Editorial Board</a> |
+<a class="btn btn-light"  (click)="manuscriptClicked()">Submit Manuscript</a>
 </p>
 </header>
 </div>
 </section>
-    <section id="about">
+    <section id="about" *ngIf="dataAvailable && aboutfalg">
         <div class="container">
             <div class="row about-container">
 
                 <div class="col-md-9 content order-lg-1 order-2">
                     <h4>Journal Home</h4>
-                    asdfasf
+                    <p [innerHTML]="journalDetails.aboutJournal"></p>
                 </div>
                 <div class="col-lg-3 background order-lg-2 order-1 wow fadeInUp">
                     <img src="" style="width: 100%; height: 300px; border-radius: 4px" alt="">
@@ -51,7 +51,124 @@ text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;">Journal Name</h3
            
 
         </div>
-    </section><!-- #about -->
+    </section>
 
+    <section id="aims" *ngIf="dataAvailable && aimsflag">
+        <div class="container">
+            <div class="row about-container">
+
+                <div class="col-md-9 content order-lg-1 order-2">
+                    <h4>Journal Aims and Scope</h4>
+                    <p [innerHTML]="journalDetails.aimAndScope"></p>
+                </div>
+                <div class="col-lg-3 background order-lg-2 order-1 wow fadeInUp">
+                    <img src="" style="width: 100%; height: 300px; border-radius: 4px" alt="">
+    
+                    <div style="margin-top: 24px; border: 1px solid #ccc; border-radius: 4px">
+                    <a class="twitter-timeline"
+                                    href="https://twitter.com/research_valley"
+                                    data-width="100%"
+                                    data-height="250px"></a>
+    
+        
+                  </div>
+                </div>
+
+                   
+                </div>
+           
+
+        </div>
+    </section>
+
+    <section id="instructios" *ngIf="dataAvailable && instructionsflag">
+        <div class="container">
+            <div class="row about-container">
+
+                <div class="col-md-9 content order-lg-1 order-2">
+                    <h4>Instructions for Authors</h4>
+                    <p [innerHTML]="journalDetails.guidlines"></p>
+                </div>
+                <div class="col-lg-3 background order-lg-2 order-1 wow fadeInUp">
+                    <img src="" style="width: 100%; height: 300px; border-radius: 4px" alt="">
+    
+                    <div style="margin-top: 24px; border: 1px solid #ccc; border-radius: 4px">
+                    <a class="twitter-timeline"
+                                    href="https://twitter.com/research_valley"
+                                    data-width="100%"
+                                    data-height="250px"></a>
+    
+                  </div>
+                </div>
+
+                   
+                </div>
+           
+
+        </div>
+    </section>
+
+    <section id="editorial" *ngIf="dataAvailable && ebflag">
+        <div class="container">
+            <div class="row about-container">
+
+                <div class="col-md-9 content order-lg-1 order-2">
+                    <h4>Editorial Board Members</h4>
+                    <div *ngFor="let eb of eblist">
+                        <p>{{eb.editorName}}</p> 
+                    </div>
+                </div>
+                <div class="col-lg-3 background order-lg-2 order-1 wow fadeInUp">
+                    <img src="" style="width: 100%; height: 300px; border-radius: 4px" alt="">
+    
+                    <div style="margin-top: 24px; border: 1px solid #ccc; border-radius: 4px">
+                    <a class="twitter-timeline"
+                                    href="https://twitter.com/research_valley"
+                                    data-width="100%"
+                                    data-height="250px"></a>
+    
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement
+    
+                (s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                  </div>
+                </div>
+
+                   
+                </div>
+           
+
+        </div>
+    </section>
+
+    <section id="manuscript" *ngIf="dataAvailable && manuscriptfalg">
+        <div class="container">
+            <div class="row about-container">
+
+                <div class="col-md-9 content order-lg-1 order-2">
+                    <h4>Submit Manuscript
+                    </h4>
+                    <p [innerHTML]="journalDetails.aboutJournal"></p>
+                </div>
+                <div class="col-lg-3 background order-lg-2 order-1 wow fadeInUp">
+                    <img src="" style="width: 100%; height: 300px; border-radius: 4px" alt="">
+    
+                    <div style="margin-top: 24px; border: 1px solid #ccc; border-radius: 4px">
+                    <a class="twitter-timeline"
+                                    href="https://twitter.com/research_valley"
+                                    data-width="100%"
+                                    data-height="250px"></a>
+    
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement
+    
+                (s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                  </div>
+                </div>
+
+                   
+                </div>
+           
+
+        </div>
+    </section>
 </main>
 <app-footer></app-footer>

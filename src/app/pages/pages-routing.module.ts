@@ -10,6 +10,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { JournalsComponent } from './journals/journals.component';
 import { SubmitManuscriptComponent } from './submit-manuscript/submit-manuscript.component';
 import { JournalViewComponent } from './journals/journal-view/journal-view.component';
+import { EditorialComponent } from './editorial/editorial.component';
+import { AuthorGuidelinesComponent } from './guidelines/author-guidelines/author-guidelines.component';
+import { EditorGuidelinesComponent } from './guidelines/editor-guidelines/editor-guidelines.component';
+import { ReviewerGuidelinesComponent } from './guidelines/reviewer-guidelines/reviewer-guidelines.component';
 
 
 const routes: Routes = [
@@ -31,12 +35,28 @@ const routes: Routes = [
     component: GuidelinesComponent
   },
   {
+    path:'author-guidelines',
+    component: AuthorGuidelinesComponent
+  },
+  {
+    path:'editor-guidelines',
+    component: EditorGuidelinesComponent
+  },
+  {
+    path:'reviewer-guidelines',
+    component: ReviewerGuidelinesComponent
+  },
+  {
     path:'journals',
     component: JournalsComponent
   },
   {
     path:'journals/journal-view/:id',
     component: JournalViewComponent
+  },
+  {
+    path:'editorial',
+    component: EditorialComponent
   },
   {
     path:'submit-manuscript',
