@@ -5,6 +5,7 @@ import { RouterModule } from "@angular/router";
 import { SharedModule } from '../shared.module';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 
+import { AvatarModule } from 'ngx-avatar';
 
 import { HeaderComponent } from "./header/header.component";
 import { SearchComponent } from "./search/search.component";
@@ -31,7 +32,8 @@ import { ThemeConstantService } from '../services/theme-constant.service';
         FormsModule,
         ReactiveFormsModule,
         CommonModule,
-        SharedModule
+        SharedModule,
+        AvatarModule
     ],
     declarations: [
         HeaderComponent,

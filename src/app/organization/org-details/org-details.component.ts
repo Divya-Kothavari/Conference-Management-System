@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
  
-import { environment } from '../../../environments/environment';
- 
+import { OrgMenu } from './org-menu.model'; 
+import { SortablejsOptions } from 'ngx-sortablejs';
 
 @Component({
   selector: 'app-org-details',
@@ -15,9 +15,12 @@ import { environment } from '../../../environments/environment';
 export class OrgDetailsComponent implements OnInit {
   editMode = false;
   isLoading= false;
+  currentmenuId;
+  currentmenuParentId;
+  currentmenuLevel;
   dataAvailable = false;
   menuContent;
-  menuList=[];
+  menuList: OrgMenu[] = [];
   active:boolean = true;
   isVisible: boolean = false;
   menuForm: FormGroup;
@@ -32,17 +35,62 @@ export class OrgDetailsComponent implements OnInit {
         ['link', 'image']                        
     ]
 };
-
-
-
+options: SortablejsOptions = {
+  group: 'test',
+  onUpdate: () => {
+    console.log('updated');
+  },
+  onAdd: ($event) => {
+    console.log('added', $event);
+    const movedItemId = $event.item.id;
+    // menu moved to submenu
+    if (movedItemId[0] === 'm') {
+      let id = parseInt(movedItemId[4] + movedItemId[5]);
+      let pid = parseInt(movedItemId[6] + movedItemId[7]);
+      let level = parseInt(movedItemId[8]);
+       this.menuList.forEach(menu => {
+         menu.submenuList.forEach(submenu => {
+          if (submenu.id === id) {
+            const data = {
+              menuName: submenu.menuName,
+              menuLink: submenu.menuLink,
+              menuDescription: submenu.menuDescription,
+              menuStatus: submenu.menuStatus,
+              id: submenu.id,
+              menuParentId: menu.id,
+              menuLevel: menu.menuLevel
+            };
+            this.http.put(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/orgmgmt/orgMenu/`, data).subscribe(
+              (resp: any) => {
+                  this.isLoading = false;
+                  if (resp.status === 'Success') {
+                      this.message.success(resp.message);
+                  }
+              },
+              err => {
+                  console.log(err);
+              }
+          );
+          }
+         });
+      });
+    }
+    console.log(this.menuList);
+  },
+  onRemove: ($event) => {
+    console.log('removed', $event);
+    console.log(this.menuList);
+  },
+};
   constructor(private fb: FormBuilder, private http: HttpClient, private route: Router, 
     private message: NzMessageService) { }
 
   ngOnInit() {
     this.menuForm = this.fb.group({
-      MenuName: [ null, [ Validators.required ] ],
-      menuLink: [ null, [ Validators.required ] ],
+      MenuName: [ {value: null, disabled: this.editMode}, [ Validators.required ] ],
+      menuLink: [  {value: null, disabled: this.editMode}, [ Validators.required ] ],
       menuDescription: [ null, [ Validators.required ] ],
+      menuContent: [ null, [ Validators.required ] ],
       status:  [ null, [ Validators.required ] ]
   });
    this.getMenuList();
@@ -50,13 +98,40 @@ export class OrgDetailsComponent implements OnInit {
 
 getMenuList() {
   this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/orgmgmt/orgMenu/`).subscribe(
-    (resp: any) =>{
+    (resp: any) => {
         if (resp.status === 'Success') {
-            this.menuList = resp.orgMenus;
+           this.menuList = [];
+           const orgId = [];
+           resp.orgMenus.forEach(menu => {
+             orgId.push(menu.id);
+           });
+            resp.orgMenus.forEach(menu => {
+              this.menuList.push({
+                menuDescription: menu.menuDescription,
+                menuLevel: menu.menuLevel,
+                menuLink: menu.menuLink,
+                menuName: menu.menuName,
+                menuParentId: menu.menuParentId,
+                menuStatus: menu.menuStatus,
+                menuContent: menu.menuContent,
+                id: menu.id,
+                submenuList: []
+              });
+            });
+            const childmenulist = [];
+            this.menuList.forEach((menu, index) => {
+              if (menu.menuParentId !== menu.id) {
+                let mindex = orgId.findIndex(fruit => fruit === menu.menuParentId);
+                this.menuList[mindex].submenuList.push(menu);
+                childmenulist.push(menu.id);
+              }
+            });
+            childmenulist.forEach(list => {
+              let mindex = this.menuList.findIndex(fruit => fruit.id === list);
+              this.menuList.splice(mindex, 1);
+            });
+            console.log(this.menuList);
             this.dataAvailable = true;
-            this.menuList.forEach((menu) => {
-              menu.submenu = [];
-            })
             this.message.success(resp.message);
         }
     },
@@ -69,7 +144,10 @@ getMenuList() {
     this.menuForm.controls['MenuName'].setValue(menuData.menuName);
     this.menuForm.controls['menuLink'].setValue(menuData.menuLink);
     this.menuForm.controls['menuDescription'].setValue(menuData.menuDescription);
+    this.menuForm.controls['menuContent'].setValue(menuData.menuContent);
     this.menuForm.controls['status'].setValue(menuData.menuStatus);
+    this.currentmenuId = menuData.id;
+    this.currentmenuParentId = menuData.menuParentId;
     this.editMode = true;
     this.isVisible = true;
   }
@@ -87,8 +165,10 @@ getMenuList() {
           menuLink: this.menuForm.value.menuLink,
           menuDescription: this.menuForm.value.menuDescription,
           menuStatus: this.menuForm.value.status,
-          id: 0,
-          menuParentId: 0,
+          menuContent: this.menuForm.value.menuContent,
+          id: this.currentmenuId,
+          menuLevel: 0,
+          menuParentId: this.currentmenuParentId
         }
         this.http.put(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/orgmgmt/orgMenu/`, menu).subscribe(
         (resp: any) =>{
@@ -98,6 +178,7 @@ getMenuList() {
                 this.handleCancel();
                 this.editMode = false;
                 this.getMenuList();
+                this.menuForm.reset();
             }
         },
         err => {
@@ -111,6 +192,7 @@ getMenuList() {
           menuLink: this.menuForm.value.menuLink,
           menuDescription: this.menuForm.value.menuDescription,
           menuStatus: this.menuForm.value.status,
+          menuContent: this.menuForm.value.menuContent,
           id: 0,
           menuParentId: 0,
           menuLevel: 0
@@ -127,6 +209,7 @@ getMenuList() {
                 this.message.error(resp.message);
                 this.handleCancel();
             }
+            this.menuForm.reset();
         },
         err => {
             console.log(err);
@@ -139,6 +222,7 @@ getMenuList() {
   handleCancel(): void {
     //console.log('Button cancel clicked!');
     this.isVisible = false;
+    this.menuForm.reset();
   }
   
   deleteMenu(menuData) {
@@ -147,6 +231,7 @@ getMenuList() {
           this.isLoading = false;
           if (resp.status === 'Success') {
               this.message.success(resp.message);
+              this.getMenuList();
           }
           if (resp.status === 'Error') {
               this.message.error(resp.message);

@@ -1,15 +1,16 @@
-<div class="container">
+<div class="container" *ngIf="dataAvailable">
         <nz-card>
             <div class="row align-items-center">
                 <div class="col-md-7">
                     <div class="d-md-flex align-items-center">
                         <div class="text-center text-sm-left ">
-                                <img [src]="imageToShow" style="width:120px; border-radius: 50%;vertical-align: middle;" alt="{{userDetails.userName}}" />
+                                <img  *ngIf="imageToShow" [src]="imageToShow" style="width:120px; border-radius: 50%;vertical-align: middle;" alt="{{userDetails.userName}}" />
+                                <ngx-avatar *ngIf="!imageToShow" [name]="userDetails.userName"></ngx-avatar>
                         </div>
                         <div class="text-center text-sm-left m-v-15 p-l-30">
                             <h2 class="m-b-5">{{userDetails.userName}}</h2>
                             <p class="text-opacity font-size-13">@{{userDetails.userId}}</p>
-                            <p class="text-dark m-b-20">{{role === 'undefined'? '' : role}}</p>
+                            <p class="text-dark m-b-20">{{selectedRole === 'undefined'? '' : selectedRole}}</p>
                             <button [routerLink]="['/users/profile', userDetails.userId]" nz-button nzType="primary" nzGhost>Edit</button>
                         </div>
                     </div>

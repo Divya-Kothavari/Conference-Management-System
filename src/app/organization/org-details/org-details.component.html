@@ -14,16 +14,10 @@
             <div class="justify-content-between align-items-center ng-star-inserted">
               <nz-skeleton [nzActive]="true" *ngIf="!dataAvailable"></nz-skeleton>
 
-                    <ul nz-menu nzMode="inline" *ngIf="dataAvailable" [sortablejs]="menuList" [sortablejsOptions]="{ animation: 150 }">
-                        <li nz-submenu [nzTitle]="Menuname" nzIcon="drag" class="handle" *ngFor="let menu of menuList">
-                                    <ul>
-                                      <li nz-menu-item><i nz-icon nzType="drag" class="handle" nzTheme="outline"></i> Option 11 <button style="float:right" nz-button nzType="danger" [nzSize]="size" nzShape="circle"><i class="mr-0" nz-icon nzType="delete"></i></button>
-                                        <button style="float:right; margin-right: 5px" nz-button nzType="primary" [nzSize]="size" nzShape="circle"><i class="mr-0" nz-icon nzType="edit"></i></button>
-                                      </li>
-                                      <li nz-menu-item><i nz-icon nzType="drag" class="handle" nzTheme="outline"></i> Option 12 <button style="float:right" nz-button nzType="danger" [nzSize]="size" nzShape="circle"><i class="mr-0" nz-icon nzType="delete"></i></button>
-                                        <button style="float:right; margin-right: 5px" nz-button nzType="primary" [nzSize]="size" nzShape="circle"><i class="mr-0" nz-icon nzType="edit"></i></button>
-                                      </li>
-                                      <li nz-menu-item><i nz-icon nzType="drag" class="handle" nzTheme="outline"></i> Option 13 <button style="float:right" nz-button nzType="danger" [nzSize]="size" nzShape="circle"><i class="mr-0" nz-icon nzType="delete"></i></button>
+                    <ul nz-menu nzMode="inline" *ngIf="dataAvailable" [sortablejs]="menuList" [sortablejsOptions]="options">
+                        <li nz-submenu [nzTitle]="Menuname" nzIcon="drag" class="handle" *ngFor="let menu of menuList" [id]="'menu'+menu.id+menu.menuParentId+menu.menuLevel">
+                                    <ul *ngIf="menu.submenuList" [sortablejs]="menu.submenuList" [sortablejsOptions]="options">
+                                      <li *ngFor="let submenu of menu.submenuList" nz-menu-item><i nz-icon nzType="drag" class="handle" nzTheme="outline" [id]="'submenu'+submenu.id+submenu.menuParentId+submenu.menuLevel"></i> {{submenu.menuName}} <button style="float:right" nz-button nzType="danger" [nzSize]="size" nzShape="circle"><i class="mr-0" nz-icon nzType="delete"></i></button>
                                         <button style="float:right; margin-right: 5px" nz-button nzType="primary" [nzSize]="size" nzShape="circle"><i class="mr-0" nz-icon nzType="edit"></i></button>
                                       </li>
                                     </ul>
@@ -60,7 +54,7 @@
              <nz-form-item>
                 <nz-form-label nzFor="menuLink">Menu Link</nz-form-label>
                 <nz-form-control>
-                    <input formControlName="menuLink" [disabled]="editmode" nz-input type="text" placeholder="Menu Link">
+                    <input formControlName="menuLink" nz-input type="text" placeholder="Menu Link">
                     <nz-form-explain
                     *ngIf="menuForm.get('menuLink').dirty && menuForm.get('menuLink').errors">
                     Please input menu link!</nz-form-explain>
@@ -79,13 +73,13 @@
                     <nz-form-label nzFor="menuContent">Menu Content</nz-form-label>
                     <nz-form-control>
                             <nz-form-item>
-                                    <quill-editor [style]="{height: '150px'}"  [modules]="editorConfig" placeholder="add content of Menu -- page"  
-                                    [(ngModel)]="menuContent"
-                                    [ngModelOptions]="{standalone: true}"></quill-editor>
+                                    <quill-editor [style]="{height: '150px'}"  [modules]="editorConfig" placeholder="add content of Menu -- page" 
+                                    formControlName="menuContent"
+                                    ></quill-editor>
                                 </nz-form-item>
-                                <!-- <nz-form-explain
+                                <nz-form-explain
                         *ngIf="menuForm.get('menuContent').dirty && menuForm.get('menuContent').errors">
-                        Please input menu content!</nz-form-explain> -->
+                        Please input menu content!</nz-form-explain>
                      </nz-form-control>
                 </nz-form-item>
               <nz-form-item>

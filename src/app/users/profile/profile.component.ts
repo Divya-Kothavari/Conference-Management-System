@@ -245,13 +245,13 @@ export class ProfileComponent {
       imageToShow: any;
 
 createImageFromBlob(image: Blob) {
+    if (image.size !== 0) {
    let reader = new FileReader();
    reader.readAsDataURL(image);
    reader.addEventListener("load", () => {
-    
       this.imageToShow = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());
-      
    }, false);
+}
 }
 getImageFromService() {
     this.getImage(this.uploadUrl).subscribe(data => {

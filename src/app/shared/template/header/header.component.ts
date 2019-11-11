@@ -159,12 +159,12 @@ export class HeaderComponent{
         return this.http.get(this.uploadUrl, { responseType: 'blob' });
       }
       createImageFromBlob(image: Blob) {
+        if (image.size !== 0) {
         let reader = new FileReader();
         reader.readAsDataURL(image);
         reader.addEventListener("load", () => {
-         
-           this.imageToShow = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());
-           
+           this.imageToShow = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());         
         }, false);
+    }
      }
 }
