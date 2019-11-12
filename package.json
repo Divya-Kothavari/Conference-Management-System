@@ -37,6 +37,7 @@
     "ng-chartjs": "0.0.7",
     "ng-recaptcha": "^5.0.0",
     "ng-zorro-antd": "^8.0.3",
+    "ng2-search-filter": "^0.5.1",
     "ngx-avatar": "^3.7.0",
     "ngx-highlightjs": "^2.1.1",
     "ngx-infinite-scroll": "^6.0.1",

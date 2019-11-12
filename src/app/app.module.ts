@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { CommonLayoutComponent } from './layouts/common-layout/common-layout.component';
 import { FullLayoutComponent } from './layouts/full-layout/full-layout.component';
 import { AvatarModule } from 'ngx-avatar';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { NgChartjsModule } from 'ng-chartjs';
 import { ThemeConstantService } from './shared/services/theme-constant.service';
@@ -31,6 +32,7 @@ registerLocaleData(en);
         BrowserModule,
         BrowserAnimationsModule,
         NgZorroAntdModule,
+        Ng2SearchPipeModule,
         AppRoutingModule,
         SortablejsModule.forRoot({ animation: 150 }),
         TemplateModule,

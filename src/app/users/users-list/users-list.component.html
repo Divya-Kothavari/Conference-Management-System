@@ -52,7 +52,7 @@
                 <td>
                     <div class="d-flex align-items-center">
                         <img *ngIf="item.userPic" [src]="item.userPic" style="width:30px; border-radius: 50%;vertical-align: middle;" />
-                        <ngx-avatar *ngIf="!item.userPic" [name]="item.userName"></ngx-avatar>
+                        <ngx-avatar *ngIf="!item.userPic" [name]="item.userName" initialsSize="2"></ngx-avatar>
                         <h6 class="m-l-10 m-b-0">{{item.userName}}</h6>
                     </div>
                 </td>
