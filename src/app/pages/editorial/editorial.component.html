@@ -1,22 +1,27 @@
 <app-header></app-header>
 <main id="main">
 
-    <!--==========================
-    About Us Section
-  ============================-->
     <section id="why-us" class="wow fadeIn" style="padding-top: 120px; padding-bottom: 0px">
         <div class="container">
 
             <header class="section-header">
-                <h3>About</h3>
-                <ul>
-                    <li *ngFor="let eb of eblist">
-                        {{eb.editorName}}
-                        <p>{{eb.biography}}</p>
-                    </li>
-                </ul>
+                <h3>Editorial Team </h3>
+                <p>&nbsp;</p>
               </header>
         </div>
+    </section>
+ 
+    <section id="about" class="wow fadeIn">
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3" *ngFor="let eb of eblist" style="padding: 16px" >
+                            <div class="member" style="border: 1px solid #ccc; padding: 16px;">
+                            {{eb.editorName}}
+                            <p>{{eb.biography}}</p>
+                            </div>
+                    </div>
+            </div>
+         </div>
     </section>
 
 </main>
