@@ -562,23 +562,35 @@ export class SuperadminDashboardComponent implements OnInit {
             }
         )
     }
-
+    openRoles() {
+        this.roleForm.get('roleName').enable();
+    }
     editRole(name, desc) {
         this.roleForm.controls['roleName'].setValue(name);
         this.roleForm.controls['roleDescription'].setValue(desc);
         this.isVisible = true;
+        this.roleForm.get('roleName').disable();
     }
-
+    openSubjects() {
+        this.subjectForm.get('subjectName').enable();
+    }
     editSubject(name, desc) {
         this.subjectForm.controls['subjectName'].setValue(name);
         this.subjectForm.controls['subjectDescription'].setValue(desc);
         this.isVisibleSub = true;
+        this.subjectForm.get('subjectName').disable();
     }
-
+    openRegions() {
+        this.regionForm.get('regionCode').enable();
+    }
     editRegion(name, desc) {
         this.regionForm.controls['regionName'].setValue(name);
         this.regionForm.controls['regionCode'].setValue(desc);
         this.isVisibleReg = true;
+        this.regionForm.get('regionCode').disable();
+    }
+    getCountries() {
+        this.countryForm.get('countryCode').enable();
     }
     editCountry(countryname, countrycode, regioncode, status) {
         this.countryForm.controls['countryName'].setValue(countryname);
@@ -586,11 +598,16 @@ export class SuperadminDashboardComponent implements OnInit {
         this.countryForm.controls['regionCode'].setValue(regioncode);
         this.countryForm.controls['economicStatus'].setValue(status);
         this.isVisibleCoun = true;
+        this.countryForm.get('countryCode').disable();
+    }
+    openArticlestatus() {
+        this.articleForm.get('artcleCode').enable();
     }
     editArticleStatus(desc, code) {
         this.articleForm.controls['artcleCode'].setValue(code);
         this.articleForm.controls['articleDescription'].setValue(desc);
         this.isVisibleArticle = true;
+        this.articleForm.get('artcleCode').disable();
     }
 
 }  

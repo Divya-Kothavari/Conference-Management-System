@@ -14,7 +14,7 @@
             <nz-card>
                 <div class="d-flex justify-content-between align-items-center ng-star-inserted">
                     <h5 style="border-bottom: 3px solid #ccc">User Roles</h5>
-                    <div> <button class="text-right" nz-button nzShape="round" nzSize="default" nzType="primary" (click)="isVisible = true">
+                    <div> <button class="text-right" nz-button nzShape="round" nzSize="default" nzType="primary" (click)="isVisible = true;openRoles()">
                                     <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
                                     <span>Add Role</span>
                                 </button></div>
@@ -69,7 +69,7 @@
             <nz-card>
                 <div class="d-flex justify-content-between align-items-center ng-star-inserted">
                         <h5 style="border-bottom: 3px solid #ccc">Subjects</h5>
-                        <div> <button class="text-right" nz-button nzShape="round" nzSize="default" nzType="primary" (click)="isVisibleSub = true">
+                        <div> <button class="text-right" nz-button nzShape="round" nzSize="default" nzType="primary" (click)="isVisibleSub = true; openSubjects();">
                                 <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
                                 <span>Add Subject</span>
                             </button></div>
@@ -123,7 +123,7 @@
                 <nz-card>
                     <div class="d-flex justify-content-between align-items-center ng-star-inserted">
                         <h5 style="border-bottom: 3px solid #ccc">Regions</h5>
-                        <div> <button class="text-right" nz-button nzShape="round" nzSize="default" nzType="primary" (click)="isVisibleReg = true">
+                        <div> <button class="text-right" nz-button nzShape="round" nzSize="default" nzType="primary" (click)="isVisibleReg = true; openRegions()">
                                         <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
                                         <span>Add Region</span>
                                     </button></div>
@@ -173,7 +173,7 @@
                 <nz-card>
                     <div class="d-flex justify-content-between align-items-center ng-star-inserted">
                             <h5 style="border-bottom: 3px solid #ccc">Country List</h5>
-                            <div> <button class="text-right" nz-button nzShape="round" nzSize="default" nzType="primary" (click)="isVisibleCoun = true">
+                            <div> <button class="text-right" nz-button nzShape="round" nzSize="default" nzType="primary" (click)="isVisibleCoun = true; getCountries()">
                                     <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
                                     <span>Add country</span>
                                 </button></div> 
@@ -265,7 +265,7 @@
                 <nz-card>
                     <div class="d-flex justify-content-between align-items-center ng-star-inserted">
                         <h5 style="border-bottom: 3px solid #ccc">Article Status</h5>
-                        <div> <button class="text-right" nz-button nzShape="round" nzSize="default" nzType="primary" (click)="isVisibleArticle = true">
+                        <div> <button class="text-right" nz-button nzShape="round" nzSize="default" nzType="primary" (click)="isVisibleArticle = true; openArticlestatus()">
                                         <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
                                         <span>Add Article Status</span>
                                     </button></div>
@@ -320,7 +320,7 @@
                 <nz-form-item>
                     <nz-form-label nzFor="oldPassword">Role Name</nz-form-label>
                     <nz-form-control>
-                        <input [disabled]="editmode" formControlName="roleName" nz-input type="text" placeholder="Role Name">
+                        <input formControlName="roleName" nz-input type="text" placeholder="Role Name">
                         <nz-form-explain *ngIf="roleForm.get('roleName').dirty && roleForm.get('roleName').errors">Please input Role Name!</nz-form-explain>
                     </nz-form-control>
                 </nz-form-item>
@@ -346,7 +346,7 @@
                 <nz-form-item>
                     <nz-form-label nzFor="Subject Name">Subject Name</nz-form-label>
                     <nz-form-control>
-                        <input formControlName="subjectName" [disabled]="editmode" nz-input type="text" placeholder="Subject Name">
+                        <input formControlName="subjectName" nz-input type="text" placeholder="Subject Name">
                         <nz-form-explain *ngIf="subjectForm.get('subjectName').dirty && subjectForm.get('subjectName').errors">Please input Role Name!</nz-form-explain>
                     </nz-form-control>
                 </nz-form-item>
@@ -372,7 +372,7 @@
             <nz-form-item>
                     <nz-form-label nzFor="regionCode">Region Code</nz-form-label>
                     <nz-form-control>
-                        <input formControlName="regionCode" [disabled]="editmode" nz-input type="text" placeholder="Region Code">
+                        <input formControlName="regionCode" nz-input type="text" placeholder="Region Code">
                         <nz-form-explain *ngIf="regionForm.get('regionCode').dirty && regionForm.get('regionCode').errors">Please input Region Code!</nz-form-explain>
                     </nz-form-control>
                 </nz-form-item>
@@ -405,7 +405,7 @@
                    <nz-form-item>
                       <nz-form-label nzFor="countryCode">Country Code</nz-form-label>
                       <nz-form-control>
-                          <input formControlName="countryCode" [disabled]="editmode" nz-input type="text" placeholder="Country Code">
+                          <input formControlName="countryCode" nz-input type="text" placeholder="Country Code">
                           <nz-form-explain *ngIf="countryForm.get('countryCode').dirty && countryForm.get('countryCode').errors">Please input country Code!</nz-form-explain>
                       </nz-form-control>
                   </nz-form-item>
@@ -442,7 +442,7 @@
                 <nz-form-item>
                     <nz-form-label nzFor="Artcle Status Code">Artcle Status Code</nz-form-label>
                     <nz-form-control>
-                        <input [disabled]="editmode" formControlName="artcleCode" nz-input type="text" placeholder="Artcle Status Code">
+                        <input formControlName="artcleCode" nz-input type="text" placeholder="Artcle Status Code">
                         <nz-form-explain *ngIf="articleForm.get('artcleCode').dirty && articleForm.get('artcleCode').errors">Please input Artcle Status Code!</nz-form-explain>
                     </nz-form-control>
                 </nz-form-item>

@@ -150,10 +150,14 @@ getMenuList() {
     this.currentmenuParentId = menuData.menuParentId;
     this.editMode = true;
     this.isVisible = true;
+    this.menuForm.get('MenuName').disable();
+    this.menuForm.get('menuLink').disable();
   }
 
   openMenuPopup() {
     this.isVisible = true;
+    this.menuForm.get('MenuName').enable();
+    this.menuForm.get('menuLink').enable();
   }
   
 
