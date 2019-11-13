@@ -71,7 +71,7 @@
       nzTitle="Submit an Article"
       (nzOnClose)="closeDrawer()"
     >
-      <form nz-form>
+      <form nz-form [formGroup]="validateForm">
         <div nz-row>
           <div nz-col nzSpan="24">
             <nz-form-item>
@@ -113,6 +113,8 @@
                 <nz-select nzPlaceHolder="Please choose the approver"></nz-select>
               </nz-form-control>
             </nz-form-item>
+            
+
           </div>
           <div nz-col nzSpan="12">
             <nz-form-item>
@@ -121,6 +123,37 @@
                 <nz-range-picker></nz-range-picker>
               </nz-form-control>
             </nz-form-item>
+          </div>
+        </div>
+        <div nz-row nzGutter="8">
+          <div nz-col nzSpan="12">
+            <!-- <nz-form-item>
+              <nz-form-label>Secondary Approver</nz-form-label>
+              <nz-form-control>
+                <nz-select nzPlaceHolder="Please choose Secondary approver"></nz-select>
+              </nz-form-control>
+            </nz-form-item> -->
+            <nz-form-item *ngFor="let control of listOfControl; let i = index">
+                <nz-form-label *ngIf="i == 0" [nzFor]="control.controlInstance"
+                >Secondary Approver</nz-form-label>
+                <nz-form-control
+          [nzOffset]="i == 0 ? 0 : 4"
+          nzErrorTip="Please select secondary approver."
+        >
+         
+          <nz-select class="passenger-input" [attr.id]="control.id" [formControlName]="control.controlInstance" nzPlaceHolder="Please choose Secondary approver"></nz-select>
+
+          <i nz-icon nzType="minus-circle-o" class="dynamic-delete-button" (click)="removeField(control, $event)"></i>
+        </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 20, offset: 4 }">
+                  <button nz-button nzType="dashed" class="add-button" (click)="addField($event)">
+                    <i nz-icon nzType="plus"></i>
+                    Add Secondary Approver
+                  </button>
+                </nz-form-control>
+              </nz-form-item>
           </div>
         </div>
         <div nz-row nzGutter="8">

@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
 
 import { HttpClient } from '@angular/common/http';
 import { NzMessageService } from 'ng-zorro-antd';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 
 @Component({
@@ -35,6 +35,9 @@ export class ArticleListComponent implements OnInit {
     editmode = false;
     journalmodal;
     visible: boolean = false;
+    validateForm: FormGroup;
+    listOfControl: Array<{ id: number; controlInstance: string }> = [];
+
     constructor(
         private fb: FormBuilder,
         private modalService: NzModalService, private http: HttpClient, private message: NzMessageService,
@@ -50,7 +53,8 @@ export class ArticleListComponent implements OnInit {
             subject: [null, [Validators.required]],
             primayUser: [null, [Validators.required]],
         });
-
+        this.validateForm = this.fb.group({});
+        this.addField();
         let roles = window.localStorage.getItem('role');
         let currentUser = window.localStorage.getItem('userid');
         this.userroles = roles.split(',');
@@ -84,7 +88,32 @@ export class ArticleListComponent implements OnInit {
         // );
 
     }
-
+    addField(e?: MouseEvent): void {
+        if (e) {
+          e.preventDefault();
+        }
+        const id = this.listOfControl.length > 0 ? this.listOfControl[this.listOfControl.length - 1].id + 1 : 0;
+    
+        const control = {
+          id,
+          controlInstance: `passenger${id}`
+        };
+        const index = this.listOfControl.push(control);
+        console.log(this.listOfControl[this.listOfControl.length - 1]);
+        this.validateForm.addControl(
+          this.listOfControl[index - 1].controlInstance,
+          new FormControl(null, Validators.required)
+        );
+      }
+      removeField(i: { id: number; controlInstance: string }, e: MouseEvent): void {
+        e.preventDefault();
+        if (this.listOfControl.length > 1) {
+          const index = this.listOfControl.indexOf(i);
+          this.listOfControl.splice(index, 1);
+          console.log(this.listOfControl);
+          this.validateForm.removeControl(i.controlInstance);
+        }
+      }
     showNewProject(newProjectContent: TemplateRef<{}>, newProjectFooter: TemplateRef<{}>) {
         this.journalmodal = this.modalService.create({
             nzTitle: 'Create New Journal',
