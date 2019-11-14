@@ -36,6 +36,7 @@ export class JournalViewComponent {
   isLoading: boolean;
   isLoadingCountry = true;
   editmode = false;
+    imageToShowFlyer: any;
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
@@ -102,14 +103,15 @@ export class JournalViewComponent {
                   reader.addEventListener(
                     "load",
                     () => {
-                      this.imageToShow = this.sanitizer.bypassSecurityTrustUrl(
+                      this.imageToShowFlyer = this.sanitizer.bypassSecurityTrustUrl(
                         reader.result.toString()
                       );
-                      const img = new Image();
-                      img.src = this.imageToShow.changingThisBreaksApplicationSecurity;
-                      document.getElementById(
-                        `flyer`
-                      ).style.backgroundImage = `url(${img.src})`;
+                    //   const img = new Image();
+                    //   img.src = this.imageToShow.changingThisBreaksApplicationSecurity;
+                    //   this.imageToShowFlyer = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString());  
+                    //   document.getElementById(
+                    //     `flyer`
+                    //   ).style.backgroundImage = `url(${img.src})`;
                     },
                     false
                   );
