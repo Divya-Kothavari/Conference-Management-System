@@ -60,6 +60,8 @@ export class UsersListComponent implements OnInit {
                } else if (userroles.includes('Admin')) {
                  this.listOfAllData = resp.users.filter(user => user.role !== 'SuperAdmin' && user.role !== 'Admin');
                 //  this.listOfAllData = resp.users;
+               } else if (userroles.includes('Editor')) {
+                this.listOfAllData = resp.users.filter(user => user.role === 'Reviewer');
                }
                this.listOfAllData.forEach((user)=>{
                 this.uploadUrl= `http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/user/profileImage/${user.userId}`;

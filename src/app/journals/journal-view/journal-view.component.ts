@@ -27,6 +27,7 @@ export class JournalViewComponent {
     ebmemberForm: FormGroup;
     listofregions = [];
     eblist = [];
+    editorMembers = [];
     listofcountries = [];
     isLoading: boolean;
     isLoadingCountry = true;
@@ -45,11 +46,7 @@ export class JournalViewComponent {
             editorName: [null, [Validators.required]],
             editorType: [null, [Validators.required]],
             editorDescription: [null, [Validators.required]],
-            biography: [null, [Validators.required]],
-            interests: [null, [Validators.required]],
             universityName: [null, [Validators.required]],
-            region: [null, [Validators.required]],
-            country: [null, [Validators.required]],
             journalShortName: [this.journalid],
         });
 
@@ -87,34 +84,14 @@ export class JournalViewComponent {
         );
     }
 
-    getRegionsList() {
-        this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmslocations/region`).subscribe(
+    getUsersByRole() {
+        this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/users/editor`).subscribe(
             (resp: any) => {
                 if (resp.status === 'Success') {
-                    this.listofregions = [];
-                    resp.regions.forEach(element => {
-                        this.listofregions.push({ name: element.regionName, code: element.regionCode });
-                    });
+                    this.editorMembers = resp.userIds;
                 }
-            },
-            err => {
-                console.log(err);
-            }
-        );
-        if (!this.editmode) {
-            this.ebmemberForm.controls['journalShortName'].setValue(this.journalid);
-        }
-    }
-
-    getCountriesList() {
-        this.http.get(`http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/cmslocations/countries/${this.ebmemberForm.value.region}`).subscribe(
-            (resp: any) => {
-                if (resp.status === 'Success') {
-                    this.listofcountries = [];
-                    resp.countries.forEach(element => {
-                        this.listofcountries.push(element.countryName)
-                    });
-                    this.isLoadingCountry = false;
+                if (resp.status === 'Error') {
+                    this.message.error(resp.message);
                 }
             },
             err => {
@@ -122,7 +99,6 @@ export class JournalViewComponent {
             }
         )
     }
-
     handleCancelEbmmeber() {
         this.isVisibleEbmember = false;
         this.ebmemberForm.reset();
@@ -131,15 +107,11 @@ export class JournalViewComponent {
         if (this.editmode) {
             this.isLoadingEbmember = true;
             const editorialBoard = {
-                biography: this.ebmemberForm.value.biography,
-                country: this.ebmemberForm.value.country,
                 editorDescription: this.ebmemberForm.value.editorDescription,
                 editorId: this.ebmemberForm.value.editorId,
                 editorName: this.ebmemberForm.value.editorName,
                 editorType: this.ebmemberForm.value.editorType,
-                interests: this.ebmemberForm.value.interests,
                 journalShortName: this.ebmemberForm.value.journalShortName,
-                region: this.ebmemberForm.value.region,
                 universityName: this.ebmemberForm.value.universityName,
 
             }
@@ -163,15 +135,11 @@ export class JournalViewComponent {
         } else {
             this.isLoadingEbmember = true;
             const editorialBoard = {
-                biography: this.ebmemberForm.value.biography,
-                country: this.ebmemberForm.value.country,
                 editorDescription: this.ebmemberForm.value.editorDescription,
                 editorId: this.ebmemberForm.value.editorId,
                 editorName: this.ebmemberForm.value.editorName,
                 editorType: this.ebmemberForm.value.editorType,
-                interests: this.ebmemberForm.value.interests,
                 journalShortName: this.ebmemberForm.value.journalShortName,
-                region: this.ebmemberForm.value.region,
                 universityName: this.ebmemberForm.value.universityName,
 
             }
@@ -196,18 +164,13 @@ export class JournalViewComponent {
     }
 
     editEbMember(ebmember) {
-        this.ebmemberForm.controls['biography'].setValue(ebmember.biography);
         this.ebmemberForm.controls['editorId'].setValue(ebmember.editorId);
         this.ebmemberForm.controls['editorName'].setValue(ebmember.editorName);
         this.ebmemberForm.controls['editorType'].setValue(ebmember.editorType);
         this.ebmemberForm.controls['editorDescription'].setValue(ebmember.editorDescription);
-        this.ebmemberForm.controls['interests'].setValue(ebmember.interests);
         this.ebmemberForm.controls['universityName'].setValue(ebmember.universityName);
-        this.ebmemberForm.controls['region'].setValue(ebmember.region);
-        this.ebmemberForm.controls['country'].setValue(ebmember.country);
         this.ebmemberForm.controls['journalShortName'].setValue(ebmember.journalShortName);
 
-        this.getCountriesList();
         this.isVisibleEbmember = true;
 
     }

@@ -23,11 +23,11 @@ export class SideNavComponent{
          } else if (userroles.includes('Admin')) {
             this.menuItems = ROUTES.filter(menuItem => menuItem.title === 'Journals' ||  menuItem.title === 'Users' ||  menuItem.title === 'Articles') ;
          } else if (userroles.includes('Author')) {
-            this.menuItems = ROUTES.filter(menuItem => menuItem.title === 'Articles') ;
+            this.menuItems = ROUTES.filter(menuItem => menuItem.title === 'Articles Tracking') ;
          } else if (userroles.includes('Editor')) {
-            this.menuItems = ROUTES.filter(menuItem => menuItem.title === 'Articles') ;
+            this.menuItems = ROUTES.filter(menuItem => menuItem.title === 'Articles Tracking') ;
          } else if (userroles.includes('Reviewer')) {
-            this.menuItems = ROUTES.filter(menuItem => menuItem.title === 'Articles') ;
+            this.menuItems = ROUTES.filter(menuItem => menuItem.title === 'Articles Tracking') ;
          }
         
       //   this.menuItems = ROUTES.filter(menuItem => menuItem); 

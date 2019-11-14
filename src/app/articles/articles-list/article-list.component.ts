@@ -31,6 +31,8 @@ export class ArticleListComponent implements OnInit {
     subjectsList = [];
     adminsList = [];
     subjectForm: any;
+    articleTitle;
+    articleType;
     isLoading = false;
     editmode = false;
     journalmodal;

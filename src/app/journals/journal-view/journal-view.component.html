@@ -49,7 +49,7 @@
         <div class="col-md-12">
             <nz-card [nzTitle]="EditorialBoardMembers">
                     <ng-template #EditorialBoardMembers>
-                            <div>EB Members <a (click)="getRegionsList(); isVisibleEbmember = true" class="float-right" href="Javascript:Void(0)"><i nz-icon nzType="plus-circle" nzTheme="outline"></i> Add EBMebmer</a> </div>
+                            <div>EB Members <a (click)="isVisibleEbmember = true; getUsersByRole();" class="float-right" href="Javascript:Void(0)"><i nz-icon nzType="plus-circle" nzTheme="outline"></i> Add EBMebmer</a> </div>
                     </ng-template>
 
 
@@ -73,7 +73,10 @@
                                     <nz-form-item>
                                             <nz-form-label nzFor="editorName">Editor Name</nz-form-label>
                                             <nz-form-control>
-                                                <input formControlName="editorName" nz-input type="text" placeholder="Editor Name">
+                                                <!-- <input formControlName="editorName" nz-input type="text" placeholder="Editor Name"> -->
+                                                <nz-select formControlName="editorName"   nzPlaceHolder="Select Editor Name" >
+                                                    <nz-option *ngFor="let user of editorMembers" [nzLabel]="user" [nzValue]="user"></nz-option>
+                                                </nz-select>
                                                 <nz-form-explain *ngIf="ebmemberForm.get('editorName').dirty && ebmemberForm.get('editorName').errors">
                                                     Please input Editor Name!</nz-form-explain>
                                             </nz-form-control>
@@ -94,23 +97,8 @@
                                                             Please input Editor Description!</nz-form-explain>
                                                     </nz-form-control>
                                                 </nz-form-item>
-                                                <nz-form-item>
-                                                        <nz-form-label nzFor="biography">Biography</nz-form-label>
-                                                        <nz-form-control>
-                                                            <textarea formControlName="biography" nz-input type="text" placeholder="biography"></textarea>
-                                                            <nz-form-explain *ngIf="ebmemberForm.get('biography').dirty && ebmemberForm.get('biography').errors">
-                                                                Please input biography!</nz-form-explain>
-                                                        </nz-form-control>
-                                                    </nz-form-item>
-                                                <nz-form-item>
-                                                        <nz-form-label nzFor="interests">Interests</nz-form-label>
-                                                        <nz-form-control>
-                                                            <textarea formControlName="interests" nz-input type="text" placeholder="Interests"></textarea>
-                                                            <nz-form-explain *ngIf="ebmemberForm.get('interests').dirty && ebmemberForm.get('interests').errors">
-                                                                Please input Interests !</nz-form-explain>
-                                                        </nz-form-control>
-                                                    </nz-form-item>
-                                                    <nz-form-item>
+                                                
+                                                   <nz-form-item>
                                                             <nz-form-label nzFor="universityName">University Name</nz-form-label>
                                                             <nz-form-control>
                                                                 <input formControlName="universityName" nz-input type="text" placeholder="University Name">
@@ -120,39 +108,8 @@
                                                         </nz-form-item>   
                                    
                                         
-                                <nz-form-item>
-                                        <nz-form-label nzRequired nzFor="region">Region</nz-form-label>
-                                        <nz-form-control>
-                                            <nz-input-group>
-                                                <nz-select style="width: 100%;" formControlName="region"
-                                                nzPlaceHolder="Select Region" (focusout)="getCountriesList()">
-                                                    <nz-option *ngFor="let region of listofregions"
-                                                        [nzLabel]="region.name" [nzValue]="region.code"></nz-option>
-                                                </nz-select>
-                                            </nz-input-group>
-                                            <nz-form-explain
-                                                *ngIf="ebmemberForm.get('region').dirty && ebmemberForm.get('region').errors">
-                                                Please select your region!</nz-form-explain>
-                                        </nz-form-control>
-                                    </nz-form-item>
-                                    <nz-form-item>
-                                        <nz-form-label nzRequired nzFor="country">Country</nz-form-label>
-                                        <nz-form-control>
-                                            <nz-input-group>
-                                                <nz-select style="width: 100%;" formControlName="country"
-                                                nzPlaceHolder="Select Country">
-                                                    <nz-option *ngFor="let country of listofcountries"
-                                                        [nzLabel]="country" [nzValue]="country"></nz-option>
-                                                        <nz-option *ngIf="isLoadingCountry" nzDisabled nzCustomContent>
-                                                            <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
-                                                          </nz-option>
-                                                </nz-select>
-                                            </nz-input-group>
-                                            <nz-form-explain
-                                                *ngIf="ebmemberForm.get('country').dirty && ebmemberForm.get('country').errors">
-                                                Please select your country!</nz-form-explain>
-                                        </nz-form-control>
-                                    </nz-form-item>
+                                
+                                    
                                      <nz-form-item>
                                         <nz-form-label nzFor="journalShortName">Journal ShortName</nz-form-label>
                                         <nz-form-control>

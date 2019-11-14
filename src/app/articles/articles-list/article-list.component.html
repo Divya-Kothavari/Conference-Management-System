@@ -79,6 +79,7 @@
               <nz-form-control>
                     <textarea
                     nz-input
+                    [(ngModel)]="articleTitle"
                     placeholder="Please enter Article Title"
                     [nzAutosize]="{ minRows: 3, maxRows: 4 }"
                   ></textarea>
@@ -88,40 +89,17 @@
            
         </div>
         <div nz-row nzGutter="8">
-          <div nz-col nzSpan="12">
-            <nz-form-item>
-              <nz-form-label>Journal Name</nz-form-label>
-              <nz-form-control>
-                <nz-select nzPlaceHolder="Please select an owner"></nz-select>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
+          
           <div nz-col nzSpan="12">
             <nz-form-item>
               <nz-form-label>Article Type</nz-form-label>
               <nz-form-control>
-                <nz-select nzPlaceHolder="Please choose the type"></nz-select>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-        </div>
-        <div nz-row nzGutter="8">
-          <div nz-col nzSpan="12">
-            <nz-form-item>
-              <nz-form-label>Approver</nz-form-label>
-              <nz-form-control>
-                <nz-select nzPlaceHolder="Please choose the approver"></nz-select>
-              </nz-form-control>
-            </nz-form-item>
-            
-
-          </div>
-          <div nz-col nzSpan="12">
-            <nz-form-item>
-              <nz-form-label>DateTime</nz-form-label>
-              <nz-form-control>
-                <nz-range-picker></nz-range-picker>
-              </nz-form-control>
+                <textarea
+                nz-input
+                [(ngModel)]="articleType"
+                placeholder="Please enter Article Title"
+                [nzAutosize]="{ minRows: 3, maxRows: 4 }"
+              ></textarea>              </nz-form-control>
             </nz-form-item>
           </div>
         </div>
@@ -135,10 +113,10 @@
             </nz-form-item> -->
             <nz-form-item *ngFor="let control of listOfControl; let i = index">
                 <nz-form-label *ngIf="i == 0" [nzFor]="control.controlInstance"
-                >Secondary Approver</nz-form-label>
+                >Co-Authors</nz-form-label>
                 <nz-form-control
           [nzOffset]="i == 0 ? 0 : 4"
-          nzErrorTip="Please select secondary approver."
+          nzErrorTip="Please select co-author."
         >
          
           <nz-select class="passenger-input" [attr.id]="control.id" [formControlName]="control.controlInstance" nzPlaceHolder="Please choose Secondary approver"></nz-select>
@@ -150,7 +128,7 @@
                 <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 20, offset: 4 }">
                   <button nz-button nzType="dashed" class="add-button" (click)="addField($event)">
                     <i nz-icon nzType="plus"></i>
-                    Add Secondary Approver
+                    Add Co-author
                   </button>
                 </nz-form-control>
               </nz-form-item>
