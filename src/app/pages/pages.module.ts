@@ -20,6 +20,7 @@ import { AuthorGuidelinesComponent } from './guidelines/author-guidelines/author
 import { EditorGuidelinesComponent } from './guidelines/editor-guidelines/editor-guidelines.component';
 import { ReviewerGuidelinesComponent } from './guidelines/reviewer-guidelines/reviewer-guidelines.component';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,9 @@ import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
     CommonModule,
     PagesRoutingModule,
     RecaptchaModule,
-        RecaptchaFormsModule
+        RecaptchaFormsModule,
+        FormsModule,
+        ReactiveFormsModule
   ],
   exports: [
     HttpClientModule

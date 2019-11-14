@@ -37,14 +37,12 @@ text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;">{{journalDetails
                     " alt="">
     
                     <div style="margin-top: 24px; border: 1px solid #ccc; border-radius: 4px">
-                    <a class="twitter-timeline"
+                    <!-- <a class="twitter-timeline"
                                     href="https://twitter.com/research_valley"
-                                    data-width="100%"
-                                    data-height="250px"></a>
-    
-                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement
-    
-                (s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                                   ></a> -->
+                                    <a class="twitter-timeline"  data-width="100%"
+                                    data-height="250px" href="https://twitter.com/research_valley?ref_src=twsrc%5Etfw">Tweets by research_valley</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+               
                   </div>
                 </div>
 
@@ -117,6 +115,7 @@ text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;">{{journalDetails
                 <div class="col-md-9 content order-lg-1 order-2">
                     <h4>Editorial Board Members</h4>
                     <div *ngFor="let eb of eblist">
+                    <img *ngIf="eb.userPic" [src]="eb.userPic" style="width:30px; border-radius: 50%;vertical-align: middle;" />
                         <p>{{eb.editorName}}</p> 
                     </div>
                 </div>
@@ -128,10 +127,7 @@ text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;">{{journalDetails
                                     href="https://twitter.com/research_valley"
                                     data-width="100%"
                                     data-height="250px"></a>
-    
-                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement
-    
-                (s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
                   </div>
                 </div>
 

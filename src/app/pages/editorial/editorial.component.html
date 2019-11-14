@@ -18,6 +18,7 @@
                             <div class="member" style="border: 1px solid #ccc; padding: 16px;">
                             {{eb.editorName}}
                             <p>{{eb.biography}}</p>
+                            <img *ngIf="eb.userPic" [src]="eb.userPic" style="width:30px; border-radius: 50%;vertical-align: middle;" />
                             </div>
                     </div>
             </div>
