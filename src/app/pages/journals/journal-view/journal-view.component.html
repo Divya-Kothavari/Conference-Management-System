@@ -37,11 +37,15 @@ text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;">{{journalDetails
                     " alt="">
     
                     <div style="margin-top: 24px; border: 1px solid #ccc; border-radius: 4px">
+                            <ngx-twitter-timeline 
+                            [data]="{sourceType: 'url', url: 'https://twitter.com/research_valley'}"
+                            [opts]="{tweetLimit: 5}"
+                        ></ngx-twitter-timeline>
                     <!-- <a class="twitter-timeline"
                                     href="https://twitter.com/research_valley"
                                    ></a> -->
-                                    <a class="twitter-timeline"  data-width="100%"
-                                    data-height="250px" href="https://twitter.com/research_valley?ref_src=twsrc%5Etfw">Tweets by research_valley</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                                    <!-- <a class="twitter-timeline"  data-width="100%"
+                                    data-height="250px" href="?ref_src=twsrc%5Etfw">Tweets by research_valley</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
                
                   </div>
                 </div>

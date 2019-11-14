@@ -21,6 +21,7 @@ import { EditorGuidelinesComponent } from './guidelines/editor-guidelines/editor
 import { ReviewerGuidelinesComponent } from './guidelines/reviewer-guidelines/reviewer-guidelines.component';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
     RecaptchaModule,
         RecaptchaFormsModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgxTwitterTimelineModule
   ],
   exports: [
     HttpClientModule

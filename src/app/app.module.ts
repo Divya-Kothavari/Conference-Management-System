@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
     RecaptchaModule,
     RecaptchaFormsModule,
     AppRoutingModule,
+    NgxTwitterTimelineModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [
