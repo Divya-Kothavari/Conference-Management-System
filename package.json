@@ -26,6 +26,7 @@
     "firebase": "^6.6.2",
     "ionicons": "^4.6.3",
     "ng-animate": "^0.3.4",
+    "ng-recaptcha": "^5.0.0",
     "ngx-bootstrap": "^5.1.2",
     "ngx-lightbox": "^2.1.0",
     "ngx-owl-carousel-o": "^2.0.1",
