@@ -16,9 +16,11 @@
             <div class="row">
                     <div class="col-md-3" *ngFor="let eb of eblist" style="padding: 16px" >
                             <div class="member" style="border: 1px solid #ccc; padding: 16px;">
-                            {{eb.editorName}}
-                            <p>{{eb.biography}}</p>
-                            <img *ngIf="eb.userPic" [src]="eb.userPic" style="width:30px; border-radius: 50%;vertical-align: middle;" />
+                            <img *ngIf="eb.userPic" [src]="eb.userPic" style="width:100%;vertical-align: middle;" />
+                            <h5 style="margin-top: 20px;">{{eb.editorName}}</h5>
+                            <!-- <p>{{eb.biography}}</p> -->
+                            <p>Editor</p>
+                            
                             </div>
                     </div>
             </div>

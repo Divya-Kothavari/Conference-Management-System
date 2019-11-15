@@ -33,31 +33,24 @@ text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;">{{journalDetails
                     <p [innerHTML]="journalDetails.aboutJournal"></p>
                 </div>
                 <div class="col-lg-3 background order-lg-2 order-1 wow fadeInUp">
-                    <img [src]="imageToShowFlyer" style="width: 100%; height: 300px; border-radius: 4px; background-size: cover; background-repeat: no-repeat;
-                    " alt="">
-    
-                    <div style="margin-top: 24px; border: 1px solid #ccc; border-radius: 4px">
+                    <div style="border: 1px solid #ccc; border-radius: 4px">
                             <ngx-twitter-timeline 
                             [data]="{sourceType: 'url', url: 'https://twitter.com/research_valley'}"
                             [opts]="{tweetLimit: 5}"
                         ></ngx-twitter-timeline>
-                    <!-- <a class="twitter-timeline"
-                                    href="https://twitter.com/research_valley"
-                                   ></a> -->
-                                    <!-- <a class="twitter-timeline"  data-width="100%"
-                                    data-height="250px" href="?ref_src=twsrc%5Etfw">Tweets by research_valley</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
-               
+                    
                   </div>
+                    <img  [src]="imageToShowFlyer" style="margin-top: 2rem; width: 100%; height: 300px; border-radius: 4px; background-size: cover; background-repeat: no-repeat;
+                    " alt="">
+    
                 </div>
-
-                   
-                </div>
+            </div>
            
 
         </div>
     </section>
 
-    <section id="aims" *ngIf="dataAvailable && aimsflag">
+    <section id="about" *ngIf="dataAvailable && aimsflag">
         <div class="container">
             <div class="row about-container">
 
@@ -68,12 +61,11 @@ text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;">{{journalDetails
                 <div class="col-lg-3 background order-lg-2 order-1 wow fadeInUp">
                     <img src="" style="width: 100%; height: 300px; border-radius: 4px" alt="">
     
-                    <div style="margin-top: 24px; border: 1px solid #ccc; border-radius: 4px">
-                    <a class="twitter-timeline"
-                                    href="https://twitter.com/research_valley"
-                                    data-width="100%"
-                                    data-height="250px"></a>
-    
+                    <div style="border: 1px solid #ccc; border-radius: 4px">
+                            <ngx-twitter-timeline 
+                            [data]="{sourceType: 'url', url: 'https://twitter.com/research_valley'}"
+                            [opts]="{tweetLimit: 5}"
+                        ></ngx-twitter-timeline>
         
                   </div>
                 </div>
@@ -85,7 +77,7 @@ text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;">{{journalDetails
         </div>
     </section>
 
-    <section id="instructios" *ngIf="dataAvailable && instructionsflag">
+    <section id="about" *ngIf="dataAvailable && instructionsflag">
         <div class="container">
             <div class="row about-container">
 
@@ -96,12 +88,11 @@ text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;">{{journalDetails
                 <div class="col-lg-3 background order-lg-2 order-1 wow fadeInUp">
                     <img src="" style="width: 100%; height: 300px; border-radius: 4px" alt="">
     
-                    <div style="margin-top: 24px; border: 1px solid #ccc; border-radius: 4px">
-                    <a class="twitter-timeline"
-                                    href="https://twitter.com/research_valley"
-                                    data-width="100%"
-                                    data-height="250px"></a>
-    
+                    <div style="border: 1px solid #ccc; border-radius: 4px">
+                            <ngx-twitter-timeline 
+                            [data]="{sourceType: 'url', url: 'https://twitter.com/research_valley'}"
+                            [opts]="{tweetLimit: 5}"
+                        ></ngx-twitter-timeline>
                   </div>
                 </div>
 
@@ -112,26 +103,38 @@ text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;">{{journalDetails
         </div>
     </section>
 
-    <section id="editorial" *ngIf="dataAvailable && ebflag">
+    <section id="about" *ngIf="dataAvailable && ebflag">
         <div class="container">
             <div class="row about-container">
 
                 <div class="col-md-9 content order-lg-1 order-2">
-                    <h4>Editorial Board Members</h4>
-                    <div *ngFor="let eb of eblist">
+                        <h4>Editorial Board Members</h4>
+                        <div class="row">
+                                <div class="col-md-4" *ngFor="let eb of eblist" style="padding: 16px" >
+                                        <div class="member" style="border: 1px solid #ccc; padding: 16px;">
+                                        <img *ngIf="eb.userPic" [src]="eb.userPic" style="width:100%;vertical-align: middle;" />
+                                        <h5 style="margin-top: 20px;">{{eb.editorName}}</h5>
+                                        <!-- <p>{{eb.biography}}</p> -->
+                                        <p>Editor</p>
+                                        
+                                        </div>
+                                </div>
+                        </div>
+
+                   
+                    <!-- <div *ngFor="let eb of eblist">
                     <img *ngIf="eb.userPic" [src]="eb.userPic" style="width:30px; border-radius: 50%;vertical-align: middle;" />
                         <p>{{eb.editorName}}</p> 
-                    </div>
+                    </div> -->
                 </div>
                 <div class="col-lg-3 background order-lg-2 order-1 wow fadeInUp">
                     <img src="" style="width: 100%; height: 300px; border-radius: 4px" alt="">
     
-                    <div style="margin-top: 24px; border: 1px solid #ccc; border-radius: 4px">
-                    <a class="twitter-timeline"
-                                    href="https://twitter.com/research_valley"
-                                    data-width="100%"
-                                    data-height="250px"></a>
-
+                    <div style="border: 1px solid #ccc; border-radius: 4px">
+                            <ngx-twitter-timeline 
+                            [data]="{sourceType: 'url', url: 'https://twitter.com/research_valley'}"
+                            [opts]="{tweetLimit: 5}"
+                        ></ngx-twitter-timeline>
                   </div>
                 </div>
 
@@ -142,7 +145,7 @@ text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;">{{journalDetails
         </div>
     </section>
 
-    <section id="manuscript" *ngIf="dataAvailable && manuscriptfalg">
+    <section id="about" *ngIf="dataAvailable && manuscriptfalg">
         <div class="container">
             <div class="row about-container">
 
@@ -154,18 +157,13 @@ text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;">{{journalDetails
                 <div class="col-lg-3 background order-lg-2 order-1 wow fadeInUp">
                     <img src="" style="width: 100%; height: 300px; border-radius: 4px" alt="">
     
-                    <div style="margin-top: 24px; border: 1px solid #ccc; border-radius: 4px">
-                    <a class="twitter-timeline"
-                                    href="https://twitter.com/research_valley"
-                                    data-width="100%"
-                                    data-height="250px"></a>
-    
-                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement
-    
-                (s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                    <div style="border: 1px solid #ccc; border-radius: 4px">
+                            <ngx-twitter-timeline 
+                            [data]="{sourceType: 'url', url: 'https://twitter.com/research_valley'}"
+                            [opts]="{tweetLimit: 5}"
+                        ></ngx-twitter-timeline>
                   </div>
                 </div>
-
                    
                 </div>
            
