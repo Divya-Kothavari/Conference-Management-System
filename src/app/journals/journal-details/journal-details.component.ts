@@ -165,6 +165,7 @@ export class JournalDetailsComponent {
     constructor(private fb: FormBuilder, private modalService: NzModalService, private message: NzMessageService,
         private http: HttpClient,
         private sanitizer : DomSanitizer,
+        private router: Router,
         private route: ActivatedRoute) {
             this.route.params.subscribe( params => {
                this.journalid = params.id;
@@ -250,6 +251,9 @@ export class JournalDetailsComponent {
                 this.isLoading= false;
                 if (resp.status === 'Success') {
                     this.message.success(resp.message);
+                    if (this.selectedSubject.length === 0) {
+                       this.router.navigate(['/journals']);
+                    }
                 }
             },
             err => {
@@ -262,6 +266,7 @@ export class JournalDetailsComponent {
                 (resp: any) =>{
                     if (resp.status === 'Success') {
                         this.message.success(resp.message);
+                        this.router.navigate(['/journals']);
                     }
                 },
                 err => {
