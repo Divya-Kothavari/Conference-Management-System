@@ -9,6 +9,7 @@ import { UploadXHRArgs } from 'ng-zorro-antd/upload';
 import { environment } from '../../../environments/environment';
 
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { DomSanitizer } from '@angular/platform-browser';
  
 
 
@@ -32,7 +33,8 @@ export class JournalViewComponent {
     isLoading: boolean;
     isLoadingCountry = true;
     editmode = false;;
-    constructor(private fb: FormBuilder, private modalService: NzModalService, private message: NzMessageService,
+    constructor(private fb: FormBuilder, private modalService: NzModalService, private message: NzMessageService, 
+        private sanitizer: DomSanitizer,
         private http: HttpClient,
         private route: ActivatedRoute) {
         this.route.params.subscribe(params => {
@@ -76,6 +78,20 @@ export class JournalViewComponent {
             (resp: any) => {
                 if (resp.status === 'Success') {
                     this.eblist = resp.editorialBoards;
+                    this.eblist.forEach(eb => {
+                        let uploadUrl= `http://cmsservices-dev.cvqprwnpp8.us-east-2.elasticbeanstalk.com/userMgmt/user/profileImage/${eb.editorName}`;
+                        this.http.get(uploadUrl, {responseType: 'blob'}).subscribe(
+                            (data: Blob) =>{
+                                let reader = new FileReader();
+                                if (data.size !== 0) {
+                                    reader.readAsDataURL(data);
+                                    reader.addEventListener("load", () => {
+                                      eb['userPic'] = this.sanitizer.bypassSecurityTrustUrl(reader.result.toString()); 
+                                    }, false);
+                                }
+                            }
+                        );
+                      });
                 }
             },
             err => {
