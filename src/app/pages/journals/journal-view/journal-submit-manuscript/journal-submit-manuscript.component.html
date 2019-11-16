@@ -1,0 +1,55 @@
+<app-header></app-header>
+<main id="main">
+
+    <!--==========================
+    About Us Section
+  ============================-->
+  <section id="why-us" class="wow fadeIn" style="padding-top: 120px; padding-bottom: 0px; background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #4863A0" id="banner">
+  
+<div class="container">
+
+<header class="section-header">
+<h3  *ngIf="dataAvailable" style="color: #fff;
+text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;">{{journalDetails.journalName}}</h3>
+<!-- <p><?php if($journal_info_rows->issn !='') { ?> <?php echo "ISSN: ".$journal_info_rows->issn; ?> <?php } else { echo "Open Access"; } ?></p> -->
+<p> <a class="btn btn-light" [routerLink]="['/journals/journal-view/', journalid]">Journal Home</a>  | 
+    <a class="btn btn-light" [routerLink]="['/journals/journal-view/aims-scope/', journalid]">Aims and Scope</a>  | 
+    <a class="btn btn-light" [routerLink]="['/journals/journal-view/instructions/', journalid]">Instructions for Authors</a> |
+    <a class="btn btn-light" [routerLink]="['/journals/journal-view/editorialboard/', journalid]"> Editorial Board</a> |
+    <a class="btn btn-light" [routerLink]="['/journals/journal-view/journal-submit-manuscript/', journalid]">Submit Manuscript</a>
+    </p>
+</header>
+</div>
+</section>
+    
+
+    <section id="about">
+        <div class="container">
+            <div class="row about-container">
+
+                <div class="col-md-9 content order-lg-1 order-2">
+                    <h4>Submit Manuscript
+                    </h4>
+                    <p [innerHTML]="journalDetails.aboutJournal"></p>
+                </div>
+                <div class="col-lg-3 background order-lg-2 order-1 wow fadeInUp">
+                    <img src="" style="width: 100%; height: 300px; border-radius: 4px" alt="">
+    
+                    <div style="border: 1px solid #ccc; border-radius: 4px">
+                            <ngx-twitter-timeline 
+                            [data]="{sourceType: 'url', url: 'https://twitter.com/research_valley'}"
+                            [opts]="{tweetLimit: 5}"
+                        ></ngx-twitter-timeline>
+                  </div>
+                </div>
+                   
+                </div>
+           
+
+        </div>
+    </section>
+</main>
+<app-footer></app-footer>

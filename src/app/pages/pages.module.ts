@@ -22,6 +22,10 @@ import { ReviewerGuidelinesComponent } from './guidelines/reviewer-guidelines/re
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
+import { AimsScopeComponent } from './journals/journal-view/aims-scope/aims-scope.component';
+import { InstructionsComponent } from './journals/journal-view/instructions/instructions.component';
+import { EditorialboardComponent } from './journals/journal-view/editorialboard/editorialboard.component';
+import { JournalSubmitManuscriptComponent } from './journals/journal-view/journal-submit-manuscript/journal-submit-manuscript.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +43,11 @@ import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
         EditorialComponent,
         AuthorGuidelinesComponent,
         EditorGuidelinesComponent,
-        ReviewerGuidelinesComponent],
+        ReviewerGuidelinesComponent,
+        AimsScopeComponent,
+        InstructionsComponent,
+        EditorialboardComponent,
+        JournalSubmitManuscriptComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,
