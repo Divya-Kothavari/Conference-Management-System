@@ -4,26 +4,7 @@
     <!--==========================
     About Us Section
   ============================-->
-  <section id="why-us" class="wow fadeIn" style="padding-top: 120px; padding-bottom: 0px; background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-color: #4863A0" id="banner">
-  
-<div class="container">
-
-<header class="section-header">
-<h3  *ngIf="dataAvailable" style="color: #fff;
-text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;">{{journalDetails.journalName}}</h3>
-<!-- <p><?php if($journal_info_rows->issn !='') { ?> <?php echo "ISSN: ".$journal_info_rows->issn; ?> <?php } else { echo "Open Access"; } ?></p> -->
-<p> <a class="btn btn-light" [routerLink]="['/journals/journal-view/', journalid]">Journal Home</a>  | 
-    <a class="btn btn-light" [routerLink]="['/journals/journal-view/aims-scope/', journalid]">Aims and Scope</a>  | 
-    <a class="btn btn-light" [routerLink]="['/journals/journal-view/instructions/', journalid]">Instructions for Authors</a> |
-    <a class="btn btn-light" [routerLink]="['/journals/journal-view/editorialboard/', journalid]"> Editorial Board</a> |
-    <a class="btn btn-light" [routerLink]="['/journals/journal-view/journal-submit-manuscript/', journalid]">Submit Manuscript</a>
-    </p>
-</header>
-</div>
-</section>
+  <app-journal-header></app-journal-header>
      
 
     <section id="about" >

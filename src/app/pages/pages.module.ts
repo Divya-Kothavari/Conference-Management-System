@@ -26,6 +26,7 @@ import { AimsScopeComponent } from './journals/journal-view/aims-scope/aims-scop
 import { InstructionsComponent } from './journals/journal-view/instructions/instructions.component';
 import { EditorialboardComponent } from './journals/journal-view/editorialboard/editorialboard.component';
 import { JournalSubmitManuscriptComponent } from './journals/journal-view/journal-submit-manuscript/journal-submit-manuscript.component';
+import { JournalHeaderComponent } from './journals/journal-header/journal-header.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { JournalSubmitManuscriptComponent } from './journals/journal-view/journa
         AimsScopeComponent,
         InstructionsComponent,
         EditorialboardComponent,
-        JournalSubmitManuscriptComponent],
+        JournalSubmitManuscriptComponent,
+        JournalHeaderComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,
