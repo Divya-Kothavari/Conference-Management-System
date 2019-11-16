@@ -6,8 +6,8 @@
                     <div class="media align-items-center">
                         <nz-avatar nzShape="square" nzSrc="assets/images/others/thumb-3.jpg"></nz-avatar>
                         <div class="m-l-10">
-                            <h4 class="m-b-0">{{journalDetails.journalName}}</h4>
-                            <a [routerLink]="['/journals/journal-details', journalDetails.journalShortName]" class="m-r-5" style="float: right;" nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom">
+                            <h4 class="m-b-0 float-left">{{journalDetails.journalName}}</h4>
+                            <a [routerLink]="['/journals/journal-details', journalDetails.journalShortName]" class="m-r-5 float-right"  nz-button nzType="default" nzGhost nzShape="circle" nz-tooltip nzTitle="Edit" nzPlacement="bottom">
                             <i nz-icon type="edit" theme="outline"></i></a>
                         </div>
                     </div>
