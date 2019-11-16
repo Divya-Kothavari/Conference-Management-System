@@ -229,6 +229,8 @@ export class SuperadminDashboardComponent implements OnInit {
             (resp: any) =>{
                 if (resp.status === 'Success') {
                     this.listOfArticleTypes = resp.articleTypes;
+                } else if (resp.message === 'No data found') {
+                    this.listOfArticleTypes = [];
                 }
                 this.loadingArticleType = false;
             },
