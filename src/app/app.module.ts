@@ -1,5 +1,6 @@
-import { BrowserModule } from '@angular/platform-browser';
+// import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
@@ -10,13 +11,17 @@ import { environment } from '../environments/environment';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
 import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule,
+    // BrowserModule,
+    CommonModule,
+    BrowserAnimationsModule,
     CarouselModule,
     RecaptchaModule,
     RecaptchaFormsModule,
