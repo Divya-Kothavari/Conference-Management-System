@@ -9,6 +9,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
     RecaptchaFormsModule,
     AppRoutingModule,
     NgxTwitterTimelineModule,
+    ToastrModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [
