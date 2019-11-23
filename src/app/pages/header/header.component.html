@@ -1,31 +1,13 @@
 <header id="header" class="fixed-top">
-    <div class="container">
+    <!-- <div class="container">
   
       <div class="logo float-left">
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <h1 class="text-light"><a href="#header"><span>NewBiz</span></a></h1> -->
         <a [routerLink]="['/']" class="scrollto"><img src="../assets/../assets/img/logo.jpg" alt="" class="img-fluid"></a>
       </div>
   
       <nav class="main-nav float-right d-none d-lg-block">
         <ul>
-          <!-- <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/']">Home</a></li>
-          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/about']">About Us</a></li>
-          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/open-access']">Open Access Policy</a></li>
-          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/journals']">Journals</a></li>
-          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/submit-manuscript']">Submit Manuscript</a></li>
-          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/guidelines']">Guidelines</a></li>
-
-          <li><a href="#team">Team</a></li>
-          <li class="drop-down"><a [routerLink]="['/guidelines']">Guidelines</a>
-            <ul>
-              <li><a [routerLink]="['/guidelines']">Author Guidelines</a></li>
-              <li><a [routerLink]="['/guidelines']">Editor Guidelines</a></li>
-              <li><a [routerLink]="['/guidelines']">Reviewer Guidelines</a></li>
-             </ul>
-          </li>
-          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/contact-us']">Contact Us</a></li> -->
-          <!-- Dynamic Menu-->
+          
           <li *ngFor="let menu of menuList" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
           [ngClass]="{'drop-down':menu.submenuList.length !== 0}"
           ><a [routerLink]="['/'+menu.menuLink+'']">{{menu.menuName}}</a>
@@ -36,7 +18,56 @@
 
         </ul>
         
-      </nav><!-- .main-nav -->
+      </nav> 
       
-    </div>
+    </div> -->
+
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white" style="padding: 0px;">
+        <a class="navbar-brand" [routerLink]="['/']"><img width="130px" src="../assets/../assets/img/logo.jpg" alt="" class="img-fluid"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto pl-5">
+            <li class="nav-item px-2">
+              <a class="nav-link" [routerLink]="['/']">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item px-2">
+              <a class="nav-link" [routerLink]="['/about']">About Us</a>
+            </li>
+            <li class="nav-item px-2">
+                <a class="nav-link" [routerLink]="['/open-access']">Open Access Policy</a>
+              </li>
+              <li class="nav-item px-2">
+                  <a class="nav-link" [routerLink]="['/journals']">Journals</a>
+                </li>
+                <li class="nav-item px-2">
+                    <a class="nav-link" [routerLink]="['/editorial']">Editorial Team</a>
+                  </li>
+            <li class="nav-item dropdown  px-2">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Guidelines
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" [routerLink]="['/author-guidelines']">Author Guidelines</a>
+                <a class="dropdown-item" [routerLink]="['/editor-guidelines']">Editor Guidelines</a>
+                <a class="dropdown-item" [routerLink]="['/reviewer-guidelines']">Reviewer Guidelines</a>
+              </div>
+            </li>
+            <li class="nav-item px-2">
+                <a class="nav-link" [routerLink]="['/contact-us']">Contact Us</a>
+              </li>
+          </ul>
+          <!-- <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form> -->
+        </div>
+      </nav>
+</div>
+    
   </header><!-- #header -->
+
+  
