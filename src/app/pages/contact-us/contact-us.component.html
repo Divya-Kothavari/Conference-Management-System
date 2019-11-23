@@ -65,9 +65,9 @@
                     <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" [(ngModel)]="contactUsMessage" [ngModelOptions]="{standalone: true}" placeholder="Message"></textarea>
                     <div class="validation"></div>
                   </div>
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                     <re-captcha [(ngModel)]="captcha" [ngModelOptions]="{standalone: true}" (resolved)="resolved($event)" siteKey="6LevZsIUAAAAAP5c4upKtfA2jAfqSCRkhUqHcjbx"></re-captcha>
-                  </div>
+                  </div> -->
                   <div class="text-center"><button *ngIf="!isLoading" type="submit" title="Send Message" (click)="sendMail()">Send Message</button>
                     <button *ngIf="isLoading" type="button" disabled >Sending</button></div>
                 </form>
