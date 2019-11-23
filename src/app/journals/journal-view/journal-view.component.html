@@ -128,11 +128,9 @@
                                 <div class="col-md-1">
                                         <i nz-icon nzType="drag" nzTheme="outline"></i>
                                 </div>
-                                <div class="col-md-11">
-                                        <img *ngIf="item.userPic" [src]="item.userPic" style="width:50%;vertical-align: middle;" />
-                                        <h6 class="m-b-0 handle">{{item.editorName}} <a style="float: right"  class="text-gray font-size-18" nz-dropdown nzPlacement="bottomRight" nzTrigger="click" [nzDropdownMenu]="ebOptions">
-                                                <i nz-icon type="ellipsis" theme="outline"></i>
-                                            </a></h6>
+                                <div class="col-md-8">
+                                        
+                                        <h6 class="m-b-0 handle">{{item.editorName}} </h6>
                                             <span class="text-muted font-size-13">
                                                 <i nz-icon type="clock-circle" theme="outline"></i>
                                                 <span class="m-l-5">{{item.editorType}}</span>
@@ -142,7 +140,15 @@
                                                     <i nz-icon type="clock-circle" theme="outline"></i>
                                                     <span class="m-l-5">{{item.universityName}}</span>
                                             </span>
-                                    </div>                                   
+                                    </div>
+                                    <div class="col-md-2">
+                                        <img *ngIf="item.userPic" [src]="item.userPic" style="width:50px;vertical-align: middle;" />
+                                    </div>
+                                    <div class="col-md-1">
+                                        <a style="float: right"  class="text-gray font-size-18" nz-dropdown nzPlacement="bottomRight" nzTrigger="click" [nzDropdownMenu]="ebOptions">
+                                            <i nz-icon type="ellipsis" theme="outline"></i>
+                                        </a>
+                                    </div>                              
                                     <nz-dropdown-menu #ebOptions="nzDropdownMenu">
                                         <ul nz-menu nzSelectable>
                                             <li nz-menu-item>
