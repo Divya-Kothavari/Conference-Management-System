@@ -9,11 +9,11 @@
         <div class="container">
             <div class="row about-container">
 
-                <div class="col-md-9 content order-lg-1 order-2">
+                <div class="col-md-9 content order-lg-1 order-1">
                     <h4>Journal Home</h4>
                     <p [innerHTML]="journalDetails.aboutJournal"></p>
                 </div>
-                <div class="col-lg-3 background order-lg-2 order-1 wow fadeInUp">
+                <div class="col-lg-3 background order-lg-2 order-2 wow fadeInUp">
                     <div style="border: 1px solid #ccc; border-radius: 4px">
                             <ngx-twitter-timeline 
                             [data]="{sourceType: 'url', url: 'https://twitter.com/research_valley'}"
@@ -26,127 +26,6 @@
     
                 </div>
             </div>
-           
-
-        </div>
-    </section>
-
-    <section id="about" *ngIf="dataAvailable && aimsflag">
-        <div class="container">
-            <div class="row about-container">
-
-                <div class="col-md-9 content order-lg-1 order-2">
-                    <h4>Journal Aims and Scope</h4>
-                    <p [innerHTML]="journalDetails.aimAndScope"></p>
-                </div>
-                <div class="col-lg-3 background order-lg-2 order-1 wow fadeInUp">
-                    <img src="" style="width: 100%; height: 300px; border-radius: 4px" alt="">
-    
-                    <div style="border: 1px solid #ccc; border-radius: 4px">
-                            <ngx-twitter-timeline 
-                            [data]="{sourceType: 'url', url: 'https://twitter.com/research_valley'}"
-                            [opts]="{tweetLimit: 5}"
-                        ></ngx-twitter-timeline>
-        
-                  </div>
-                </div>
-
-                   
-                </div>
-           
-
-        </div>
-    </section>
-
-    <section id="about" *ngIf="dataAvailable && instructionsflag">
-        <div class="container">
-            <div class="row about-container">
-
-                <div class="col-md-9 content order-lg-1 order-2">
-                    <h4>Instructions for Authors</h4>
-                    <p [innerHTML]="journalDetails.guidlines"></p>
-                </div>
-                <div class="col-lg-3 background order-lg-2 order-1 wow fadeInUp">
-                    <img src="" style="width: 100%; height: 300px; border-radius: 4px" alt="">
-    
-                    <div style="border: 1px solid #ccc; border-radius: 4px">
-                            <ngx-twitter-timeline 
-                            [data]="{sourceType: 'url', url: 'https://twitter.com/research_valley'}"
-                            [opts]="{tweetLimit: 5}"
-                        ></ngx-twitter-timeline>
-                  </div>
-                </div>
-
-                   
-                </div>
-           
-
-        </div>
-    </section>
-
-    <section id="about" *ngIf="dataAvailable && ebflag">
-        <div class="container">
-            <div class="row about-container">
-
-                <div class="col-md-9 content order-lg-1 order-2">
-                        <h4>Editorial Board Members</h4>
-                        <div class="row">
-                                <div class="col-md-4" *ngFor="let eb of eblist" style="padding: 16px" >
-                                        <div class="member" style="border: 1px solid #ccc; padding: 16px;">
-                                        <img *ngIf="eb.userPic" [src]="eb.userPic" style="width:100%;vertical-align: middle;" />
-                                        <h5 style="margin-top: 20px;">{{eb.editorName}}</h5>
-                                        <!-- <p>{{eb.biography}}</p> -->
-                                        <p>Editor</p>
-                                        
-                                        </div>
-                                </div>
-                        </div>
-
-                   
-                    <!-- <div *ngFor="let eb of eblist">
-                    <img *ngIf="eb.userPic" [src]="eb.userPic" style="width:30px; border-radius: 50%;vertical-align: middle;" />
-                        <p>{{eb.editorName}}</p> 
-                    </div> -->
-                </div>
-                <div class="col-lg-3 background order-lg-2 order-1 wow fadeInUp">
-                    <img src="" style="width: 100%; height: 300px; border-radius: 4px" alt="">
-    
-                    <div style="border: 1px solid #ccc; border-radius: 4px">
-                            <ngx-twitter-timeline 
-                            [data]="{sourceType: 'url', url: 'https://twitter.com/research_valley'}"
-                            [opts]="{tweetLimit: 5}"
-                        ></ngx-twitter-timeline>
-                  </div>
-                </div>
-
-                   
-                </div>
-           
-
-        </div>
-    </section>
-
-    <section id="about" *ngIf="dataAvailable && manuscriptfalg">
-        <div class="container">
-            <div class="row about-container">
-
-                <div class="col-md-9 content order-lg-1 order-2">
-                    <h4>Submit Manuscript
-                    </h4>
-                    <p [innerHTML]="journalDetails.aboutJournal"></p>
-                </div>
-                <div class="col-lg-3 background order-lg-2 order-1 wow fadeInUp">
-                    <img src="" style="width: 100%; height: 300px; border-radius: 4px" alt="">
-    
-                    <div style="border: 1px solid #ccc; border-radius: 4px">
-                            <ngx-twitter-timeline 
-                            [data]="{sourceType: 'url', url: 'https://twitter.com/research_valley'}"
-                            [opts]="{tweetLimit: 5}"
-                        ></ngx-twitter-timeline>
-                  </div>
-                </div>
-                   
-                </div>
            
 
         </div>
