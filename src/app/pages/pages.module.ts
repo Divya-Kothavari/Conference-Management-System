@@ -28,6 +28,8 @@ import { EditorialboardComponent } from './journals/journal-view/editorialboard/
 import { JournalSubmitManuscriptComponent } from './journals/journal-view/journal-submit-manuscript/journal-submit-manuscript.component';
 import { JournalHeaderComponent } from './journals/journal-header/journal-header.component';
 import { ToastrModule } from 'ngx-toastr';
+import { NgxContentLoadingModule } from 'ngx-content-loading';
+
 
 @NgModule({
   declarations: [
@@ -58,6 +60,7 @@ import { ToastrModule } from 'ngx-toastr';
         RecaptchaFormsModule,
         FormsModule,
         ReactiveFormsModule,
+        NgxContentLoadingModule,
         NgxTwitterTimelineModule,
         ToastrModule.forRoot()
   ],

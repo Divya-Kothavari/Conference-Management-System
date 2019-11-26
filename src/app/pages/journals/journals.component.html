@@ -42,11 +42,32 @@
                       <!-- <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p> -->
                     </div>
                   </div>
-                    </div>
+                </div>
+ 
               </div>
+              <ngx-content-loading *ngIf="!dataAvailable"
+              [speed]="'1500ms'"
+              [width]="1000"
+              [height]="300"
+              [primaryColor]="'#e9e9e9'"
+              [secondaryColor]="'#fafafa'">
+              
+                <svg:g ngx-rect width="470" height="80" y="10" x="10" rx="5" ry="5"></svg:g>
+                <svg:g ngx-rect width="470" height="80" y="10" x="520" rx="5" ry="5"></svg:g>
+
+                <svg:g ngx-rect width="470" height="80" y="100" x="10" rx="5" ry="5"></svg:g>
+                <svg:g ngx-rect width="470" height="80" y="100" x="520" rx="5" ry="5"></svg:g>
+
+                <svg:g ngx-rect width="470" height="80" y="190" x="10" rx="5" ry="5"></svg:g>
+                <svg:g ngx-rect width="470" height="80" y="190" x="520" rx="5" ry="5"></svg:g>
+                 
+                
+            </ngx-content-loading>
         
             </div>
           </section><!-- #services -->
+
+        
 
 </main>
 <app-footer></app-footer>

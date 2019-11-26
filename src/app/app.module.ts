@@ -12,6 +12,8 @@ import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxContentLoadingModule } from 'ngx-content-loading';
+
 
 
 @NgModule({
@@ -27,6 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RecaptchaFormsModule,
     AppRoutingModule,
     NgxTwitterTimelineModule,
+    NgxContentLoadingModule,
     ToastrModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase)
   ],
